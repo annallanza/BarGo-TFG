@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">BarGo</string>
+    <string name="mis_reservas">Mis Reservas</string>
+    <string name="pre_points">Actualmente tienes un total de:</string>
+    <string name="points"> puntos</string>
+    <string name="more_points">¿Quieres más puntos?</string>
+    <string name="points_waiting">¿A  qué estás esperando?</string>
+    <string name="make_challenges">Haz Retos</string>
+    <string name="exchange">Intercámbialos</string>
+    <string name="info">INFO</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="obtener">OBTENER</string>
+    <string name="noObtener">No tienes suficiente puntos</string>
+    <string name="yaObtenido">Ya obtenido</string>
+</resources>

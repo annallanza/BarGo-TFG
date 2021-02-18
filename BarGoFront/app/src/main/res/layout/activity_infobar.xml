@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/ocupacion"
+        android:layout_width="177dp"
+        android:layout_height="26dp"
+        android:autoSizeTextType="uniform"
+        android:text="Ocupación actual"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.068"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/paginaweb"
+        app:layout_constraintVertical_bias="0.098" />
+
+    <ImageView
+        android:id="@+id/casaPepeImage"
+        android:layout_width="163dp"
+        android:layout_height="89dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.059"
+        app:srcCompat="@drawable/bar1" />
+
+    <ImageView
+        android:id="@+id/locationCasaPepe"
+        android:layout_width="170dp"
+        android:layout_height="171dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/casaPepeImage"
+        app:layout_constraintVertical_bias="0.069"
+        app:srcCompat="@drawable/positionmaps" />
+
+    <TextView
+        android:id="@+id/titulo"
+        android:layout_width="183dp"
+        android:layout_height="47dp"
+        android:autoSizeTextType="uniform"
+        android:text="Bar Casa Pepe"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/casaPepeImage"
+        app:layout_constraintHorizontal_bias="0.442"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.055" />
+
+    <TextView
+        android:id="@+id/direccion"
+        android:layout_width="191dp"
+        android:layout_height="35dp"
+        android:autoSizeTextType="uniform"
+        android:text="Plaça de la bonanova, 4"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/casaPepeImage"
+        app:layout_constraintHorizontal_bias="0.547"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.122" />
+
+    <TextView
+        android:id="@+id/info"
+        android:layout_width="164dp"
+        android:layout_height="249dp"
+        android:layout_marginTop="10dp"
+        android:autoSizeTextType="uniform"
+        android:text="Cocina de calidad y variada. Bienvenido a nuestra casa, su casa. Desde la cerveza bien tirada y fría, hasta el marisco más fresco de nuestras costas.  Todo ello destinado a ustedes para que su visita sea lo más grata posible."
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/locationCasaPepe"
+        app:layout_constraintHorizontal_bias="0.397"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/direccion"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/adicional"
+        android:layout_width="183dp"
+        android:layout_height="34dp"
+        android:autoSizeTextType="uniform"
+        android:text="Información adicional"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.07"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/info"
+        app:layout_constraintVertical_bias="0.032" />
+
+    <TextView
+        android:id="@+id/horario"
+        android:layout_width="263dp"
+        android:layout_height="30dp"
+        android:autoSizeTextType="uniform"
+        android:text="Horario:  8:00–17:00, 20:00–0:00"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.108"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/adicional"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/paginaweb"
+        android:layout_width="92dp"
+        android:layout_height="30dp"
+        android:autoSizeTextType="uniform"
+        android:text="Página web: "
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.05"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/adicional"
+        app:layout_constraintVertical_bias="0.096" />
+
+    <TextView
+        android:id="@+id/terraza"
+        android:layout_width="67dp"
+        android:layout_height="27dp"
+        android:layout_marginTop="9dp"
+        android:autoSizeTextType="uniform"
+        android:text="Terraza:"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.046"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ocupacion"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/interior"
+        android:layout_width="67dp"
+        android:layout_height="27dp"
+        android:layout_marginTop="9dp"
+        android:autoSizeTextType="uniform"
+        android:text="Interior:"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.046"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ocupacion"
+        app:layout_constraintVertical_bias="0.196" />
+
+    <TextView
+        android:id="@+id/interior2"
+        android:layout_width="156dp"
+        android:layout_height="41dp"
+        android:layout_marginBottom="5dp"
+        android:autoSizeTextType="uniform"
+        android:text="Este establecimiento ofrece reservas:"
+        app:layout_constraintBottom_toTopOf="@+id/reservaButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.972"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/link"
+        android:layout_width="219dp"
+        android:layout_height="24dp"
+        android:autoSizeTextType="uniform"
+        android:text="www.casapepebar.es"
+        android:textColor="#1e90ff"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.095"
+        app:layout_constraintStart_toEndOf="@+id/paginaweb"
+        app:layout_constraintTop_toBottomOf="@+id/adicional"
+        app:layout_constraintVertical_bias="0.094"
+        />
+
+    <TextView
+        android:id="@+id/nivelOcupacion"
+        android:layout_width="151dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="9dp"
+        android:autoSizeTextType="uniform"
+        android:text="Bastante lleno"
+        android:textColor="#ff0000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.079"
+        app:layout_constraintStart_toEndOf="@+id/terraza"
+        app:layout_constraintTop_toBottomOf="@+id/ocupacion"
+        app:layout_constraintVertical_bias="0.01" />
+
+    <TextView
+        android:id="@+id/nivelOcupacion2"
+        android:layout_width="79dp"
+        android:layout_height="26dp"
+        android:layout_marginTop="9dp"
+        android:autoSizeTextType="uniform"
+        android:text="Libre"
+        android:textColor="#008000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.056"
+        app:layout_constraintStart_toEndOf="@+id/terraza"
+        app:layout_constraintTop_toBottomOf="@+id/ocupacion"
+        app:layout_constraintVertical_bias="0.201" />
+
+    <Button
+        android:id="@+id/reservaButton"
+        android:layout_width="77dp"
+        android:layout_height="43dp"
+        android:background="#CC383B"
+        android:text="Reservar"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.835"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.889" />
+</androidx.constraintlayout.widget.ConstraintLayout>
