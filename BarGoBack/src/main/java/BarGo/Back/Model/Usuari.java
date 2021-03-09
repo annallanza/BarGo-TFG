@@ -1,27 +1,33 @@
 package BarGo.Back.Model;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "Usuari")
 public class Usuari {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO) //IDENTITY es una altre opcio
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //AUTO es una altre opcio
     private Long id;
 
     @Column(unique = true, nullable = false)
-    private String nom;
+    private String nomUsuari;
 
     @Column(nullable = false)
     private String contrasenya;
+
+    @ManyToMany
+    @JoinTable(name = "usuari_rol", joinColumns = @JoinColumn(name = "usuari_id"), inverseJoinColumns = @JoinColumn(name = "rol_id"))
+    private Set<Rol> rols = new HashSet<>();
 
     public Usuari(){
 
     }
 
-    public Usuari(String nom, String contrasenya) {
-        this.nom = nom;
+    public Usuari(String nomUsuari, String contrasenya) {
+        this.nomUsuari = nomUsuari;
         this.contrasenya = contrasenya;
     }
 
@@ -33,12 +39,12 @@ public class Usuari {
         this.id = id;
     }
 
-    public String getNom() {
-        return nom;
+    public String getNomUsuari() {
+        return nomUsuari;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
+    public void setNomUsuari(String nomUsuari) {
+        this.nomUsuari = nomUsuari;
     }
 
     public String getContrasenya() {
@@ -47,5 +53,13 @@ public class Usuari {
 
     public void setContrasenya(String contrasenya) {
         this.contrasenya = contrasenya;
+    }
+
+    public Set<Rol> getRols() {
+        return rols;
+    }
+
+    public void setRols(Set<Rol> rols) {
+        this.rols = rols;
     }
 }

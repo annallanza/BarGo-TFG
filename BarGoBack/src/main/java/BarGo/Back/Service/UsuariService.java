@@ -15,27 +15,17 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UsuariService implements UsuariInterface, UserDetailsService {
+@Transactional //Per mantenir la coherencia a la base de dades, per quan hi ha dos accessos simultanis
+public class UsuariService implements UsuariInterface {
 
     @Autowired //Serveix per evitar posar new UsuariInterface...
     private UsuariInterface usuariInterface;
-
-    @Override //Spring Security
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        Usuari usuari = usuariInterface.findByNom(s);
-
-        List<GrantedAuthority> roles = new ArrayList<>();
-        roles.add(new SimpleGrantedAuthority("ADMIN"));
-        roles.add(new SimpleGrantedAuthority("USER"));
-
-        UserDetails userDetails = new User(usuari.getNom(), usuari.getContrasenya(), roles);
-        return userDetails;
-    }
 
     @Override
     public List<Usuari> findAll() {
@@ -158,7 +148,12 @@ public class UsuariService implements UsuariInterface, UserDetailsService {
     }
 
     @Override
-    public Usuari findByNom(String nom) {
-        return usuariInterface.findByNom(nom);
+    public Optional<Usuari> findByNomUsuari(String nomUsuari) {
+        return usuariInterface.findByNomUsuari(nomUsuari);
+    }
+
+    @Override
+    public boolean existsByNomUsuari(String nomUsuari) {
+        return usuariInterface.existsByNomUsuari(nomUsuari);
     }
 }
