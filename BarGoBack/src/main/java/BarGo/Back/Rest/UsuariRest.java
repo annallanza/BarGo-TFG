@@ -1,9 +1,6 @@
 package BarGo.Back.Rest;
 
-import BarGo.Back.Dto.JwtDto;
-import BarGo.Back.Dto.LoginUsuari;
-import BarGo.Back.Dto.Missatge;
-import BarGo.Back.Dto.SignupUsuari;
+import BarGo.Back.Dto.*;
 import BarGo.Back.Enums.NomRol;
 import BarGo.Back.Model.Rol;
 import BarGo.Back.Model.Usuari;
@@ -49,11 +46,11 @@ public class UsuariRest {
     JwtProvider jwtProvider;
 
     @RequestMapping(value = "/auth/signup", method = RequestMethod.POST)
-    private ResponseEntity<?> signupUsuari(@Valid @RequestBody SignupUsuari signupUsuari, BindingResult bindingResult){
-        if(bindingResult.hasErrors()) //TODO: AQUI NO ENTRA MAI
-            return new ResponseEntity<>(new Missatge("Campos mal puestos"), HttpStatus.BAD_REQUEST);
+    private ResponseEntity<?> signupUsuari(@RequestBody SignupUsuari signupUsuari){
         if(usuariService.existsByNomUsuari(signupUsuari.getNomUsuari()))
             return new ResponseEntity<>(new Missatge("El nombre de usuario ya existe"), HttpStatus.BAD_REQUEST);
+        if(signupUsuari.getContrasenya().replaceAll(" ", "").length() < 8)
+            return new ResponseEntity<>(new Missatge("La contraseña no es fiable"), HttpStatus.BAD_REQUEST);
 
         Usuari usuari = new Usuari(signupUsuari.getNomUsuari(), encoder.encode(signupUsuari.getContrasenya()));
 
@@ -65,7 +62,7 @@ public class UsuariRest {
         usuari.setRols(rols);
         usuariService.save(usuari);
 
-        return new ResponseEntity<>(new Missatge("usuari guardat"), HttpStatus.CREATED);
+        return new ResponseEntity<>(new Missatge("El usuario se ha creado correctamente"), HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/auth/login", method = RequestMethod.POST)
@@ -96,16 +93,15 @@ public class UsuariRest {
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET) //Exemple url request: http://localhost:8080/usuaris/3
-    private ResponseEntity<Usuari> getUsuariById(@PathVariable("id") Long id){ //TODO: no cal enviar la contrasenya
-        Optional<Usuari> optionalusuari = usuariService.findById(id);
+    private ResponseEntity<GetUsuari> getUsuariById(@PathVariable("id") Long id){
+        Optional<Usuari> optionalUsuari = usuariService.findById(id);
+        if (!optionalUsuari.isPresent())
+            return new ResponseEntity(new Missatge("No existe ningun usuario con ese id"), HttpStatus.NOT_FOUND);
 
-        if (optionalusuari.isPresent()) {
-            Usuari usuari = optionalusuari.get();
-            return ResponseEntity.ok(usuari);
-        }
-        else {
-            return ResponseEntity.notFound().build();
-        }
+        Usuari usuari = optionalUsuari.get();
+        GetUsuari getUsuari = new GetUsuari(usuari.getId(), usuari.getNomUsuari(), usuari.getRols()); //Creem DTO usuari sense contrasenya
+
+        return new ResponseEntity<>(getUsuari, HttpStatus.OK);
     }
 
     /* UTILITZEM EL SIGN UP
@@ -128,37 +124,33 @@ public class UsuariRest {
      */
 
     @RequestMapping(method = RequestMethod.PUT) //Exemple url request: http://localhost:8080/usuaris
-    //+ afegir body raw amb format JSON:
-    //{
-    //    "id": 6,
-    //    "nomUsuari": "username",
-    //    "contrasenya": "123"
-    //}
-    private ResponseEntity<Usuari> updateUsuari(@RequestBody Usuari usuari) { //TODO: no cal retornar l'usuari, retornar missatge i prou. CONTROLAR ERRORS
+    private ResponseEntity<?> updateUsuari(@RequestBody Usuari usuari) {
         Optional<Usuari> optionalUsuari = usuariService.findById(usuari.getId());
-        if (optionalUsuari.isPresent()) {
-            Usuari usuariexists = optionalUsuari.get();
-            usuariexists.setNomUsuari(usuari.getNomUsuari());
-            usuariexists.setContrasenya(encoder.encode(usuari.getContrasenya()));
-            Usuari usuariupdated = usuariService.save(usuariexists);
-            return ResponseEntity.ok(usuariupdated);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        if (!optionalUsuari.isPresent())
+            return new ResponseEntity<>(new Missatge("No existe ningun usuario con ese id"), HttpStatus.NOT_FOUND);
+
+        Usuari usuariexists = optionalUsuari.get();
+        if(usuariService.existsByNomUsuari(usuari.getNomUsuari()) && !usuari.getNomUsuari().equals(usuariexists.getNomUsuari()))
+            return new ResponseEntity<>(new Missatge("El nombre de usuario ya existe"), HttpStatus.BAD_REQUEST);
+        if(usuari.getContrasenya().replaceAll(" ", "").length() < 8)
+            return new ResponseEntity<>(new Missatge("La contraseña no es fiable"), HttpStatus.BAD_REQUEST);
+
+        usuariexists.setNomUsuari(usuari.getNomUsuari());
+        usuariexists.setContrasenya(encoder.encode(usuari.getContrasenya()));
+        Usuari usuariupdated = usuariService.save(usuariexists);
+
+        return new ResponseEntity<>(new Missatge("Se ha actualizado el usuario"), HttpStatus.OK);
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE) //Exemple url request: http://localhost:8080/usuaris/3
-    private ResponseEntity<Void> deleteUsuariById(@PathVariable("id") Long id) { //TODO: Retornar missatge + controlar errors
+    private ResponseEntity<?> deleteUsuariById(@PathVariable("id") Long id) { //TODO: Retornar missatge + controlar errors
         Optional<Usuari> optionalUsuari = usuariService.findById(id);
+        if (!optionalUsuari.isPresent())
+            return new ResponseEntity<>(new Missatge("No existe ningun usuario con ese id"), HttpStatus.NOT_FOUND);
 
-        if(optionalUsuari.isPresent()) {
-            usuariService.deleteById(id);
-
-            Optional<Usuari> optionalUsuariDeleted = usuariService.findById(id);
-            if(!optionalUsuariDeleted.isPresent()) return ResponseEntity.ok(null);
-            else return ResponseEntity.notFound().build();
-        }
-        else return ResponseEntity.badRequest().build();
+        usuariService.deleteById(id);
+        
+        return new ResponseEntity<>(new Missatge("Se ha eliminado el usuario"), HttpStatus.OK);
     }
 
 }
