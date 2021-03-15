@@ -10,7 +10,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class UsuariPrincipal implements UserDetails { //Serveix per a controlar rols/privilegis
+public class UsuariPrincipal implements UserDetails { //Serveix per a passar de rols a authorities
 
     private String nomUsuari;
     private String contrasenya;

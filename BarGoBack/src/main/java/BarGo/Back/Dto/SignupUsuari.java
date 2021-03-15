@@ -5,6 +5,15 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class SignupUsuari {
+/* EXEMPLE PER A POSTMAN
+{
+    "nomUsuari": "annaadmin",
+    "contrasenya": "123admin",
+    "rols": [
+        "admin"
+    ]
+}
+*/
 
     @NotBlank
     private String nomUsuari;

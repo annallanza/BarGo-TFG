@@ -3,7 +3,12 @@ package BarGo.Back.Dto;
 import javax.validation.constraints.NotBlank;
 
 public class LoginUsuari {
-
+/* EXEMPLE PER A POSTMAN
+{
+    "nomUsuari": "annauser",
+    "contrasenya": "123user"
+}
+ */
     @NotBlank
     private String nomUsuari;
 

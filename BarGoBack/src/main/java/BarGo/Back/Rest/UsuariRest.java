@@ -17,15 +17,12 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.xml.ws.Response;
-import java.net.URI;
-import java.net.URISyntaxException;
+import java.text.ParseException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -53,7 +50,7 @@ public class UsuariRest {
 
     @RequestMapping(value = "/auth/signup", method = RequestMethod.POST)
     private ResponseEntity<?> signupUsuari(@Valid @RequestBody SignupUsuari signupUsuari, BindingResult bindingResult){
-        if(bindingResult.hasErrors())
+        if(bindingResult.hasErrors()) //TODO: AQUI NO ENTRA MAI
             return new ResponseEntity<>(new Missatge("Campos mal puestos"), HttpStatus.BAD_REQUEST);
         if(usuariService.existsByNomUsuari(signupUsuari.getNomUsuari()))
             return new ResponseEntity<>(new Missatge("El nombre de usuario ya existe"), HttpStatus.BAD_REQUEST);
@@ -79,19 +76,27 @@ public class UsuariRest {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         String jwt = jwtProvider.generateToken(authentication);
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        JwtDto jwtDto = new JwtDto(jwt, userDetails.getUsername(), userDetails.getAuthorities());
+        JwtDto jwtDto = new JwtDto(jwt);
 
         return new ResponseEntity<>(jwtDto, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/auth/refresh", method = RequestMethod.POST)
+    public ResponseEntity<JwtDto> refreshToken(@RequestBody JwtDto jwtDto) throws ParseException {
+        String token = jwtProvider.refreshToken(jwtDto);
+        JwtDto jwtDtoRefreshed = new JwtDto(token);
+
+        return new ResponseEntity<>(jwtDtoRefreshed, HttpStatus.OK);
+    }
+
+    //@PreAuthorize("hasRole('ROL_ADMIN')") //PER A INDICAR QUI TE AUTORITZACIO A AQUESTA PETICIO, PERO NO FUNCIONA
     @RequestMapping(method = RequestMethod.GET)
     private ResponseEntity<List<Usuari>> getAllUsuaris(){
         return ResponseEntity.ok(usuariService.findAll());
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET) //Exemple url request: http://localhost:8080/usuaris/3
-    private ResponseEntity<Usuari> getUsuariById(@PathVariable("id") Long id){
+    private ResponseEntity<Usuari> getUsuariById(@PathVariable("id") Long id){ //TODO: no cal enviar la contrasenya
         Optional<Usuari> optionalusuari = usuariService.findById(id);
 
         if (optionalusuari.isPresent()) {
@@ -103,6 +108,7 @@ public class UsuariRest {
         }
     }
 
+    /* UTILITZEM EL SIGN UP
     @RequestMapping(method = RequestMethod.POST) //Exemple url request: http://localhost:8080/usuaris
     //+ afegir body raw amb format JSON:
     //{
@@ -119,15 +125,16 @@ public class UsuariRest {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
     }
+     */
 
-    @RequestMapping(method = RequestMethod.PUT) //Exemple url request: http://localhost:8080/products
+    @RequestMapping(method = RequestMethod.PUT) //Exemple url request: http://localhost:8080/usuaris
     //+ afegir body raw amb format JSON:
     //{
     //    "id": 6,
     //    "nomUsuari": "username",
     //    "contrasenya": "123"
     //}
-    private ResponseEntity<Usuari> updateUsuari(@RequestBody Usuari usuari) {
+    private ResponseEntity<Usuari> updateUsuari(@RequestBody Usuari usuari) { //TODO: no cal retornar l'usuari, retornar missatge i prou. CONTROLAR ERRORS
         Optional<Usuari> optionalUsuari = usuariService.findById(usuari.getId());
         if (optionalUsuari.isPresent()) {
             Usuari usuariexists = optionalUsuari.get();
@@ -141,7 +148,7 @@ public class UsuariRest {
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE) //Exemple url request: http://localhost:8080/usuaris/3
-    private ResponseEntity<Void> deleteUsuariById(@PathVariable("id") Long id) {
+    private ResponseEntity<Void> deleteUsuariById(@PathVariable("id") Long id) { //TODO: Retornar missatge + controlar errors
         Optional<Usuari> optionalUsuari = usuariService.findById(id);
 
         if(optionalUsuari.isPresent()) {
