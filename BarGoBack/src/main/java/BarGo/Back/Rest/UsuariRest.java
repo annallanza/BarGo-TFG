@@ -17,8 +17,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.io.*;
+import java.nio.file.Files;
 import java.text.ParseException;
 import java.util.HashSet;
 import java.util.List;
@@ -52,7 +55,7 @@ public class UsuariRest {
         if(signupUsuari.getContrasenya().replaceAll(" ", "").length() < 8)
             return new ResponseEntity<>(new Missatge("La contraseña no es fiable"), HttpStatus.BAD_REQUEST);
 
-        Usuari usuari = new Usuari(signupUsuari.getNomUsuari(), encoder.encode(signupUsuari.getContrasenya()));
+        Usuari usuari = new Usuari(signupUsuari.getNomUsuari(), encoder.encode(signupUsuari.getContrasenya()), null);
 
         Set<Rol> rols = new HashSet<>();
         rols.add(rolService.findByNomRol(NomRol.ROL_USUARI).get());
@@ -93,38 +96,19 @@ public class UsuariRest {
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET) //Exemple url request: http://localhost:8080/usuaris/3
-    private ResponseEntity<GetUsuari> getUsuariById(@PathVariable("id") Long id){
+    private ResponseEntity<GetUsuari> getUsuariById(@PathVariable("id") Long id){ //TODO: cal convertir a BASE64?
         Optional<Usuari> optionalUsuari = usuariService.findById(id);
         if (!optionalUsuari.isPresent())
             return new ResponseEntity(new Missatge("No existe ningun usuario con ese id"), HttpStatus.NOT_FOUND);
 
         Usuari usuari = optionalUsuari.get();
-        GetUsuari getUsuari = new GetUsuari(usuari.getId(), usuari.getNomUsuari(), usuari.getRols()); //Creem DTO usuari sense contrasenya
+        GetUsuari getUsuari = new GetUsuari(usuari.getId(), usuari.getNomUsuari(), usuari.getImatge(), usuari.getRols()); //Creem DTO usuari sense contrasenya
 
         return new ResponseEntity<>(getUsuari, HttpStatus.OK);
     }
 
-    /* UTILITZEM EL SIGN UP
-    @RequestMapping(method = RequestMethod.POST) //Exemple url request: http://localhost:8080/usuaris
-    //+ afegir body raw amb format JSON:
-    //{
-    //    "id": 6, --> Aixo no cal perque es genera automaticament
-    //    "nomUsuari": "username",
-    //    "contrasenya": "123"
-    //}
-    private ResponseEntity<Usuari> guardarUsuari(@RequestBody Usuari usuari) { //Si ja existeix no el posa
-        try {
-            usuari.setContrasenya(encoder.encode(usuari.getContrasenya()));
-            Usuari usuariGuardat = usuariService.save(usuari);
-            return ResponseEntity.created(new URI("/usuaris/" + usuariGuardat.getId())).body(usuariGuardat);
-        } catch (URISyntaxException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
-    }
-     */
-
     @RequestMapping(method = RequestMethod.PUT) //Exemple url request: http://localhost:8080/usuaris
-    private ResponseEntity<?> updateUsuari(@RequestBody Usuari usuari) {
+    private ResponseEntity<?> updateUsuari(@RequestBody Usuari usuari) throws IOException {
         Optional<Usuari> optionalUsuari = usuariService.findById(usuari.getId());
         if (!optionalUsuari.isPresent())
             return new ResponseEntity<>(new Missatge("No existe ningun usuario con ese id"), HttpStatus.NOT_FOUND);
@@ -137,9 +121,33 @@ public class UsuariRest {
 
         usuariexists.setNomUsuari(usuari.getNomUsuari());
         usuariexists.setContrasenya(encoder.encode(usuari.getContrasenya()));
-        Usuari usuariupdated = usuariService.save(usuariexists);
 
         return new ResponseEntity<>(new Missatge("Se ha actualizado el usuario"), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "{id}", method = RequestMethod.PUT) //Exemple url request: http://localhost:8080/usuaris
+    private ResponseEntity<?> updateImatgeUsuari(@PathVariable("id") Long id, @RequestBody MultipartFile imatge) throws IOException {
+        Optional<Usuari> optionalUsuari = usuariService.findById(id);
+        if (!optionalUsuari.isPresent())
+            return new ResponseEntity<>(new Missatge("No existe ningun usuario con ese id"), HttpStatus.NOT_FOUND);
+
+        Usuari usuari = optionalUsuari.get();
+
+        byte[] bytes = imatge.getBytes();
+        usuari.setImatge(bytes);//lo guardamos en la entidad
+
+        Usuari usuariupdated = usuariService.save(usuari);
+
+        /*
+        byte[] bytesimatge = usuariupdated.getImatge();
+
+        File f_nou = new File("/Users/annallanza/Documents/Uni/4t/Q2/TFG/fotoperfilcorbata2.jpeg"); //asociamos el archivo fisico
+        OutputStream os = new FileOutputStream(f_nou);
+        os.write(bytesimatge);
+        os.close();
+        */
+
+        return new ResponseEntity<>(new Missatge("Se ha actualizado la imagen del usuario"), HttpStatus.OK);
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE) //Exemple url request: http://localhost:8080/usuaris/3
@@ -149,7 +157,7 @@ public class UsuariRest {
             return new ResponseEntity<>(new Missatge("No existe ningun usuario con ese id"), HttpStatus.NOT_FOUND);
 
         usuariService.deleteById(id);
-        
+
         return new ResponseEntity<>(new Missatge("Se ha eliminado el usuario"), HttpStatus.OK);
     }
 

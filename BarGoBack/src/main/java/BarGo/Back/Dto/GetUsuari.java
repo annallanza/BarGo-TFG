@@ -9,14 +9,16 @@ public class GetUsuari {
 
     private Long id;
     private String nomUsuari;
+    private byte[] imatge;
     private Set<Rol> rols = new HashSet<>();
 
     public GetUsuari() {
     }
 
-    public GetUsuari(Long id, String nomUsuari, Set<Rol> rols) {
+    public GetUsuari(Long id, String nomUsuari, byte[] imatge, Set<Rol> rols) {
         this.id = id;
         this.nomUsuari = nomUsuari;
+        this.imatge = imatge;
         this.rols = rols;
     }
 
@@ -34,6 +36,14 @@ public class GetUsuari {
 
     public void setNomUsuari(String nomUsuari) {
         this.nomUsuari = nomUsuari;
+    }
+
+    public byte[] getImatge() {
+        return imatge;
+    }
+
+    public void setImatge(byte[] imatge) {
+        this.imatge = imatge;
     }
 
     public Set<Rol> getRols() {

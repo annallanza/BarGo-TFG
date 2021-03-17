@@ -20,7 +20,7 @@ class BarGoApplicationTests {
 
 	@Test
 	public void crearUsuariTest() {
-		Usuari usuari = new Usuari("anna", encoder.encode("123"));
+		Usuari usuari = new Usuari("anna", encoder.encode("123"), null);
 		Usuari usuariGuardat = usuariInterface.save(usuari);
 
 		assertTrue(usuariGuardat.getContrasenya().equals(usuari.getContrasenya()));
