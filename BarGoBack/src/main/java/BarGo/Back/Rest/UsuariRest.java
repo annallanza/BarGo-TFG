@@ -48,7 +48,7 @@ public class UsuariRest {
     @Autowired
     JwtProvider jwtProvider;
 
-    @RequestMapping(value = "/auth/signup", method = RequestMethod.POST)
+    @RequestMapping(value = "/auth/signup", method = RequestMethod.POST) //Exemple url request: http://localhost:8080/usuaris/auth/signup
     private ResponseEntity<?> signupUsuari(@RequestBody SignupUsuari signupUsuari){
         if(usuariService.existsByNomUsuari(signupUsuari.getNomUsuari()))
             return new ResponseEntity<>(new Missatge("El nombre de usuario ya existe"), HttpStatus.BAD_REQUEST);
@@ -68,7 +68,7 @@ public class UsuariRest {
         return new ResponseEntity<>(new Missatge("El usuario se ha creado correctamente"), HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/auth/login", method = RequestMethod.POST)
+    @RequestMapping(value = "/auth/login", method = RequestMethod.POST) //Exemple url request: http://localhost:8080/usuaris/auth/login
     public ResponseEntity<JwtDto> loginUsuari(@Valid @RequestBody LoginUsuari loginUsuari, BindingResult bindingResult){
         if(bindingResult.hasErrors())
             return new ResponseEntity(new Missatge("Campos mal puestos"), HttpStatus.BAD_REQUEST);
@@ -81,7 +81,7 @@ public class UsuariRest {
         return new ResponseEntity<>(jwtDto, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/auth/refresh", method = RequestMethod.POST)
+    @RequestMapping(value = "/auth/refresh", method = RequestMethod.POST) //Exemple url request: http://localhost:8080/usuaris/auth/refresh
     public ResponseEntity<JwtDto> refreshToken(@RequestBody JwtDto jwtDto) throws ParseException {
         String token = jwtProvider.refreshToken(jwtDto);
         JwtDto jwtDtoRefreshed = new JwtDto(token);
@@ -90,7 +90,7 @@ public class UsuariRest {
     }
 
     //@PreAuthorize("hasRole('ROL_ADMIN')") //PER A INDICAR QUI TE AUTORITZACIO A AQUESTA PETICIO, PERO NO FUNCIONA
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET) //Exemple url request: http://localhost:8080/usuaris
     private ResponseEntity<List<Usuari>> getAllUsuaris(){
         return ResponseEntity.ok(usuariService.findAll());
     }
@@ -125,7 +125,7 @@ public class UsuariRest {
         return new ResponseEntity<>(new Missatge("Se ha actualizado el usuario"), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "{id}", method = RequestMethod.PUT) //Exemple url request: http://localhost:8080/usuaris
+    @RequestMapping(value = "{id}", method = RequestMethod.PUT) //Exemple url request: http://localhost:8080/usuaris/3
     private ResponseEntity<?> updateImatgeUsuari(@PathVariable("id") Long id, @RequestBody MultipartFile imatge) throws IOException {
         Optional<Usuari> optionalUsuari = usuariService.findById(id);
         if (!optionalUsuari.isPresent())
