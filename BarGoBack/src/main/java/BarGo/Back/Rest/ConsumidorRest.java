@@ -1,5 +1,6 @@
 package BarGo.Back.Rest;
 
+import BarGo.Back.Dto.GetPuntuacioConsumidor;
 import BarGo.Back.Dto.Missatge;
 import BarGo.Back.Dto.PutConsumidor;
 import BarGo.Back.Dto.SignupConsumidor;
@@ -36,14 +37,16 @@ public class ConsumidorRest {
     private BCryptPasswordEncoder encoder;
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET) //Exemple url request: http://localhost:8080/consumidors/3
-    private ResponseEntity<Integer> getPuntuacioConsumidorById(@PathVariable("id") Long id){
+    private ResponseEntity<GetPuntuacioConsumidor> getPuntuacioConsumidorById(@PathVariable("id") Long id){
         Optional<Consumidor> optionalConsumidor = consumidorService.findById(id);
         if (!optionalConsumidor.isPresent())
             return new ResponseEntity(new Missatge("No existe ningun consumidor con ese id"), HttpStatus.NOT_FOUND);
 
         Consumidor consumidor = optionalConsumidor.get();
 
-        return new ResponseEntity<>(consumidor.getPuntuacio(), HttpStatus.OK); //TODO: retorna directament el valor, no puntuacio: valor
+        GetPuntuacioConsumidor getPuntuacioConsumidor = new GetPuntuacioConsumidor(consumidor.getPuntuacio());
+
+        return new ResponseEntity<>(getPuntuacioConsumidor, HttpStatus.OK);
     }
 
     //TODO: CREC QUE NO FARA FALTA AQUESTA PETICIO

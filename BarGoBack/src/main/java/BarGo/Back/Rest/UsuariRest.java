@@ -50,6 +50,7 @@ public class UsuariRest {
     @Autowired
     JwtProvider jwtProvider;
 
+    //TODO: CREC QUE NO FARA FALTA AQUESTA PETICIO
     @RequestMapping(value = "/auth/signup", method = RequestMethod.POST) //Exemple url request: http://localhost:8080/usuaris/auth/signup
     private ResponseEntity<?> signupUsuari(@Valid @RequestBody SignupUsuari signupUsuari){ //TODO: FER QUE FUNCIONI LO DE @VALID
         if(usuariService.existsByNomUsuari(signupUsuari.getNomUsuari()))
