@@ -65,7 +65,7 @@ public class ConsumidorRest {
     }
 
     @RequestMapping(value = "/auth/signup", method = RequestMethod.POST) //Exemple url request: http://localhost:8080/consumidors/auth/signup
-    private ResponseEntity<?> signupUsuari(@RequestBody SignupConsumidor signupConsumidor){ //TODO: FER BADREQUEST EN EL CAS DE QUE NO S'INDIQUIN TOTS ELS PARAMETRES
+    private ResponseEntity<?> signupConsumidor(@RequestBody SignupConsumidor signupConsumidor){ //TODO: FER BADREQUEST EN EL CAS DE QUE NO S'INDIQUIN TOTS ELS PARAMETRES
         if(usuariService.existsByNomUsuari(signupConsumidor.getNomUsuari()))
             return new ResponseEntity<>(new Missatge("El nombre de usuario ya existe"), HttpStatus.CONFLICT);
         if(signupConsumidor.getContrasenya().replaceAll(" ", "").length() < 8)
