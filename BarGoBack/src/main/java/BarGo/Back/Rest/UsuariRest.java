@@ -16,6 +16,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -30,6 +31,7 @@ import java.util.Set;
 
 @RestController //Indiquem que aquesta classe sera un SERVICE REST
 @RequestMapping("usuaris") //Definim la URL del SERVICE (arrel)
+@Validated //todo: fer que funcioni la validacio del requestbody
 //@CrossOrigin //Per accedir des de qualsevol url
 public class UsuariRest {
 
@@ -49,7 +51,7 @@ public class UsuariRest {
     JwtProvider jwtProvider;
 
     @RequestMapping(value = "/auth/signup", method = RequestMethod.POST) //Exemple url request: http://localhost:8080/usuaris/auth/signup
-    private ResponseEntity<?> signupUsuari(@RequestBody SignupUsuari signupUsuari){
+    private ResponseEntity<?> signupUsuari(@Valid @RequestBody SignupUsuari signupUsuari){ //TODO: FER QUE FUNCIONI LO DE @VALID
         if(usuariService.existsByNomUsuari(signupUsuari.getNomUsuari()))
             return new ResponseEntity<>(new Missatge("El nombre de usuario ya existe"), HttpStatus.BAD_REQUEST);
         if(signupUsuari.getContrasenya().replaceAll(" ", "").length() < 8)
@@ -58,12 +60,20 @@ public class UsuariRest {
         Usuari usuari = new Usuari(signupUsuari.getNomUsuari(), encoder.encode(signupUsuari.getContrasenya()), null);
 
         Set<Rol> rols = new HashSet<>();
-        rols.add(rolService.findByNomRol(NomRol.ROL_USUARI).get());
-        if(signupUsuari.getRols().contains("admin"))
-            rols.add(rolService.findByNomRol(NomRol.ROL_ADMIN).get());
+        if(signupUsuari.getRols().contains("consumidor"))
+            rols.add(rolService.findByNomRol(NomRol.ROL_CONSUMIDOR).get());
+        if(signupUsuari.getRols().contains("propietari"))
+            rols.add(rolService.findByNomRol(NomRol.ROL_PROPIETARI).get());
 
         usuari.setRols(rols);
         usuariService.save(usuari);
+
+        /* TODO:
+        if(signupUsuari.getRols().contains("consumidor"))
+
+        Si rol = ROL_CONSUMIDOR --> CRIDEM A LA FUNCIO QUE CREA UN CONSUMIDOR
+        SI rol = ROL_PROPIETARI --> CRIDEM A LA FUNCIO QUE CREA UN PROPIETARI
+         */
 
         return new ResponseEntity<>(new Missatge("El usuario se ha creado correctamente"), HttpStatus.CREATED);
     }
@@ -108,7 +118,7 @@ public class UsuariRest {
     }
 
     @RequestMapping(method = RequestMethod.PUT) //Exemple url request: http://localhost:8080/usuaris
-    private ResponseEntity<?> updateUsuari(@RequestBody Usuari usuari) throws IOException {
+    private ResponseEntity<?> updateUsuari(@RequestBody Usuari usuari){
         Optional<Usuari> optionalUsuari = usuariService.findById(usuari.getId());
         if (!optionalUsuari.isPresent())
             return new ResponseEntity<>(new Missatge("No existe ningun usuario con ese id"), HttpStatus.NOT_FOUND);
@@ -121,6 +131,8 @@ public class UsuariRest {
 
         usuariexists.setNomUsuari(usuari.getNomUsuari());
         usuariexists.setContrasenya(encoder.encode(usuari.getContrasenya()));
+
+        Usuari usuariupdated = usuariService.save(usuariexists);
 
         return new ResponseEntity<>(new Missatge("Se ha actualizado el usuario"), HttpStatus.OK);
     }
@@ -151,7 +163,7 @@ public class UsuariRest {
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE) //Exemple url request: http://localhost:8080/usuaris/3
-    private ResponseEntity<?> deleteUsuariById(@PathVariable("id") Long id) { //TODO: Retornar missatge + controlar errors
+    private ResponseEntity<?> deleteUsuariById(@PathVariable("id") Long id) {
         Optional<Usuari> optionalUsuari = usuariService.findById(id);
         if (!optionalUsuari.isPresent())
             return new ResponseEntity<>(new Missatge("No existe ningun usuario con ese id"), HttpStatus.NOT_FOUND);

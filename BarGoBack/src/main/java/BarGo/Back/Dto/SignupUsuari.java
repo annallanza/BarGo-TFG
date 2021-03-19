@@ -1,6 +1,7 @@
 package BarGo.Back.Dto; //Classes on es defineix l'estructura del JSON que es reb de les requests
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,10 +16,10 @@ public class SignupUsuari {
 }
 */
 
-    @NotBlank
+    @NotNull
     private String nomUsuari;
 
-    @NotBlank
+    @NotNull
     private String contrasenya;
 
     private Set<String> rols = new HashSet<>();
