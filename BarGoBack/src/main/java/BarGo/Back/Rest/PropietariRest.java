@@ -1,8 +1,6 @@
 package BarGo.Back.Rest;
 
-import BarGo.Back.Dto.GetUsuari;
-import BarGo.Back.Dto.Missatge;
-import BarGo.Back.Dto.SignupConsumidor;
+import BarGo.Back.Dto.*;
 import BarGo.Back.Enums.NomRol;
 import BarGo.Back.Model.Propietari;
 import BarGo.Back.Model.Rol;
@@ -13,9 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
@@ -37,11 +38,12 @@ public class PropietariRest {
 
     //TODO: quan fem establiments, cal fer DTO SignupPropietari
     @RequestMapping(value = "/auth/signup", method = RequestMethod.POST) //Exemple url request: http://localhost:8080/propietaris/auth/signup
-    private ResponseEntity<?> signupPropietari(@RequestBody SignupConsumidor signupConsumidor){ //TODO: FER BADREQUEST EN EL CAS DE QUE NO S'INDIQUIN TOTS ELS PARAMETRES
+    private ResponseEntity<?> signupPropietari(@Valid @RequestBody SignupConsumidor signupConsumidor, BindingResult bindingResult){
+        if(bindingResult.hasErrors())
+            return new ResponseEntity<>(new Missatge(Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage()), HttpStatus.BAD_REQUEST);
+
         if(usuariService.existsByNomUsuari(signupConsumidor.getNomUsuari()))
             return new ResponseEntity<>(new Missatge("El nombre de usuario ya existe"), HttpStatus.CONFLICT);
-        if(signupConsumidor.getContrasenya().replaceAll(" ", "").length() < 8)
-            return new ResponseEntity<>(new Missatge("La contraseña no es fiable"), HttpStatus.CONFLICT);
 
         Propietari propietari = new Propietari(signupConsumidor.getNomUsuari(), encoder.encode(signupConsumidor.getContrasenya()), null);
 
@@ -68,19 +70,22 @@ public class PropietariRest {
     }
 
     @RequestMapping(method = RequestMethod.PUT) //Exemple url request: http://localhost:8080/propietaris
-    private ResponseEntity<?> updatePropietari(@RequestBody Propietari propietari){
-        Optional<Propietari> optionalPropietari = propietariService.findById(propietari.getId());
+    private ResponseEntity<?> updatePropietari(@Valid @RequestBody UpdatePropietari updatePropietari, BindingResult bindingResult){
+        if(bindingResult.hasErrors())
+            return new ResponseEntity<>(new Missatge(Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage()), HttpStatus.BAD_REQUEST);
+
+        Optional<Propietari> optionalPropietari = propietariService.findById(updatePropietari.getId());
         if (!optionalPropietari.isPresent())
             return new ResponseEntity<>(new Missatge("No existe ningun usuario con ese id"), HttpStatus.NOT_FOUND);
 
         Propietari propietariexists = optionalPropietari.get();
-        if(usuariService.existsByNomUsuari(propietari.getNomUsuari()) && !propietari.getNomUsuari().equals(propietariexists.getNomUsuari()))
+        if(usuariService.existsByNomUsuari(updatePropietari.getNomUsuari()) && !updatePropietari.getNomUsuari().equals(propietariexists.getNomUsuari()))
             return new ResponseEntity<>(new Missatge("El nombre de usuario ya existe"), HttpStatus.BAD_REQUEST);
-        if(propietari.getContrasenya().replaceAll(" ", "").length() < 8)
+        if(updatePropietari.getContrasenya().replaceAll(" ", "").length() < 8)
             return new ResponseEntity<>(new Missatge("La contraseña no es fiable"), HttpStatus.BAD_REQUEST);
 
-        propietariexists.setNomUsuari(propietari.getNomUsuari());
-        propietariexists.setContrasenya(encoder.encode(propietari.getContrasenya()));
+        propietariexists.setNomUsuari(updatePropietari.getNomUsuari());
+        propietariexists.setContrasenya(encoder.encode(updatePropietari.getContrasenya()));
 
         Propietari propietariupdated = propietariService.save(propietariexists);
 

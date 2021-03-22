@@ -1,8 +1,14 @@
 package BarGo.Back.Dto;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PositiveOrZero;
+
 public class PutConsumidor {
 
+    @NotNull(message = "El id no puede ser un valor nulo")
     private Long id;
+
+    @PositiveOrZero(message = "La puntuación no puede ser un valor negativo")
     private int puntuacio;
 
     public PutConsumidor() {

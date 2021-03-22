@@ -16,7 +16,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -24,14 +23,10 @@ import javax.validation.Valid;
 import java.io.*;
 import java.nio.file.Files;
 import java.text.ParseException;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @RestController //Indiquem que aquesta classe sera un SERVICE REST
 @RequestMapping("usuaris") //Definim la URL del SERVICE (arrel)
-@Validated //todo: fer que funcioni la validacio del requestbody
 //@CrossOrigin //Per accedir des de qualsevol url
 public class UsuariRest {
 
@@ -80,9 +75,9 @@ public class UsuariRest {
     }
 
     @RequestMapping(value = "/auth/login", method = RequestMethod.POST) //Exemple url request: http://localhost:8080/usuaris/auth/login
-    public ResponseEntity<JwtDto> loginUsuari(@Valid @RequestBody LoginUsuari loginUsuari, BindingResult bindingResult){
+    public ResponseEntity<?> loginUsuari(@Valid @RequestBody LoginUsuari loginUsuari, BindingResult bindingResult){
         if(bindingResult.hasErrors())
-            return new ResponseEntity(new Missatge("Campos mal puestos"), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new Missatge(Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage()), HttpStatus.BAD_REQUEST);
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginUsuari.getNomUsuari(), loginUsuari.getContrasenya()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
@@ -93,7 +88,10 @@ public class UsuariRest {
     }
 
     @RequestMapping(value = "/auth/refresh", method = RequestMethod.POST) //Exemple url request: http://localhost:8080/usuaris/auth/refresh
-    public ResponseEntity<JwtDto> refreshToken(@RequestBody JwtDto jwtDto) throws ParseException {
+    public ResponseEntity<?> refreshToken(@Valid @RequestBody JwtDto jwtDto, BindingResult bindingResult) throws ParseException {
+        if(bindingResult.hasErrors())
+            return new ResponseEntity<>(new Missatge(Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage()), HttpStatus.BAD_REQUEST);
+
         String token = jwtProvider.refreshToken(jwtDto);
         JwtDto jwtDtoRefreshed = new JwtDto(token);
 
@@ -119,19 +117,20 @@ public class UsuariRest {
     }
 
     @RequestMapping(method = RequestMethod.PUT) //Exemple url request: http://localhost:8080/usuaris
-    private ResponseEntity<?> updateUsuari(@RequestBody Usuari usuari){
-        Optional<Usuari> optionalUsuari = usuariService.findById(usuari.getId());
+    private ResponseEntity<?> updateUsuari(@Valid @RequestBody UpdateUsuari updateUsuari, BindingResult bindingResult){
+        if(bindingResult.hasErrors())
+            return new ResponseEntity<>(new Missatge(Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage()), HttpStatus.BAD_REQUEST);
+
+        Optional<Usuari> optionalUsuari = usuariService.findById(updateUsuari.getId());
         if (!optionalUsuari.isPresent())
             return new ResponseEntity<>(new Missatge("No existe ningun usuario con ese id"), HttpStatus.NOT_FOUND);
 
         Usuari usuariexists = optionalUsuari.get();
-        if(usuariService.existsByNomUsuari(usuari.getNomUsuari()) && !usuari.getNomUsuari().equals(usuariexists.getNomUsuari()))
-            return new ResponseEntity<>(new Missatge("El nombre de usuario ya existe"), HttpStatus.BAD_REQUEST);
-        if(usuari.getContrasenya().replaceAll(" ", "").length() < 8)
-            return new ResponseEntity<>(new Missatge("La contraseña no es fiable"), HttpStatus.BAD_REQUEST);
+        if(usuariService.existsByNomUsuari(updateUsuari.getNomUsuari()) && !updateUsuari.getNomUsuari().equals(usuariexists.getNomUsuari()))
+            return new ResponseEntity<>(new Missatge("El nombre de usuario ya existe"), HttpStatus.CONFLICT);
 
-        usuariexists.setNomUsuari(usuari.getNomUsuari());
-        usuariexists.setContrasenya(encoder.encode(usuari.getContrasenya()));
+        usuariexists.setNomUsuari(updateUsuari.getNomUsuari());
+        usuariexists.setContrasenya(encoder.encode(updateUsuari.getContrasenya()));
 
         Usuari usuariupdated = usuariService.save(usuariexists);
 
@@ -163,6 +162,7 @@ public class UsuariRest {
         return new ResponseEntity<>(new Missatge("Se ha actualizado la imagen del usuario"), HttpStatus.OK);
     }
 
+    //TODO: CREC QUE NO FARA FALTA AQUESTA PETICIO
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE) //Exemple url request: http://localhost:8080/usuaris/3
     private ResponseEntity<?> deleteUsuariById(@PathVariable("id") Long id) {
         Optional<Usuari> optionalUsuari = usuariService.findById(id);

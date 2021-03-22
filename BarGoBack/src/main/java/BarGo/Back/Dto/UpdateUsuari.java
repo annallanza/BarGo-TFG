@@ -1,12 +1,14 @@
 package BarGo.Back.Dto;
 
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-public class SignupConsumidor { //TODO: es el mateix que el SignupUsuari
+public class UpdateUsuari {
+
+    @NotNull(message = "El id no puede ser un valor nulo")
+    private Long id;
 
     @NotEmpty(message = "El nombre de usuario no puede ser un valor nulo ni vacío")
     private String nomUsuari;
@@ -15,6 +17,23 @@ public class SignupConsumidor { //TODO: es el mateix que el SignupUsuari
     @NotNull(message = "La contraseña no puede ser un valor nulo")
     @NotBlank(message = "La contraseña no puede ser un valor vacío")
     private String contrasenya;
+
+    public UpdateUsuari() {
+    }
+
+    public UpdateUsuari(Long id, String nomUsuari, String contrasenya) {
+        this.id = id;
+        this.nomUsuari = nomUsuari;
+        this.contrasenya = contrasenya;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getNomUsuari() {
         return nomUsuari;

@@ -14,9 +14,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
@@ -37,10 +40,10 @@ public class ConsumidorRest {
     private BCryptPasswordEncoder encoder;
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET) //Exemple url request: http://localhost:8080/consumidors/3
-    private ResponseEntity<GetPuntuacioConsumidor> getPuntuacioConsumidorById(@PathVariable("id") Long id){
+    private ResponseEntity<?> getPuntuacioConsumidorById(@PathVariable("id") Long id){
         Optional<Consumidor> optionalConsumidor = consumidorService.findById(id);
         if (!optionalConsumidor.isPresent())
-            return new ResponseEntity(new Missatge("No existe ningun consumidor con ese id"), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new Missatge("No existe ningun consumidor con ese id"), HttpStatus.NOT_FOUND);
 
         Consumidor consumidor = optionalConsumidor.get();
 
@@ -51,7 +54,10 @@ public class ConsumidorRest {
 
     //TODO: CREC QUE NO FARA FALTA AQUESTA PETICIO
     @RequestMapping(method = RequestMethod.PUT) //Exemple url request: http://localhost:8080/consumidors
-    private ResponseEntity<?> updatePuntuacioConsumidor(@RequestBody PutConsumidor putConsumidor){
+    private ResponseEntity<?> updatePuntuacioConsumidor(@Valid @RequestBody PutConsumidor putConsumidor, BindingResult bindingResult){
+        if(bindingResult.hasErrors())
+            return new ResponseEntity<>(new Missatge(Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage()), HttpStatus.BAD_REQUEST);
+
         Optional<Consumidor> optionalConsumidor = consumidorService.findById(putConsumidor.getId());
         if (!optionalConsumidor.isPresent())
             return new ResponseEntity<>(new Missatge("No existe ningun usuario con ese id"), HttpStatus.NOT_FOUND);
@@ -65,11 +71,12 @@ public class ConsumidorRest {
     }
 
     @RequestMapping(value = "/auth/signup", method = RequestMethod.POST) //Exemple url request: http://localhost:8080/consumidors/auth/signup
-    private ResponseEntity<?> signupConsumidor(@RequestBody SignupConsumidor signupConsumidor){ //TODO: FER BADREQUEST EN EL CAS DE QUE NO S'INDIQUIN TOTS ELS PARAMETRES
+    private ResponseEntity<?> signupConsumidor(@Valid @RequestBody SignupConsumidor signupConsumidor, BindingResult bindingResult){
+        if(bindingResult.hasErrors())
+            return new ResponseEntity<>(new Missatge(Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage()), HttpStatus.BAD_REQUEST);
+
         if(usuariService.existsByNomUsuari(signupConsumidor.getNomUsuari()))
             return new ResponseEntity<>(new Missatge("El nombre de usuario ya existe"), HttpStatus.CONFLICT);
-        if(signupConsumidor.getContrasenya().replaceAll(" ", "").length() < 8)
-            return new ResponseEntity<>(new Missatge("La contraseña no es fiable"), HttpStatus.CONFLICT);
 
         Consumidor consumidor = new Consumidor(signupConsumidor.getNomUsuari(), encoder.encode(signupConsumidor.getContrasenya()), null, 0);
 

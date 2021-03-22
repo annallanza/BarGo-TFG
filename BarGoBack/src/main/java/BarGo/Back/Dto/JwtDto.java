@@ -1,7 +1,10 @@
 package BarGo.Back.Dto;
 
+import javax.validation.constraints.NotEmpty;
+
 public class JwtDto { //JWT per retornar al client
 
+    @NotEmpty(message = "El token no puede ser un valor nulo ni vacío")
     private String token;
 
     public JwtDto() {
