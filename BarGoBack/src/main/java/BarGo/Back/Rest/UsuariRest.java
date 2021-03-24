@@ -105,10 +105,13 @@ public class UsuariRest {
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET) //Exemple url request: http://localhost:8080/usuaris/3
-    private ResponseEntity<GetUsuari> getUsuariById(@PathVariable("id") Long id){ //TODO: cal convertir a BASE64?
+    private ResponseEntity<?> getUsuariById(@PathVariable("id") Long id, @RequestHeader(value="Authorization") String token){ //TODO: cal convertir a BASE64?
+        if(!jwtProvider.validateIdToken(id, token))
+            return new ResponseEntity<>(new Missatge("No tienes acceso al usuario con ese id"), HttpStatus.UNAUTHORIZED);
+
         Optional<Usuari> optionalUsuari = usuariService.findById(id);
         if (!optionalUsuari.isPresent())
-            return new ResponseEntity(new Missatge("No existe ningun usuario con ese id"), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new Missatge("No existe ningun usuario con ese id"), HttpStatus.NOT_FOUND);
 
         Usuari usuari = optionalUsuari.get();
         GetUsuari getUsuari = new GetUsuari(usuari.getId(), usuari.getNomUsuari(), usuari.getImatge(), usuari.getRols()); //Creem DTO usuari sense contrasenya
@@ -117,7 +120,10 @@ public class UsuariRest {
     }
 
     @RequestMapping(method = RequestMethod.PUT) //Exemple url request: http://localhost:8080/usuaris
-    private ResponseEntity<?> updateUsuari(@Valid @RequestBody UpdateUsuari updateUsuari, BindingResult bindingResult){
+    private ResponseEntity<?> updateUsuari(@Valid @RequestBody UpdateUsuari updateUsuari, BindingResult bindingResult, @RequestHeader(value="Authorization") String token){
+        if(!jwtProvider.validateIdToken(updateUsuari.getId(), token))
+            return new ResponseEntity<>(new Missatge("No tienes acceso al usuario con ese id"), HttpStatus.UNAUTHORIZED);
+
         if(bindingResult.hasErrors())
             return new ResponseEntity<>(new Missatge(Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage()), HttpStatus.BAD_REQUEST);
 
@@ -138,7 +144,10 @@ public class UsuariRest {
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.PUT) //Exemple url request: http://localhost:8080/usuaris/3
-    private ResponseEntity<?> updateImatgeUsuari(@PathVariable("id") Long id, @RequestBody MultipartFile imatge) throws IOException {
+    private ResponseEntity<?> updateImatgeUsuari(@PathVariable("id") Long id, @RequestBody MultipartFile imatge, @RequestHeader(value="Authorization") String token) throws IOException {
+        if(!jwtProvider.validateIdToken(id, token))
+            return new ResponseEntity<>(new Missatge("No tienes acceso al usuario con ese id"), HttpStatus.UNAUTHORIZED);
+
         Optional<Usuari> optionalUsuari = usuariService.findById(id);
         if (!optionalUsuari.isPresent())
             return new ResponseEntity<>(new Missatge("No existe ningun usuario con ese id"), HttpStatus.NOT_FOUND);
@@ -164,7 +173,10 @@ public class UsuariRest {
 
     //TODO: CREC QUE NO FARA FALTA AQUESTA PETICIO
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE) //Exemple url request: http://localhost:8080/usuaris/3
-    private ResponseEntity<?> deleteUsuariById(@PathVariable("id") Long id) {
+    private ResponseEntity<?> deleteUsuariById(@PathVariable("id") Long id, @RequestHeader(value="Authorization") String token){
+        if(!jwtProvider.validateIdToken(id, token))
+            return new ResponseEntity<>(new Missatge("No tienes acceso al usuario con ese id"), HttpStatus.UNAUTHORIZED);
+
         Optional<Usuari> optionalUsuari = usuariService.findById(id);
         if (!optionalUsuari.isPresent())
             return new ResponseEntity<>(new Missatge("No existe ningun usuario con ese id"), HttpStatus.NOT_FOUND);

@@ -35,6 +35,7 @@ public class JwtProvider { //Genera el Token i el valida si esta ben format...
 
         return Jwts.builder().setSubject(usuariPrincipal.getUsername())
                 .claim("rols", rols)
+                .claim("id", usuariPrincipal.getId())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(new Date().getTime() + expiration * 1000))
                 .signWith(SignatureAlgorithm.HS512, secret.getBytes())
@@ -43,6 +44,10 @@ public class JwtProvider { //Genera el Token i el valida si esta ben format...
 
     public String getNomUsuariFromToken(String token){
         return Jwts.parser().setSigningKey(secret.getBytes()).parseClaimsJws(token).getBody().getSubject();
+    }
+
+    public Long getIdUsuariFromToken(String token){
+        return Jwts.parser().setSigningKey(secret.getBytes()).parseClaimsJws(token).getBody().get("id", Long.class);
     }
 
     public boolean validateToken(String token){
@@ -63,14 +68,25 @@ public class JwtProvider { //Genera el Token i el valida si esta ben format...
         return false;
     }
 
+    public boolean validateIdToken(Long id, String token) {
+        if(token != null && token.startsWith("Bearer"))
+            token = token.replace("Bearer ", "");
+
+        Long idToken = getIdUsuariFromToken(token);
+
+        return idToken.equals(id);
+    }
+
     public String refreshToken(JwtDto jwtDto) throws ParseException {
         JWT jwt = JWTParser.parse(jwtDto.getToken());
         JWTClaimsSet claims = jwt.getJWTClaimsSet();
         String nomUsuari = claims.getSubject();
         List<String> rols = (List<String>) claims.getClaim("rols");
+        Long id = (Long) claims.getClaim("id");
 
         return Jwts.builder().setSubject(nomUsuari)
                 .claim("rols", rols)
+                .claim("id", id)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(new Date().getTime() + expiration * 1000))
                 .signWith(SignatureAlgorithm.HS512, secret.getBytes())

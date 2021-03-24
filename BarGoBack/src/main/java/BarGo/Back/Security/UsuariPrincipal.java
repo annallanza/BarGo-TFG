@@ -12,11 +12,13 @@ import java.util.stream.Collectors;
 
 public class UsuariPrincipal implements UserDetails { //Serveix per a passar de rols a authorities
 
+    private Long id;
     private String nomUsuari;
     private String contrasenya;
     private Collection<?extends GrantedAuthority> authorities;
 
-    public UsuariPrincipal(String nomUsuari, String contrasenya, Collection<? extends GrantedAuthority> authorities) {
+    public UsuariPrincipal(Long id, String nomUsuari, String contrasenya, Collection<? extends GrantedAuthority> authorities) {
+        this.id = id;
         this.nomUsuari = nomUsuari;
         this.contrasenya = contrasenya;
         this.authorities = authorities;
@@ -25,7 +27,15 @@ public class UsuariPrincipal implements UserDetails { //Serveix per a passar de 
     public static UsuariPrincipal build (Usuari usuari){
         List<GrantedAuthority> authorities = usuari.getRols().stream().map(rol -> new SimpleGrantedAuthority(rol.getNomRol().name())).collect(Collectors.toList());
 
-        return new UsuariPrincipal(usuari.getNomUsuari(), usuari.getContrasenya(), authorities);
+        return new UsuariPrincipal(usuari.getId(), usuari.getNomUsuari(), usuari.getContrasenya(), authorities);
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @Override

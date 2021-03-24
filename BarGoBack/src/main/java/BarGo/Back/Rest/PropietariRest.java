@@ -6,6 +6,8 @@ import BarGo.Back.Enums.TipusOcupacio;
 import BarGo.Back.Model.Establiment;
 import BarGo.Back.Model.Propietari;
 import BarGo.Back.Model.Rol;
+import BarGo.Back.Security.Jwt.JwtProvider;
+import BarGo.Back.Security.Jwt.JwtTokenFilter;
 import BarGo.Back.Service.EstablimentService;
 import BarGo.Back.Service.PropietariService;
 import BarGo.Back.Service.RolService;
@@ -42,6 +44,9 @@ public class PropietariRest {
     @Autowired
     private BCryptPasswordEncoder encoder;
 
+    @Autowired
+    private JwtProvider jwtProvider;
+
     @RequestMapping(value = "/auth/signup", method = RequestMethod.POST) //Exemple url request: http://localhost:8080/propietaris/auth/signup
     private ResponseEntity<?> signupPropietari(@Valid @RequestBody SignupPropietari signupPropietari, BindingResult bindingResult){
         if(bindingResult.hasErrors())
@@ -72,16 +77,19 @@ public class PropietariRest {
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET) //Exemple url request: http://localhost:8080/propietaris/3
-    private ResponseEntity<?> getPropietariById(@PathVariable("id") Long id){ //TODO: cal convertir a BASE64?
+    private ResponseEntity<?> getPropietariById(@PathVariable("id") Long id, @RequestHeader(value="Authorization") String token){ //TODO: cal convertir a BASE64?
+        if(!jwtProvider.validateIdToken(id, token))
+            return new ResponseEntity<>(new Missatge("No tienes acceso al usuario con ese id"), HttpStatus.UNAUTHORIZED);
+
         Optional<Propietari> optionalPropietari = propietariService.findById(id);
-        if (!optionalPropietari.isPresent())
+        if(!optionalPropietari.isPresent())
             return new ResponseEntity<>(new Missatge("No existe ningun usuario con ese id"), HttpStatus.NOT_FOUND);
 
         Propietari propietari = optionalPropietari.get();
 
         Optional<Establiment> optionalEstabliment = propietariService.getEstablimentByUsuariId(id);
 
-        if (!optionalEstabliment.isPresent())
+        if(!optionalEstabliment.isPresent())
             return new ResponseEntity<>(new Missatge("No existe ningun establecimiento para el usuario con ese id"), HttpStatus.NOT_FOUND);
 
         Establiment establiment = optionalEstabliment.get();
@@ -94,7 +102,10 @@ public class PropietariRest {
     }
 
     @RequestMapping(method = RequestMethod.PUT) //Exemple url request: http://localhost:8080/propietaris
-    private ResponseEntity<?> updatePropietari(@Valid @RequestBody UpdatePropietari updatePropietari, BindingResult bindingResult){
+    private ResponseEntity<?> updatePropietari(@Valid @RequestBody UpdatePropietari updatePropietari, BindingResult bindingResult, @RequestHeader(value="Authorization") String token){
+        if(!jwtProvider.validateIdToken(updatePropietari.getId(), token))
+            return new ResponseEntity<>(new Missatge("No tienes acceso al usuario con ese id"), HttpStatus.UNAUTHORIZED);
+
         if(bindingResult.hasErrors())
             return new ResponseEntity<>(new Missatge(Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage()), HttpStatus.BAD_REQUEST);
 
@@ -133,7 +144,10 @@ public class PropietariRest {
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE) //Exemple url request: http://localhost:8080/propietaris/3
-    private ResponseEntity<?> deletePropietariById(@PathVariable("id") Long id) {
+    private ResponseEntity<?> deletePropietariById(@PathVariable("id") Long id, @RequestHeader(value="Authorization") String token){
+        if(!jwtProvider.validateIdToken(id, token))
+            return new ResponseEntity<>(new Missatge("No tienes acceso al usuario con ese id"), HttpStatus.UNAUTHORIZED);
+
         Optional<Propietari> optionalPropietari = propietariService.findById(id);
         if (!optionalPropietari.isPresent())
             return new ResponseEntity<>(new Missatge("No existe ningun propietario con ese id"), HttpStatus.NOT_FOUND);

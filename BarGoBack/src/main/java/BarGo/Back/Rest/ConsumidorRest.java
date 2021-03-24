@@ -7,6 +7,7 @@ import BarGo.Back.Dto.SignupConsumidor;
 import BarGo.Back.Enums.NomRol;
 import BarGo.Back.Model.Consumidor;
 import BarGo.Back.Model.Rol;
+import BarGo.Back.Security.Jwt.JwtProvider;
 import BarGo.Back.Service.ConsumidorService;
 import BarGo.Back.Service.RolService;
 import BarGo.Back.Service.UsuariService;
@@ -39,8 +40,14 @@ public class ConsumidorRest {
     @Autowired
     private BCryptPasswordEncoder encoder;
 
+    @Autowired
+    private JwtProvider jwtProvider;
+
     @RequestMapping(value = "{id}", method = RequestMethod.GET) //Exemple url request: http://localhost:8080/consumidors/3
-    private ResponseEntity<?> getPuntuacioConsumidorById(@PathVariable("id") Long id){
+    private ResponseEntity<?> getPuntuacioConsumidorById(@PathVariable("id") Long id, @RequestHeader(value="Authorization") String token){
+        if(!jwtProvider.validateIdToken(id, token))
+            return new ResponseEntity<>(new Missatge("No tienes acceso al usuario con ese id"), HttpStatus.UNAUTHORIZED);
+
         Optional<Consumidor> optionalConsumidor = consumidorService.findById(id);
         if (!optionalConsumidor.isPresent())
             return new ResponseEntity<>(new Missatge("No existe ningun consumidor con ese id"), HttpStatus.NOT_FOUND);
@@ -54,7 +61,10 @@ public class ConsumidorRest {
 
     //TODO: CREC QUE NO FARA FALTA AQUESTA PETICIO
     @RequestMapping(method = RequestMethod.PUT) //Exemple url request: http://localhost:8080/consumidors
-    private ResponseEntity<?> updatePuntuacioConsumidor(@Valid @RequestBody PutConsumidor putConsumidor, BindingResult bindingResult){
+    private ResponseEntity<?> updatePuntuacioConsumidor(@Valid @RequestBody PutConsumidor putConsumidor, BindingResult bindingResult, @RequestHeader(value="Authorization") String token){
+        if(!jwtProvider.validateIdToken(putConsumidor.getId(), token))
+            return new ResponseEntity<>(new Missatge("No tienes acceso al usuario con ese id"), HttpStatus.UNAUTHORIZED);
+
         if(bindingResult.hasErrors())
             return new ResponseEntity<>(new Missatge(Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage()), HttpStatus.BAD_REQUEST);
 
@@ -90,7 +100,10 @@ public class ConsumidorRest {
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE) //Exemple url request: http://localhost:8080/consumidors/3
-    private ResponseEntity<?> deleteConsumidorById(@PathVariable("id") Long id) {
+    private ResponseEntity<?> deleteConsumidorById(@PathVariable("id") Long id, @RequestHeader(value="Authorization") String token){
+        if(!jwtProvider.validateIdToken(id, token))
+            return new ResponseEntity<>(new Missatge("No tienes acceso al usuario con ese id"), HttpStatus.UNAUTHORIZED);
+
         Optional<Consumidor> optionalConsumidor = consumidorService.findById(id);
         if (!optionalConsumidor.isPresent())
             return new ResponseEntity<>(new Missatge("No existe ningun consumidor con ese id"), HttpStatus.NOT_FOUND);
