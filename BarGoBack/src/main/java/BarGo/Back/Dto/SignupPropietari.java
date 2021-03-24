@@ -2,10 +2,7 @@ package BarGo.Back.Dto;
 
 import javax.validation.constraints.*;
 
-public class UpdatePropietari {
-
-    @NotNull(message = "El id no puede ser un valor nulo")
-    private Long id;
+public class SignupPropietari {
 
     @NotEmpty(message = "El nombre de usuario no puede ser un valor nulo ni vacío")
     private String nomUsuari;
@@ -40,11 +37,10 @@ public class UpdatePropietari {
     @NotBlank(message = "La pagina web no puede ser un valor vacío")
     private String paginaWeb;
 
-    public UpdatePropietari() {
+    public SignupPropietari() {
     }
 
-    public UpdatePropietari(@NotNull(message = "El id no puede ser un valor nulo") Long id, @NotEmpty(message = "El nombre de usuario no puede ser un valor nulo ni vacío") String nomUsuari, @Size(min = 8, message = "La contraseña debe tener un mínimo de 8 caracteres") @NotNull(message = "La contraseña no puede ser un valor nulo") @NotBlank(message = "La contraseña no puede ser un valor vacío") String contrasenya, @NotEmpty(message = "El nombre del establecimiento no puede ser un valor nulo ni vacío") String nomEstabliment, @NotEmpty(message = "La dirección del establecimiento no puede ser un valor nulo ni vacío") String direccio, @NotNull(message = "Exterior no puede ser un valor nulo") boolean exterior, @PositiveOrZero(message = "El numero de sillas no puede ser un valor negativo") int numCadires, @PositiveOrZero(message = "El numero de mesas no puede ser un valor negativo") int numTaules, @NotEmpty(message = "El horario del establecimiento no puede ser un valor nulo ni vacío") String horari, @Size(min = 200, message = "La descripción del establecimiento ha de tener un mínimo de 200 caracteres") @NotEmpty(message = "La descripción del establecimiento no puede ser un valor nulo ni vacío") String descripcio, @NotBlank(message = "La pagina web no puede ser un valor vacío") String paginaWeb) {
-        this.id = id;
+    public SignupPropietari(@NotEmpty(message = "El nombre de usuario no puede ser un valor nulo ni vacío") String nomUsuari, @Size(min = 8, message = "La contraseña debe tener un mínimo de 8 caracteres") @NotNull(message = "La contraseña no puede ser un valor nulo") @NotBlank(message = "La contraseña no puede ser un valor vacío") String contrasenya, @NotEmpty(message = "El nombre del establecimiento no puede ser un valor nulo ni vacío") String nomEstabliment, @NotEmpty(message = "La dirección del establecimiento no puede ser un valor nulo ni vacío") String direccio, @NotNull(message = "Exterior no puede ser un valor nulo") boolean exterior, @PositiveOrZero(message = "El numero de sillas no puede ser un valor negativo") int numCadires, @PositiveOrZero(message = "El numero de mesas no puede ser un valor negativo") int numTaules, @NotEmpty(message = "El horario del establecimiento no puede ser un valor nulo ni vacío") String horari, @NotEmpty(message = "La descripción del establecimiento no puede ser un valor nulo ni vacío") String descripcio, @NotBlank(message = "La pagina web no puede ser un valor vacío") String paginaWeb) {
         this.nomUsuari = nomUsuari;
         this.contrasenya = contrasenya;
         this.nomEstabliment = nomEstabliment;
@@ -55,14 +51,6 @@ public class UpdatePropietari {
         this.horari = horari;
         this.descripcio = descripcio;
         this.paginaWeb = paginaWeb;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getNomUsuari() {

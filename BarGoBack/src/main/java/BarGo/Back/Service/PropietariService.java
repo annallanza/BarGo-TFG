@@ -1,5 +1,6 @@
 package BarGo.Back.Service;
 
+import BarGo.Back.Model.Establiment;
 import BarGo.Back.Model.Propietari;
 import BarGo.Back.Repository.PropietariInterface;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -138,5 +139,9 @@ public class PropietariService implements PropietariInterface {
     @Override
     public <S extends Propietari> boolean exists(Example<S> example) {
         return false;
+    }
+
+    public Optional<Establiment> getEstablimentByUsuariId(Long id) {
+        return propietariInterface.getEstablimentByUsuariId(id);
     }
 }

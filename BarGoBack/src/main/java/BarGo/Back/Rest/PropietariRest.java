@@ -2,8 +2,11 @@ package BarGo.Back.Rest;
 
 import BarGo.Back.Dto.*;
 import BarGo.Back.Enums.NomRol;
+import BarGo.Back.Enums.TipusOcupacio;
+import BarGo.Back.Model.Establiment;
 import BarGo.Back.Model.Propietari;
 import BarGo.Back.Model.Rol;
+import BarGo.Back.Service.EstablimentService;
 import BarGo.Back.Service.PropietariService;
 import BarGo.Back.Service.RolService;
 import BarGo.Back.Service.UsuariService;
@@ -28,6 +31,9 @@ public class PropietariRest {
     private PropietariService propietariService;
 
     @Autowired
+    private EstablimentService establimentService;
+
+    @Autowired
     private UsuariService usuariService;
 
     @Autowired
@@ -36,37 +42,55 @@ public class PropietariRest {
     @Autowired
     private BCryptPasswordEncoder encoder;
 
-    //TODO: quan fem establiments, cal fer DTO SignupPropietari
     @RequestMapping(value = "/auth/signup", method = RequestMethod.POST) //Exemple url request: http://localhost:8080/propietaris/auth/signup
-    private ResponseEntity<?> signupPropietari(@Valid @RequestBody SignupConsumidor signupConsumidor, BindingResult bindingResult){
+    private ResponseEntity<?> signupPropietari(@Valid @RequestBody SignupPropietari signupPropietari, BindingResult bindingResult){
         if(bindingResult.hasErrors())
             return new ResponseEntity<>(new Missatge(Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage()), HttpStatus.BAD_REQUEST);
 
-        if(usuariService.existsByNomUsuari(signupConsumidor.getNomUsuari()))
+        if(usuariService.existsByNomUsuari(signupPropietari.getNomUsuari()))
             return new ResponseEntity<>(new Missatge("El nombre de usuario ya existe"), HttpStatus.CONFLICT);
 
-        Propietari propietari = new Propietari(signupConsumidor.getNomUsuari(), encoder.encode(signupConsumidor.getContrasenya()), null);
+        Establiment establiment = new Establiment(signupPropietari.getNomEstabliment(), signupPropietari.getDireccio(), signupPropietari.isExterior(), signupPropietari.getNumCadires(),
+                signupPropietari.getNumTaules(), signupPropietari.getHorari(), signupPropietari.getDescripcio(), signupPropietari.getPaginaWeb(), TipusOcupacio.Vacio, TipusOcupacio.Vacio);
+
+        Propietari propietari = new Propietari(signupPropietari.getNomUsuari(), encoder.encode(signupPropietari.getContrasenya()), null, establiment);
 
         Set<Rol> rols = new HashSet<>();
-        rols.add(rolService.findByNomRol(NomRol.ROL_PROPIETARI).get());
-
+        Optional<Rol> optionalRol = rolService.findByNomRol(NomRol.ROL_PROPIETARI);
+        if (!optionalRol.isPresent())
+            return new ResponseEntity<>(new Missatge("No existe ningun rol con ese nombre"), HttpStatus.NOT_FOUND);
+        Rol rolPropietari = optionalRol.get();
+        rols.add(rolPropietari);
         propietari.setRols(rols);
+
         propietariService.save(propietari);
+
+        establiment.setPropietari(propietari);
+        establimentService.save(establiment);
 
         return new ResponseEntity<>(new Missatge("El propietario se ha creado correctamente"), HttpStatus.CREATED);
     }
 
-    //TODO: quan fem establiments, cal fer DTO GetPropietari
     @RequestMapping(value = "{id}", method = RequestMethod.GET) //Exemple url request: http://localhost:8080/propietaris/3
-    private ResponseEntity<GetUsuari> getPropietariById(@PathVariable("id") Long id){ //TODO: cal convertir a BASE64?
+    private ResponseEntity<?> getPropietariById(@PathVariable("id") Long id){ //TODO: cal convertir a BASE64?
         Optional<Propietari> optionalPropietari = propietariService.findById(id);
         if (!optionalPropietari.isPresent())
-            return new ResponseEntity(new Missatge("No existe ningun usuario con ese id"), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new Missatge("No existe ningun usuario con ese id"), HttpStatus.NOT_FOUND);
 
         Propietari propietari = optionalPropietari.get();
-        GetUsuari getUsuari = new GetUsuari(propietari.getId(), propietari.getNomUsuari(), propietari.getImatge(), propietari.getRols()); //Creem DTO usuari sense contrasenya
 
-        return new ResponseEntity<>(getUsuari, HttpStatus.OK);
+        Optional<Establiment> optionalEstabliment = propietariService.getEstablimentByUsuariId(id);
+
+        if (!optionalEstabliment.isPresent())
+            return new ResponseEntity<>(new Missatge("No existe ningun establecimiento para el usuario con ese id"), HttpStatus.NOT_FOUND);
+
+        Establiment establiment = optionalEstabliment.get();
+
+        GetEstabliment getEstabliment = new GetEstabliment(establiment.getId(), establiment.getNom(), establiment.getDireccio(), establiment.isExterior(), establiment.getNumCadires(), establiment.getNumTaules(), establiment.getHorari(), establiment.getDescripcio(), establiment.getPaginaWeb());
+
+        GetPropietari getPropietari = new GetPropietari(propietari.getId(), propietari.getNomUsuari(), propietari.getImatge(), propietari.getRols(), getEstabliment);
+
+        return new ResponseEntity<>(getPropietari, HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.PUT) //Exemple url request: http://localhost:8080/propietaris
@@ -81,13 +105,29 @@ public class PropietariRest {
         Propietari propietariexists = optionalPropietari.get();
         if(usuariService.existsByNomUsuari(updatePropietari.getNomUsuari()) && !updatePropietari.getNomUsuari().equals(propietariexists.getNomUsuari()))
             return new ResponseEntity<>(new Missatge("El nombre de usuario ya existe"), HttpStatus.BAD_REQUEST);
-        if(updatePropietari.getContrasenya().replaceAll(" ", "").length() < 8)
-            return new ResponseEntity<>(new Missatge("La contraseña no es fiable"), HttpStatus.BAD_REQUEST);
 
         propietariexists.setNomUsuari(updatePropietari.getNomUsuari());
         propietariexists.setContrasenya(encoder.encode(updatePropietari.getContrasenya()));
 
-        Propietari propietariupdated = propietariService.save(propietariexists);
+        propietariService.save(propietariexists);
+
+        Optional<Establiment> optionalEstabliment = propietariService.getEstablimentByUsuariId(updatePropietari.getId());
+
+        if (!optionalEstabliment.isPresent())
+            return new ResponseEntity<>(new Missatge("No existe ningun establecimiento para el usuario con ese id"), HttpStatus.NOT_FOUND);
+
+        Establiment establiment = optionalEstabliment.get();
+
+        establiment.setNom(updatePropietari.getNomEstabliment());
+        establiment.setDireccio(updatePropietari.getDireccio());
+        establiment.setExterior(updatePropietari.isExterior());
+        establiment.setNumCadires(updatePropietari.getNumCadires());
+        establiment.setNumTaules(updatePropietari.getNumTaules());
+        establiment.setHorari(updatePropietari.getHorari());
+        establiment.setDescripcio(updatePropietari.getDescripcio());
+        establiment.setPaginaWeb(updatePropietari.getPaginaWeb());
+
+        establimentService.save(establiment);
 
         return new ResponseEntity<>(new Missatge("Se ha actualizado el usuario"), HttpStatus.OK);
     }
