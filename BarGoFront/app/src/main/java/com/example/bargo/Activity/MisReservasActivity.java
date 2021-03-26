@@ -1,4 +1,4 @@
-package com.example.bargo;
+package com.example.bargo.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,6 +12,9 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.bargo.Model.MisReservasInfo;
+import com.example.bargo.R;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package com.example.bargo;
+package com.example.bargo.Activity;
 
 import androidx.annotation.IdRes;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,6 +8,11 @@ import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.example.bargo.Fragment.CodeFragment;
+import com.example.bargo.Fragment.ListBarFragment;
+import com.example.bargo.Fragment.ListEventsFragment;
+import com.example.bargo.Fragment.profileFragment;
+import com.example.bargo.R;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
 

@@ -1,4 +1,6 @@
-package com.example.bargo;
+package com.example.bargo.Model;
+
+import com.example.bargo.R;
 
 public class EventListInfo {
     public int[] images;

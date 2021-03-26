@@ -1,10 +1,12 @@
-package com.example.bargo;
+package com.example.bargo.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.bargo.R;
 
 public class InfoEventActivity extends AppCompatActivity {
 

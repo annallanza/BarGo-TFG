@@ -1,4 +1,4 @@
-package com.example.bargo;
+package com.example.bargo.Activity;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +13,10 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.bargo.Model.ProductListInfo;
+import com.example.bargo.Model.RetosInfo;
+import com.example.bargo.R;
 
 public class ListProductActivity extends AppCompatActivity {
 

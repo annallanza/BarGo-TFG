@@ -1,4 +1,4 @@
-package com.example.bargo;
+package com.example.bargo.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +16,9 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.bargo.Model.User;
+import com.example.bargo.R;
 
 public class RegisterActivity extends AppCompatActivity {
     private TextView login;
@@ -53,7 +56,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         cons = findViewById(R.id.checkBox);
         prop = findViewById(R.id.checkBox2);
-        email = findViewById(R.id.editTextEmail);
+        email = findViewById(R.id.editTextUsername);
         passw = findViewById(R.id.editTextContra);
         name = findViewById(R.id.editTextNombre);
 
