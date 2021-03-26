@@ -115,7 +115,7 @@ public class PropietariRest {
 
         Propietari propietariexists = optionalPropietari.get();
         if(usuariService.existsByNomUsuari(updatePropietari.getNomUsuari()) && !updatePropietari.getNomUsuari().equals(propietariexists.getNomUsuari()))
-            return new ResponseEntity<>(new Missatge("El nombre de usuario ya existe"), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new Missatge("El nombre de usuario ya existe"), HttpStatus.CONFLICT);
 
         propietariexists.setNomUsuari(updatePropietari.getNomUsuari());
         propietariexists.setContrasenya(encoder.encode(updatePropietari.getContrasenya()));
@@ -140,7 +140,7 @@ public class PropietariRest {
 
         establimentService.save(establiment);
 
-        return new ResponseEntity<>(new Missatge("Se ha actualizado el usuario"), HttpStatus.OK);
+        return new ResponseEntity<>(new Missatge("Se ha actualizado el consumidor"), HttpStatus.OK);
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE) //Exemple url request: http://localhost:8080/propietaris/3

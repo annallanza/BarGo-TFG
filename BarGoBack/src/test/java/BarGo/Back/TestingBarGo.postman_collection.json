@@ -1,0 +1,3947 @@
+{
+	"info": {
+		"_postman_id": "c7094a34-62dc-4042-9246-ab14dd9bd2c7",
+		"name": "TestingBarGo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Usuari",
+			"item": [
+				{
+					"name": "Consumidor",
+					"item": [
+						{
+							"name": "SignupConsumidor",
+							"item": [
+								{
+									"name": "SignupConsumidor400",
+									"item": [
+										{
+											"name": "SignupConsumidor400NomUsuariBuit",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"El nombre de usuario no puede ser un valor nulo ni vacío\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"nomUsuari\": \"\",\n    \"contrasenya\": \"123consumidor\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/consumidors/auth/signup",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"consumidors",
+														"auth",
+														"signup"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "SignupConsumidor400NomUsuariNull",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"El nombre de usuario no puede ser un valor nulo ni vacío\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"nomUsuari\": null,\n    \"contrasenya\": \"123consumidor\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/consumidors/auth/signup",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"consumidors",
+														"auth",
+														"signup"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "SignupConsumidor400ContrasenyaBuit",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {",
+															"    pm.response.to.have.status(409);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"El nombre de usuario ya existe\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"nomUsuari\": \"consumidor\",\n    \"contrasenya\": \"contrasenyaConsumidorTest\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/consumidors/auth/signup",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"consumidors",
+														"auth",
+														"signup"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "SignupConsumidor400ContrasenyaNull",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"La contraseña no puede ser un valor nulo\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"nomUsuari\": \"consumidorTest\",\n    \"contrasenya\": null\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/consumidors/auth/signup",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"consumidors",
+														"auth",
+														"signup"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "SignupConsumidor400ContrasenyaMinim",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"La contraseña debe tener un mínimo de 8 caracteres\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"nomUsuari\": \"consumidorTest\",\n    \"contrasenya\": \"c\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/consumidors/auth/signup",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"consumidors",
+														"auth",
+														"signup"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "SignupConsumidor201",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 201\", function () {",
+													"    pm.response.to.have.status(201);",
+													"});",
+													"",
+													"pm.test(\"MissatgeErrorTest\", function () {",
+													"    missatge = pm.response.json().missatge;",
+													"    pm.expect(missatge).to.equal(\"El consumidor se ha creado correctamente\");",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"nomUsuari\": \"consumidorTest\",\n    \"contrasenya\": \"contrasenyaConsumidorTest\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/consumidors/auth/signup",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"consumidors",
+												"auth",
+												"signup"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "SignupConsumidor409",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 409\", function () {",
+													"    pm.response.to.have.status(409);",
+													"});",
+													"",
+													"pm.test(\"MissatgeErrorTest\", function () {",
+													"    missatge = pm.response.json().missatge;",
+													"    pm.expect(missatge).to.equal(\"El nombre de usuario ya existe\");",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"nomUsuari\": \"consumidor\",\n    \"contrasenya\": \"123consumidor\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/consumidors/auth/signup",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"consumidors",
+												"auth",
+												"signup"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "PuntuacioConsumidorById",
+							"item": [
+								{
+									"name": "PuntuacioConsumidorById401",
+									"item": [
+										{
+											"name": "PuntuacioConsumidorById401SenseToken",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 401\", function () {",
+															"    pm.response.to.have.status(401);",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"protocolProfileBehavior": {
+												"disableBodyPruning": true
+											},
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/consumidors/8",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"consumidors",
+														"8"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "PuntuacioConsumidorById401IdErroni",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 401\", function () {",
+															"    pm.response.to.have.status(401);",
+															"});",
+															"",
+															"pm.test(\"PuntuacioTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"No tienes acceso al usuario con ese id\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"protocolProfileBehavior": {
+												"disableBodyPruning": true
+											},
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb25zdW1pZG9yVGVzdCIsInJvbHMiOlsiUk9MX0NPTlNVTUlET1IiXSwiaWQiOjgsImlhdCI6MTYxNjU5NzUxMCwiZXhwIjoxNjE2NjgzOTEwfQ.VXLcNGih4ezfC7vdmD_UbAY8JS1lenByEKjciUdTY4FIITQXYCfepn2-yaCr9WRYaAwy5ShuJj0lyinCYztp0g",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/consumidors/1",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"consumidors",
+														"1"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "PuntuacioConsumidorById200",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"PuntuacioTest\", function () {",
+													"    puntuacio = pm.response.json().puntuacio;",
+													"    pm.expect(puntuacio).to.equal(0);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb25zdW1pZG9yVGVzdCIsInJvbHMiOlsiUk9MX0NPTlNVTUlET1IiXSwiaWQiOjgsImlhdCI6MTYxNjU5NzUxMCwiZXhwIjoxNjE2NjgzOTEwfQ.VXLcNGih4ezfC7vdmD_UbAY8JS1lenByEKjciUdTY4FIITQXYCfepn2-yaCr9WRYaAwy5ShuJj0lyinCYztp0g",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/consumidors/8",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"consumidors",
+												"8"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "ConsumidorById",
+							"item": [
+								{
+									"name": "ConsumidorById401",
+									"item": [
+										{
+											"name": "ConsumidorById401SenseToken",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 401\", function () {",
+															"    pm.response.to.have.status(401);",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "",
+															"type": "string"
+														}
+													]
+												},
+												"method": "DELETE",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/consumidors/8",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"consumidors",
+														"8"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "ConsumidorById401IdErroni",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 401\", function () {",
+															"    pm.response.to.have.status(401);",
+															"});",
+															"",
+															"pm.test(\"PuntuacioTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"No tienes acceso al usuario con ese id\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb25zdW1pZG9yVGVzdCIsInJvbHMiOlsiUk9MX0NPTlNVTUlET1IiXSwiaWQiOjgsImlhdCI6MTYxNjU5NzUxMCwiZXhwIjoxNjE2NjgzOTEwfQ.VXLcNGih4ezfC7vdmD_UbAY8JS1lenByEKjciUdTY4FIITQXYCfepn2-yaCr9WRYaAwy5ShuJj0lyinCYztp0g",
+															"type": "string"
+														}
+													]
+												},
+												"method": "DELETE",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/consumidors/2",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"consumidors",
+														"2"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "ConsumidorById204",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", function () {",
+													"    pm.response.to.have.status(204);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb25zdW1pZG9yVGVzdCIsInJvbHMiOlsiUk9MX0NPTlNVTUlET1IiXSwiaWQiOjgsImlhdCI6MTYxNjU5NzUxMCwiZXhwIjoxNjE2NjgzOTEwfQ.VXLcNGih4ezfC7vdmD_UbAY8JS1lenByEKjciUdTY4FIITQXYCfepn2-yaCr9WRYaAwy5ShuJj0lyinCYztp0g",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/consumidors/8",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"consumidors",
+												"8"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Propietari",
+					"item": [
+						{
+							"name": "SignupPropietari",
+							"item": [
+								{
+									"name": "SignupPropietari400",
+									"item": [
+										{
+											"name": "SignupConsumidor400NomUsuariBuit",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"El nombre de usuario no puede ser un valor nulo ni vacío\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"nomUsuari\": \"\",\n    \"contrasenya\": \"contrasenyaPropietariTest\",\n    \"nomEstabliment\": \"nomEstablimentTest\",\n    \"direccio\": \"direccioTest\",\n    \"exterior\": true,\n    \"numCadires\": 60,\n    \"numTaules\": 10,\n    \"horari\": \"horariTest\",\n    \"descripcio\": \"El Bar Restaurante La Posada abrio sus puertas el dia 10 de julio del 2009, estamos en Posada de Rengos (al lado de la iglesia)y dista a 16 km de Cangas del Narcea. El local consta de un comercio rural donde encontraras todo lo necesario para tus compras diarias.Test\",\n    \"paginaWeb\": \"paginawebTest\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/consumidors/auth/signup",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"consumidors",
+														"auth",
+														"signup"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "SignupConsumidor400NomUsuariNull",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"El nombre de usuario no puede ser un valor nulo ni vacío\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"nomUsuari\": null,\n    \"contrasenya\": \"contrasenyaPropietariTest\",\n    \"nomEstabliment\": \"nomEstablimentTest\",\n    \"direccio\": \"direccioTest\",\n    \"exterior\": true,\n    \"numCadires\": 60,\n    \"numTaules\": 10,\n    \"horari\": \"horariTest\",\n    \"descripcio\": \"El Bar Restaurante La Posada abrio sus puertas el dia 10 de julio del 2009, estamos en Posada de Rengos (al lado de la iglesia)y dista a 16 km de Cangas del Narcea. El local consta de un comercio rural donde encontraras todo lo necesario para tus compras diarias.Test\",\n    \"paginaWeb\": \"paginawebTest\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/consumidors/auth/signup",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"consumidors",
+														"auth",
+														"signup"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "SignupConsumidor400ContrasenyaMinim",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"La contraseña debe tener un mínimo de 8 caracteres\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"nomUsuari\": \"propietariTest\",\n    \"contrasenya\": \"c\",\n    \"nomEstabliment\": \"nomEstablimentTest\",\n    \"direccio\": \"direccioTest\",\n    \"exterior\": true,\n    \"numCadires\": 60,\n    \"numTaules\": 10,\n    \"horari\": \"horariTest\",\n    \"descripcio\": \"El Bar Restaurante La Posada abrio sus puertas el dia 10 de julio del 2009, estamos en Posada de Rengos (al lado de la iglesia)y dista a 16 km de Cangas del Narcea. El local consta de un comercio rural donde encontraras todo lo necesario para tus compras diarias.Test\",\n    \"paginaWeb\": \"paginawebTest\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/consumidors/auth/signup",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"consumidors",
+														"auth",
+														"signup"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "SignupConsumidor400ContrasenyaNull",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"La contraseña no puede ser un valor nulo\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"nomUsuari\": \"propietariTest\",\n    \"contrasenya\": null,\n    \"nomEstabliment\": \"nomEstablimentTest\",\n    \"direccio\": \"direccioTest\",\n    \"exterior\": true,\n    \"numCadires\": 60,\n    \"numTaules\": 10,\n    \"horari\": \"horariTest\",\n    \"descripcio\": \"El Bar Restaurante La Posada abrio sus puertas el dia 10 de julio del 2009, estamos en Posada de Rengos (al lado de la iglesia)y dista a 16 km de Cangas del Narcea. El local consta de un comercio rural donde encontraras todo lo necesario para tus compras diarias.Test\",\n    \"paginaWeb\": \"paginawebTest\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/consumidors/auth/signup",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"consumidors",
+														"auth",
+														"signup"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "SignupConsumidor400ContrasenyaVacía",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"La contraseña no puede ser un valor vacío\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"nomUsuari\": \"propietariTest\",\n    \"contrasenya\": \"\",\n    \"nomEstabliment\": \"nomEstablimentTest\",\n    \"direccio\": \"direccioTest\",\n    \"exterior\": true,\n    \"numCadires\": 60,\n    \"numTaules\": 10,\n    \"horari\": \"horariTest\",\n    \"descripcio\": \"El Bar Restaurante La Posada abrio sus puertas el dia 10 de julio del 2009, estamos en Posada de Rengos (al lado de la iglesia)y dista a 16 km de Cangas del Narcea. El local consta de un comercio rural donde encontraras todo lo necesario para tus compras diarias.Test\",\n    \"paginaWeb\": \"paginawebTest\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/consumidors/auth/signup",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"consumidors",
+														"auth",
+														"signup"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "SignupConsumidor400NomEstablimentBuit",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"El nombre del establecimiento no puede ser un valor nulo ni vacío\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"nomUsuari\": \"propietariTest\",\n    \"contrasenya\": \"contrasenyaPropietariTest\",\n    \"nomEstabliment\": \"\",\n    \"direccio\": \"direccioTest\",\n    \"exterior\": true,\n    \"numCadires\": 60,\n    \"numTaules\": 10,\n    \"horari\": \"horariTest\",\n    \"descripcio\": \"El Bar Restaurante La Posada abrio sus puertas el dia 10 de julio del 2009, estamos en Posada de Rengos (al lado de la iglesia)y dista a 16 km de Cangas del Narcea. El local consta de un comercio rural donde encontraras todo lo necesario para tus compras diarias.Test\",\n    \"paginaWeb\": \"paginawebTest\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/propietaris/auth/signup",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"propietaris",
+														"auth",
+														"signup"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "SignupConsumidor400DireccioBuit",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"La dirección del establecimiento no puede ser un valor nulo ni vacío\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"nomUsuari\": \"propietariTest\",\n    \"contrasenya\": \"contrasenyaPropietariTest\",\n    \"nomEstabliment\": \"nomEstablimentTest\",\n    \"direccio\": \"\",\n    \"exterior\": true,\n    \"numCadires\": 60,\n    \"numTaules\": 10,\n    \"horari\": \"horariTest\",\n    \"descripcio\": \"El Bar Restaurante La Posada abrio sus puertas el dia 10 de julio del 2009, estamos en Posada de Rengos (al lado de la iglesia)y dista a 16 km de Cangas del Narcea. El local consta de un comercio rural donde encontraras todo lo necesario para tus compras diarias.Test\",\n    \"paginaWeb\": \"paginawebTest\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/propietaris/auth/signup",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"propietaris",
+														"auth",
+														"signup"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "SignupConsumidor400NumCadiresNegatiu",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"El numero de sillas no puede ser un valor negativo\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"nomUsuari\": \"propietariTest\",\n    \"contrasenya\": \"contrasenyaPropietariTest\",\n    \"nomEstabliment\": \"nomEstablimentTest\",\n    \"direccio\": \"direccioTest\",\n    \"exterior\": true,\n    \"numCadires\": -1,\n    \"numTaules\": 10,\n    \"horari\": \"horariTest\",\n    \"descripcio\": \"El Bar Restaurante La Posada abrio sus puertas el dia 10 de julio del 2009, estamos en Posada de Rengos (al lado de la iglesia)y dista a 16 km de Cangas del Narcea. El local consta de un comercio rural donde encontraras todo lo necesario para tus compras diarias.Test\",\n    \"paginaWeb\": \"paginawebTest\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/propietaris/auth/signup",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"propietaris",
+														"auth",
+														"signup"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "SignupConsumidor400NumTaulesNegatiu",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"El numero de mesas no puede ser un valor negativo\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"nomUsuari\": \"propietariTest\",\n    \"contrasenya\": \"contrasenyaPropietariTest\",\n    \"nomEstabliment\": \"nomEstablimentTest\",\n    \"direccio\": \"direccioTest\",\n    \"exterior\": true,\n    \"numCadires\": 60,\n    \"numTaules\": -1,\n    \"horari\": \"horariTest\",\n    \"descripcio\": \"El Bar Restaurante La Posada abrio sus puertas el dia 10 de julio del 2009, estamos en Posada de Rengos (al lado de la iglesia)y dista a 16 km de Cangas del Narcea. El local consta de un comercio rural donde encontraras todo lo necesario para tus compras diarias.Test\",\n    \"paginaWeb\": \"paginawebTest\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/propietaris/auth/signup",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"propietaris",
+														"auth",
+														"signup"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "SignupConsumidor400HorariBuit",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"El horario del establecimiento no puede ser un valor nulo ni vacío\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"nomUsuari\": \"propietariTest\",\n    \"contrasenya\": \"contrasenyaPropietariTest\",\n    \"nomEstabliment\": \"nomEstablimentTest\",\n    \"direccio\": \"direccioTest\",\n    \"exterior\": true,\n    \"numCadires\": 60,\n    \"numTaules\": 15,\n    \"horari\": \"\",\n    \"descripcio\": \"El Bar Restaurante La Posada abrio sus puertas el dia 10 de julio del 2009, estamos en Posada de Rengos (al lado de la iglesia)y dista a 16 km de Cangas del Narcea. El local consta de un comercio rural donde encontraras todo lo necesario para tus compras diarias.Test\",\n    \"paginaWeb\": \"paginawebTest\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/propietaris/auth/signup",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"propietaris",
+														"auth",
+														"signup"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "SignupConsumidor400DescripcioMinim",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"La descripción del establecimiento ha de tener un mínimo de 200 caracteres\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"nomUsuari\": \"propietariTest\",\n    \"contrasenya\": \"contrasenyaPropietariTest\",\n    \"nomEstabliment\": \"nomEstablimentTest\",\n    \"direccio\": \"direccioTest\",\n    \"exterior\": true,\n    \"numCadires\": 60,\n    \"numTaules\": 15,\n    \"horari\": \"horariTest\",\n    \"descripcio\": \"Test\",\n    \"paginaWeb\": \"paginawebTest\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/propietaris/auth/signup",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"propietaris",
+														"auth",
+														"signup"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "SignupConsumidor400DescripcioNull",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"La descripción del establecimiento no puede ser un valor nulo ni vacío\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"nomUsuari\": \"propietariTest\",\n    \"contrasenya\": \"contrasenyaPropietariTest\",\n    \"nomEstabliment\": \"nomEstablimentTest\",\n    \"direccio\": \"direccioTest\",\n    \"exterior\": true,\n    \"numCadires\": 60,\n    \"numTaules\": 15,\n    \"horari\": \"horariTest\",\n    \"descripcio\": null,\n    \"paginaWeb\": \"paginawebTest\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/propietaris/auth/signup",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"propietaris",
+														"auth",
+														"signup"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "SignupConsumidor400PaginawebBuit",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"La pagina web no puede ser un valor vacío\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"nomUsuari\": \"propietariTest\",\n    \"contrasenya\": \"contrasenyaPropietariTest\",\n    \"nomEstabliment\": \"nomEstablimentTest\",\n    \"direccio\": \"direccioTest\",\n    \"exterior\": true,\n    \"numCadires\": 60,\n    \"numTaules\": 15,\n    \"horari\": \"horariTest\",\n    \"descripcio\": \"El Bar Restaurante La Posada abrio sus puertas el dia 10 de julio del 2009, estamos en Posada de Rengos (al lado de la iglesia)y dista a 16 km de Cangas del Narcea. El local consta de un comercio rural donde encontraras todo lo necesario para tus compras diarias.Test\",\n    \"paginaWeb\": \"\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/propietaris/auth/signup",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"propietaris",
+														"auth",
+														"signup"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "SignupPropietari201",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 201\", function () {",
+													"    pm.response.to.have.status(201);",
+													"});",
+													"",
+													"pm.test(\"MissatgeErrorTest\", function () {",
+													"    missatge = pm.response.json().missatge;",
+													"    pm.expect(missatge).to.equal(\"El propietario se ha creado correctamente\");",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"nomUsuari\": \"propietariTest\",\n    \"contrasenya\": \"contrasenyaPropietariTest\",\n    \"nomEstabliment\": \"nomEstablimentTest\",\n    \"direccio\": \"direccioTest\",\n    \"exterior\": true,\n    \"numCadires\": 60,\n    \"numTaules\": 10,\n    \"horari\": \"horariTest\",\n    \"descripcio\": \"El Bar Restaurante La Posada abrio sus puertas el dia 10 de julio del 2009, estamos en Posada de Rengos (al lado de la iglesia)y dista a 16 km de Cangas del Narcea. El local consta de un comercio rural donde encontraras todo lo necesario para tus compras diarias. Test\",\n    \"paginaWeb\": \"paginawebTest\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/propietaris/auth/signup",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"propietaris",
+												"auth",
+												"signup"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "SignupPropietari409",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 409\", function () {",
+													"    pm.response.to.have.status(409);",
+													"});",
+													"",
+													"pm.test(\"MissatgeErrorTest\", function () {",
+													"    missatge = pm.response.json().missatge;",
+													"    pm.expect(missatge).to.equal(\"El nombre de usuario ya existe\");",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"nomUsuari\": \"propietari\",\n    \"contrasenya\": \"contrasenyaPropietariTest\",\n    \"nomEstabliment\": \"nomEstablimentTest\",\n    \"direccio\": \"direccioTest\",\n    \"exterior\": true,\n    \"numCadires\": 60,\n    \"numTaules\": 10,\n    \"horari\": \"horariTest\",\n    \"descripcio\": \"El Bar Restaurante La Posada abrio sus puertas el dia 10 de julio del 2009, estamos en Posada de Rengos (al lado de la iglesia)y dista a 16 km de Cangas del Narcea. El local consta de un comercio rural donde encontraras todo lo necesario para tus compras diarias.Test\",\n    \"paginaWeb\": \"paginawebTest\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/propietaris/auth/signup",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"propietaris",
+												"auth",
+												"signup"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "ModificarPropietari",
+							"item": [
+								{
+									"name": "ModificarPropietari400",
+									"item": [
+										{
+											"name": "ModificarPropietari400NomUsuariBuit",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"El nombre de usuario no puede ser un valor nulo ni vacío\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9waWV0YXJpVGVzdCIsInJvbHMiOlsiUk9MX1BST1BJRVRBUkkiXSwiaWQiOjExLCJpYXQiOjE2MTY2MDE0ODgsImV4cCI6MTYxNjY4Nzg4OH0.8lcXWu8atWp6yzS3o3qaPRmhAZh9c0q_Ple6jyx0MDpq_AshgFUmroHQ3NPbFYpjPXXGq-2RoECLWgN2omUUJQ",
+															"type": "string"
+														}
+													]
+												},
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"id\": 11,\n    \"nomUsuari\": \"\",\n    \"contrasenya\": \"contrasenyaPropietariTest\",\n    \"nomEstabliment\": \"nomEstablimentTest\",\n    \"direccio\": \"direccioTest\",\n    \"exterior\": true,\n    \"numCadires\": 60,\n    \"numTaules\": 10,\n    \"horari\": \"horariTest\",\n    \"descripcio\": \"El Bar Restaurante La Posada abrio sus puertas el dia 10 de julio del 2009, estamos en Posada de Rengos (al lado de la iglesia)y dista a 16 km de Cangas del Narcea. El local consta de un comercio rural donde encontraras todo lo necesario para tus compras diarias.Test\",\n    \"paginaWeb\": \"paginawebTest\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/propietaris",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"propietaris"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "ModificarPropietari400NomUsuariNull",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"El nombre de usuario no puede ser un valor nulo ni vacío\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9waWV0YXJpVGVzdCIsInJvbHMiOlsiUk9MX1BST1BJRVRBUkkiXSwiaWQiOjExLCJpYXQiOjE2MTY2MDE0ODgsImV4cCI6MTYxNjY4Nzg4OH0.8lcXWu8atWp6yzS3o3qaPRmhAZh9c0q_Ple6jyx0MDpq_AshgFUmroHQ3NPbFYpjPXXGq-2RoECLWgN2omUUJQ",
+															"type": "string"
+														}
+													]
+												},
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"id\": 11,\n    \"nomUsuari\": null,\n    \"contrasenya\": \"contrasenyaPropietariTest\",\n    \"nomEstabliment\": \"nomEstablimentTest\",\n    \"direccio\": \"direccioTest\",\n    \"exterior\": true,\n    \"numCadires\": 60,\n    \"numTaules\": 10,\n    \"horari\": \"horariTest\",\n    \"descripcio\": \"El Bar Restaurante La Posada abrio sus puertas el dia 10 de julio del 2009, estamos en Posada de Rengos (al lado de la iglesia)y dista a 16 km de Cangas del Narcea. El local consta de un comercio rural donde encontraras todo lo necesario para tus compras diarias.Test\",\n    \"paginaWeb\": \"paginawebTest\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/propietaris",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"propietaris"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "ModificarPropietari400ContrasenyaMinim",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"La contraseña debe tener un mínimo de 8 caracteres\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9waWV0YXJpVGVzdCIsInJvbHMiOlsiUk9MX1BST1BJRVRBUkkiXSwiaWQiOjExLCJpYXQiOjE2MTY2MDE0ODgsImV4cCI6MTYxNjY4Nzg4OH0.8lcXWu8atWp6yzS3o3qaPRmhAZh9c0q_Ple6jyx0MDpq_AshgFUmroHQ3NPbFYpjPXXGq-2RoECLWgN2omUUJQ",
+															"type": "string"
+														}
+													]
+												},
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"id\": 11,\n    \"nomUsuari\": \"propietariTest\",\n    \"contrasenya\": \"c\",\n    \"nomEstabliment\": \"nomEstablimentTest\",\n    \"direccio\": \"direccioTest\",\n    \"exterior\": true,\n    \"numCadires\": 60,\n    \"numTaules\": 10,\n    \"horari\": \"horariTest\",\n    \"descripcio\": \"El Bar Restaurante La Posada abrio sus puertas el dia 10 de julio del 2009, estamos en Posada de Rengos (al lado de la iglesia)y dista a 16 km de Cangas del Narcea. El local consta de un comercio rural donde encontraras todo lo necesario para tus compras diarias.Test\",\n    \"paginaWeb\": \"paginawebTest\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/propietaris",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"propietaris"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "ModificarPropietari400ContrasenyaNull",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"La contraseña no puede ser un valor nulo\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9waWV0YXJpVGVzdCIsInJvbHMiOlsiUk9MX1BST1BJRVRBUkkiXSwiaWQiOjExLCJpYXQiOjE2MTY2MDE0ODgsImV4cCI6MTYxNjY4Nzg4OH0.8lcXWu8atWp6yzS3o3qaPRmhAZh9c0q_Ple6jyx0MDpq_AshgFUmroHQ3NPbFYpjPXXGq-2RoECLWgN2omUUJQ",
+															"type": "string"
+														}
+													]
+												},
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"id\": 11,\n    \"nomUsuari\": \"propietariTest\",\n    \"contrasenya\": null,\n    \"nomEstabliment\": \"nomEstablimentTest\",\n    \"direccio\": \"direccioTest\",\n    \"exterior\": true,\n    \"numCadires\": 60,\n    \"numTaules\": 10,\n    \"horari\": \"horariTest\",\n    \"descripcio\": \"El Bar Restaurante La Posada abrio sus puertas el dia 10 de julio del 2009, estamos en Posada de Rengos (al lado de la iglesia)y dista a 16 km de Cangas del Narcea. El local consta de un comercio rural donde encontraras todo lo necesario para tus compras diarias.Test\",\n    \"paginaWeb\": \"paginawebTest\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/propietaris",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"propietaris"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "ModificarPropietari400ContrasenyaBuit",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"La contraseña no puede ser un valor vacío\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9waWV0YXJpVGVzdCIsInJvbHMiOlsiUk9MX1BST1BJRVRBUkkiXSwiaWQiOjExLCJpYXQiOjE2MTY2MDE0ODgsImV4cCI6MTYxNjY4Nzg4OH0.8lcXWu8atWp6yzS3o3qaPRmhAZh9c0q_Ple6jyx0MDpq_AshgFUmroHQ3NPbFYpjPXXGq-2RoECLWgN2omUUJQ",
+															"type": "string"
+														}
+													]
+												},
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"id\": 11,\n    \"nomUsuari\": \"propietariTest\",\n    \"contrasenya\": \"\",\n    \"nomEstabliment\": \"nomEstablimentTest\",\n    \"direccio\": \"direccioTest\",\n    \"exterior\": true,\n    \"numCadires\": 60,\n    \"numTaules\": 10,\n    \"horari\": \"horariTest\",\n    \"descripcio\": \"El Bar Restaurante La Posada abrio sus puertas el dia 10 de julio del 2009, estamos en Posada de Rengos (al lado de la iglesia)y dista a 16 km de Cangas del Narcea. El local consta de un comercio rural donde encontraras todo lo necesario para tus compras diarias.Test\",\n    \"paginaWeb\": \"paginawebTest\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/propietaris",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"propietaris"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "ModificarPropietari400NomEstablimentBuit",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"El nombre del establecimiento no puede ser un valor nulo ni vacío\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9waWV0YXJpVGVzdCIsInJvbHMiOlsiUk9MX1BST1BJRVRBUkkiXSwiaWQiOjExLCJpYXQiOjE2MTY2MDE0ODgsImV4cCI6MTYxNjY4Nzg4OH0.8lcXWu8atWp6yzS3o3qaPRmhAZh9c0q_Ple6jyx0MDpq_AshgFUmroHQ3NPbFYpjPXXGq-2RoECLWgN2omUUJQ",
+															"type": "string"
+														}
+													]
+												},
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"id\": 11,\n    \"nomUsuari\": \"propietariTest\",\n    \"contrasenya\": \"contrasenyaPropietariTest\",\n    \"nomEstabliment\": \"\",\n    \"direccio\": \"direccioTest\",\n    \"exterior\": true,\n    \"numCadires\": 60,\n    \"numTaules\": 10,\n    \"horari\": \"horariTest\",\n    \"descripcio\": \"El Bar Restaurante La Posada abrio sus puertas el dia 10 de julio del 2009, estamos en Posada de Rengos (al lado de la iglesia)y dista a 16 km de Cangas del Narcea. El local consta de un comercio rural donde encontraras todo lo necesario para tus compras diarias.Test\",\n    \"paginaWeb\": \"paginawebTest\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/propietaris",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"propietaris"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "ModificarPropietari400DireccioBuit",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"La dirección del establecimiento no puede ser un valor nulo ni vacío\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9waWV0YXJpVGVzdCIsInJvbHMiOlsiUk9MX1BST1BJRVRBUkkiXSwiaWQiOjExLCJpYXQiOjE2MTY2MDE0ODgsImV4cCI6MTYxNjY4Nzg4OH0.8lcXWu8atWp6yzS3o3qaPRmhAZh9c0q_Ple6jyx0MDpq_AshgFUmroHQ3NPbFYpjPXXGq-2RoECLWgN2omUUJQ",
+															"type": "string"
+														}
+													]
+												},
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"id\": 11,\n    \"nomUsuari\": \"propietariTest\",\n    \"contrasenya\": \"contrasenyaPropietariTest\",\n    \"nomEstabliment\": \"nomEstablimentTest\",\n    \"direccio\": \"\",\n    \"exterior\": true,\n    \"numCadires\": 60,\n    \"numTaules\": 10,\n    \"horari\": \"horariTest\",\n    \"descripcio\": \"El Bar Restaurante La Posada abrio sus puertas el dia 10 de julio del 2009, estamos en Posada de Rengos (al lado de la iglesia)y dista a 16 km de Cangas del Narcea. El local consta de un comercio rural donde encontraras todo lo necesario para tus compras diarias.Test\",\n    \"paginaWeb\": \"paginawebTest\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/propietaris",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"propietaris"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "ModificarPropietari400NumCadiresNegatiu",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"El numero de sillas no puede ser un valor negativo\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9waWV0YXJpVGVzdCIsInJvbHMiOlsiUk9MX1BST1BJRVRBUkkiXSwiaWQiOjExLCJpYXQiOjE2MTY2MDE0ODgsImV4cCI6MTYxNjY4Nzg4OH0.8lcXWu8atWp6yzS3o3qaPRmhAZh9c0q_Ple6jyx0MDpq_AshgFUmroHQ3NPbFYpjPXXGq-2RoECLWgN2omUUJQ",
+															"type": "string"
+														}
+													]
+												},
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"id\": 11,\n    \"nomUsuari\": \"propietariTest\",\n    \"contrasenya\": \"contrasenyaPropietariTest\",\n    \"nomEstabliment\": \"nomEstablimentTest\",\n    \"direccio\": \"direccioTest\",\n    \"exterior\": true,\n    \"numCadires\": -1,\n    \"numTaules\": 10,\n    \"horari\": \"horariTest\",\n    \"descripcio\": \"El Bar Restaurante La Posada abrio sus puertas el dia 10 de julio del 2009, estamos en Posada de Rengos (al lado de la iglesia)y dista a 16 km de Cangas del Narcea. El local consta de un comercio rural donde encontraras todo lo necesario para tus compras diarias.Test\",\n    \"paginaWeb\": \"paginawebTest\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/propietaris",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"propietaris"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "ModificarPropietari400NumTaulesNegatiu",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"El numero de mesas no puede ser un valor negativo\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9waWV0YXJpVGVzdCIsInJvbHMiOlsiUk9MX1BST1BJRVRBUkkiXSwiaWQiOjExLCJpYXQiOjE2MTY2MDE0ODgsImV4cCI6MTYxNjY4Nzg4OH0.8lcXWu8atWp6yzS3o3qaPRmhAZh9c0q_Ple6jyx0MDpq_AshgFUmroHQ3NPbFYpjPXXGq-2RoECLWgN2omUUJQ",
+															"type": "string"
+														}
+													]
+												},
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"id\": 11,\n    \"nomUsuari\": \"propietariTest\",\n    \"contrasenya\": \"contrasenyaPropietariTest\",\n    \"nomEstabliment\": \"nomEstablimentTest\",\n    \"direccio\": \"direccioTest\",\n    \"exterior\": true,\n    \"numCadires\": 60,\n    \"numTaules\": -1,\n    \"horari\": \"horariTest\",\n    \"descripcio\": \"El Bar Restaurante La Posada abrio sus puertas el dia 10 de julio del 2009, estamos en Posada de Rengos (al lado de la iglesia)y dista a 16 km de Cangas del Narcea. El local consta de un comercio rural donde encontraras todo lo necesario para tus compras diarias.Test\",\n    \"paginaWeb\": \"paginawebTest\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/propietaris",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"propietaris"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "ModificarPropietari400HorariBuit",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"El horario del establecimiento no puede ser un valor nulo ni vacío\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9waWV0YXJpVGVzdCIsInJvbHMiOlsiUk9MX1BST1BJRVRBUkkiXSwiaWQiOjExLCJpYXQiOjE2MTY2MDE0ODgsImV4cCI6MTYxNjY4Nzg4OH0.8lcXWu8atWp6yzS3o3qaPRmhAZh9c0q_Ple6jyx0MDpq_AshgFUmroHQ3NPbFYpjPXXGq-2RoECLWgN2omUUJQ",
+															"type": "string"
+														}
+													]
+												},
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"id\": 11,\n    \"nomUsuari\": \"propietariTest\",\n    \"contrasenya\": \"contrasenyaPropietariTest\",\n    \"nomEstabliment\": \"nomEstablimentTest\",\n    \"direccio\": \"direccioTest\",\n    \"exterior\": true,\n    \"numCadires\": 60,\n    \"numTaules\": 15,\n    \"horari\": \"\",\n    \"descripcio\": \"El Bar Restaurante La Posada abrio sus puertas el dia 10 de julio del 2009, estamos en Posada de Rengos (al lado de la iglesia)y dista a 16 km de Cangas del Narcea. El local consta de un comercio rural donde encontraras todo lo necesario para tus compras diarias.Test\",\n    \"paginaWeb\": \"paginawebTest\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/propietaris",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"propietaris"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "ModificarPropietari400DescripcioMinim",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"La descripción del establecimiento ha de tener un mínimo de 200 caracteres\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9waWV0YXJpVGVzdCIsInJvbHMiOlsiUk9MX1BST1BJRVRBUkkiXSwiaWQiOjExLCJpYXQiOjE2MTY2MDE0ODgsImV4cCI6MTYxNjY4Nzg4OH0.8lcXWu8atWp6yzS3o3qaPRmhAZh9c0q_Ple6jyx0MDpq_AshgFUmroHQ3NPbFYpjPXXGq-2RoECLWgN2omUUJQ",
+															"type": "string"
+														}
+													]
+												},
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"id\": 11,\n    \"nomUsuari\": \"propietariTest\",\n    \"contrasenya\": \"contrasenyaPropietariTest\",\n    \"nomEstabliment\": \"nomEstablimentTest\",\n    \"direccio\": \"direccioTest\",\n    \"exterior\": true,\n    \"numCadires\": 60,\n    \"numTaules\": 15,\n    \"horari\": \"horariTest\",\n    \"descripcio\": \"Test\",\n    \"paginaWeb\": \"paginawebTest\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/propietaris",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"propietaris"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "ModificarPropietari400DescripcioNull",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"La descripción del establecimiento no puede ser un valor nulo ni vacío\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9waWV0YXJpVGVzdCIsInJvbHMiOlsiUk9MX1BST1BJRVRBUkkiXSwiaWQiOjExLCJpYXQiOjE2MTY2MDE0ODgsImV4cCI6MTYxNjY4Nzg4OH0.8lcXWu8atWp6yzS3o3qaPRmhAZh9c0q_Ple6jyx0MDpq_AshgFUmroHQ3NPbFYpjPXXGq-2RoECLWgN2omUUJQ",
+															"type": "string"
+														}
+													]
+												},
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"id\": 11,\n    \"nomUsuari\": \"propietariTest\",\n    \"contrasenya\": \"contrasenyaPropietariTest\",\n    \"nomEstabliment\": \"nomEstablimentTest\",\n    \"direccio\": \"direccioTest\",\n    \"exterior\": true,\n    \"numCadires\": 60,\n    \"numTaules\": 15,\n    \"horari\": \"horariTest\",\n    \"descripcio\": null,\n    \"paginaWeb\": \"paginawebTest\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/propietaris",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"propietaris"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "ModificarPropietari400PaginawebBuit",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"La pagina web no puede ser un valor vacío\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9waWV0YXJpVGVzdCIsInJvbHMiOlsiUk9MX1BST1BJRVRBUkkiXSwiaWQiOjExLCJpYXQiOjE2MTY2MDE0ODgsImV4cCI6MTYxNjY4Nzg4OH0.8lcXWu8atWp6yzS3o3qaPRmhAZh9c0q_Ple6jyx0MDpq_AshgFUmroHQ3NPbFYpjPXXGq-2RoECLWgN2omUUJQ",
+															"type": "string"
+														}
+													]
+												},
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"id\": 11,\n    \"nomUsuari\": \"propietariTest\",\n    \"contrasenya\": \"contrasenyaPropietariTest\",\n    \"nomEstabliment\": \"nomEstablimentTest\",\n    \"direccio\": \"direccioTest\",\n    \"exterior\": true,\n    \"numCadires\": 60,\n    \"numTaules\": 15,\n    \"horari\": \"horariTest\",\n    \"descripcio\": \"El Bar Restaurante La Posada abrio sus puertas el dia 10 de julio del 2009, estamos en Posada de Rengos (al lado de la iglesia)y dista a 16 km de Cangas del Narcea. El local consta de un comercio rural donde encontraras todo lo necesario para tus compras diarias.Test\",\n    \"paginaWeb\": \"\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/propietaris",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"propietaris"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "ModificarPropietari401",
+									"item": [
+										{
+											"name": "ModificarPropietari401SenseToken",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 401\", function () {",
+															"    pm.response.to.have.status(401);",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "",
+															"type": "string"
+														}
+													]
+												},
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"id\": 11,\n    \"nomUsuari\": \"propietariTest\",\n    \"contrasenya\": \"contrasenyaPropietariTest\",\n    \"nomEstabliment\": \"nomEstablimentTest\",\n    \"direccio\": \"direccioTest\",\n    \"exterior\": true,\n    \"numCadires\": 60,\n    \"numTaules\": 10,\n    \"horari\": \"horariTest\",\n    \"descripcio\": \"El Bar Restaurante La Posada abrio sus puertas el dia 10 de julio del 2009, estamos en Posada de Rengos (al lado de la iglesia)y dista a 16 km de Cangas del Narcea. El local consta de un comercio rural donde encontraras todo lo necesario para tus compras diarias. Test\",\n    \"paginaWeb\": \"paginawebTest\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/propietaris",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"propietaris"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "ModificarPropietari401IdErroni",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 401\", function () {",
+															"    pm.response.to.have.status(401);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"No tienes acceso al usuario con ese id\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9waWV0YXJpVGVzdCIsInJvbHMiOlsiUk9MX1BST1BJRVRBUkkiXSwiaWQiOjExLCJpYXQiOjE2MTY2MDE0ODgsImV4cCI6MTYxNjY4Nzg4OH0.8lcXWu8atWp6yzS3o3qaPRmhAZh9c0q_Ple6jyx0MDpq_AshgFUmroHQ3NPbFYpjPXXGq-2RoECLWgN2omUUJQ",
+															"type": "string"
+														}
+													]
+												},
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"id\": 2,\n    \"nomUsuari\": \"propietariTest\",\n    \"contrasenya\": \"contrasenyaPropietariTest\",\n    \"nomEstabliment\": \"nomEstablimentTest\",\n    \"direccio\": \"direccioTest\",\n    \"exterior\": true,\n    \"numCadires\": 60,\n    \"numTaules\": 10,\n    \"horari\": \"horariTest\",\n    \"descripcio\": \"El Bar Restaurante La Posada abrio sus puertas el dia 10 de julio del 2009, estamos en Posada de Rengos (al lado de la iglesia)y dista a 16 km de Cangas del Narcea. El local consta de un comercio rural donde encontraras todo lo necesario para tus compras diarias. Test\",\n    \"paginaWeb\": \"paginawebTest\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/propietaris",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"propietaris"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "ModificarPropietari201",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"MissatgeErrorTest\", function () {",
+													"    missatge = pm.response.json().missatge;",
+													"    pm.expect(missatge).to.equal(\"Se ha actualizado el consumidor\");",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9waWV0YXJpVGVzdCIsInJvbHMiOlsiUk9MX1BST1BJRVRBUkkiXSwiaWQiOjExLCJpYXQiOjE2MTY2MDE0ODgsImV4cCI6MTYxNjY4Nzg4OH0.8lcXWu8atWp6yzS3o3qaPRmhAZh9c0q_Ple6jyx0MDpq_AshgFUmroHQ3NPbFYpjPXXGq-2RoECLWgN2omUUJQ",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"id\": 11,\n    \"nomUsuari\": \"propietariTest\",\n    \"contrasenya\": \"contrasenyaPropietariTest\",\n    \"nomEstabliment\": \"nomEstablimentTest\",\n    \"direccio\": \"direccioTest\",\n    \"exterior\": true,\n    \"numCadires\": 60,\n    \"numTaules\": 10,\n    \"horari\": \"horariTest\",\n    \"descripcio\": \"El Bar Restaurante La Posada abrio sus puertas el dia 10 de julio del 2009, estamos en Posada de Rengos (al lado de la iglesia)y dista a 16 km de Cangas del Narcea. El local consta de un comercio rural donde encontraras todo lo necesario para tus compras diarias. Test\",\n    \"paginaWeb\": \"paginawebTest\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/propietaris",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"propietaris"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "ModificarPropietari409",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 409\", function () {",
+													"    pm.response.to.have.status(409);",
+													"});",
+													"",
+													"pm.test(\"MissatgeErrorTest\", function () {",
+													"    missatge = pm.response.json().missatge;",
+													"    pm.expect(missatge).to.equal(\"El nombre de usuario ya existe\");",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9waWV0YXJpVGVzdCIsInJvbHMiOlsiUk9MX1BST1BJRVRBUkkiXSwiaWQiOjExLCJpYXQiOjE2MTY2MDE0ODgsImV4cCI6MTYxNjY4Nzg4OH0.8lcXWu8atWp6yzS3o3qaPRmhAZh9c0q_Ple6jyx0MDpq_AshgFUmroHQ3NPbFYpjPXXGq-2RoECLWgN2omUUJQ",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"id\": 11,\n    \"nomUsuari\": \"propietari\",\n    \"contrasenya\": \"contrasenyaPropietariTest\",\n    \"nomEstabliment\": \"nomEstablimentTest\",\n    \"direccio\": \"direccioTest\",\n    \"exterior\": true,\n    \"numCadires\": 60,\n    \"numTaules\": 10,\n    \"horari\": \"horariTest\",\n    \"descripcio\": \"El Bar Restaurante La Posada abrio sus puertas el dia 10 de julio del 2009, estamos en Posada de Rengos (al lado de la iglesia)y dista a 16 km de Cangas del Narcea. El local consta de un comercio rural donde encontraras todo lo necesario para tus compras diarias.Test\",\n    \"paginaWeb\": \"paginawebTest\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/propietaris",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"propietaris"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "PropietariById",
+							"item": [
+								{
+									"name": "PropietariById401",
+									"item": [
+										{
+											"name": "PropietariById401SenseToken",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 401\", function () {",
+															"    pm.response.to.have.status(401);",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "",
+															"type": "string"
+														}
+													]
+												},
+												"method": "DELETE",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/propietaris/11",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"propietaris",
+														"11"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "PropietariById401IdErroni",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 401\", function () {",
+															"    pm.response.to.have.status(401);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"No tienes acceso al usuario con ese id\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9waWV0YXJpVGVzdCIsInJvbHMiOlsiUk9MX1BST1BJRVRBUkkiXSwiaWQiOjExLCJpYXQiOjE2MTY2MDE0ODgsImV4cCI6MTYxNjY4Nzg4OH0.8lcXWu8atWp6yzS3o3qaPRmhAZh9c0q_Ple6jyx0MDpq_AshgFUmroHQ3NPbFYpjPXXGq-2RoECLWgN2omUUJQ",
+															"type": "string"
+														}
+													]
+												},
+												"method": "DELETE",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"id\": 2,\n    \"nomUsuari\": \"propietariTest\",\n    \"contrasenya\": \"contrasenyaPropietariTest\",\n    \"nomEstabliment\": \"nomEstablimentTest\",\n    \"direccio\": \"direccioTest\",\n    \"exterior\": true,\n    \"numCadires\": 60,\n    \"numTaules\": 10,\n    \"horari\": \"horariTest\",\n    \"descripcio\": \"El Bar Restaurante La Posada abrio sus puertas el dia 10 de julio del 2009, estamos en Posada de Rengos (al lado de la iglesia)y dista a 16 km de Cangas del Narcea. El local consta de un comercio rural donde encontraras todo lo necesario para tus compras diarias. Test\",\n    \"paginaWeb\": \"paginawebTest\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/propietaris/2",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"propietaris",
+														"2"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "PropietariById",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", function () {",
+													"    pm.response.to.have.status(204);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9waWV0YXJpVGVzdCIsInJvbHMiOlsiUk9MX1BST1BJRVRBUkkiXSwiaWQiOjExLCJpYXQiOjE2MTY2MDE0ODgsImV4cCI6MTYxNjY4Nzg4OH0.8lcXWu8atWp6yzS3o3qaPRmhAZh9c0q_Ple6jyx0MDpq_AshgFUmroHQ3NPbFYpjPXXGq-2RoECLWgN2omUUJQ",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/propietaris/11",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"propietaris",
+												"11"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "PropietariById",
+							"item": [
+								{
+									"name": "PropietariById401",
+									"item": [
+										{
+											"name": "PropietariById401SenseToken",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 401\", function () {",
+															"    pm.response.to.have.status(401);",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"protocolProfileBehavior": {
+												"disableBodyPruning": true
+											},
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/propietaris/12",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"propietaris",
+														"12"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "PropietariById401IdErroni",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 401\", function () {",
+															"    pm.response.to.have.status(401);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"No tienes acceso al usuario con ese id\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"protocolProfileBehavior": {
+												"disableBodyPruning": true
+											},
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9waWV0YXJpVGVzdCIsInJvbHMiOlsiUk9MX1BST1BJRVRBUkkiXSwiaWQiOjExLCJpYXQiOjE2MTY2MDE0ODgsImV4cCI6MTYxNjY4Nzg4OH0.8lcXWu8atWp6yzS3o3qaPRmhAZh9c0q_Ple6jyx0MDpq_AshgFUmroHQ3NPbFYpjPXXGq-2RoECLWgN2omUUJQ",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"id\": 2,\n    \"nomUsuari\": \"propietariTest\",\n    \"contrasenya\": \"contrasenyaPropietariTest\",\n    \"nomEstabliment\": \"nomEstablimentTest\",\n    \"direccio\": \"direccioTest\",\n    \"exterior\": true,\n    \"numCadires\": 60,\n    \"numTaules\": 10,\n    \"horari\": \"horariTest\",\n    \"descripcio\": \"El Bar Restaurante La Posada abrio sus puertas el dia 10 de julio del 2009, estamos en Posada de Rengos (al lado de la iglesia)y dista a 16 km de Cangas del Narcea. El local consta de un comercio rural donde encontraras todo lo necesario para tus compras diarias. Test\",\n    \"paginaWeb\": \"paginawebTest\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/propietaris/2",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"propietaris",
+														"2"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "PropietariById",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9waWV0YXJpVGVzdCIsInJvbHMiOlsiUk9MX1BST1BJRVRBUkkiXSwiaWQiOjEyLCJpYXQiOjE2MTY2MDM0NzcsImV4cCI6MTYxNjY4OTg3N30.Z51iPcDE7n-sTctc_s0p6rIaAP8-pdVaru9_YAaJGU1W64Yof7G32gDAVakFUPdQAiitpk2re9WZs3YUe0vzKg",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/propietaris/12",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"propietaris",
+												"12"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Login",
+					"item": [
+						{
+							"name": "Login400",
+							"item": [
+								{
+									"name": "Login400NomUsuariBuit",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"MissatgeErrorTest\", function () {",
+													"    missatge = pm.response.json().missatge;",
+													"    pm.expect(missatge).to.equal(\"El nombre de usuario no puede ser un valor nulo ni vacío\");",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"nomUsuari\": \"\",\n    \"contrasenya\": \"contrasenya\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/usuaris/auth/login",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"usuaris",
+												"auth",
+												"login"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Login400NomUsuariNull",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"MissatgeErrorTest\", function () {",
+													"    missatge = pm.response.json().missatge;",
+													"    pm.expect(missatge).to.equal(\"El nombre de usuario no puede ser un valor nulo ni vacío\");",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"nomUsuari\": null,\n    \"contrasenya\": \"contrasenya\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/usuaris/auth/login",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"usuaris",
+												"auth",
+												"login"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Login400ConstrasenyaBuit",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"MissatgeErrorTest\", function () {",
+													"    missatge = pm.response.json().missatge;",
+													"    pm.expect(missatge).to.equal(\"La contraseña no puede ser un valor nulo ni vacío\");",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"nomUsuari\": \"propietariTest\",\n    \"contrasenya\": \"\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/usuaris/auth/login",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"usuaris",
+												"auth",
+												"login"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Login400ConstrasenyaNull",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"MissatgeErrorTest\", function () {",
+													"    missatge = pm.response.json().missatge;",
+													"    pm.expect(missatge).to.equal(\"La contraseña no puede ser un valor nulo ni vacío\");",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"nomUsuari\": \"propietariTest\",\n    \"contrasenya\": \"\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/usuaris/auth/login",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"usuaris",
+												"auth",
+												"login"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Login200",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nomUsuari\": \"propietariTest\",\n    \"contrasenya\": \"contrasenyaPropietariTest\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/usuaris/auth/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"usuaris",
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login401",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 401\", function () {",
+											"    pm.response.to.have.status(401);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nomUsuari\": \"propietariTest\",\n    \"contrasenya\": \"contrasenya\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/usuaris/auth/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"usuaris",
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "UsuariById",
+					"item": [
+						{
+							"name": "UsuariById401",
+							"item": [
+								{
+									"name": "UsuariById401SenseToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 401\", function () {",
+													"    pm.response.to.have.status(401);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/propietaris/12",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"propietaris",
+												"12"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "UsuariById401IdErroni",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 401\", function () {",
+													"    pm.response.to.have.status(401);",
+													"});",
+													"",
+													"pm.test(\"MissatgeErrorTest\", function () {",
+													"    missatge = pm.response.json().missatge;",
+													"    pm.expect(missatge).to.equal(\"No tienes acceso al usuario con ese id\");",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9waWV0YXJpVGVzdCIsInJvbHMiOlsiUk9MX1BST1BJRVRBUkkiXSwiaWQiOjEyLCJpYXQiOjE2MTY2MDUxODAsImV4cCI6MTYxNjY5MTU4MH0.lF3515LFLfHS_TdtDpb7e9QIR-yeHaAXrb9aXDVAyM71Brwz_GAFngr71BZ0b-XvO51c6grcSNNt7j_2T0hULA",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/propietaris/2",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"propietaris",
+												"2"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "UsuariById200",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9waWV0YXJpVGVzdCIsInJvbHMiOlsiUk9MX1BST1BJRVRBUkkiXSwiaWQiOjEyLCJpYXQiOjE2MTY2MDUxODAsImV4cCI6MTYxNjY5MTU4MH0.lF3515LFLfHS_TdtDpb7e9QIR-yeHaAXrb9aXDVAyM71Brwz_GAFngr71BZ0b-XvO51c6grcSNNt7j_2T0hULA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/usuaris/12",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"usuaris",
+										"12"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "ModificarUsuari",
+					"item": [
+						{
+							"name": "ModificarUsuari400",
+							"item": [
+								{
+									"name": "ModificarUsuari400NomUsuariBuit",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"MissatgeErrorTest\", function () {",
+													"    missatge = pm.response.json().missatge;",
+													"    pm.expect(missatge).to.equal(\"El nombre de usuario no puede ser un valor nulo ni vacío\");",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9waWV0YXJpVGVzdCIsInJvbHMiOlsiUk9MX1BST1BJRVRBUkkiXSwiaWQiOjEyLCJpYXQiOjE2MTY2MDUxODAsImV4cCI6MTYxNjY5MTU4MH0.lF3515LFLfHS_TdtDpb7e9QIR-yeHaAXrb9aXDVAyM71Brwz_GAFngr71BZ0b-XvO51c6grcSNNt7j_2T0hULA",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"id\": 12,\n    \"nomUsuari\": \"\",\n    \"contrasenya\": \"contrasenyaPropietariTest\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/usuaris",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"usuaris"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "ModificarUsuari400NomUsuariNull",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"MissatgeErrorTest\", function () {",
+													"    missatge = pm.response.json().missatge;",
+													"    pm.expect(missatge).to.equal(\"El nombre de usuario no puede ser un valor nulo ni vacío\");",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9waWV0YXJpVGVzdCIsInJvbHMiOlsiUk9MX1BST1BJRVRBUkkiXSwiaWQiOjEyLCJpYXQiOjE2MTY2MDUxODAsImV4cCI6MTYxNjY5MTU4MH0.lF3515LFLfHS_TdtDpb7e9QIR-yeHaAXrb9aXDVAyM71Brwz_GAFngr71BZ0b-XvO51c6grcSNNt7j_2T0hULA",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"id\": 12,\n    \"nomUsuari\": null,\n    \"contrasenya\": \"contrasenyaPropietariTest\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/usuaris",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"usuaris"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "ModificarUsuari400ContrasenyaMinim",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"MissatgeErrorTest\", function () {",
+													"    missatge = pm.response.json().missatge;",
+													"    pm.expect(missatge).to.equal(\"La contraseña debe tener un mínimo de 8 caracteres\");",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9waWV0YXJpVGVzdCIsInJvbHMiOlsiUk9MX1BST1BJRVRBUkkiXSwiaWQiOjEyLCJpYXQiOjE2MTY2MDUxODAsImV4cCI6MTYxNjY5MTU4MH0.lF3515LFLfHS_TdtDpb7e9QIR-yeHaAXrb9aXDVAyM71Brwz_GAFngr71BZ0b-XvO51c6grcSNNt7j_2T0hULA",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"id\": 12,\n    \"nomUsuari\": \"propietariTest\",\n    \"contrasenya\": \"c\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/usuaris",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"usuaris"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "ModificarUsuari400ContrasenyaBuit",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"MissatgeErrorTest\", function () {",
+													"    missatge = pm.response.json().missatge;",
+													"    pm.expect(missatge).to.equal(\"La contraseña no puede ser un valor vacío\");",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9waWV0YXJpVGVzdCIsInJvbHMiOlsiUk9MX1BST1BJRVRBUkkiXSwiaWQiOjEyLCJpYXQiOjE2MTY2MDUxODAsImV4cCI6MTYxNjY5MTU4MH0.lF3515LFLfHS_TdtDpb7e9QIR-yeHaAXrb9aXDVAyM71Brwz_GAFngr71BZ0b-XvO51c6grcSNNt7j_2T0hULA",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"id\": 12,\n    \"nomUsuari\": \"propietariTest\",\n    \"contrasenya\": \"\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/usuaris",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"usuaris"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "ModificarUsuari400ContrasenyaNull",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"MissatgeErrorTest\", function () {",
+													"    missatge = pm.response.json().missatge;",
+													"    pm.expect(missatge).to.equal(\"La contraseña no puede ser un valor nulo\");",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9waWV0YXJpVGVzdCIsInJvbHMiOlsiUk9MX1BST1BJRVRBUkkiXSwiaWQiOjEyLCJpYXQiOjE2MTY2MDUxODAsImV4cCI6MTYxNjY5MTU4MH0.lF3515LFLfHS_TdtDpb7e9QIR-yeHaAXrb9aXDVAyM71Brwz_GAFngr71BZ0b-XvO51c6grcSNNt7j_2T0hULA",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"id\": 12,\n    \"nomUsuari\": \"propietariTest\",\n    \"contrasenya\": null\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/usuaris",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"usuaris"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "ModificarUsuari401",
+							"item": [
+								{
+									"name": "ModificarUsuari401IdErroni",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 401\", function () {",
+													"    pm.response.to.have.status(401);",
+													"});",
+													"",
+													"pm.test(\"MissatgeErrorTest\", function () {",
+													"    missatge = pm.response.json().missatge;",
+													"    pm.expect(missatge).to.equal(\"No tienes acceso al usuario con ese id\");",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9waWV0YXJpVGVzdCIsInJvbHMiOlsiUk9MX1BST1BJRVRBUkkiXSwiaWQiOjEyLCJpYXQiOjE2MTY2MDUxODAsImV4cCI6MTYxNjY5MTU4MH0.lF3515LFLfHS_TdtDpb7e9QIR-yeHaAXrb9aXDVAyM71Brwz_GAFngr71BZ0b-XvO51c6grcSNNt7j_2T0hULA",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"id\": 2,\n    \"nomUsuari\": \"propietariTest\",\n    \"contrasenya\": \"contrasenyaPropietariTest\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/usuaris",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"usuaris"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "ModificarUsuari401SenseToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 401\", function () {",
+													"    pm.response.to.have.status(401);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"id\": 12,\n    \"nomUsuari\": \"propietariTest\",\n    \"contrasenya\": \"contrasenyaPropietariTest\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/usuaris",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"usuaris"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "ModificarUsuari200",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9waWV0YXJpVGVzdCIsInJvbHMiOlsiUk9MX1BST1BJRVRBUkkiXSwiaWQiOjEyLCJpYXQiOjE2MTY2MDUxODAsImV4cCI6MTYxNjY5MTU4MH0.lF3515LFLfHS_TdtDpb7e9QIR-yeHaAXrb9aXDVAyM71Brwz_GAFngr71BZ0b-XvO51c6grcSNNt7j_2T0hULA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": 12,\n    \"nomUsuari\": \"propietariTest\",\n    \"contrasenya\": \"contrasenyaPropietariTest\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/usuaris",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"usuaris"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ModificarUsuari409",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 409\", function () {",
+											"    pm.response.to.have.status(409);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9waWV0YXJpVGVzdCIsInJvbHMiOlsiUk9MX1BST1BJRVRBUkkiXSwiaWQiOjEyLCJpYXQiOjE2MTY2MDUxODAsImV4cCI6MTYxNjY5MTU4MH0.lF3515LFLfHS_TdtDpb7e9QIR-yeHaAXrb9aXDVAyM71Brwz_GAFngr71BZ0b-XvO51c6grcSNNt7j_2T0hULA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": 12,\n    \"nomUsuari\": \"propietari\",\n    \"contrasenya\": \"contrasenyaPropietariTest\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/usuaris",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"usuaris"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "ModificarImatgeUsuari",
+					"item": [
+						{
+							"name": "ModificarImatgeUsuari401",
+							"item": [
+								{
+									"name": "ModificarImatgeUsuari401SenseToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 401\", function () {",
+													"    pm.response.to.have.status(401);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "imatge",
+													"type": "file",
+													"src": "/Users/annallanza/Documents/Uni/4t/Q2/TFG/fotoperfil.jpeg"
+												}
+											]
+										},
+										"url": {
+											"raw": "http://localhost:8080/usuaris/12",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"usuaris",
+												"12"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "ModificarImatgeUsuari401IdErroni",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 401\", function () {",
+													"    pm.response.to.have.status(401);",
+													"});",
+													"",
+													"pm.test(\"MissatgeErrorTest\", function () {",
+													"    missatge = pm.response.json().missatge;",
+													"    pm.expect(missatge).to.equal(\"No tienes acceso al usuario con ese id\");",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9waWV0YXJpVGVzdCIsInJvbHMiOlsiUk9MX1BST1BJRVRBUkkiXSwiaWQiOjEyLCJpYXQiOjE2MTY2MDUxODAsImV4cCI6MTYxNjY5MTU4MH0.lF3515LFLfHS_TdtDpb7e9QIR-yeHaAXrb9aXDVAyM71Brwz_GAFngr71BZ0b-XvO51c6grcSNNt7j_2T0hULA",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "imatge",
+													"type": "file",
+													"src": "/Users/annallanza/Documents/Uni/4t/Q2/TFG/fotoperfil.jpeg"
+												}
+											]
+										},
+										"url": {
+											"raw": "http://localhost:8080/usuaris/2",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"usuaris",
+												"2"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "ModificarImatgeUsuari200",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"MissatgeErrorTest\", function () {",
+											"    missatge = pm.response.json().missatge;",
+											"    pm.expect(missatge).to.equal(\"Se ha actualizado la imagen del usuario\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9waWV0YXJpVGVzdCIsInJvbHMiOlsiUk9MX1BST1BJRVRBUkkiXSwiaWQiOjEyLCJpYXQiOjE2MTY2MDUxODAsImV4cCI6MTYxNjY5MTU4MH0.lF3515LFLfHS_TdtDpb7e9QIR-yeHaAXrb9aXDVAyM71Brwz_GAFngr71BZ0b-XvO51c6grcSNNt7j_2T0hULA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "imatge",
+											"type": "file",
+											"src": "/Users/annallanza/Documents/Uni/4t/Q2/TFG/fotoperfil.jpeg"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8080/usuaris/12",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"usuaris",
+										"12"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
