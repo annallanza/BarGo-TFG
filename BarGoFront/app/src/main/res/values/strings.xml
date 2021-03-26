@@ -12,4 +12,10 @@
     <string name="obtener">OBTENER</string>
     <string name="noObtener">No tienes suficiente puntos</string>
     <string name="yaObtenido">Ya obtenido</string>
+    <string name="contraseña">Contraseña</string>
+    <string name="acceder">ACCEDER</string>
+    <string name="a_n_no_tienes_tu_cuenta_reg_strate">¿Aún no tienes tu cuenta? Regístrate</string>
+    <string name="nombre_usuario">Nombre usuario</string>
+    <string name="logobargo">logoBarGO</string>
+    <string name="ver_contraseña">Ver contraseña</string>
 </resources>
