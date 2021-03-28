@@ -2,7 +2,8 @@ package com.example.bargo.Model;
 
 public class VariablesGlobals {
 
-    public static String urlAPI = "http://192.168.1.157:8080/";
+    //public static String urlAPI = "http://192.168.1.157:8080/";
+    public static String urlAPI = "http://192.168.4.88:8080/";
 
     public VariablesGlobals() {
     }

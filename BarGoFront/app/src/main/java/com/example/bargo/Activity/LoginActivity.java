@@ -33,6 +33,8 @@ import com.example.bargo.R;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+
 public class LoginActivity extends AppCompatActivity {
     private Button loginButton;
     private EditText nomUsuari;
@@ -99,11 +101,12 @@ public class LoginActivity extends AppCompatActivity {
     public void openMainActivity(){
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+        finish();
     }
 
     public void loginRequest(final String nomUsuari, final String contrasenya){
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url = VariablesGlobals.getUrlAPI() + "usuaris/auth/login"; //localhost  192.168.1.13
+        String url = VariablesGlobals.getUrlAPI() + "usuaris/auth/login";
 
         JSONObject postData = new JSONObject();
         try {
@@ -134,7 +137,19 @@ public class LoginActivity extends AppCompatActivity {
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    if(error.networkResponse.statusCode == 401)
+                    if(error.networkResponse.statusCode == 400) {
+                        try {
+                            String responseBody = new String(error.networkResponse.data, "utf-8");
+                            JSONObject data = new JSONObject(responseBody);
+                            String missatgeError = data.getString("missatge");
+
+                            Toast.makeText(getApplicationContext(), missatgeError, Toast.LENGTH_LONG).show();
+
+                        } catch (UnsupportedEncodingException | JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    else if(error.networkResponse.statusCode == 401)
                         Toast.makeText(getApplicationContext(), "Nombre de usuario o contraseña incorrectos", Toast.LENGTH_LONG).show();
 
                     loginButton.setEnabled(true);

@@ -18,4 +18,9 @@
     <string name="nombre_usuario">Nombre usuario</string>
     <string name="logobargo">logoBarGO</string>
     <string name="ver_contraseña">Ver contraseña</string>
+    <string name="crear_cuenta">CREAR CUENTA</string>
+    <string name="ya_tienes_tu_cuenta_inicia_sesi_n">¿Ya tienes tu cuenta? Inicia sesión</string>
+    <string name="registro">Registro</string>
+    <string name="consumidor">Consumidor</string>
+    <string name="propietario">Propietario</string>
 </resources>
