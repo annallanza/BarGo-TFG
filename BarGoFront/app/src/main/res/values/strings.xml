@@ -23,4 +23,12 @@
     <string name="registro">Registro</string>
     <string name="consumidor">Consumidor</string>
     <string name="propietario">Propietario</string>
+    <string name="nombre_establecimiento">Nombre establecimiento</string>
+    <string name="direcci_n">Dirección</string>
+    <string name="n_mero_de_sillas">Número de sillas</string>
+    <string name="n_mero_de_mesas">Número de mesas</string>
+    <string name="horario">Horario</string>
+    <string name="descripci_n">Descripción</string>
+    <string name="p_gina_web">Página web</string>
+    <string name="terraza_exterior">Terraza exterior</string>
 </resources>

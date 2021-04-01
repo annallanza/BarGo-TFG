@@ -68,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
         registrate.setMovementMethod(LinkMovementMethod.getInstance());
 
         nomUsuari = findViewById(R.id.editTextUsername);
-        contrasenya = findViewById(R.id.editTextContra);
+        contrasenya = findViewById(R.id.editTextContra2);
         loginButton = findViewById(R.id.buttonAcceder);
         veureContraseña = findViewById(R.id.checkBoxContraseña);
 
