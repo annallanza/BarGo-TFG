@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextPaint;
@@ -35,12 +36,15 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 
+import io.jsonwebtoken.Jwts;
+
 public class LoginActivity extends AppCompatActivity {
     private Button loginButton;
     private EditText nomUsuari;
     private EditText contrasenya;
     private TextView registrate;
     private CheckBox veureContraseña;
+    private String secret = VariablesGlobals.getSecret();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,9 +128,12 @@ public class LoginActivity extends AppCompatActivity {
                     try {
                         String token = response.getString("token");
 
+                        long id = Jwts.parser().setSigningKey(secret.getBytes()).parseClaimsJws(token).getBody().get("id", Long.class);
+
                         User usuari = User.getInstance();
-                        usuari.setName(nomUsuari);
-                        usuari.setPassword(contrasenya);
+                        usuari.setId(id);
+                        usuari.setNom(nomUsuari);
+                        usuari.setContrasenya(contrasenya);
                         usuari.setToken(token);
                     } catch (JSONException e) {
                         e.printStackTrace();

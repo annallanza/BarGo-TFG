@@ -1,12 +1,12 @@
 package com.example.bargo.Model;
 
 public class User {
-    private String name = "Bar Go";
-    private String password = "user";
-    private String token = "token";
-    private String email = "user";
-    private int points = 3500;
 
+    private long id = 0;
+    private String nom = "Nombre usuario";
+    private String contrasenya = "contrasenya";
+    private String token = "token";
+    private int puntuacio = 0;
     private int codesIntroduced[];
 
     private static User instance = null;
@@ -14,20 +14,28 @@ public class User {
     private User(){
     }
 
-    public String getName(){
-        return name;
+    public long getId() {
+        return id;
     }
 
-    public void setName(String name){
-        this.name = name;
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public String getPassword(){
-        return password;
+    public String getNom(){
+        return nom;
     }
 
-    public void setPassword(String password){
-        this.password = password;
+    public void setNom(String nom){
+        this.nom = nom;
+    }
+
+    public String getContrasenya(){
+        return contrasenya;
+    }
+
+    public void setContrasenya(String contrasenya){
+        this.contrasenya = contrasenya;
     }
 
     public String getToken() {
@@ -38,23 +46,15 @@ public class User {
         this.token = token;
     }
 
-    public String getEmail(){
-        return email;
+    public int getPuntuacio(){
+        return puntuacio;
     }
 
-    public void setEmail(String email){
-        this.email = email;
+    public void setPuntuacio(int puntuacio){
+        this.puntuacio = puntuacio;
     }
 
-    public int getPoints(){
-        return  points;
-    }
-
-    public void setPoints(int points){
-        this.points = points;
-    }
-
-    public void addPoints(int points) { this.points += points;}
+    public void addPoints(int points) { this.puntuacio += points;}
 
     public static User getInstance(){
         if(instance == null)

@@ -19,7 +19,7 @@ public class InfoBarActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_infobar);
-        final int points = User.getInstance().getPoints();
+        final int points = User.getInstance().getPuntuacio();
         reservar = (Button) findViewById(R.id.reservaButton);
         if(points < 0){
             reservar.setBackgroundColor(getResources().getColor(R.color.grey));

@@ -17,7 +17,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -317,11 +316,11 @@ public class RegisterActivity extends AppCompatActivity {
                             String token = response.getString("token");
 
                             User usuari = User.getInstance();
-                            usuari.setName(nomUsuari);
-                            usuari.setPassword(contrasenya);
+                            usuari.setNom(nomUsuari);
+                            usuari.setContrasenya(contrasenya);
                             usuari.setToken(token);
 
-                            System.out.println(usuari.getName() + " " + usuari.getPassword() + " " + usuari.getToken());
+                            System.out.println(usuari.getNom() + " " + usuari.getContrasenya() + " " + usuari.getToken());
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

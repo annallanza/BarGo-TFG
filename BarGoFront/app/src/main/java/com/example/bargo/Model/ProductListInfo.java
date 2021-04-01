@@ -18,7 +18,7 @@ public class ProductListInfo {
         setUnidades();
         setPoints();
         setLoQueQueda();
-        userPoints = User.getInstance().getPoints();
+        userPoints = User.getInstance().getPuntuacio();
     }
 
     public static ProductListInfo getInstance(){
@@ -91,7 +91,7 @@ public class ProductListInfo {
     }
     public void changeValue(int position) {
             this.userPoints -= points[position];
-            User.getInstance().setPoints(userPoints);
+            User.getInstance().setPuntuacio(userPoints);
             this.loQueQueda[position] -= 1;
     }
 
