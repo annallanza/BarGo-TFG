@@ -114,6 +114,17 @@
                 android:text="@string/ver_contraseña"
                 android:visibility="visible" />
 
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="50dp"
+                android:layout_marginRight="50dp"
+                android:text="@string/tipus_usuari" />
+
             <CheckBox
                 android:id="@+id/checkBox"
                 android:layout_width="match_parent"
