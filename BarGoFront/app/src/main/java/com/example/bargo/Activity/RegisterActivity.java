@@ -35,6 +35,8 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 
+import io.jsonwebtoken.Jwts;
+
 public class RegisterActivity extends AppCompatActivity {
     private TextView login;
     private CheckBox isConsumidor;
@@ -315,12 +317,13 @@ public class RegisterActivity extends AppCompatActivity {
                         try {
                             String token = response.getString("token");
 
+                            long id = Jwts.parser().setSigningKey(VariablesGlobals.getSecret().getBytes()).parseClaimsJws(token).getBody().get("id", Long.class);
+
                             User usuari = User.getInstance();
+                            usuari.setId(id);
                             usuari.setNom(nomUsuari);
                             usuari.setContrasenya(contrasenya);
                             usuari.setToken(token);
-
-                            System.out.println(usuari.getNom() + " " + usuari.getContrasenya() + " " + usuari.getToken());
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

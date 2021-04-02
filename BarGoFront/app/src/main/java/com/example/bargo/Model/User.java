@@ -6,12 +6,17 @@ public class User {
     private String nom = "Nombre usuario";
     private String contrasenya = "contrasenya";
     private String token = "token";
+    private byte[] imatge;
     private int puntuacio = 0;
     private int codesIntroduced[];
 
     private static User instance = null;
 
     private User(){
+    }
+
+    public void setUserNull(){
+        instance = null;
     }
 
     public long getId() {
@@ -44,6 +49,14 @@ public class User {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public byte[] getImatge() {
+        return imatge;
+    }
+
+    public void setImatge(byte[] imatge) {
+        this.imatge = imatge;
     }
 
     public int getPuntuacio(){

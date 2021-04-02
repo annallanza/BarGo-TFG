@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextPaint;
@@ -43,8 +42,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText nomUsuari;
     private EditText contrasenya;
     private TextView registrate;
-    private CheckBox veureContraseña;
-    private String secret = VariablesGlobals.getSecret();
+    private CheckBox veureContrasenya;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,9 +72,9 @@ public class LoginActivity extends AppCompatActivity {
         nomUsuari = findViewById(R.id.editTextUsername);
         contrasenya = findViewById(R.id.editTextContra2);
         loginButton = findViewById(R.id.buttonAcceder);
-        veureContraseña = findViewById(R.id.checkBoxContraseña);
+        veureContrasenya = findViewById(R.id.checkBoxContraseña);
 
-        veureContraseña.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        veureContrasenya.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked)
@@ -128,7 +126,7 @@ public class LoginActivity extends AppCompatActivity {
                     try {
                         String token = response.getString("token");
 
-                        long id = Jwts.parser().setSigningKey(secret.getBytes()).parseClaimsJws(token).getBody().get("id", Long.class);
+                        long id = Jwts.parser().setSigningKey(VariablesGlobals.getSecret().getBytes()).parseClaimsJws(token).getBody().get("id", Long.class);
 
                         User usuari = User.getInstance();
                         usuari.setId(id);

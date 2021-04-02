@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +19,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.bargo.Activity.ConfiguracioUsuariActivity;
 import com.example.bargo.Activity.ListProductActivity;
 import com.example.bargo.Activity.MisReservasActivity;
 import com.example.bargo.Model.User;
@@ -35,7 +37,8 @@ import java.util.Map;
 public class profileFragment extends Fragment {
 
     private Button reserves;
-    private Button llista_productes;
+    private ImageButton configuracio;
+    private Button productes;
     private Button reptes;
     private TextView nomUsuariTextView;
     private TextView puntuacio;
@@ -48,8 +51,9 @@ public class profileFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_profile, container, false);
 
         reserves = view.findViewById(R.id.misReservas_button);
+        configuracio = view.findViewById(R.id.imageButtonConfiguracio);
         nomUsuariTextView = view.findViewById(R.id.user_name_profile);
-        llista_productes = view.findViewById(R.id.exchangeBttn);
+        productes = view.findViewById(R.id.exchangeBttn);
         reptes = view.findViewById(R.id.makeChallengeBttn);
         puntuacio = view.findViewById(R.id.points);
 
@@ -65,8 +69,16 @@ public class profileFragment extends Fragment {
             }
         });
 
+        configuracio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ConfiguracioUsuariActivity.class);
+                startActivity(intent);
+            }
+        });
 
-        llista_productes.setOnClickListener(new View.OnClickListener() {
+
+        productes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent list_products_activity = new Intent(getActivity(), ListProductActivity.class);

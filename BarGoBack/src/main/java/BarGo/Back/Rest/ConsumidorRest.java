@@ -110,6 +110,6 @@ public class ConsumidorRest {
 
         consumidorService.deleteById(id);
 
-        return new ResponseEntity<>(new Missatge("Se ha eliminado el consumidor"), HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(new Missatge("Se ha eliminado el consumidor"), HttpStatus.OK); //RETORNA OK EN LLOC DE NO_CONTENT PERQUE ANDROID STUDIO HO INTERPRETA COM UN ERROR
     }
 }

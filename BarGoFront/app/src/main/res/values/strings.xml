@@ -32,4 +32,10 @@
     <string name="p_gina_web">Página web</string>
     <string name="terraza_exterior">Terraza exterior</string>
     <string name="tipus_usuari">¿Qué tipo de usuario eres?</string>
+    <string name="modificar_datos">Modificar datos</string>
+    <string name="contrase_a_actual">Contraseña actual</string>
+    <string name="contrase_a_nueva">Contraseña nueva</string>
+    <string name="guardar_cambios">GUARDAR CAMBIOS</string>
+    <string name="quieres_eliminar_tu_cuenta">¿Quieres eliminar tu cuenta?</string>
+    <string name="quieres_cerrar_la_sesi_n">¿Quieres cerrar la sesión?</string>
 </resources>
