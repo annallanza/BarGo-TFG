@@ -163,7 +163,6 @@ public class ConfiguracioUsuariActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
 
     private void obrirLoginActivity() {
@@ -195,7 +194,6 @@ public class ConfiguracioUsuariActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            System.out.println(response);
                             long id = response.getLong("id");
                             String nomUsuari = response.getString("nomUsuari");
                             String imatge = response.getString("imatge");
