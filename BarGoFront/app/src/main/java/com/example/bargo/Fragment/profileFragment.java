@@ -2,38 +2,37 @@ package com.example.bargo.Fragment;
 
 import android.Manifest;
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.Image;
+import android.graphics.Matrix;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.bargo.Activity.ConfiguracioUsuariActivity;
 import com.example.bargo.Activity.ListProductActivity;
@@ -51,6 +50,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -131,8 +131,7 @@ public class profileFragment extends Fragment {
 
     public void onResume() {
         GetPuntuacioConsumidor();
-        //GetInfoConsumidorRequest();
-        refrescarImatge();
+        GetInfoConsumidorRequest();
         super.onResume();
     }
 
@@ -149,6 +148,7 @@ public class profileFragment extends Fragment {
         startActivityForResult(intentFotoGaleria, IMAGE_GALLERY_REQUEST);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         getActivity();
@@ -159,18 +159,16 @@ public class profileFragment extends Fragment {
                 try {
                     InputStream inputStream = getActivity().getContentResolver().openInputStream(imatgeUri);
 
-                    Bitmap imatgebitmap = BitmapFactory.decodeStream(inputStream);
+                    Bitmap imatgeBitmap = BitmapFactory.decodeStream(inputStream);
 
-                    imatgeView.setImageBitmap(imatgebitmap);
+                    imatgeBitmap = redimensionarImatgeBitmap(imatgeBitmap, 400, 600); //Si vull que la imatge ocupi menys espai, canviar parametres
 
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                    imatgebitmap.compress(Bitmap.CompressFormat.PNG, 90, baos);
+                    imatgeBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
                     byte[] imatgeByteArray = baos.toByteArray();
+                    String imatgeBase64 = Base64.getEncoder().encodeToString(imatgeByteArray);
 
-                    usuari.setImatge(imatgeByteArray);
-
-                    refrescarImatge();
-                    PutImatgeConsumidor();
+                    PutImatgeConsumidor(imatgeBase64, imatgeByteArray);
 
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
@@ -212,12 +210,30 @@ public class profileFragment extends Fragment {
             public void onClick(View v) {
                 alertdialog.cancel();
 
-                if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
+                if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                    imatgeView.setEnabled(false);
                     obrirGaleriaFotos();
+                }
                 else
-                    ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
+                    ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
             }
         });
+    }
+
+    private Bitmap redimensionarImatgeBitmap(Bitmap imatgeBitmap, float ampleNou, float altNou){
+        int ampleActual = imatgeBitmap.getWidth();
+        int altActual = imatgeBitmap.getHeight();
+
+        if(ampleActual > ampleNou || altActual > altNou){
+            float escalaAmple = ampleNou/ampleActual;
+            float escalaAlt = altNou/altActual;
+
+            Matrix matrix = new Matrix();
+            matrix.postScale(escalaAmple,escalaAlt);
+
+            return Bitmap.createBitmap(imatgeBitmap, 0, 0, ampleActual, altActual, matrix, false);
+        }
+        else return imatgeBitmap;
     }
 
     @Override
@@ -287,10 +303,10 @@ public class profileFragment extends Fragment {
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
+                    @RequiresApi(api = Build.VERSION_CODES.O)
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            System.out.println(response);
                             long id = response.getLong("id");
                             String nomUsuari = response.getString("nomUsuari");
                             String imatge = response.getString("imatge");
@@ -298,7 +314,7 @@ public class profileFragment extends Fragment {
                             usuari.setId(id);
                             usuari.setNom(nomUsuari);
                             if(!imatge.equals("null")){
-                                byte[] bytesimatge = imatge.getBytes();
+                                byte[] bytesimatge = Base64.getDecoder().decode(imatge);
                                 usuari.setImatge(bytesimatge);
                             }
                             else usuari.setImatge(null);
@@ -341,25 +357,51 @@ public class profileFragment extends Fragment {
         queue.add(jsonObjectRequest);
     }
 
-    private void PutImatgeConsumidor() { //TODO: fer put imatge consumidor
+    private void PutImatgeConsumidor(final String imatge, final byte[] imatgeByteArray) {
+
+        RequestQueue queue = Volley.newRequestQueue(getActivity());
+        String url = VariablesGlobals.getUrlAPI() + "usuaris/" + usuari.getId();
+
+        StringRequest stringRequest = new StringRequest(Request.Method.PUT, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        usuari.setImatge(imatgeByteArray);
+                        refrescarImatge();
+                        imatgeView.setEnabled(true);
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                if(error.networkResponse.statusCode == 404 || error.networkResponse.statusCode == 401) {
+                    try {
+                        String missatgeError = new String(error.networkResponse.data, "utf-8");
+
+                        Toast.makeText(getContext(), missatgeError, Toast.LENGTH_LONG).show();
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+                }
+                imatgeView.setEnabled(true);
+            }
+        })
+        {
+            @Override
+            public Map<String, String> getHeaders() {
+                HashMap<String, String> headers = new HashMap<>();
+                headers.put("Authorization", "Bearer " + usuari.getToken());
+                return headers;
+            }
+
+            @Override
+            public Map<String, String> getParams () {
+                HashMap<String, String> params = new HashMap<>();
+                params.put("imatge", imatge);
+                return params;
+            }
+        };
+
+        // Add the request to the RequestQueue.
+        queue.add(stringRequest);
     }
-
-    //TODO: mirar si fa falta
-    public static String encodeTobase64(Bitmap image) {
-        Bitmap immagex = image;
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        immagex.compress(Bitmap.CompressFormat.PNG, 90, baos);
-        byte[] b = baos.toByteArray();
-        String imageEncoded = Base64.encodeToString(b, Base64.DEFAULT);
-        return imageEncoded;
-    }
-
-    public static Bitmap decodeBase64(String input) {
-        byte[] decodedByte = Base64.decode(input, 0);
-        return BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length);
-    }
-
-    //TODO: PERMISOS PER GUARDAR LA IMATGE
-    //<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
 }

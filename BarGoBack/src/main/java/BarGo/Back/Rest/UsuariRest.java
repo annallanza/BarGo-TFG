@@ -47,7 +47,7 @@ public class UsuariRest {
 
     //TODO: CREC QUE NO FARA FALTA AQUESTA PETICIO
     @RequestMapping(value = "/auth/signup", method = RequestMethod.POST) //Exemple url request: http://localhost:8080/usuaris/auth/signup
-    private ResponseEntity<?> signupUsuari(@Valid @RequestBody SignupUsuari signupUsuari){ //TODO: FER QUE FUNCIONI LO DE @VALID
+    private ResponseEntity<?> signupUsuari(@Valid @RequestBody SignupUsuari signupUsuari){
         if(usuariService.existsByNomUsuari(signupUsuari.getNomUsuari()))
             return new ResponseEntity<>(new Missatge("El nombre de usuario ya existe"), HttpStatus.BAD_REQUEST);
         if(signupUsuari.getContrasenya().replaceAll(" ", "").length() < 8)
@@ -105,7 +105,7 @@ public class UsuariRest {
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET) //Exemple url request: http://localhost:8080/usuaris/3
-    private ResponseEntity<?> getUsuariById(@PathVariable("id") Long id, @RequestHeader(value="Authorization") String token){ //TODO: cal convertir a BASE64?
+    private ResponseEntity<?> getUsuariById(@PathVariable("id") Long id, @RequestHeader(value="Authorization") String token) throws IOException {
         if(!jwtProvider.validateIdToken(id, token))
             return new ResponseEntity<>(new Missatge("No tienes acceso al usuario con ese id"), HttpStatus.UNAUTHORIZED);
 
@@ -114,7 +114,11 @@ public class UsuariRest {
             return new ResponseEntity<>(new Missatge("No existe ningun usuario con ese id"), HttpStatus.NOT_FOUND);
 
         Usuari usuari = optionalUsuari.get();
-        GetUsuari getUsuari = new GetUsuari(usuari.getId(), usuari.getNomUsuari(), usuari.getImatge(), usuari.getRols()); //Creem DTO usuari sense contrasenya
+
+        byte[] imatgeBytes = usuari.getImatge();
+        String imatge = Base64.getEncoder().encodeToString(imatgeBytes);
+
+        GetUsuari getUsuari = new GetUsuari(usuari.getId(), usuari.getNomUsuari(), imatge, usuari.getRols()); //Creem DTO usuari sense contrasenya
 
         return new ResponseEntity<>(getUsuari, HttpStatus.OK);
     }
@@ -144,17 +148,17 @@ public class UsuariRest {
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.PUT) //Exemple url request: http://localhost:8080/usuaris/3
-    private ResponseEntity<?> updateImatgeUsuari(@PathVariable("id") Long id, @RequestBody MultipartFile imatge, @RequestHeader(value="Authorization") String token) throws IOException {
+    private ResponseEntity<?> updateImatgeUsuari(@PathVariable("id") Long id, @RequestParam String imatge, @RequestHeader(value="Authorization") String token) throws IOException {
         if(!jwtProvider.validateIdToken(id, token))
-            return new ResponseEntity<>(new Missatge("No tienes acceso al usuario con ese id"), HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>("No tienes acceso al usuario con ese id", HttpStatus.UNAUTHORIZED);
 
         Optional<Usuari> optionalUsuari = usuariService.findById(id);
         if (!optionalUsuari.isPresent())
-            return new ResponseEntity<>(new Missatge("No existe ningun usuario con ese id"), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("No existe ningun usuario con ese id", HttpStatus.NOT_FOUND);
 
         Usuari usuari = optionalUsuari.get();
 
-        byte[] bytes = imatge.getBytes();
+        byte[] bytes = Base64.getDecoder().decode(imatge);
         usuari.setImatge(bytes);//lo guardamos en la entidad
 
         Usuari usuariupdated = usuariService.save(usuari);
@@ -162,13 +166,14 @@ public class UsuariRest {
         /*
         byte[] bytesimatge = usuariupdated.getImatge();
 
-        File f_nou = new File("/Users/annallanza/Documents/Uni/4t/Q2/TFG/fotoperfilcorbata2.jpeg"); //asociamos el archivo fisico
+        File f_nou = new File("/Users/annallanza/Documents/Uni/4t/Q2/TFG/fotoGos.jpeg"); //asociamos el archivo fisico
         OutputStream os = new FileOutputStream(f_nou);
         os.write(bytesimatge);
         os.close();
-        */
+        
+         */
 
-        return new ResponseEntity<>(new Missatge("Se ha actualizado la imagen del usuario"), HttpStatus.OK);
+        return new ResponseEntity<>("Se ha actualizado la imagen del usuario", HttpStatus.OK);
     }
 
     //TODO: CREC QUE NO FARA FALTA AQUESTA PETICIO
