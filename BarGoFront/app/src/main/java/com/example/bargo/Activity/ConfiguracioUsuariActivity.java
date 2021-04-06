@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.SpannableString;
@@ -49,6 +50,7 @@ public class ConfiguracioUsuariActivity extends AppCompatActivity {
     private Button guardarCanvis;
     private TextView logout;
     private TextView eliminarCompte;
+    private ProgressDialog progressDialog;
     private User usuari = User.getInstance();
 
     @Override
@@ -63,6 +65,9 @@ public class ConfiguracioUsuariActivity extends AppCompatActivity {
         guardarCanvis = findViewById(R.id.buttonAcceder2);
         logout = findViewById(R.id.textViewLogout);
         eliminarCompte = findViewById(R.id.textViewEliminarCuenta);
+
+        progressDialog = new ProgressDialog(ConfiguracioUsuariActivity.this);
+        progressDialog.setMessage("Cargando...");
 
         String textlogout = "¿Quieres cerrar la sesión?";
         SpannableString ssLogout = new SpannableString(textlogout);
@@ -125,8 +130,10 @@ public class ConfiguracioUsuariActivity extends AppCompatActivity {
                 String contrasenyaActual = contrasenyaActualEditText.getText().toString();
                 String contrasenyaNova = contrasenyaNovaEditText.getText().toString();
 
-                if(contrasenyaActual.equals(usuari.getContrasenya()))
+                if(contrasenyaActual.equals(usuari.getContrasenya())) {
+                    progressDialog.show();
                     PutInfoConsumidorRequest(nomUsuari, contrasenyaNova);
+                }
                 else {
                     Toast.makeText(getApplicationContext(), "La contraseña actual no es correcta", Toast.LENGTH_LONG).show();
                     guardarCanvis.setEnabled(true);
@@ -184,61 +191,56 @@ public class ConfiguracioUsuariActivity extends AppCompatActivity {
     }
 
     private void GetInfoConsumidorRequest() {
+        progressDialog.show();
 
         RequestQueue queue = Volley.newRequestQueue(this);
         String url = VariablesGlobals.getUrlAPI() + "usuaris/" + usuari.getId();
 
-
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
+            new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    try {
+                        long id = response.getLong("id");
+                        String nomUsuari = response.getString("nomUsuari");
+                        String imatge = response.getString("imatge");
+
+                        usuari.setId(id);
+                        usuari.setNom(nomUsuari);
+                        if(!imatge.equals("null")){
+                            byte[] bytesimatge = imatge.getBytes();
+                            usuari.setImatge(bytesimatge);
+                        }
+                        else usuari.setImatge(null);
+
+                        refrescarDadesConsumidor();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    progressDialog.dismiss();
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    if(error.networkResponse.statusCode == 404) {
                         try {
-                            long id = response.getLong("id");
-                            String nomUsuari = response.getString("nomUsuari");
-                            String imatge = response.getString("imatge");
+                            String responseBody = new String(error.networkResponse.data, "utf-8");
+                            JSONObject data = new JSONObject(responseBody);
+                            String missatgeError = data.getString("missatge");
 
-                            //TODO aixo no es pot fer perque no accedeix a l'ordinador, si no que accedeix al emulador
-                            /*
-                            File f_nou = new File("/Users/annallanza/Documents/Uni/4t/Q2/TFG/fotoperfilfront.jpeg");
-                            OutputStream os = new FileOutputStream(f_nou);
-                            os.write(imatge);
-                            os.close();
-                             */
+                            Toast.makeText(getApplicationContext(), missatgeError, Toast.LENGTH_LONG).show();
 
-                            //TODO: comprovar que es passa be la imatge
-                            usuari.setId(id);
-                            usuari.setNom(nomUsuari);
-                            if(!imatge.equals("null")){
-                                byte[] bytesimatge = imatge.getBytes();
-                                usuari.setImatge(bytesimatge);
-                            }
-                            else usuari.setImatge(null);
-
-                            refrescarDadesConsumidor();
-                        } catch (JSONException e) {
+                        } catch (UnsupportedEncodingException | JSONException e) {
                             e.printStackTrace();
                         }
                     }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                if(error.networkResponse.statusCode == 404) {
-                    try {
-                        String responseBody = new String(error.networkResponse.data, "utf-8");
-                        JSONObject data = new JSONObject(responseBody);
-                        String missatgeError = data.getString("missatge");
+                    else if(error.networkResponse.statusCode == 401)
+                        Toast.makeText(getApplicationContext(), "No se indica el token o no es válido o el id no es el asociado al token", Toast.LENGTH_LONG).show();
 
-                        Toast.makeText(getApplicationContext(), missatgeError, Toast.LENGTH_LONG).show();
-
-                    } catch (UnsupportedEncodingException | JSONException e) {
-                        e.printStackTrace();
-                    }
+                    progressDialog.dismiss();
                 }
-                else if(error.networkResponse.statusCode == 401)
-                    Toast.makeText(getApplicationContext(), "No se indica el token o no es válido o el id no es el asociado al token", Toast.LENGTH_LONG).show();
             }
-        }
         ){
             @Override
             public Map<String, String> getHeaders() {
@@ -291,6 +293,7 @@ public class ConfiguracioUsuariActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "Nombre de usuario o contraseña incorrectos", Toast.LENGTH_LONG).show();
 
                         guardarCanvis.setEnabled(true);
+                        progressDialog.dismiss();
                     }
                 }
         ){
@@ -307,6 +310,7 @@ public class ConfiguracioUsuariActivity extends AppCompatActivity {
     }
 
     private void DeleteConsumidorRequest(){
+        progressDialog.show();
 
         RequestQueue queue = Volley.newRequestQueue(this);
         String url = VariablesGlobals.getUrlAPI() + "consumidors/" + usuari.getId();
@@ -316,6 +320,7 @@ public class ConfiguracioUsuariActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         usuari.setUserNull();
+                        progressDialog.dismiss();
                         obrirLoginActivity();
                     }
                 }, new Response.ErrorListener() {
@@ -335,6 +340,8 @@ public class ConfiguracioUsuariActivity extends AppCompatActivity {
                 }
                 else if(error.networkResponse.statusCode == 401)
                     Toast.makeText(getApplicationContext(), "No se indica el token o no es válido o el id no es el asociado al token", Toast.LENGTH_LONG).show();
+
+                progressDialog.dismiss();
             }
         }
         ){
@@ -364,46 +371,49 @@ public class ConfiguracioUsuariActivity extends AppCompatActivity {
         }
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, postData,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            String token = response.getString("token");
-
-                            long id = Jwts.parser().setSigningKey(VariablesGlobals.getSecret().getBytes()).parseClaimsJws(token).getBody().get("id", Long.class);
-
-                            User usuari = User.getInstance();
-                            usuari.setId(id);
-                            usuari.setNom(nomUsuari);
-                            usuari.setContrasenya(contrasenya);
-                            usuari.setToken(token);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-                        obrirMainActivity();
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                if(error.networkResponse.statusCode == 400) {
+            new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
                     try {
-                        String responseBody = new String(error.networkResponse.data, "utf-8");
-                        JSONObject data = new JSONObject(responseBody);
-                        String missatgeError = data.getString("missatge");
+                        String token = response.getString("token");
 
-                        Toast.makeText(getApplicationContext(), missatgeError, Toast.LENGTH_LONG).show();
+                        long id = Jwts.parser().setSigningKey(VariablesGlobals.getSecret().getBytes()).parseClaimsJws(token).getBody().get("id", Long.class);
 
-                    } catch (UnsupportedEncodingException | JSONException e) {
+                        User usuari = User.getInstance();
+                        usuari.setId(id);
+                        usuari.setNom(nomUsuari);
+                        usuari.setContrasenya(contrasenya);
+                        usuari.setToken(token);
+                    } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                }
-                else if(error.networkResponse.statusCode == 401)
-                    Toast.makeText(getApplicationContext(), "Nombre de usuario o contraseña incorrectos", Toast.LENGTH_LONG).show();
 
-                guardarCanvis.setEnabled(true);
+                    progressDialog.dismiss();
+                    obrirMainActivity();
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    if(error.networkResponse.statusCode == 400) {
+                        try {
+                            String responseBody = new String(error.networkResponse.data, "utf-8");
+                            JSONObject data = new JSONObject(responseBody);
+                            String missatgeError = data.getString("missatge");
+
+                            Toast.makeText(getApplicationContext(), missatgeError, Toast.LENGTH_LONG).show();
+
+                        } catch (UnsupportedEncodingException | JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    else if(error.networkResponse.statusCode == 401)
+                        Toast.makeText(getApplicationContext(), "Nombre de usuario o contraseña incorrectos", Toast.LENGTH_LONG).show();
+
+                    guardarCanvis.setEnabled(true);
+                    progressDialog.dismiss();
+                }
             }
-        });
+        );
 
         // Add the request to the RequestQueue.
         queue.add(jsonObjectRequest);

@@ -3,6 +3,7 @@ package com.example.bargo.Activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.SpannableString;
@@ -53,6 +54,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText horariEditText;
     private EditText descripcioEditText;
     private EditText paginaWebEditText;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +97,9 @@ public class RegisterActivity extends AppCompatActivity {
         paginaWebEditText = findViewById(R.id.editTextPaginaWeb);
         signupButton = findViewById(R.id.buttonAcceder);
 
+        progressDialog = new ProgressDialog(RegisterActivity.this);
+        progressDialog.setMessage("Cargando...");
+
         veureContraseña.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -109,6 +114,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 signupButton.setEnabled(false);
+                progressDialog.show();
 
                 String nomUsuari = nomUsuariEditText.getText().toString();
                 String contrasenya = contrasenyaEditText.getText().toString();
@@ -128,10 +134,12 @@ public class RegisterActivity extends AppCompatActivity {
                     if(numCadires_string.equals("")){
                         Toast.makeText(getApplicationContext(), "Indica el número de sillas", Toast.LENGTH_LONG).show();
                         signupButton.setEnabled(true);
+                        progressDialog.dismiss();
                     }
                     else if(numTaules_string.equals("")){
                         Toast.makeText(getApplicationContext(), "Indica el número de mesas", Toast.LENGTH_LONG).show();
                         signupButton.setEnabled(true);
+                        progressDialog.dismiss();
                     }
                     else {
                         int numCadires = Integer.parseInt(numCadiresEditText.getText().toString());
@@ -143,6 +151,7 @@ public class RegisterActivity extends AppCompatActivity {
                 else {
                     Toast.makeText(getApplicationContext(), "Indica el tipo de usuario", Toast.LENGTH_LONG).show();
                     signupButton.setEnabled(true);
+                    progressDialog.dismiss();
                 }
             }
         });
@@ -218,29 +227,31 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, postData,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        loginRequest(nomUsuari,contrasenya);
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        if(error.networkResponse.statusCode == 400 || error.networkResponse.statusCode == 409) {
-                            try {
-                                String responseBody = new String(error.networkResponse.data, "utf-8");
-                                JSONObject data = new JSONObject(responseBody);
-                                String missatgeError = data.getString("missatge");
+            new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    loginRequest(nomUsuari,contrasenya);
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    if(error.networkResponse.statusCode == 400 || error.networkResponse.statusCode == 409) {
+                        try {
+                            String responseBody = new String(error.networkResponse.data, "utf-8");
+                            JSONObject data = new JSONObject(responseBody);
+                            String missatgeError = data.getString("missatge");
 
-                                Toast.makeText(getApplicationContext(), missatgeError, Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), missatgeError, Toast.LENGTH_LONG).show();
 
-                            } catch (UnsupportedEncodingException | JSONException e) {
-                                e.printStackTrace();
-                            }
+                        } catch (UnsupportedEncodingException | JSONException e) {
+                            e.printStackTrace();
                         }
-                        signupButton.setEnabled(true);
                     }
-        });
+                    signupButton.setEnabled(true);
+                    progressDialog.dismiss();
+                }
+            }
+        );
 
         // Add the request to the RequestQueue.
         queue.add(jsonObjectRequest);
@@ -266,32 +277,32 @@ public class RegisterActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        System.out.println(postData);
-
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, postData,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        loginRequest(nomUsuari,contrasenya);
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                if(error.networkResponse.statusCode == 400 || error.networkResponse.statusCode == 409) {
-                    try {
-                        String responseBody = new String(error.networkResponse.data, "utf-8");
-                        JSONObject data = new JSONObject(responseBody);
-                        String missatgeError = data.getString("missatge");
-
-                        Toast.makeText(getApplicationContext(), missatgeError, Toast.LENGTH_LONG).show();
-
-                    } catch (UnsupportedEncodingException | JSONException e) {
-                        e.printStackTrace();
-                    }
+            new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    loginRequest(nomUsuari,contrasenya);
                 }
-                signupButton.setEnabled(true);
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    if(error.networkResponse.statusCode == 400 || error.networkResponse.statusCode == 409) {
+                        try {
+                            String responseBody = new String(error.networkResponse.data, "utf-8");
+                            JSONObject data = new JSONObject(responseBody);
+                            String missatgeError = data.getString("missatge");
+
+                            Toast.makeText(getApplicationContext(), missatgeError, Toast.LENGTH_LONG).show();
+
+                        } catch (UnsupportedEncodingException | JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    signupButton.setEnabled(true);
+                    progressDialog.dismiss();
+                }
             }
-        });
+        );
 
         // Add the request to the RequestQueue.
         queue.add(jsonObjectRequest);
@@ -311,46 +322,49 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, postData,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            String token = response.getString("token");
-
-                            long id = Jwts.parser().setSigningKey(VariablesGlobals.getSecret().getBytes()).parseClaimsJws(token).getBody().get("id", Long.class);
-
-                            User usuari = User.getInstance();
-                            usuari.setId(id);
-                            usuari.setNom(nomUsuari);
-                            usuari.setContrasenya(contrasenya);
-                            usuari.setToken(token);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-                        openMainActivity();
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                if(error.networkResponse.statusCode == 400) {
+            new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
                     try {
-                        String responseBody = new String(error.networkResponse.data, "utf-8");
-                        JSONObject data = new JSONObject(responseBody);
-                        String missatgeError = data.getString("missatge");
+                        String token = response.getString("token");
 
-                        Toast.makeText(getApplicationContext(), missatgeError, Toast.LENGTH_LONG).show();
+                        long id = Jwts.parser().setSigningKey(VariablesGlobals.getSecret().getBytes()).parseClaimsJws(token).getBody().get("id", Long.class);
 
-                    } catch (UnsupportedEncodingException | JSONException e) {
+                        User usuari = User.getInstance();
+                        usuari.setId(id);
+                        usuari.setNom(nomUsuari);
+                        usuari.setContrasenya(contrasenya);
+                        usuari.setToken(token);
+                    } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                }
-                else if(error.networkResponse.statusCode == 401)
-                    Toast.makeText(getApplicationContext(), "Nombre de usuario o contraseña incorrectos", Toast.LENGTH_LONG).show();
 
-                signupButton.setEnabled(true);
+                    progressDialog.dismiss();
+                    openMainActivity();
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    if(error.networkResponse.statusCode == 400) {
+                        try {
+                            String responseBody = new String(error.networkResponse.data, "utf-8");
+                            JSONObject data = new JSONObject(responseBody);
+                            String missatgeError = data.getString("missatge");
+
+                            Toast.makeText(getApplicationContext(), missatgeError, Toast.LENGTH_LONG).show();
+
+                        } catch (UnsupportedEncodingException | JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    else if(error.networkResponse.statusCode == 401)
+                        Toast.makeText(getApplicationContext(), "Nombre de usuario o contraseña incorrectos", Toast.LENGTH_LONG).show();
+
+                    signupButton.setEnabled(true);
+                    progressDialog.dismiss();
+                }
             }
-        });
+        );
 
         // Add the request to the RequestQueue.
         queue.add(jsonObjectRequest);

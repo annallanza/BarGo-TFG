@@ -2,6 +2,7 @@ package com.example.bargo.Fragment;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -67,6 +68,7 @@ public class profileFragment extends Fragment {
     private Button reptes;
     private TextView nomUsuariTextView;
     private TextView puntuacio;
+    private ProgressDialog progressDialog;
     private final User usuari = User.getInstance();
     View view;
 
@@ -82,6 +84,9 @@ public class profileFragment extends Fragment {
         productes = view.findViewById(R.id.exchangeBttn);
         reptes = view.findViewById(R.id.makeChallengeBttn);
         puntuacio = view.findViewById(R.id.points);
+
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setMessage("Cargando...");
 
         nomUsuariTextView.setText(User.getInstance().getNom());
 
@@ -154,6 +159,7 @@ public class profileFragment extends Fragment {
         getActivity();
         if(resultCode == Activity.RESULT_OK){
             if(requestCode == IMAGE_GALLERY_REQUEST){
+                progressDialog.show();
                 Uri imatgeUri = data.getData();
 
                 try {
@@ -173,6 +179,7 @@ public class profileFragment extends Fragment {
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                     Toast.makeText(getActivity(), "No se ha podido abrir la imagen", Toast.LENGTH_LONG).show();
+                    progressDialog.dismiss();
                 }
             }
         }
@@ -244,45 +251,48 @@ public class profileFragment extends Fragment {
     }
 
     private void GetPuntuacioConsumidor() {
+        progressDialog.show();
 
         RequestQueue queue = Volley.newRequestQueue(getActivity());
         String url = VariablesGlobals.getUrlAPI() + "consumidors/" + usuari.getId();
 
-
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
+            new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    try {
+                        int puntuacio = Integer.parseInt(response.getString("puntuacio"));
+
+                        User usuari = User.getInstance();
+                        usuari.setPuntuacio(puntuacio);
+
+                        refreshPoints();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    progressDialog.dismiss();
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    if(error.networkResponse.statusCode == 404) {
                         try {
-                            int puntuacio = Integer.parseInt(response.getString("puntuacio"));
+                            String responseBody = new String(error.networkResponse.data, "utf-8");
+                            JSONObject data = new JSONObject(responseBody);
+                            String missatgeError = data.getString("missatge");
 
-                            User usuari = User.getInstance();
-                            usuari.setPuntuacio(puntuacio);
+                            Toast.makeText(getActivity(), missatgeError, Toast.LENGTH_LONG).show();
 
-                            refreshPoints();
-                        } catch (JSONException e) {
+                        } catch (UnsupportedEncodingException | JSONException e) {
                             e.printStackTrace();
                         }
                     }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        if(error.networkResponse.statusCode == 404) {
-                            try {
-                                String responseBody = new String(error.networkResponse.data, "utf-8");
-                                JSONObject data = new JSONObject(responseBody);
-                                String missatgeError = data.getString("missatge");
+                    else if(error.networkResponse.statusCode == 401)
+                        Toast.makeText(getActivity(), "No se indica el token o no es válido o el id no es el asociado al token", Toast.LENGTH_LONG).show();
 
-                                Toast.makeText(getActivity(), missatgeError, Toast.LENGTH_LONG).show();
-
-                            } catch (UnsupportedEncodingException | JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                        else if(error.networkResponse.statusCode == 401)
-                            Toast.makeText(getActivity(), "No se indica el token o no es válido o el id no es el asociado al token", Toast.LENGTH_LONG).show();
-                    }
+                    progressDialog.dismiss();
                 }
+            }
         ){
             @Override
             public Map<String, String> getHeaders() {
@@ -297,53 +307,57 @@ public class profileFragment extends Fragment {
     }
 
     private void GetInfoConsumidorRequest() {
+        progressDialog.show();
 
         RequestQueue queue = Volley.newRequestQueue(getActivity());
         String url = VariablesGlobals.getUrlAPI() + "usuaris/" + usuari.getId();
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONObject>() {
-                    @RequiresApi(api = Build.VERSION_CODES.O)
-                    @Override
-                    public void onResponse(JSONObject response) {
+            new Response.Listener<JSONObject>() {
+                @RequiresApi(api = Build.VERSION_CODES.O)
+                @Override
+                public void onResponse(JSONObject response) {
+                    try {
+                        long id = response.getLong("id");
+                        String nomUsuari = response.getString("nomUsuari");
+                        String imatge = response.getString("imatge");
+
+                        usuari.setId(id);
+                        usuari.setNom(nomUsuari);
+                        if(!imatge.equals("null")){
+                            byte[] bytesimatge = Base64.getDecoder().decode(imatge);
+                            usuari.setImatge(bytesimatge);
+                        }
+                        else usuari.setImatge(null);
+
+                        refrescarImatge();
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    progressDialog.dismiss();
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    if(error.networkResponse.statusCode == 404) {
                         try {
-                            long id = response.getLong("id");
-                            String nomUsuari = response.getString("nomUsuari");
-                            String imatge = response.getString("imatge");
+                            String responseBody = new String(error.networkResponse.data, "utf-8");
+                            JSONObject data = new JSONObject(responseBody);
+                            String missatgeError = data.getString("missatge");
 
-                            usuari.setId(id);
-                            usuari.setNom(nomUsuari);
-                            if(!imatge.equals("null")){
-                                byte[] bytesimatge = Base64.getDecoder().decode(imatge);
-                                usuari.setImatge(bytesimatge);
-                            }
-                            else usuari.setImatge(null);
+                            Toast.makeText(getActivity(), missatgeError, Toast.LENGTH_LONG).show();
 
-                            refrescarImatge();
-
-                        } catch (JSONException e) {
+                        } catch (UnsupportedEncodingException | JSONException e) {
                             e.printStackTrace();
                         }
                     }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                if(error.networkResponse.statusCode == 404) {
-                    try {
-                        String responseBody = new String(error.networkResponse.data, "utf-8");
-                        JSONObject data = new JSONObject(responseBody);
-                        String missatgeError = data.getString("missatge");
+                    else if(error.networkResponse.statusCode == 401)
+                        Toast.makeText(getActivity(), "No se indica el token o no es válido o el id no es el asociado al token", Toast.LENGTH_LONG).show();
 
-                        Toast.makeText(getActivity(), missatgeError, Toast.LENGTH_LONG).show();
-
-                    } catch (UnsupportedEncodingException | JSONException e) {
-                        e.printStackTrace();
-                    }
+                    progressDialog.dismiss();
                 }
-                else if(error.networkResponse.statusCode == 401)
-                    Toast.makeText(getActivity(), "No se indica el token o no es válido o el id no es el asociado al token", Toast.LENGTH_LONG).show();
             }
-        }
         ){
             @Override
             public Map<String, String> getHeaders() {
@@ -363,29 +377,31 @@ public class profileFragment extends Fragment {
         String url = VariablesGlobals.getUrlAPI() + "usuaris/" + usuari.getId();
 
         StringRequest stringRequest = new StringRequest(Request.Method.PUT, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        usuari.setImatge(imatgeByteArray);
-                        refrescarImatge();
-                        imatgeView.setEnabled(true);
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                if(error.networkResponse.statusCode == 404 || error.networkResponse.statusCode == 401) {
-                    try {
-                        String missatgeError = new String(error.networkResponse.data, "utf-8");
-
-                        Toast.makeText(getContext(), missatgeError, Toast.LENGTH_LONG).show();
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                    }
+            new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    usuari.setImatge(imatgeByteArray);
+                    refrescarImatge();
+                    imatgeView.setEnabled(true);
+                    progressDialog.dismiss();
                 }
-                imatgeView.setEnabled(true);
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    if(error.networkResponse.statusCode == 404 || error.networkResponse.statusCode == 401) {
+                        try {
+                            String missatgeError = new String(error.networkResponse.data, "utf-8");
+
+                            Toast.makeText(getContext(), missatgeError, Toast.LENGTH_LONG).show();
+                        } catch (UnsupportedEncodingException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    imatgeView.setEnabled(true);
+                    progressDialog.dismiss();
+                }
             }
-        })
-        {
+        ){
             @Override
             public Map<String, String> getHeaders() {
                 HashMap<String, String> headers = new HashMap<>();

@@ -3,6 +3,7 @@ package com.example.bargo.Activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.SpannableString;
@@ -43,6 +44,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText contrasenya;
     private TextView registrate;
     private CheckBox veureContrasenya;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +76,9 @@ public class LoginActivity extends AppCompatActivity {
         loginButton = findViewById(R.id.buttonAcceder);
         veureContrasenya = findViewById(R.id.checkBoxContraseña);
 
+        progressDialog = new ProgressDialog(LoginActivity.this);
+        progressDialog.setMessage("Cargando...");
+
         veureContrasenya.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -87,6 +92,8 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 loginButton.setEnabled(false);
+
+                progressDialog.show();
 
                 String nomUsuari = LoginActivity.this.nomUsuari.getText().toString();
                 String contrasenya = LoginActivity.this.contrasenya.getText().toString();
@@ -137,6 +144,7 @@ public class LoginActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
 
+                    progressDialog.dismiss();
                     openMainActivity();
                 }
             }, new Response.ErrorListener() {
@@ -158,6 +166,7 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Nombre de usuario o contraseña incorrectos", Toast.LENGTH_LONG).show();
 
                     loginButton.setEnabled(true);
+                    progressDialog.dismiss();
                 }
         });
 
@@ -192,34 +201,6 @@ public class LoginActivity extends AppCompatActivity {
 
         // Add the request to the RequestQueue.
         queue.add(JsonArrayRequest);
-
-    }
-
-    public void requestHTTP(){
-        // Instantiate the RequestQueue.
-        RequestQueue queue = Volley.newRequestQueue(this);
-        String url ="http://192.168.1.135:8080/products/hello"; //localhost  192.168.1.135
-        //String url ="https://enigmatic-forest-20507.herokuapp.com/";
-
-        System.out.println("FEM LA PETICIO STRING");
-        // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        // Display the first 500 characters of the response string.
-                        System.out.println("Response is: "+ response);
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                System.out.println("1.That didn't work!");
-                System.out.println(error);
-            }
-        });
-
-        // Add the request to the RequestQueue.
-        queue.add(stringRequest);
 
     }
      */

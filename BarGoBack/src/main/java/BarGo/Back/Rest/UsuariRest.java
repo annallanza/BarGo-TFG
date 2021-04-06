@@ -116,7 +116,11 @@ public class UsuariRest {
         Usuari usuari = optionalUsuari.get();
 
         byte[] imatgeBytes = usuari.getImatge();
-        String imatge = Base64.getEncoder().encodeToString(imatgeBytes);
+        String imatge;
+        if(imatgeBytes == null)
+            imatge = "null";
+        else
+             imatge = Base64.getEncoder().encodeToString(imatgeBytes);
 
         GetUsuari getUsuari = new GetUsuari(usuari.getId(), usuari.getNomUsuari(), imatge, usuari.getRols()); //Creem DTO usuari sense contrasenya
 
@@ -170,7 +174,7 @@ public class UsuariRest {
         OutputStream os = new FileOutputStream(f_nou);
         os.write(bytesimatge);
         os.close();
-        
+
          */
 
         return new ResponseEntity<>("Se ha actualizado la imagen del usuario", HttpStatus.OK);
