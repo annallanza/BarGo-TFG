@@ -1,6 +1,5 @@
 package BarGo.Back.Dto;
 
-import BarGo.Back.Model.Establiment;
 import BarGo.Back.Model.Rol;
 
 import java.util.HashSet;
@@ -10,14 +9,14 @@ public class GetPropietari {
 
     private Long id;
     private String nomUsuari;
-    private byte[] imatge;
+    private String imatge;
     private Set<Rol> rols = new HashSet<>();
     private GetEstabliment establiment;
 
     public GetPropietari() {
     }
 
-    public GetPropietari(Long id, String nomUsuari, byte[] imatge, Set<Rol> rols, GetEstabliment establiment) {
+    public GetPropietari(Long id, String nomUsuari, String imatge, Set<Rol> rols, GetEstabliment establiment) {
         this.id = id;
         this.nomUsuari = nomUsuari;
         this.imatge = imatge;
@@ -41,11 +40,11 @@ public class GetPropietari {
         this.nomUsuari = nomUsuari;
     }
 
-    public byte[] getImatge() {
+    public String getImatge() {
         return imatge;
     }
 
-    public void setImatge(byte[] imatge) {
+    public void setImatge(String imatge) {
         this.imatge = imatge;
     }
 

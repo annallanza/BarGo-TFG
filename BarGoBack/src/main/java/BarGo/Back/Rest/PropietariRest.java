@@ -20,10 +20,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @RestController //Indiquem que aquesta classe sera un SERVICE REST
 @RequestMapping("propietaris") //Definim la URL del SERVICE (arrel)
@@ -87,6 +84,13 @@ public class PropietariRest {
 
         Propietari propietari = optionalPropietari.get();
 
+        byte[] imatgeBytes = propietari.getImatge();
+        String imatge;
+        if(imatgeBytes == null)
+            imatge = "null";
+        else
+            imatge = Base64.getEncoder().encodeToString(imatgeBytes);
+
         Optional<Establiment> optionalEstabliment = propietariService.getEstablimentByUsuariId(id);
 
         if(!optionalEstabliment.isPresent())
@@ -96,7 +100,7 @@ public class PropietariRest {
 
         GetEstabliment getEstabliment = new GetEstabliment(establiment.getId(), establiment.getNom(), establiment.getDireccio(), establiment.isExterior(), establiment.getNumCadires(), establiment.getNumTaules(), establiment.getHorari(), establiment.getDescripcio(), establiment.getPaginaWeb());
 
-        GetPropietari getPropietari = new GetPropietari(propietari.getId(), propietari.getNomUsuari(), propietari.getImatge(), propietari.getRols(), getEstabliment);
+        GetPropietari getPropietari = new GetPropietari(propietari.getId(), propietari.getNomUsuari(), imatge, propietari.getRols(), getEstabliment);
 
         return new ResponseEntity<>(getPropietari, HttpStatus.OK);
     }
