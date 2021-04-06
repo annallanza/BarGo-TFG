@@ -29,6 +29,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.bargo.Model.User;
 import com.example.bargo.Model.VariablesGlobals;
+import com.example.bargo.Model.VolleySingleton;
 import com.example.bargo.R;
 
 import org.json.JSONException;
@@ -99,6 +100,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         progressDialog = new ProgressDialog(RegisterActivity.this);
         progressDialog.setMessage("Cargando...");
+        progressDialog.setCancelable(false);
 
         veureContraseña.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -214,7 +216,6 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void SignupRequestConsumidor(final String nomUsuari, final String contrasenya){
-        RequestQueue queue = Volley.newRequestQueue(this);
         String url = VariablesGlobals.getUrlAPI() + "consumidors/auth/signup";
 
         JSONObject postData = new JSONObject();
@@ -254,11 +255,10 @@ public class RegisterActivity extends AppCompatActivity {
         );
 
         // Add the request to the RequestQueue.
-        queue.add(jsonObjectRequest);
+        VolleySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest);
     }
 
     public void SignupRequestPropietari(final String nomUsuari, final String contrasenya, String nomEstabliment, String direccio, Boolean exterior, int numCadires, int numTaules, String horari, String descripcio, String paginaWeb){
-        RequestQueue queue = Volley.newRequestQueue(this);
         String url = VariablesGlobals.getUrlAPI() + "propietaris/auth/signup";
 
         JSONObject postData = new JSONObject();
@@ -305,11 +305,10 @@ public class RegisterActivity extends AppCompatActivity {
         );
 
         // Add the request to the RequestQueue.
-        queue.add(jsonObjectRequest);
+        VolleySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest);
     }
 
     public void loginRequest(final String nomUsuari, final String contrasenya){
-        RequestQueue queue = Volley.newRequestQueue(this);
         String url = VariablesGlobals.getUrlAPI() + "usuaris/auth/login";
 
         JSONObject postData = new JSONObject();
@@ -367,7 +366,7 @@ public class RegisterActivity extends AppCompatActivity {
         );
 
         // Add the request to the RequestQueue.
-        queue.add(jsonObjectRequest);
+        VolleySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest);
     }
 
 }

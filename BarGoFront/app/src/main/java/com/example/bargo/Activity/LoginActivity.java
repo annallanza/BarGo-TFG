@@ -29,6 +29,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.bargo.Model.User;
 import com.example.bargo.Model.VariablesGlobals;
+import com.example.bargo.Model.VolleySingleton;
 import com.example.bargo.R;
 
 import org.json.JSONException;
@@ -78,6 +79,7 @@ public class LoginActivity extends AppCompatActivity {
 
         progressDialog = new ProgressDialog(LoginActivity.this);
         progressDialog.setMessage("Cargando...");
+        progressDialog.setCancelable(false);
 
         veureContrasenya.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -114,7 +116,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void loginRequest(final String nomUsuari, final String contrasenya){
-        RequestQueue queue = Volley.newRequestQueue(this);
+        //RequestQueue queue = Volley.newRequestQueue(this);
+        //RequestQueue queue = VolleySingleton.getInstance(this.getApplicationContext()).getRequestQueue();
         String url = VariablesGlobals.getUrlAPI() + "usuaris/auth/login";
 
         JSONObject postData = new JSONObject();
@@ -171,7 +174,8 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         // Add the request to the RequestQueue.
-        queue.add(jsonObjectRequest);
+        //queue.add(jsonObjectRequest);
+        VolleySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest);
     }
 
     /* JSONARRAYREQUEST

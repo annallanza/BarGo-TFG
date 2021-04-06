@@ -40,6 +40,7 @@ import com.example.bargo.Activity.ListProductActivity;
 import com.example.bargo.Activity.MisReservasActivity;
 import com.example.bargo.Model.User;
 import com.example.bargo.Model.VariablesGlobals;
+import com.example.bargo.Model.VolleySingleton;
 import com.example.bargo.R;
 import com.example.bargo.Activity.RetosActivity;
 
@@ -87,6 +88,7 @@ public class profileFragment extends Fragment {
 
         progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("Cargando...");
+        progressDialog.setCancelable(false);
 
         nomUsuariTextView.setText(User.getInstance().getNom());
 
@@ -253,7 +255,6 @@ public class profileFragment extends Fragment {
     private void GetPuntuacioConsumidor() {
         progressDialog.show();
 
-        RequestQueue queue = Volley.newRequestQueue(getActivity());
         String url = VariablesGlobals.getUrlAPI() + "consumidors/" + usuari.getId();
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
@@ -303,13 +304,12 @@ public class profileFragment extends Fragment {
         };
 
         // Add the request to the RequestQueue.
-        queue.add(jsonObjectRequest);
+        VolleySingleton.getInstance(getContext()).addToRequestQueue(jsonObjectRequest);
     }
 
     private void GetInfoConsumidorRequest() {
         progressDialog.show();
 
-        RequestQueue queue = Volley.newRequestQueue(getActivity());
         String url = VariablesGlobals.getUrlAPI() + "usuaris/" + usuari.getId();
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
@@ -368,12 +368,11 @@ public class profileFragment extends Fragment {
         };
 
         // Add the request to the RequestQueue.
-        queue.add(jsonObjectRequest);
+        VolleySingleton.getInstance(getContext()).addToRequestQueue(jsonObjectRequest);
     }
 
     private void PutImatgeConsumidor(final String imatge, final byte[] imatgeByteArray) {
 
-        RequestQueue queue = Volley.newRequestQueue(getActivity());
         String url = VariablesGlobals.getUrlAPI() + "usuaris/" + usuari.getId();
 
         StringRequest stringRequest = new StringRequest(Request.Method.PUT, url,
@@ -418,6 +417,6 @@ public class profileFragment extends Fragment {
         };
 
         // Add the request to the RequestQueue.
-        queue.add(stringRequest);
+        VolleySingleton.getInstance(getContext()).addToRequestQueue(stringRequest);
     }
 }

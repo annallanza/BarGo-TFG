@@ -30,6 +30,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.bargo.Model.User;
 import com.example.bargo.Model.VariablesGlobals;
+import com.example.bargo.Model.VolleySingleton;
 import com.example.bargo.R;
 
 import org.json.JSONException;
@@ -68,6 +69,7 @@ public class ConfiguracioUsuariActivity extends AppCompatActivity {
 
         progressDialog = new ProgressDialog(ConfiguracioUsuariActivity.this);
         progressDialog.setMessage("Cargando...");
+        progressDialog.setCancelable(false);
 
         String textlogout = "¿Quieres cerrar la sesión?";
         SpannableString ssLogout = new SpannableString(textlogout);
@@ -178,12 +180,6 @@ public class ConfiguracioUsuariActivity extends AppCompatActivity {
         finish();
     }
 
-    private void obrirMainActivity(){
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-        finish();
-    }
-
     private void refrescarDadesConsumidor(){
         nomUsuariEditText.setText(usuari.getNom());
         contrasenyaActualEditText.setText("");
@@ -193,7 +189,6 @@ public class ConfiguracioUsuariActivity extends AppCompatActivity {
     private void GetInfoConsumidorRequest() {
         progressDialog.show();
 
-        RequestQueue queue = Volley.newRequestQueue(this);
         String url = VariablesGlobals.getUrlAPI() + "usuaris/" + usuari.getId();
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
@@ -251,11 +246,10 @@ public class ConfiguracioUsuariActivity extends AppCompatActivity {
         };
 
         // Add the request to the RequestQueue.
-        queue.add(jsonObjectRequest);
+        VolleySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest);
     }
 
     private void PutInfoConsumidorRequest(final String nomUsuari, final String contrasenyaNova){
-        RequestQueue queue = Volley.newRequestQueue(this);
         String url = VariablesGlobals.getUrlAPI() + "usuaris/";
 
         JSONObject postData = new JSONObject();
@@ -273,6 +267,14 @@ public class ConfiguracioUsuariActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         loginRequest(nomUsuari, contrasenyaNova);
+                        try {
+                            String missatge = response.getString("missatge");
+
+                            Toast.makeText(getApplicationContext(), missatge, Toast.LENGTH_LONG).show();
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }, new Response.ErrorListener() {
                     @Override
@@ -306,13 +308,12 @@ public class ConfiguracioUsuariActivity extends AppCompatActivity {
         };
 
         // Add the request to the RequestQueue.
-        queue.add(jsonObjectRequest);
+        VolleySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest);
     }
 
     private void DeleteConsumidorRequest(){
         progressDialog.show();
 
-        RequestQueue queue = Volley.newRequestQueue(this);
         String url = VariablesGlobals.getUrlAPI() + "consumidors/" + usuari.getId();
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.DELETE, url, null,
@@ -354,11 +355,11 @@ public class ConfiguracioUsuariActivity extends AppCompatActivity {
         };
 
         // Add the request to the RequestQueue.
-        queue.add(jsonObjectRequest);
+        VolleySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest);
     }
 
     public void loginRequest(final String nomUsuari, final String contrasenya){
-        RequestQueue queue = Volley.newRequestQueue(this);
+
         String url = VariablesGlobals.getUrlAPI() + "usuaris/auth/login";
 
         JSONObject postData = new JSONObject();
@@ -388,8 +389,8 @@ public class ConfiguracioUsuariActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
 
+                    guardarCanvis.setEnabled(true);
                     progressDialog.dismiss();
-                    obrirMainActivity();
                 }
             }, new Response.ErrorListener() {
                 @Override
@@ -416,6 +417,6 @@ public class ConfiguracioUsuariActivity extends AppCompatActivity {
         );
 
         // Add the request to the RequestQueue.
-        queue.add(jsonObjectRequest);
+        VolleySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest);
     }
 }
