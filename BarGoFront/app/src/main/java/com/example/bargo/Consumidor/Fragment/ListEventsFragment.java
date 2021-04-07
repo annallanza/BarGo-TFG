@@ -1,4 +1,4 @@
-package com.example.bargo.Fragment;
+package com.example.bargo.Consumidor.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,8 +14,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.example.bargo.Activity.InfoEventActivity;
-import com.example.bargo.Model.EventListInfo;
+import com.example.bargo.Consumidor.Activity.InfoEventActivity;
+import com.example.bargo.Consumidor.Model.EventListInfo;
 import com.example.bargo.R;
 
 public class ListEventsFragment extends Fragment {

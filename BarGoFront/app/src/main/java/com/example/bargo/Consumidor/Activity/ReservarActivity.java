@@ -1,4 +1,4 @@
-package com.example.bargo.Activity;
+package com.example.bargo.Consumidor.Activity;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,7 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.bargo.Model.MisReservasInfo;
+import com.example.bargo.Consumidor.Model.MisReservasInfo;
 import com.example.bargo.R;
 
 public class ReservarActivity extends AppCompatActivity implements View.OnClickListener{

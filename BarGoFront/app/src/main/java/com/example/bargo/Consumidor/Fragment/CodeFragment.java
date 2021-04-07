@@ -1,4 +1,4 @@
-package com.example.bargo.Fragment;
+package com.example.bargo.Consumidor.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,8 +13,8 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.bargo.Model.RetosInfo;
-import com.example.bargo.Model.User;
+import com.example.bargo.Consumidor.Model.RetosInfo;
+import com.example.bargo.User;
 import com.example.bargo.R;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;

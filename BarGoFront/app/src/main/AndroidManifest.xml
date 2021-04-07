@@ -23,31 +23,30 @@
             android:screenOrientation="portrait"
             tools:replace="screenOrientation" />
         <activity
-            android:name=".Activity.ListProductActivity"
+            android:name=".Consumidor.Activity.ListProductActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Activity.ReservarActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Activity.MisReservasActivity"
+            android:name=".Consumidor.Activity.MisReservasActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Activity.ConfiguracioUsuariActivity"
+            android:name=".Consumidor.Activity.ConfiguracioUsuariActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Activity.RetosActivity"
+            android:name=".Consumidor.Activity.RetosActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Activity.RegisterActivity"
+            android:name=".RegisterActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Activity.InfoBarActivity"
+            android:name=".Consumidor.Activity.InfoBarActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Activity.InfoEventActivity"
+            android:name=".Consumidor.Activity.InfoEventActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Activity.LoginActivity"
+            android:name=".LoginActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -56,7 +55,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Activity.MainActivity"
+            android:name=".Consumidor.Activity.MainActivity"
             android:screenOrientation="portrait" />
     </application>
 

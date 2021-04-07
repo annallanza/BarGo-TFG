@@ -1,4 +1,4 @@
-package com.example.bargo.Model;
+package com.example.bargo;
 
 import android.content.Context;
 

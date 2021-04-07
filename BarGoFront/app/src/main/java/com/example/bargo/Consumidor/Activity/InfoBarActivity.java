@@ -1,4 +1,4 @@
-package com.example.bargo.Activity;
+package com.example.bargo.Consumidor.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,7 +8,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.bargo.Model.User;
+import com.example.bargo.User;
 import com.example.bargo.R;
 
 public class InfoBarActivity extends AppCompatActivity {

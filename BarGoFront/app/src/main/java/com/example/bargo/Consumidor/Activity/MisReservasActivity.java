@@ -1,4 +1,4 @@
-package com.example.bargo.Activity;
+package com.example.bargo.Consumidor.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,7 +13,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.bargo.Model.MisReservasInfo;
+import com.example.bargo.Consumidor.Model.MisReservasInfo;
 import com.example.bargo.R;
 
 import java.util.ArrayList;

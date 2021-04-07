@@ -1,7 +1,9 @@
-package com.example.bargo.Model;
+package com.example.bargo.Consumidor.Model;
 
 import android.content.Context;
 import android.widget.Toast;
+
+import com.example.bargo.User;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package com.example.bargo.Activity;
+package com.example.bargo.Consumidor.Activity;
 
 import android.os.Bundle;
 import android.view.View;
@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.bargo.Model.RetosInfo;
+import com.example.bargo.Consumidor.Model.RetosInfo;
 import com.example.bargo.R;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.example.bargo.Fragment;
+package com.example.bargo.Consumidor.Fragment;
 
 import android.Manifest;
 import android.app.Activity;
@@ -29,20 +29,18 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-import com.example.bargo.Activity.ConfiguracioUsuariActivity;
-import com.example.bargo.Activity.ListProductActivity;
-import com.example.bargo.Activity.MisReservasActivity;
-import com.example.bargo.Model.User;
-import com.example.bargo.Model.VariablesGlobals;
-import com.example.bargo.Model.VolleySingleton;
+import com.example.bargo.Consumidor.Activity.ConfiguracioUsuariActivity;
+import com.example.bargo.Consumidor.Activity.ListProductActivity;
+import com.example.bargo.Consumidor.Activity.MisReservasActivity;
+import com.example.bargo.User;
+import com.example.bargo.VariablesGlobals;
+import com.example.bargo.VolleySingleton;
 import com.example.bargo.R;
-import com.example.bargo.Activity.RetosActivity;
+import com.example.bargo.Consumidor.Activity.RetosActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -155,7 +153,7 @@ public class profileFragment extends Fragment {
         startActivityForResult(intentFotoGaleria, IMAGE_GALLERY_REQUEST);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
+    @RequiresApi(api = Build.VERSION_CODES.O) //Minima versio d'Android = OREO 8.0
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         getActivity();

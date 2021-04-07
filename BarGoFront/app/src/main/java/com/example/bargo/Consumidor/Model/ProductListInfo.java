@@ -1,6 +1,7 @@
-package com.example.bargo.Model;
+package com.example.bargo.Consumidor.Model;
 
 import com.example.bargo.R;
+import com.example.bargo.User;
 
 public class ProductListInfo {
 

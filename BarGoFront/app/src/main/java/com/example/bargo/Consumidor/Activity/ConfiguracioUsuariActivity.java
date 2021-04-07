@@ -1,4 +1,4 @@
-package com.example.bargo.Activity;
+package com.example.bargo.Consumidor.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -23,14 +23,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-import com.example.bargo.Model.User;
-import com.example.bargo.Model.VariablesGlobals;
-import com.example.bargo.Model.VolleySingleton;
+import com.example.bargo.LoginActivity;
+import com.example.bargo.User;
+import com.example.bargo.VariablesGlobals;
+import com.example.bargo.VolleySingleton;
 import com.example.bargo.R;
 
 import org.json.JSONException;
