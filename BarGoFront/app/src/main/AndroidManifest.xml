@@ -26,6 +26,7 @@
             android:name=".Consumidor.Activity.ListProductActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".Consumidor.Activity.ReservarActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Consumidor.Activity.MisReservasActivity"
