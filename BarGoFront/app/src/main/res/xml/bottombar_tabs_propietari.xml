@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<tabs>
+    <tab
+        id="@+id/tab_perfil"
+        icon="@drawable/profile_icon"
+        title="Profile"
+        activeColor="@color/colorBarGo"/>
+    <tab
+        id="@+id/tab_ocupacio"
+        icon="@drawable/ocupacio_icon"
+        title="Code"
+        activeColor="@color/colorBarGo"/>
+    <tab
+        id="@+id/tab_reserves"
+        icon="@drawable/reserves_icon"
+        title="Bars"
+        activeColor="@color/colorBarGo"/>
+    <tab
+        id="@+id/tab_esdeveniments"
+        icon="@drawable/events_icon"
+        title="Events"
+        activeColor="@color/colorBarGo"/>
+</tabs>

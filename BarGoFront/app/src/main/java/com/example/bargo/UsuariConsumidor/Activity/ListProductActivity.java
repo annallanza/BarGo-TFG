@@ -1,4 +1,4 @@
-package com.example.bargo.Consumidor.Activity;
+package com.example.bargo.UsuariConsumidor.Activity;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,8 +14,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.bargo.Consumidor.Model.ProductListInfo;
-import com.example.bargo.Consumidor.Model.RetosInfo;
+import com.example.bargo.UsuariConsumidor.Model.ProductListInfo;
+import com.example.bargo.UsuariConsumidor.Model.RetosInfo;
 import com.example.bargo.R;
 
 public class ListProductActivity extends AppCompatActivity {

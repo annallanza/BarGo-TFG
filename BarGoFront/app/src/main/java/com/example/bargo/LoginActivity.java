@@ -25,12 +25,14 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.example.bargo.Consumidor.Activity.MainActivity;
+import com.example.bargo.UsuariConsumidor.Activity.MainActivity;
+import com.example.bargo.UsuariPropietari.Activity.MainPropietariActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 
 import io.jsonwebtoken.Jwts;
 
@@ -104,15 +106,17 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void openMainActivity(){
-        Intent intent = new Intent(this, MainActivity.class);
+    public void openMainActivity(String rol_usuari){
+        Intent intent;
+        if(rol_usuari.equals("ROL_CONSUMIDOR"))
+            intent = new Intent(this, MainActivity.class);
+        else intent = new Intent(this, MainPropietariActivity.class);
+
         startActivity(intent);
         finish();
     }
 
     public void loginRequest(final String nomUsuari, final String contrasenya){
-        //RequestQueue queue = Volley.newRequestQueue(this);
-        //RequestQueue queue = VolleySingleton.getInstance(this.getApplicationContext()).getRequestQueue();
         String url = VariablesGlobals.getUrlAPI() + "usuaris/auth/login";
 
         JSONObject postData = new JSONObject();
@@ -132,18 +136,25 @@ public class LoginActivity extends AppCompatActivity {
                         String token = response.getString("token");
 
                         long id = Jwts.parser().setSigningKey(VariablesGlobals.getSecret().getBytes()).parseClaimsJws(token).getBody().get("id", Long.class);
+                        ArrayList rols = Jwts.parser().setSigningKey(VariablesGlobals.getSecret().getBytes()).parseClaimsJws(token).getBody().get("rols", ArrayList.class);
 
-                        User usuari = User.getInstance();
-                        usuari.setId(id);
-                        usuari.setNom(nomUsuari);
-                        usuari.setContrasenya(contrasenya);
-                        usuari.setToken(token);
+                        String rol_usuari = (String) rols.get(0);
+                        System.out.println("ROOOOL: " + rol_usuari);
+
+                        if(rol_usuari.equals("ROL_CONSUMIDOR")){
+                            Consumidor consumidor = Consumidor.getInstance();
+                            consumidor.setAll(id,nomUsuari,contrasenya,token,null,0);
+                        }
+                        else if(rol_usuari.equals("ROL_PROPIETARI")){
+                            Propietari propietari = Propietari.getInstance();
+                            propietari.setAll(id,nomUsuari,contrasenya,token,null);
+                        }
+                        openMainActivity(rol_usuari);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
 
                     progressDialog.dismiss();
-                    openMainActivity();
                 }
             }, new Response.ErrorListener() {
                 @Override
@@ -166,10 +177,10 @@ public class LoginActivity extends AppCompatActivity {
                     loginButton.setEnabled(true);
                     progressDialog.dismiss();
                 }
-        });
+            }
+        );
 
         // Add the request to the RequestQueue.
-        //queue.add(jsonObjectRequest);
         VolleySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest);
     }
 

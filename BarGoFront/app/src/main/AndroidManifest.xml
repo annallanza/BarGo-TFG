@@ -18,33 +18,34 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name=".UsuariPropietari.Activity.MainPropietariActivity"></activity>
         <activity
             android:name="com.journeyapps.barcodescanner.CaptureActivity"
             android:screenOrientation="portrait"
             tools:replace="screenOrientation" />
         <activity
-            android:name=".Consumidor.Activity.ListProductActivity"
+            android:name=".UsuariConsumidor.Activity.ListProductActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Consumidor.Activity.ReservarActivity"
+            android:name=".UsuariConsumidor.Activity.ReservarActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Consumidor.Activity.MisReservasActivity"
+            android:name=".UsuariConsumidor.Activity.MisReservasActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Consumidor.Activity.ConfiguracioUsuariActivity"
+            android:name=".UsuariConsumidor.Activity.ConfiguracioUsuariActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Consumidor.Activity.RetosActivity"
+            android:name=".UsuariConsumidor.Activity.RetosActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".RegisterActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Consumidor.Activity.InfoBarActivity"
+            android:name=".UsuariConsumidor.Activity.InfoBarActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Consumidor.Activity.InfoEventActivity"
+            android:name=".UsuariConsumidor.Activity.InfoEventActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".LoginActivity"
@@ -56,7 +57,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Consumidor.Activity.MainActivity"
+            android:name=".UsuariConsumidor.Activity.MainActivity"
             android:screenOrientation="portrait" />
     </application>
 

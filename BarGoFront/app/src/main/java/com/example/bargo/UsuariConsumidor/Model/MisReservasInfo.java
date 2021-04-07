@@ -1,4 +1,4 @@
-package com.example.bargo.Consumidor.Model;
+package com.example.bargo.UsuariConsumidor.Model;
 
 import com.example.bargo.R;
 
@@ -84,6 +84,6 @@ public class MisReservasInfo {
         this.bars.remove(i);
         this.adresses.remove(i);
         this.infoReserva.remove(i);
-        //User.getInstance().addPoints(-1500);
+        //Consumidor.getInstance().addPoints(-1500);
     }
 }

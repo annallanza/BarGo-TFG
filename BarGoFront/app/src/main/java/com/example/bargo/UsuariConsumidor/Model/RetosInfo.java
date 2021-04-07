@@ -1,8 +1,9 @@
-package com.example.bargo.Consumidor.Model;
+package com.example.bargo.UsuariConsumidor.Model;
 
 import android.content.Context;
 import android.widget.Toast;
 
+import com.example.bargo.Consumidor;
 import com.example.bargo.User;
 
 import java.util.ArrayList;
@@ -99,7 +100,7 @@ public class RetosInfo {
                     if (val == totalProgress.get(i)) {
                         challengeCompleted.set(i, true);
                         Toast.makeText(context, "Reto completado!", Toast.LENGTH_SHORT).show();
-                        User.getInstance().addPoints(points.get(i));
+                        Consumidor.getInstance().addPoints(points.get(i));
                     }
                 }
             }

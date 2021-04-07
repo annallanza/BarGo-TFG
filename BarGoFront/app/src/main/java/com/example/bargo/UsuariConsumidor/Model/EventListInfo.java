@@ -1,4 +1,4 @@
-package com.example.bargo.Consumidor.Model;
+package com.example.bargo.UsuariConsumidor.Model;
 
 import com.example.bargo.R;
 

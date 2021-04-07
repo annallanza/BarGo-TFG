@@ -1,4 +1,4 @@
-package com.example.bargo.Consumidor.Activity;
+package com.example.bargo.UsuariConsumidor.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -26,8 +26,9 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.bargo.Consumidor;
 import com.example.bargo.LoginActivity;
-import com.example.bargo.User;
+import com.example.bargo.Propietari;
 import com.example.bargo.VariablesGlobals;
 import com.example.bargo.VolleySingleton;
 import com.example.bargo.R;
@@ -36,6 +37,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -51,7 +53,7 @@ public class ConfiguracioUsuariActivity extends AppCompatActivity {
     private TextView logout;
     private TextView eliminarCompte;
     private ProgressDialog progressDialog;
-    private User usuari = User.getInstance();
+    private Consumidor consumidor = Consumidor.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,7 +133,7 @@ public class ConfiguracioUsuariActivity extends AppCompatActivity {
                 String contrasenyaActual = contrasenyaActualEditText.getText().toString();
                 String contrasenyaNova = contrasenyaNovaEditText.getText().toString();
 
-                if(contrasenyaActual.equals(usuari.getContrasenya())) {
+                if(contrasenyaActual.equals(consumidor.getContrasenya())) {
                     progressDialog.show();
                     PutInfoConsumidorRequest(nomUsuari, contrasenyaNova);
                 }
@@ -163,7 +165,7 @@ public class ConfiguracioUsuariActivity extends AppCompatActivity {
             public void onClick(View v) {
                 alertdialog.cancel();
                 if(opcio.equals("logout")) {
-                    usuari.setUserNull();
+                    consumidor.setConsumidorNull();
                     obrirLoginActivity();
                 }
                 else {
@@ -180,7 +182,7 @@ public class ConfiguracioUsuariActivity extends AppCompatActivity {
     }
 
     private void refrescarDadesConsumidor(){
-        nomUsuariEditText.setText(usuari.getNom());
+        nomUsuariEditText.setText(consumidor.getNom());
         contrasenyaActualEditText.setText("");
         contrasenyaNovaEditText.setText("");
     }
@@ -188,7 +190,7 @@ public class ConfiguracioUsuariActivity extends AppCompatActivity {
     private void GetInfoConsumidorRequest() {
         progressDialog.show();
 
-        String url = VariablesGlobals.getUrlAPI() + "usuaris/" + usuari.getId();
+        String url = VariablesGlobals.getUrlAPI() + "usuaris/" + consumidor.getId();
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
             new Response.Listener<JSONObject>() {
@@ -199,13 +201,13 @@ public class ConfiguracioUsuariActivity extends AppCompatActivity {
                         String nomUsuari = response.getString("nomUsuari");
                         String imatge = response.getString("imatge");
 
-                        usuari.setId(id);
-                        usuari.setNom(nomUsuari);
+                        consumidor.setId(id);
+                        consumidor.setNom(nomUsuari);
                         if(!imatge.equals("null")){
                             byte[] bytesimatge = imatge.getBytes();
-                            usuari.setImatge(bytesimatge);
+                            consumidor.setImatge(bytesimatge);
                         }
-                        else usuari.setImatge(null);
+                        else consumidor.setImatge(null);
 
                         refrescarDadesConsumidor();
                     } catch (JSONException e) {
@@ -239,7 +241,7 @@ public class ConfiguracioUsuariActivity extends AppCompatActivity {
             @Override
             public Map<String, String> getHeaders() {
                 HashMap<String, String> headers = new HashMap<>();
-                headers.put("Authorization", "Bearer " + usuari.getToken());
+                headers.put("Authorization", "Bearer " + consumidor.getToken());
                 return headers;
             }
         };
@@ -253,7 +255,7 @@ public class ConfiguracioUsuariActivity extends AppCompatActivity {
 
         JSONObject postData = new JSONObject();
         try {
-            postData.put("id", usuari.getId());
+            postData.put("id", consumidor.getId());
             postData.put("nomUsuari", nomUsuari);
             postData.put("contrasenya", contrasenyaNova);
 
@@ -301,7 +303,7 @@ public class ConfiguracioUsuariActivity extends AppCompatActivity {
             @Override
             public Map<String, String> getHeaders() {
                 HashMap<String, String> headers = new HashMap<>();
-                headers.put("Authorization", "Bearer " + usuari.getToken());
+                headers.put("Authorization", "Bearer " + consumidor.getToken());
                 return headers;
             }
         };
@@ -313,13 +315,13 @@ public class ConfiguracioUsuariActivity extends AppCompatActivity {
     private void DeleteConsumidorRequest(){
         progressDialog.show();
 
-        String url = VariablesGlobals.getUrlAPI() + "consumidors/" + usuari.getId();
+        String url = VariablesGlobals.getUrlAPI() + "consumidors/" + consumidor.getId();
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.DELETE, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        usuari.setUserNull();
+                        consumidor.setConsumidorNull();
                         progressDialog.dismiss();
                         obrirLoginActivity();
                     }
@@ -348,7 +350,7 @@ public class ConfiguracioUsuariActivity extends AppCompatActivity {
             @Override
             public Map<String, String> getHeaders() {
                 HashMap<String, String> headers = new HashMap<>();
-                headers.put("Authorization", "Bearer " + usuari.getToken());
+                headers.put("Authorization", "Bearer " + consumidor.getToken());
                 return headers;
             }
         };
@@ -378,12 +380,18 @@ public class ConfiguracioUsuariActivity extends AppCompatActivity {
                         String token = response.getString("token");
 
                         long id = Jwts.parser().setSigningKey(VariablesGlobals.getSecret().getBytes()).parseClaimsJws(token).getBody().get("id", Long.class);
+                        ArrayList rols = Jwts.parser().setSigningKey(VariablesGlobals.getSecret().getBytes()).parseClaimsJws(token).getBody().get("rols", ArrayList.class);
 
-                        User usuari = User.getInstance();
-                        usuari.setId(id);
-                        usuari.setNom(nomUsuari);
-                        usuari.setContrasenya(contrasenya);
-                        usuari.setToken(token);
+                        String rol_usuari = (String) rols.get(0);
+
+                        if(rol_usuari.equals("ROL_CONSUMIDOR")){
+                            Consumidor consumidor = Consumidor.getInstance();
+                            consumidor.setAll(id,nomUsuari,contrasenya,token,null,0);
+                        }
+                        else if(rol_usuari.equals("ROL_PROPIETARI")){
+                            Propietari propietari = Propietari.getInstance();
+                            propietari.setAll(id,nomUsuari,contrasenya,token,null);
+                        }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

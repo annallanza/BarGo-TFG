@@ -1,4 +1,4 @@
-package com.example.bargo.Consumidor.Activity;
+package com.example.bargo.UsuariConsumidor.Activity;
 
 import androidx.annotation.IdRes;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,10 +8,10 @@ import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.example.bargo.Consumidor.Fragment.CodeFragment;
-import com.example.bargo.Consumidor.Fragment.ListBarFragment;
-import com.example.bargo.Consumidor.Fragment.ListEventsFragment;
-import com.example.bargo.Consumidor.Fragment.profileFragment;
+import com.example.bargo.UsuariConsumidor.Fragment.CodeFragment;
+import com.example.bargo.UsuariConsumidor.Fragment.ListBarFragment;
+import com.example.bargo.UsuariConsumidor.Fragment.ListEventsFragment;
+import com.example.bargo.UsuariConsumidor.Fragment.profileFragment;
 import com.example.bargo.R;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
@@ -29,27 +29,27 @@ public class MainActivity extends AppCompatActivity {
         setTheme(R.style.AppTheme_NoActionBar);
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_main);
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.fragment_layout, bars);
+        ft.replace(R.id.fragment_layout_propietari, bars);
         ft.commit();
-        BottomBar bottomBar = findViewById(R.id.bottomBar);
+        BottomBar bottomBar = findViewById(R.id.bottomBar_propietari);
         bottomBar.setDefaultTab(R.id.tab_code);
         bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelected(@IdRes int tabId) {
                 FragmentTransaction ft2 = getSupportFragmentManager().beginTransaction();
                 if(tabId == R.id.tab_code) {
-                    ft2.replace(R.id.fragment_layout, code);
+                    ft2.replace(R.id.fragment_layout_propietari, code);
                 }
                 else if(tabId == R.id.tab_profile) {
-                    ft2.replace(R.id.fragment_layout, profile);
+                    ft2.replace(R.id.fragment_layout_propietari, profile);
                 }
                 else if(tabId == R.id.tab_bars) {
-                    ft2.replace(R.id.fragment_layout, bars);
+                    ft2.replace(R.id.fragment_layout_propietari, bars);
                 }
                 else if(tabId == R.id.tab_events) {
-                    ft2.replace(R.id.fragment_layout, events);
+                    ft2.replace(R.id.fragment_layout_propietari, events);
                 }
                 ft2.commit();
             }

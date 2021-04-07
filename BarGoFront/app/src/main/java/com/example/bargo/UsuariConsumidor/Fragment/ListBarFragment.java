@@ -1,4 +1,4 @@
-package com.example.bargo.Consumidor.Fragment;
+package com.example.bargo.UsuariConsumidor.Fragment;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -16,8 +16,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
-import com.example.bargo.Consumidor.Activity.InfoBarActivity;
-import com.example.bargo.Consumidor.Model.BarListInfo;
+import com.example.bargo.UsuariConsumidor.Activity.InfoBarActivity;
+import com.example.bargo.UsuariConsumidor.Model.BarListInfo;
 import com.example.bargo.R;
 
 public class ListBarFragment extends Fragment {

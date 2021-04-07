@@ -1,4 +1,4 @@
-package com.example.bargo.Consumidor.Activity;
+package com.example.bargo.UsuariConsumidor.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,7 +8,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.bargo.User;
+import com.example.bargo.Consumidor;
 import com.example.bargo.R;
 
 public class InfoBarActivity extends AppCompatActivity {
@@ -19,7 +19,7 @@ public class InfoBarActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_infobar);
-        final int points = User.getInstance().getPuntuacio();
+        final int points = Consumidor.getInstance().getPuntuacio();
         reservar = (Button) findViewById(R.id.reservaButton);
         if(points < 0){
             reservar.setBackgroundColor(getResources().getColor(R.color.grey));

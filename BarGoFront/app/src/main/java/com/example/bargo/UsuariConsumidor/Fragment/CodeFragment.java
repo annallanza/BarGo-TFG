@@ -1,4 +1,4 @@
-package com.example.bargo.Consumidor.Fragment;
+package com.example.bargo.UsuariConsumidor.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,7 +13,8 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.bargo.Consumidor.Model.RetosInfo;
+import com.example.bargo.Consumidor;
+import com.example.bargo.UsuariConsumidor.Model.RetosInfo;
 import com.example.bargo.User;
 import com.example.bargo.R;
 import com.google.zxing.integration.android.IntentIntegrator;
@@ -47,7 +48,7 @@ public class CodeFragment extends Fragment {
                     }
                     else if (code.contains("PROD")) { //en caso de producto de bar
                         Toast.makeText(getActivity().getBaseContext(), "¡Canjeado! ¡+100 puntos!", Toast.LENGTH_SHORT).show();
-                        User.getInstance().addPoints(100);
+                        Consumidor.getInstance().addPoints(100);
                         RetosInfo.getInstance().setContext(getActivity().getBaseContext());
                         RetosInfo.getInstance().changeChallenges("BEER");
                     }

@@ -1,4 +1,4 @@
-package com.example.bargo.Consumidor.Activity;
+package com.example.bargo.UsuariConsumidor.Activity;
 
 import android.os.Bundle;
 import android.view.View;

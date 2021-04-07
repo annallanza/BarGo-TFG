@@ -25,12 +25,14 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.example.bargo.Consumidor.Activity.MainActivity;
+import com.example.bargo.UsuariConsumidor.Activity.MainActivity;
+import com.example.bargo.UsuariPropietari.Activity.MainPropietariActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 
 import io.jsonwebtoken.Jwts;
 
@@ -51,6 +53,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText descripcioEditText;
     private EditText paginaWebEditText;
     private ProgressDialog progressDialog;
+    private Consumidor consumidor = Consumidor.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,8 +157,12 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    private void openMainActivity() {
-        Intent intent = new Intent(this, MainActivity.class);
+    public void openMainActivity(String rol_usuari){
+        Intent intent;
+        if(rol_usuari.equals("ROL_CONSUMIDOR"))
+            intent = new Intent(this, MainActivity.class);
+        else intent = new Intent(this, MainPropietariActivity.class);
+
         startActivity(intent);
         finish();
     }
@@ -323,18 +330,24 @@ public class RegisterActivity extends AppCompatActivity {
                         String token = response.getString("token");
 
                         long id = Jwts.parser().setSigningKey(VariablesGlobals.getSecret().getBytes()).parseClaimsJws(token).getBody().get("id", Long.class);
+                        ArrayList rols = Jwts.parser().setSigningKey(VariablesGlobals.getSecret().getBytes()).parseClaimsJws(token).getBody().get("rols", ArrayList.class);
 
-                        User usuari = User.getInstance();
-                        usuari.setId(id);
-                        usuari.setNom(nomUsuari);
-                        usuari.setContrasenya(contrasenya);
-                        usuari.setToken(token);
+                        String rol_usuari = (String) rols.get(0);
+
+                        if(rol_usuari.equals("ROL_CONSUMIDOR")){
+                            Consumidor consumidor = Consumidor.getInstance();
+                            consumidor.setAll(id,nomUsuari,contrasenya,token,null,0);
+                        }
+                        else if(rol_usuari.equals("ROL_PROPIETARI")){
+                            Propietari propietari = Propietari.getInstance();
+                            propietari.setAll(id,nomUsuari,contrasenya,token,null);
+                        }
+                        openMainActivity(rol_usuari);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
 
                     progressDialog.dismiss();
-                    openMainActivity();
                 }
             }, new Response.ErrorListener() {
                 @Override

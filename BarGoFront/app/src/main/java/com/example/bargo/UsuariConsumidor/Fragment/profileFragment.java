@@ -1,4 +1,4 @@
-package com.example.bargo.Consumidor.Fragment;
+package com.example.bargo.UsuariConsumidor.Fragment;
 
 import android.Manifest;
 import android.app.Activity;
@@ -33,14 +33,14 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
-import com.example.bargo.Consumidor.Activity.ConfiguracioUsuariActivity;
-import com.example.bargo.Consumidor.Activity.ListProductActivity;
-import com.example.bargo.Consumidor.Activity.MisReservasActivity;
-import com.example.bargo.User;
+import com.example.bargo.Consumidor;
+import com.example.bargo.UsuariConsumidor.Activity.ConfiguracioUsuariActivity;
+import com.example.bargo.UsuariConsumidor.Activity.ListProductActivity;
+import com.example.bargo.UsuariConsumidor.Activity.MisReservasActivity;
 import com.example.bargo.VariablesGlobals;
 import com.example.bargo.VolleySingleton;
 import com.example.bargo.R;
-import com.example.bargo.Consumidor.Activity.RetosActivity;
+import com.example.bargo.UsuariConsumidor.Activity.RetosActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -68,7 +68,7 @@ public class profileFragment extends Fragment {
     private TextView nomUsuariTextView;
     private TextView puntuacio;
     private ProgressDialog progressDialog;
-    private final User usuari = User.getInstance();
+    private final Consumidor consumidor = Consumidor.getInstance();
     View view;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -88,7 +88,7 @@ public class profileFragment extends Fragment {
         progressDialog.setMessage("Cargando...");
         progressDialog.setCancelable(false);
 
-        nomUsuariTextView.setText(User.getInstance().getNom());
+        nomUsuariTextView.setText(consumidor.getNom());
 
         refreshPoints();
 
@@ -186,7 +186,7 @@ public class profileFragment extends Fragment {
     }
 
     private void refreshPoints(){
-        int pts = User.getInstance().getPuntuacio();
+        int pts = consumidor.getPuntuacio();
         if (pts < 0) pts = 0;
         String p = String.valueOf(pts);
         puntuacio.setText(p + " " + getString(R.string.points));
@@ -194,7 +194,7 @@ public class profileFragment extends Fragment {
 
     private void refrescarImatge(){
 
-        byte[] imatgeBytes = usuari.getImatge();
+        byte[] imatgeBytes = consumidor.getImatge();
         if(imatgeBytes != null){
             Bitmap bmp = BitmapFactory.decodeByteArray(imatgeBytes, 0, imatgeBytes.length);
             imatgeView.setImageBitmap(bmp);
@@ -253,7 +253,7 @@ public class profileFragment extends Fragment {
     private void GetPuntuacioConsumidor() {
         progressDialog.show();
 
-        String url = VariablesGlobals.getUrlAPI() + "consumidors/" + usuari.getId();
+        String url = VariablesGlobals.getUrlAPI() + "consumidors/" + consumidor.getId();
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
             new Response.Listener<JSONObject>() {
@@ -262,8 +262,7 @@ public class profileFragment extends Fragment {
                     try {
                         int puntuacio = Integer.parseInt(response.getString("puntuacio"));
 
-                        User usuari = User.getInstance();
-                        usuari.setPuntuacio(puntuacio);
+                        consumidor.setPuntuacio(puntuacio);
 
                         refreshPoints();
                     } catch (JSONException e) {
@@ -296,7 +295,7 @@ public class profileFragment extends Fragment {
             @Override
             public Map<String, String> getHeaders() {
                 HashMap<String, String> headers = new HashMap<>();
-                headers.put("Authorization", "Bearer " + usuari.getToken());
+                headers.put("Authorization", "Bearer " + consumidor.getToken());
                 return headers;
             }
         };
@@ -308,7 +307,7 @@ public class profileFragment extends Fragment {
     private void GetInfoConsumidorRequest() {
         progressDialog.show();
 
-        String url = VariablesGlobals.getUrlAPI() + "usuaris/" + usuari.getId();
+        String url = VariablesGlobals.getUrlAPI() + "usuaris/" + consumidor.getId();
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
             new Response.Listener<JSONObject>() {
@@ -320,13 +319,13 @@ public class profileFragment extends Fragment {
                         String nomUsuari = response.getString("nomUsuari");
                         String imatge = response.getString("imatge");
 
-                        usuari.setId(id);
-                        usuari.setNom(nomUsuari);
+                        consumidor.setId(id);
+                        consumidor.setNom(nomUsuari);
                         if(!imatge.equals("null")){
                             byte[] bytesimatge = Base64.getDecoder().decode(imatge);
-                            usuari.setImatge(bytesimatge);
+                            consumidor.setImatge(bytesimatge);
                         }
-                        else usuari.setImatge(null);
+                        else consumidor.setImatge(null);
 
                         refrescarImatge();
 
@@ -360,7 +359,7 @@ public class profileFragment extends Fragment {
             @Override
             public Map<String, String> getHeaders() {
                 HashMap<String, String> headers = new HashMap<>();
-                headers.put("Authorization", "Bearer " + usuari.getToken());
+                headers.put("Authorization", "Bearer " + consumidor.getToken());
                 return headers;
             }
         };
@@ -371,13 +370,13 @@ public class profileFragment extends Fragment {
 
     private void PutImatgeConsumidor(final String imatge, final byte[] imatgeByteArray) {
 
-        String url = VariablesGlobals.getUrlAPI() + "usuaris/" + usuari.getId();
+        String url = VariablesGlobals.getUrlAPI() + "usuaris/" + consumidor.getId();
 
         StringRequest stringRequest = new StringRequest(Request.Method.PUT, url,
             new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
-                    usuari.setImatge(imatgeByteArray);
+                    consumidor.setImatge(imatgeByteArray);
                     refrescarImatge();
                     imatgeView.setEnabled(true);
                     progressDialog.dismiss();
@@ -402,7 +401,7 @@ public class profileFragment extends Fragment {
             @Override
             public Map<String, String> getHeaders() {
                 HashMap<String, String> headers = new HashMap<>();
-                headers.put("Authorization", "Bearer " + usuari.getToken());
+                headers.put("Authorization", "Bearer " + consumidor.getToken());
                 return headers;
             }
 

@@ -7,16 +7,10 @@ public class User {
     private String contrasenya = "contrasenya";
     private String token = "token";
     private byte[] imatge;
-    private int puntuacio = 0;
-    private int codesIntroduced[];
 
-    private static User instance = null;
 
-    private User(){
-    }
+    public User() {
 
-    public void setUserNull(){
-        instance = null;
     }
 
     public long getId() {
@@ -59,19 +53,11 @@ public class User {
         this.imatge = imatge;
     }
 
-    public int getPuntuacio(){
-        return puntuacio;
-    }
-
-    public void setPuntuacio(int puntuacio){
-        this.puntuacio = puntuacio;
-    }
-
-    public void addPoints(int points) { this.puntuacio += points;}
-
-    public static User getInstance(){
-        if(instance == null)
-            instance = new User();
-        return instance;
+    public void setAll(long id, String nomUsuari, String contrasenya, String token, byte[] imatge){
+        this.setId(id);
+        this.setNom(nomUsuari);
+        this.setContrasenya(contrasenya);
+        this.setToken(token);
+        this.setImatge(imatge);
     }
 }

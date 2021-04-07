@@ -1,5 +1,6 @@
-package com.example.bargo.Consumidor.Model;
+package com.example.bargo.UsuariConsumidor.Model;
 
+import com.example.bargo.Consumidor;
 import com.example.bargo.R;
 import com.example.bargo.User;
 
@@ -19,7 +20,7 @@ public class ProductListInfo {
         setUnidades();
         setPoints();
         setLoQueQueda();
-        userPoints = User.getInstance().getPuntuacio();
+        userPoints = Consumidor.getInstance().getPuntuacio();
     }
 
     public static ProductListInfo getInstance(){
@@ -92,7 +93,7 @@ public class ProductListInfo {
     }
     public void changeValue(int position) {
             this.userPoints -= points[position];
-            User.getInstance().setPuntuacio(userPoints);
+            Consumidor.getInstance().setPuntuacio(userPoints);
             this.loQueQueda[position] -= 1;
     }
 
