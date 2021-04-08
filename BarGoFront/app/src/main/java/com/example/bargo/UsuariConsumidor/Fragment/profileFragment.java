@@ -34,7 +34,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.example.bargo.Consumidor;
-import com.example.bargo.UsuariConsumidor.Activity.ConfiguracioUsuariActivity;
+import com.example.bargo.UsuariConsumidor.Activity.ConfiguracioConsumidorActivity;
 import com.example.bargo.UsuariConsumidor.Activity.ListProductActivity;
 import com.example.bargo.UsuariConsumidor.Activity.MisReservasActivity;
 import com.example.bargo.VariablesGlobals;
@@ -95,7 +95,7 @@ public class profileFragment extends Fragment {
         imatgeView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showConfirmacio("Foto perfil establecimiento", "¿Quieres cambiar la foto de perfil de tu establecimiento?");
+                showConfirmacio("Foto perfil", "¿Quieres cambiar la foto de perfil?");
             }
         });
 
@@ -110,7 +110,7 @@ public class profileFragment extends Fragment {
         configuracio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ConfiguracioUsuariActivity.class);
+                Intent intent = new Intent(getActivity(), ConfiguracioConsumidorActivity.class);
                 startActivity(intent);
             }
         });
@@ -180,6 +180,7 @@ public class profileFragment extends Fragment {
                     e.printStackTrace();
                     Toast.makeText(getActivity(), "No se ha podido abrir la imagen", Toast.LENGTH_LONG).show();
                     progressDialog.dismiss();
+                    imatgeView.setEnabled(true);
                 }
             }
         }
@@ -245,9 +246,12 @@ public class profileFragment extends Fragment {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode == STORAGE_PERMISSION_CODE)
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+        if (requestCode == STORAGE_PERMISSION_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                imatgeView.setEnabled(false);
                 obrirGaleriaFotos();
+            }
+        }
     }
 
     private void GetPuntuacioConsumidor() {

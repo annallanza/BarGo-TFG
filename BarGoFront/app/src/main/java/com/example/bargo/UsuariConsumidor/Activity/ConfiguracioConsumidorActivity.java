@@ -1,11 +1,13 @@
 package com.example.bargo.UsuariConsumidor.Activity;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -38,12 +40,13 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 
 import io.jsonwebtoken.Jwts;
 
-public class ConfiguracioUsuariActivity extends AppCompatActivity {
+public class ConfiguracioConsumidorActivity extends AppCompatActivity {
 
     private EditText nomUsuariEditText;
     private EditText contrasenyaActualEditText;
@@ -68,7 +71,7 @@ public class ConfiguracioUsuariActivity extends AppCompatActivity {
         logout = findViewById(R.id.textViewLogout);
         eliminarCompte = findViewById(R.id.textViewEliminarCuenta);
 
-        progressDialog = new ProgressDialog(ConfiguracioUsuariActivity.this);
+        progressDialog = new ProgressDialog(ConfiguracioConsumidorActivity.this);
         progressDialog.setMessage("Cargando...");
         progressDialog.setCancelable(false);
 
@@ -152,7 +155,7 @@ public class ConfiguracioUsuariActivity extends AppCompatActivity {
     }
 
     private void showConfirmacio(String titol, String missatge, final String opcio){
-        final AlertDialog alertdialog = new AlertDialog.Builder(ConfiguracioUsuariActivity.this)
+        final AlertDialog alertdialog = new AlertDialog.Builder(ConfiguracioConsumidorActivity.this)
                 .setTitle(titol)
                 .setMessage(missatge)
                 .setPositiveButton("Si", null)
@@ -178,7 +181,7 @@ public class ConfiguracioUsuariActivity extends AppCompatActivity {
     private void obrirLoginActivity() {
         Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
         startActivity(intent);
-        finish();
+        finishAffinity();
     }
 
     private void refrescarDadesConsumidor(){
@@ -194,6 +197,7 @@ public class ConfiguracioUsuariActivity extends AppCompatActivity {
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
             new Response.Listener<JSONObject>() {
+                @RequiresApi(api = Build.VERSION_CODES.O)
                 @Override
                 public void onResponse(JSONObject response) {
                     try {
@@ -204,7 +208,7 @@ public class ConfiguracioUsuariActivity extends AppCompatActivity {
                         consumidor.setId(id);
                         consumidor.setNom(nomUsuari);
                         if(!imatge.equals("null")){
-                            byte[] bytesimatge = imatge.getBytes();
+                            byte[] bytesimatge = Base64.getDecoder().decode(imatge);
                             consumidor.setImatge(bytesimatge);
                         }
                         else consumidor.setImatge(null);
@@ -386,11 +390,11 @@ public class ConfiguracioUsuariActivity extends AppCompatActivity {
 
                         if(rol_usuari.equals("ROL_CONSUMIDOR")){
                             Consumidor consumidor = Consumidor.getInstance();
-                            consumidor.setAll(id,nomUsuari,contrasenya,token,null,0);
+                            consumidor.setAlmostAll(id,nomUsuari,contrasenya,token);
                         }
                         else if(rol_usuari.equals("ROL_PROPIETARI")){
                             Propietari propietari = Propietari.getInstance();
-                            propietari.setAll(id,nomUsuari,contrasenya,token,null);
+                            propietari.setAlmostAll(id,nomUsuari,contrasenya,token);
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();

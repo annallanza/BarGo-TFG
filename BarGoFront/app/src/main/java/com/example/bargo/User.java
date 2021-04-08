@@ -53,7 +53,14 @@ public class User {
         this.imatge = imatge;
     }
 
-    public void setAll(long id, String nomUsuari, String contrasenya, String token, byte[] imatge){
+    public void setAlmostAll(long id, String nomUsuari, String contrasenya, String token){
+        this.setId(id);
+        this.setNom(nomUsuari);
+        this.setContrasenya(contrasenya);
+        this.setToken(token);
+    }
+
+    public void setAllUser(long id, String nomUsuari, String contrasenya, String token, byte[] imatge){
         this.setId(id);
         this.setNom(nomUsuari);
         this.setContrasenya(contrasenya);

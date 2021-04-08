@@ -158,6 +158,6 @@ public class PropietariRest {
 
         propietariService.deleteById(id);
 
-        return new ResponseEntity<>(new Missatge("Se ha eliminado el propietario"), HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(new Missatge("Se ha eliminado el propietario"), HttpStatus.OK);
     }
 }

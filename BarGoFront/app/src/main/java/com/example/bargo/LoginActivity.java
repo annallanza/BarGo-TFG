@@ -139,15 +139,14 @@ public class LoginActivity extends AppCompatActivity {
                         ArrayList rols = Jwts.parser().setSigningKey(VariablesGlobals.getSecret().getBytes()).parseClaimsJws(token).getBody().get("rols", ArrayList.class);
 
                         String rol_usuari = (String) rols.get(0);
-                        System.out.println("ROOOOL: " + rol_usuari);
 
                         if(rol_usuari.equals("ROL_CONSUMIDOR")){
                             Consumidor consumidor = Consumidor.getInstance();
-                            consumidor.setAll(id,nomUsuari,contrasenya,token,null,0);
+                            consumidor.setAlmostAll(id,nomUsuari,contrasenya,token);
                         }
                         else if(rol_usuari.equals("ROL_PROPIETARI")){
                             Propietari propietari = Propietari.getInstance();
-                            propietari.setAll(id,nomUsuari,contrasenya,token,null);
+                            propietari.setAlmostAll(id,nomUsuari,contrasenya,token);
                         }
                         openMainActivity(rol_usuari);
                     } catch (JSONException e) {
@@ -190,7 +189,6 @@ public class LoginActivity extends AppCompatActivity {
         RequestQueue queue = Volley.newRequestQueue(this);
         String url ="http://192.168.1.135:8080/usuaris/auth/login"; //localhost  192.168.1.13
 
-        System.out.println("FEM LA PETICIO JSON");
         // Request a string response from the provided URL.
         JsonArrayRequest JsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONArray>() {

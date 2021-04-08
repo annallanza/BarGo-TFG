@@ -82,7 +82,7 @@ public class RegisterActivity extends AppCompatActivity {
         login.setMovementMethod(LinkMovementMethod.getInstance());
 
         nomUsuariEditText = findViewById(R.id.editTextNombreUsuario);
-        contrasenyaEditText = findViewById(R.id.editTextContra);
+        contrasenyaEditText = findViewById(R.id.editTextContraActual);
         veureContraseña = findViewById(R.id.checkBoxContraseña2);
         isConsumidor = findViewById(R.id.checkBox);
         isPropietari = findViewById(R.id.checkBox2);
@@ -336,11 +336,11 @@ public class RegisterActivity extends AppCompatActivity {
 
                         if(rol_usuari.equals("ROL_CONSUMIDOR")){
                             Consumidor consumidor = Consumidor.getInstance();
-                            consumidor.setAll(id,nomUsuari,contrasenya,token,null,0);
+                            consumidor.setAlmostAll(id,nomUsuari,contrasenya,token);
                         }
                         else if(rol_usuari.equals("ROL_PROPIETARI")){
                             Propietari propietari = Propietari.getInstance();
-                            propietari.setAll(id,nomUsuari,contrasenya,token,null);
+                            propietari.setAlmostAll(id,nomUsuari,contrasenya,token);
                         }
                         openMainActivity(rol_usuari);
                     } catch (JSONException e) {

@@ -18,7 +18,8 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".UsuariPropietari.Activity.MainPropietariActivity"></activity>
+        <activity android:name=".UsuariPropietari.Activity.ConfiguracioPropietariActivity"></activity>
+        <activity android:name=".UsuariPropietari.Activity.MainPropietariActivity" />
         <activity
             android:name="com.journeyapps.barcodescanner.CaptureActivity"
             android:screenOrientation="portrait"
@@ -33,7 +34,7 @@
             android:name=".UsuariConsumidor.Activity.MisReservasActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".UsuariConsumidor.Activity.ConfiguracioUsuariActivity"
+            android:name=".UsuariConsumidor.Activity.ConfiguracioConsumidorActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".UsuariConsumidor.Activity.RetosActivity"
