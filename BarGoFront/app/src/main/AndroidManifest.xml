@@ -18,8 +18,18 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".UsuariPropietari.Activity.ConfiguracioPropietariActivity"></activity>
-        <activity android:name=".UsuariPropietari.Activity.MainPropietariActivity" />
+        <activity
+            android:name=".LoginActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".UsuariConsumidor.Activity.MainActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.journeyapps.barcodescanner.CaptureActivity"
             android:screenOrientation="portrait"
@@ -49,16 +59,10 @@
             android:name=".UsuariConsumidor.Activity.InfoEventActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".LoginActivity"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:name=".UsuariPropietari.Activity.MainPropietariActivity"
+            android:screenOrientation="portrait" />
         <activity
-            android:name=".UsuariConsumidor.Activity.MainActivity"
+            android:name=".UsuariPropietari.Activity.ConfiguracioPropietariActivity"
             android:screenOrientation="portrait" />
     </application>
 

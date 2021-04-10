@@ -12,6 +12,7 @@ import BarGo.Back.Service.EstablimentService;
 import BarGo.Back.Service.PropietariService;
 import BarGo.Back.Service.RolService;
 import BarGo.Back.Service.UsuariService;
+import org.apache.commons.validator.routines.UrlValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,10 +45,15 @@ public class PropietariRest {
     @Autowired
     private JwtProvider jwtProvider;
 
+    private UrlValidator urlValidator = new UrlValidator();
+
     @RequestMapping(value = "/auth/signup", method = RequestMethod.POST) //Exemple url request: http://localhost:8080/propietaris/auth/signup
     private ResponseEntity<?> signupPropietari(@Valid @RequestBody SignupPropietari signupPropietari, BindingResult bindingResult){
         if(bindingResult.hasErrors())
             return new ResponseEntity<>(new Missatge(Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage()), HttpStatus.BAD_REQUEST);
+
+        if(!urlValidator.isValid(signupPropietari.getPaginaWeb()))
+            return new ResponseEntity<>(new Missatge("La página web no es válida"), HttpStatus.BAD_REQUEST);
 
         if(usuariService.existsByNomUsuari(signupPropietari.getNomUsuari()))
             return new ResponseEntity<>(new Missatge("El nombre de usuario ya existe"), HttpStatus.CONFLICT);
@@ -80,7 +86,7 @@ public class PropietariRest {
 
         Optional<Propietari> optionalPropietari = propietariService.findById(id);
         if(!optionalPropietari.isPresent())
-            return new ResponseEntity<>(new Missatge("No existe ningun usuario con ese id"), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new Missatge("No existe ningun propietario con ese id"), HttpStatus.NOT_FOUND);
 
         Propietari propietari = optionalPropietari.get();
 
@@ -113,9 +119,12 @@ public class PropietariRest {
         if(bindingResult.hasErrors())
             return new ResponseEntity<>(new Missatge(Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage()), HttpStatus.BAD_REQUEST);
 
+        if(!urlValidator.isValid(updatePropietari.getPaginaWeb()))
+            return new ResponseEntity<>(new Missatge("La página web no es válida"), HttpStatus.BAD_REQUEST);
+
         Optional<Propietari> optionalPropietari = propietariService.findById(updatePropietari.getId());
         if (!optionalPropietari.isPresent())
-            return new ResponseEntity<>(new Missatge("No existe ningun usuario con ese id"), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new Missatge("No existe ningun propietario con ese id"), HttpStatus.NOT_FOUND);
 
         Propietari propietariexists = optionalPropietari.get();
         if(usuariService.existsByNomUsuari(updatePropietari.getNomUsuari()) && !updatePropietari.getNomUsuari().equals(propietariexists.getNomUsuari()))
@@ -144,7 +153,7 @@ public class PropietariRest {
 
         establimentService.save(establiment);
 
-        return new ResponseEntity<>(new Missatge("Se ha actualizado el consumidor"), HttpStatus.OK);
+        return new ResponseEntity<>(new Missatge("Se ha actualizado el propietario"), HttpStatus.OK);
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE) //Exemple url request: http://localhost:8080/propietaris/3

@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.SpannableString;
@@ -19,6 +20,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -26,6 +28,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.bargo.UsuariConsumidor.Activity.MainActivity;
+import com.example.bargo.UsuariPropietari.Activity.ConfiguracioPropietariActivity;
 import com.example.bargo.UsuariPropietari.Activity.MainPropietariActivity;
 
 import org.json.JSONException;
@@ -33,6 +36,7 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import io.jsonwebtoken.Jwts;
 
@@ -49,7 +53,19 @@ public class RegisterActivity extends AppCompatActivity {
     private CheckBox exteriorCheckBox;
     private EditText numCadiresEditText;
     private EditText numTaulesEditText;
+    private int contador;
+    private TextView horariTextView;
+    private Button horariMes;
+    private Button horariMenys;
     private EditText horariEditText;
+    private TextView guioTextView;
+    private EditText horariEditText2;
+    private EditText horariEditText3;
+    private TextView guioTextView2;
+    private EditText horariEditText4;
+    private EditText horariEditText5;
+    private TextView guioTextView3;
+    private EditText horariEditText6;
     private EditText descripcioEditText;
     private EditText paginaWebEditText;
     private ProgressDialog progressDialog;
@@ -91,7 +107,19 @@ public class RegisterActivity extends AppCompatActivity {
         exteriorCheckBox = findViewById(R.id.checkBoxExterior);
         numCadiresEditText = findViewById(R.id.editTextNumCadires);
         numTaulesEditText = findViewById(R.id.editTextNumTaules);
+        contador = 1;
+        horariTextView = findViewById(R.id.textViewHorari);
+        horariMes = findViewById(R.id.buttonMES);
+        horariMenys = findViewById(R.id.buttonMENYS);
         horariEditText = findViewById(R.id.editTextHorari);
+        guioTextView = findViewById(R.id.textViewGuio);
+        horariEditText2 = findViewById(R.id.editTextHorari2);
+        horariEditText3 = findViewById(R.id.editTextHorari3);
+        guioTextView2 = findViewById(R.id.textViewGuio2);
+        horariEditText4 = findViewById(R.id.editTextHorari4);
+        horariEditText5 = findViewById(R.id.editTextHorari5);
+        guioTextView3 = findViewById(R.id.textViewGuio3);
+        horariEditText6 = findViewById(R.id.editTextHorari6);
         descripcioEditText = findViewById(R.id.editTextDescripcio);
         paginaWebEditText = findViewById(R.id.editTextPaginaWeb);
         signupButton = findViewById(R.id.buttonAcceder);
@@ -106,6 +134,52 @@ public class RegisterActivity extends AppCompatActivity {
                 if(isChecked)
                     contrasenyaEditText.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
                 else contrasenyaEditText.setTransformationMethod(PasswordTransformationMethod.getInstance());
+            }
+        });
+
+        horariMes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(contador == 1) {
+                    ++contador;
+                    horariEditText3.setVisibility(View.VISIBLE);
+                    guioTextView2.setVisibility(View.VISIBLE);
+                    horariEditText4.setVisibility(View.VISIBLE);
+                }
+                else if(contador == 2){
+                    ++contador;
+                    horariEditText5.setVisibility(View.VISIBLE);
+                    guioTextView3.setVisibility(View.VISIBLE);
+                    horariEditText6.setVisibility(View.VISIBLE);
+                }
+                else
+                    Toast.makeText(getApplicationContext(), "No puedes añadir más de 3", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        horariMenys.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(contador == 2) {
+                    --contador;
+                    horariEditText3.setText("");
+                    horariEditText4.setText("");
+
+                    horariEditText3.setVisibility(View.GONE);
+                    guioTextView2.setVisibility(View.GONE);
+                    horariEditText4.setVisibility(View.GONE);
+                }
+                else if(contador == 3){
+                    --contador;
+                    horariEditText5.setText("");
+                    horariEditText6.setText("");
+
+                    horariEditText5.setVisibility(View.GONE);
+                    guioTextView3.setVisibility(View.GONE);
+                    horariEditText6.setVisibility(View.GONE);
+                }
+                else
+                    Toast.makeText(getApplicationContext(), "Has de indicar como mínimo un horario", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -127,9 +201,18 @@ public class RegisterActivity extends AppCompatActivity {
                     Boolean exterior = exteriorCheckBox.isChecked();
                     String numCadires_string = numCadiresEditText.getText().toString();
                     String numTaules_string = numTaulesEditText.getText().toString();
-                    String horari = horariEditText.getText().toString();
+                    String horari = horariEditText.getText().toString() + "-" + horariEditText2.getText().toString();
+
+                    if(!horariEditText3.getText().toString().equals(""))
+                        horari += "y" + horariEditText3.getText().toString() + "-" + horariEditText4.getText().toString();
+                    if(!horariEditText5.getText().toString().equals(""))
+                        horari += "y" + horariEditText5.getText().toString() + "-" + horariEditText6.getText().toString();
+
                     String descripcio = descripcioEditText.getText().toString();
                     String paginaWeb = paginaWebEditText.getText().toString();
+
+                    if(!paginaWeb.contains("https://"))
+                        paginaWeb = "https://" + paginaWeb;
 
                     if(numCadires_string.equals("")){
                         Toast.makeText(getApplicationContext(), "Indica el número de sillas", Toast.LENGTH_LONG).show();
@@ -141,11 +224,37 @@ public class RegisterActivity extends AppCompatActivity {
                         signupButton.setEnabled(true);
                         progressDialog.dismiss();
                     }
-                    else {
-                        int numCadires = Integer.parseInt(numCadiresEditText.getText().toString());
-                        int numTaules = Integer.parseInt(numTaulesEditText.getText().toString());
+                    else if(horariEditText.getText().toString().equals("")) {
+                        Toast.makeText(getApplicationContext(), "Indica el horario", Toast.LENGTH_LONG).show();
+                        signupButton.setEnabled(true);
+                        progressDialog.dismiss();
+                    }
+                    else if(!horariEditText.getText().toString().equals("")) {
+                        if(horariEditText2.getText().toString().equals("")) {
+                            Toast.makeText(getApplicationContext(), "Indica el horario", Toast.LENGTH_LONG).show();
+                            signupButton.setEnabled(true);
+                            progressDialog.dismiss();
+                        }
+                        else if(!horariEditText3.getText().toString().equals("")) {
+                            if (horariEditText4.getText().toString().equals("")) {
+                                Toast.makeText(getApplicationContext(), "Indica el horario", Toast.LENGTH_LONG).show();
+                                signupButton.setEnabled(true);
+                                progressDialog.dismiss();
+                            }
+                            else if(!horariEditText5.getText().toString().equals("")) {
+                                if (horariEditText6.getText().toString().equals("")) {
+                                    Toast.makeText(getApplicationContext(), "Indica el horario", Toast.LENGTH_LONG).show();
+                                    signupButton.setEnabled(true);
+                                    progressDialog.dismiss();
+                                }
+                                else {
+                                    int numCadires = Integer.parseInt(numCadiresEditText.getText().toString());
+                                    int numTaules = Integer.parseInt(numTaulesEditText.getText().toString());
 
-                        SignupRequestPropietari(nomUsuari, contrasenya, nomEstabliment, direccio, exterior, numCadires, numTaules, horari, descripcio, paginaWeb);
+                                    SignupRequestPropietari(nomUsuari, contrasenya, nomEstabliment, direccio, exterior, numCadires, numTaules, horari, descripcio, paginaWeb);
+                                }
+                            }
+                        }
                     }
                 }
                 else {
@@ -173,6 +282,35 @@ public class RegisterActivity extends AppCompatActivity {
         finish();
     }
 
+    public void onHorariClicked(View view){
+        final EditText horariEditTextSegonsID = findViewById(view.getId());
+
+        final Calendar calendar = Calendar.getInstance();
+
+        final int hora = calendar.get(Calendar.HOUR_OF_DAY);
+        int minuts = calendar.get(Calendar.MINUTE);
+
+        TimePickerDialog timePickerDialog = new TimePickerDialog(RegisterActivity.this, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                if(hourOfDay < 10) {
+                    if(minute < 10)
+                        horariEditTextSegonsID.setText("0" + hourOfDay + ":0" + minute);
+                    else
+                        horariEditTextSegonsID.setText("0" + hourOfDay + ":" + minute);
+                }
+                else {
+                    if(minute < 10)
+                        horariEditTextSegonsID.setText(hourOfDay + ":0" + minute);
+                    else
+                        horariEditTextSegonsID.setText(hourOfDay + ":" + minute);
+                }
+            }
+        }, hora, minuts, false);
+
+        timePickerDialog.show();
+    }
+
     public void onCheckboxClicked(View view) {
 
         boolean checked = ((CheckBox) view).isChecked();
@@ -186,7 +324,18 @@ public class RegisterActivity extends AppCompatActivity {
                     exteriorCheckBox.setVisibility(View.GONE);
                     numCadiresEditText.setVisibility(View.GONE);
                     numTaulesEditText.setVisibility(View.GONE);
+                    horariTextView.setVisibility(View.GONE);
+                    horariMes.setVisibility(View.GONE);
+                    horariMenys.setVisibility(View.GONE);
                     horariEditText.setVisibility(View.GONE);
+                    guioTextView.setVisibility(View.GONE);
+                    horariEditText2.setVisibility(View.GONE);
+                    horariEditText3.setVisibility(View.GONE);
+                    guioTextView2.setVisibility(View.GONE);
+                    horariEditText4.setVisibility(View.GONE);
+                    horariEditText5.setVisibility(View.GONE);
+                    guioTextView3.setVisibility(View.GONE);
+                    horariEditText6.setVisibility(View.GONE);
                     descripcioEditText.setVisibility(View.GONE);
                     paginaWebEditText.setVisibility(View.GONE);
                 }
@@ -199,7 +348,12 @@ public class RegisterActivity extends AppCompatActivity {
                     exteriorCheckBox.setVisibility(View.VISIBLE);
                     numCadiresEditText.setVisibility(View.VISIBLE);
                     numTaulesEditText.setVisibility(View.VISIBLE);
+                    horariTextView.setVisibility(View.VISIBLE);
+                    horariMes.setVisibility(View.VISIBLE);
+                    horariMenys.setVisibility(View.VISIBLE);
                     horariEditText.setVisibility(View.VISIBLE);
+                    guioTextView.setVisibility(View.VISIBLE);
+                    horariEditText2.setVisibility(View.VISIBLE);
                     descripcioEditText.setVisibility(View.VISIBLE);
                     paginaWebEditText.setVisibility(View.VISIBLE);
                 }
@@ -209,10 +363,20 @@ public class RegisterActivity extends AppCompatActivity {
                     exteriorCheckBox.setVisibility(View.GONE);
                     numCadiresEditText.setVisibility(View.GONE);
                     numTaulesEditText.setVisibility(View.GONE);
+                    horariTextView.setVisibility(View.GONE);
+                    horariMes.setVisibility(View.GONE);
+                    horariMenys.setVisibility(View.GONE);
                     horariEditText.setVisibility(View.GONE);
+                    guioTextView.setVisibility(View.GONE);
+                    horariEditText2.setVisibility(View.GONE);
+                    horariEditText3.setVisibility(View.GONE);
+                    guioTextView2.setVisibility(View.GONE);
+                    horariEditText4.setVisibility(View.GONE);
+                    horariEditText5.setVisibility(View.GONE);
+                    guioTextView3.setVisibility(View.GONE);
+                    horariEditText6.setVisibility(View.GONE);
                     descripcioEditText.setVisibility(View.GONE);
                     paginaWebEditText.setVisibility(View.GONE);
-                    break;
                 }
         }
     }

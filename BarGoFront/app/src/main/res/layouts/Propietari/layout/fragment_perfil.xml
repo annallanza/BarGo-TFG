@@ -72,8 +72,23 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/LinearLayoutScrollView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="visible">
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:id="@+id/textViewNomUsuari2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginEnd="50dp"
+                android:layout_marginRight="50dp"
+                android:text="@string/nombre_usuario_"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
                 android:id="@+id/editTextNombreUsuario"
@@ -81,6 +96,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="50dp"
                 android:layout_marginLeft="50dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="50dp"
                 android:layout_marginRight="50dp"
                 android:autofillHints=""
@@ -88,10 +104,25 @@
                 android:hint="@string/nombre_usuario"
                 android:inputType="text"
                 android:text=""
-                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/textViewNomUsuari2" />
+
+            <TextView
+                android:id="@+id/textViewContrasenyaActual2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="50dp"
+                android:layout_marginRight="50dp"
+                android:text="@string/contrase_a_actual_"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/editTextNombreUsuario" />
 
             <EditText
                 android:id="@+id/editTextContraActual"
@@ -107,10 +138,25 @@
                 android:hint="@string/contrase_a_actual"
                 android:inputType="text|textPassword"
                 android:text=""
-                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextNombreUsuario" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewContrasenyaActual2" />
+
+            <TextView
+                android:id="@+id/textViewContrasenyaNova2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="50dp"
+                android:layout_marginRight="50dp"
+                android:text="@string/contrase_a_nueva_"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/editTextContraActual" />
 
             <EditText
                 android:id="@+id/editTextContraNova"
@@ -124,10 +170,9 @@
                 android:hint="@string/contrase_a_nueva"
                 android:inputType="textPassword"
                 android:text=""
-                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextContraActual" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewContrasenyaNova2" />
 
             <CheckBox
                 android:id="@+id/checkBoxContraseña2"
@@ -139,10 +184,25 @@
                 android:layout_marginEnd="50dp"
                 android:layout_marginRight="50dp"
                 android:text="@string/ver_contraseña"
-                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/editTextContraNova" />
+
+            <TextView
+                android:id="@+id/textViewNomEstabliment"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="50dp"
+                android:layout_marginRight="50dp"
+                android:text="@string/nombre_establecimiento_"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/checkBoxContraseña2" />
 
             <EditText
                 android:id="@+id/editTextNomEstabliment"
@@ -156,10 +216,25 @@
                 android:hint="@string/nombre_establecimiento"
                 android:inputType="text"
                 android:text=""
-                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/checkBoxContraseña2" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewNomEstabliment" />
+
+            <TextView
+                android:id="@+id/textViewDireccio"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="50dp"
+                android:layout_marginRight="50dp"
+                android:text="@string/direccion_"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/editTextNomEstabliment" />
 
             <EditText
                 android:id="@+id/editTextDireccio"
@@ -175,10 +250,9 @@
                 android:hint="@string/direcci_n"
                 android:inputType="text"
                 android:text=""
-                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextNomEstabliment" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewDireccio" />
 
             <CheckBox
                 android:id="@+id/checkBoxExterior"
@@ -188,10 +262,25 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="50dp"
                 android:text="@string/terraza_exterior"
-                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/editTextDireccio" />
+
+            <TextView
+                android:id="@+id/textViewNumeroSillas"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="50dp"
+                android:layout_marginRight="50dp"
+                android:text="@string/n_mero_de_sillas_"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/checkBoxExterior" />
 
             <EditText
                 android:id="@+id/editTextNumCadires"
@@ -207,10 +296,25 @@
                 android:hint="@string/n_mero_de_sillas"
                 android:inputType="number"
                 android:text=""
-                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/checkBoxExterior" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewNumeroSillas" />
+
+            <TextView
+                android:id="@+id/textViewNumeroTaules"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="50dp"
+                android:layout_marginRight="50dp"
+                android:text="@string/n_mero_de_mesas_"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/editTextNumCadires" />
 
             <EditText
                 android:id="@+id/editTextNumTaules"
@@ -224,27 +328,228 @@
                 android:hint="@string/n_mero_de_mesas"
                 android:inputType="number"
                 android:text=""
-                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextNumCadires" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewNumeroTaules" />
+
+            <TextView
+                android:id="@+id/textViewHorari"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:text="@string/horario_"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toStartOf="@id/buttonMES"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/editTextNumTaules" />
+
+            <Button
+                android:id="@+id/buttonMES"
+                android:layout_width="40dp"
+                android:layout_height="25dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:background="#CC383B"
+                android:text="@string/mes"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:visibility="visible"
+                app:layout_constraintEnd_toStartOf="@id/buttonMENYS"
+                app:layout_constraintStart_toEndOf="@+id/textViewHorari"
+                app:layout_constraintTop_toBottomOf="@id/editTextNumTaules" />
+
+            <Button
+                android:id="@+id/buttonMENYS"
+                android:layout_width="40dp"
+                android:layout_height="25dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="50dp"
+                android:layout_marginRight="50dp"
+                android:background="#CC383B"
+                android:text="@string/menys"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/buttonMES"
+                app:layout_constraintTop_toBottomOf="@id/editTextNumTaules" />
 
             <EditText
                 android:id="@+id/editTextHorari"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
                 android:layout_marginLeft="50dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:autofillHints=""
+                android:ems="10"
+                android:focusable="false"
+                android:hint="@string/horario"
+                android:inputType="text|time"
+                android:visibility="visible"
+                app:layout_constraintEnd_toStartOf="@+id/textViewGuio"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewHorari" />
+
+            <TextView
+                android:id="@+id/textViewGuio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/guio"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:visibility="visible"
+                app:layout_constraintEnd_toStartOf="@id/editTextHorari2"
+                app:layout_constraintStart_toEndOf="@id/editTextHorari"
+                app:layout_constraintTop_toBottomOf="@id/textViewHorari" />
+
+            <EditText
+                android:id="@+id/editTextHorari2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginEnd="50dp"
                 android:layout_marginRight="50dp"
                 android:autofillHints=""
                 android:ems="10"
+                android:focusable="false"
                 android:hint="@string/horario"
                 android:inputType="text|time"
-                android:text=""
                 android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/textViewGuio"
+                app:layout_constraintTop_toBottomOf="@id/textViewHorari" />
+
+            <EditText
+                android:id="@+id/editTextHorari3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:autofillHints=""
+                android:ems="10"
+                android:focusable="false"
+                android:hint="@string/horario"
+                android:inputType="text|time"
+                android:visibility="gone"
+                app:layout_constraintEnd_toStartOf="@+id/textViewGuio"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextNumTaules" />
+                app:layout_constraintTop_toBottomOf="@+id/editTextHorari" />
+
+            <TextView
+                android:id="@+id/textViewGuio2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/guio"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toStartOf="@id/editTextHorari2"
+                app:layout_constraintStart_toEndOf="@id/editTextHorari"
+                app:layout_constraintTop_toBottomOf="@id/editTextHorari" />
+
+            <EditText
+                android:id="@+id/editTextHorari4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="50dp"
+                android:layout_marginRight="50dp"
+                android:autofillHints=""
+                android:ems="10"
+                android:focusable="false"
+                android:hint="@string/horario"
+                android:inputType="text|time"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/textViewGuio"
+                app:layout_constraintTop_toBottomOf="@id/editTextHorari" />
+
+            <EditText
+                android:id="@+id/editTextHorari5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:autofillHints=""
+                android:ems="10"
+                android:focusable="false"
+                android:hint="@string/horario"
+                android:inputType="text|time"
+                android:visibility="gone"
+                app:layout_constraintEnd_toStartOf="@+id/textViewGuio"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editTextHorari3" />
+
+            <TextView
+                android:id="@+id/textViewGuio3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/guio"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toStartOf="@id/editTextHorari2"
+                app:layout_constraintStart_toEndOf="@id/editTextHorari"
+                app:layout_constraintTop_toBottomOf="@id/editTextHorari3" />
+
+            <EditText
+                android:id="@+id/editTextHorari6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="50dp"
+                android:layout_marginRight="50dp"
+                android:autofillHints=""
+                android:ems="10"
+                android:focusable="false"
+                android:hint="@string/horario"
+                android:inputType="text|time"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/textViewGuio"
+                app:layout_constraintTop_toBottomOf="@id/editTextHorari3" />
+
+            <TextView
+                android:id="@+id/textViewDescripcio"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="50dp"
+                android:layout_marginRight="50dp"
+                android:text="@string/descripci_n_"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/editTextHorari5" />
 
             <EditText
                 android:id="@+id/editTextDescripcio"
@@ -256,12 +561,28 @@
                 android:autofillHints=""
                 android:ems="10"
                 android:hint="@string/descripci_n"
-                android:inputType="text"
+                android:inputType="textMultiLine|text"
                 android:text=""
-                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextHorari" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewDescripcio" />
+
+            <TextView
+                android:id="@+id/textViewPaginaWeb"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="50dp"
+                android:layout_marginRight="50dp"
+                android:text="@string/p_gina_web_"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/editTextDescripcio" />
 
             <EditText
                 android:id="@+id/editTextPaginaWeb"
@@ -275,10 +596,9 @@
                 android:hint="@string/p_gina_web"
                 android:inputType="textUri"
                 android:text=""
-                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextDescripcio" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewPaginaWeb" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

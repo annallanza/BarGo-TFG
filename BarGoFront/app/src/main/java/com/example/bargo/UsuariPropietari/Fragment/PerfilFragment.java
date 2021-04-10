@@ -3,6 +3,7 @@ package com.example.bargo.UsuariPropietari.Fragment;
 import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -31,6 +32,8 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -54,7 +57,9 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Base64;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -80,7 +85,19 @@ public class PerfilFragment extends Fragment {
     private CheckBox exteriorCheckBox;
     private EditText numCadiresEditText;
     private EditText numTaulesEditText;
-    private EditText horariEditText;
+    private int contador;
+    private TextView horariTextView;
+    private Button horariMes;
+    private Button horariMenys;
+    private EditText horariEditText1;
+    private TextView guioTextView;
+    private EditText horariEditText2;
+    private EditText horariEditText3;
+    private TextView guioTextView2;
+    private EditText horariEditText4;
+    private EditText horariEditText5;
+    private TextView guioTextView3;
+    private EditText horariEditText6;
     private EditText descripcioEditText;
     private EditText paginaWebEditText;
     private ProgressDialog progressDialog;
@@ -105,7 +122,19 @@ public class PerfilFragment extends Fragment {
         exteriorCheckBox = view.findViewById(R.id.checkBoxExterior);
         numCadiresEditText = view.findViewById(R.id.editTextNumCadires);
         numTaulesEditText = view.findViewById(R.id.editTextNumTaules);
-        horariEditText = view.findViewById(R.id.editTextHorari);
+        contador = 1;
+        horariTextView = view.findViewById(R.id.textViewHorari);
+        horariMes = view.findViewById(R.id.buttonMES);
+        horariMenys = view.findViewById(R.id.buttonMENYS);
+        horariEditText1 = view.findViewById(R.id.editTextHorari);
+        guioTextView = view.findViewById(R.id.textViewGuio);
+        horariEditText2 = view.findViewById(R.id.editTextHorari2);
+        horariEditText3 = view.findViewById(R.id.editTextHorari3);
+        guioTextView2 = view.findViewById(R.id.textViewGuio2);
+        horariEditText4 = view.findViewById(R.id.editTextHorari4);
+        horariEditText5 = view.findViewById(R.id.editTextHorari5);
+        guioTextView3 = view.findViewById(R.id.textViewGuio3);
+        horariEditText6 = view.findViewById(R.id.editTextHorari6);
         descripcioEditText = view.findViewById(R.id.editTextDescripcio);
         paginaWebEditText = view.findViewById(R.id.editTextPaginaWeb);
         guardarCanvis = view.findViewById(R.id.buttonGuardarCanvis);
@@ -143,10 +172,99 @@ public class PerfilFragment extends Fragment {
             }
         });
 
+        horariMes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(contador == 1) {
+                    ++contador;
+                    horariEditText3.setVisibility(View.VISIBLE);
+                    guioTextView2.setVisibility(View.VISIBLE);
+                    horariEditText4.setVisibility(View.VISIBLE);
+                }
+                else if(contador == 2){
+                    ++contador;
+                    horariEditText5.setVisibility(View.VISIBLE);
+                    guioTextView3.setVisibility(View.VISIBLE);
+                    horariEditText6.setVisibility(View.VISIBLE);
+                }
+                else
+                    Toast.makeText(getContext(), "No puedes añadir más de 3", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        horariMenys.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(contador == 2) {
+                    --contador;
+                    horariEditText3.setText("");
+                    horariEditText4.setText("");
+
+                    horariEditText3.setVisibility(View.GONE);
+                    guioTextView2.setVisibility(View.GONE);
+                    horariEditText4.setVisibility(View.GONE);
+                }
+                else if(contador == 3){
+                    --contador;
+                    horariEditText5.setText("");
+                    horariEditText6.setText("");
+
+                    horariEditText5.setVisibility(View.GONE);
+                    guioTextView3.setVisibility(View.GONE);
+                    horariEditText6.setVisibility(View.GONE);
+                }
+                else
+                    Toast.makeText(getContext(), "Has de indicar como mínimo un horario", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        horariEditText1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onHorariClicked(v);
+            }
+        });
+
+        horariEditText2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onHorariClicked(v);
+            }
+        });
+
+        horariEditText3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onHorariClicked(v);
+            }
+        });
+
+        horariEditText4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onHorariClicked(v);
+            }
+        });
+
+        horariEditText5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onHorariClicked(v);
+            }
+        });
+
+        horariEditText6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onHorariClicked(v);
+            }
+        });
+
         guardarCanvis.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 guardarCanvis.setEnabled(false);
+                progressDialog.show();
 
                 String nomUsuari = nomUsuariEditText.getText().toString();
                 String contrasenyaActual = contrasenyaActualEditText.getText().toString();
@@ -154,19 +272,67 @@ public class PerfilFragment extends Fragment {
                 String nomEstabliment = nomEstablimentEditText.getText().toString();
                 String direccioEstabliment = direccioEditText.getText().toString();
                 Boolean exteriorEstabliment = exteriorCheckBox.isChecked();
-                int numCadiresEstabliment = Integer.parseInt(numCadiresEditText.getText().toString());
-                int numTaulesEstabliment = Integer.parseInt(numTaulesEditText.getText().toString());
-                String horariEstabliment = horariEditText.getText().toString();
+                String numCadiresEstabliment = numCadiresEditText.getText().toString();
+                String numTaulesEstabliment = numTaulesEditText.getText().toString();
+                String horariEstabliment = horariEditText1.getText().toString() + "-" + horariEditText2.getText().toString();
+
+                if(!horariEditText3.getText().toString().equals(""))
+                    horariEstabliment += "y" + horariEditText3.getText().toString() + "-" + horariEditText4.getText().toString();
+                if(!horariEditText5.getText().toString().equals(""))
+                    horariEstabliment += "y" + horariEditText5.getText().toString() + "-" + horariEditText6.getText().toString();
+
                 String descripcioEstabliment = descripcioEditText.getText().toString();
                 String paginaWebEstabliment = paginaWebEditText.getText().toString();
 
-                if(contrasenyaActual.equals(propietari.getContrasenya())) {
-                    progressDialog.show();
-                    PutInfoConsumidorRequest(nomUsuari, contrasenyaNova, nomEstabliment, direccioEstabliment, exteriorEstabliment, numCadiresEstabliment, numTaulesEstabliment, horariEstabliment, descripcioEstabliment, paginaWebEstabliment);
-                }
-                else {
+                if(!paginaWebEstabliment.contains("https://"))
+                    paginaWebEstabliment = "https://" + paginaWebEstabliment;
+
+                if(!contrasenyaActual.equals(propietari.getContrasenya())) {
                     Toast.makeText(getContext(), "La contraseña actual no es correcta", Toast.LENGTH_LONG).show();
                     guardarCanvis.setEnabled(true);
+                    progressDialog.dismiss();
+                }
+                else if(numCadiresEstabliment.equals("")){
+                    Toast.makeText(getContext(), "Indica el número de sillas", Toast.LENGTH_LONG).show();
+                    guardarCanvis.setEnabled(true);
+                    progressDialog.dismiss();
+                }
+                else if(numTaulesEstabliment.equals("")){
+                    Toast.makeText(getContext(), "Indica el número de mesas", Toast.LENGTH_LONG).show();
+                    guardarCanvis.setEnabled(true);
+                    progressDialog.dismiss();
+                }
+                else if(horariEditText1.getText().toString().equals("")) {
+                    Toast.makeText(getContext(), "Indica el horario", Toast.LENGTH_LONG).show();
+                    guardarCanvis.setEnabled(true);
+                    progressDialog.dismiss();
+                }
+                else if(!horariEditText1.getText().toString().equals("")) {
+                    if(horariEditText2.getText().toString().equals("")) {
+                        Toast.makeText(getContext(), "Indica el horario", Toast.LENGTH_LONG).show();
+                        guardarCanvis.setEnabled(true);
+                        progressDialog.dismiss();
+                    }
+                    else if(!horariEditText3.getText().toString().equals("")) {
+                        if (horariEditText4.getText().toString().equals("")) {
+                            Toast.makeText(getContext(), "Indica el horario", Toast.LENGTH_LONG).show();
+                            guardarCanvis.setEnabled(true);
+                            progressDialog.dismiss();
+                        }
+                        else if(!horariEditText5.getText().toString().equals("")) {
+                            if (horariEditText6.getText().toString().equals("")) {
+                                Toast.makeText(getContext(), "Indica el horario", Toast.LENGTH_LONG).show();
+                                guardarCanvis.setEnabled(true);
+                                progressDialog.dismiss();
+                            }
+                            else {
+                                int numCadires = Integer.parseInt(numCadiresEditText.getText().toString());
+                                int numTaules = Integer.parseInt(numTaulesEditText.getText().toString());
+
+                                PutInfoConsumidorRequest(nomUsuari, contrasenyaNova, nomEstabliment, direccioEstabliment, exteriorEstabliment, numCadires, numTaules, horariEstabliment, descripcioEstabliment, paginaWebEstabliment);
+                            }
+                        }
+                    }
                 }
             }
         });
@@ -179,7 +345,36 @@ public class PerfilFragment extends Fragment {
         super.onResume();
     }
 
-    private void refrescarDadesConsumidor(){
+    public void onHorariClicked(View v){
+        final EditText horariEditTextSegonsID = v.findViewById(v.getId());
+
+        final Calendar calendar = Calendar.getInstance();
+
+        final int hora = calendar.get(Calendar.HOUR_OF_DAY);
+        int minuts = calendar.get(Calendar.MINUTE);
+
+        TimePickerDialog timePickerDialog = new TimePickerDialog(getActivity(), new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                if(hourOfDay < 10) {
+                    if(minute < 10)
+                        horariEditTextSegonsID.setText("0" + hourOfDay + ":0" + minute);
+                    else
+                        horariEditTextSegonsID.setText("0" + hourOfDay + ":" + minute);
+                }
+                else {
+                    if(minute < 10)
+                        horariEditTextSegonsID.setText(hourOfDay + ":0" + minute);
+                    else
+                        horariEditTextSegonsID.setText(hourOfDay + ":" + minute);
+                }
+            }
+        }, hora, minuts, false);
+
+        timePickerDialog.show();
+    }
+
+    private void refrescarDadesPopietari(){
         nomUsuariEditText.setText(propietari.getNom());
         contrasenyaActualEditText.setText("");
         contrasenyaNovaEditText.setText("");
@@ -189,7 +384,37 @@ public class PerfilFragment extends Fragment {
         exteriorCheckBox.setChecked(propietari.getExteriorEstabliment());
         numCadiresEditText.setText(Integer.toString(propietari.getNumCadiresEstabliment()));
         numTaulesEditText.setText(Integer.toString(propietari.getNumTaulesEstabliment()));
-        horariEditText.setText(propietari.getHorariEstabliment());
+
+        String horari = propietari.getHorariEstabliment();
+        String[] horarisy = horari.split("y");
+
+        ArrayList<String> horarisDividits = new ArrayList<>();
+        for(int i = 0; i < horarisy.length; ++i){
+            String[] horaris_ = horarisy[i].split("-");
+
+            horarisDividits.addAll(Arrays.asList(horaris_));
+        }
+
+        while(horarisDividits.size() < 6){
+            horarisDividits.add("");
+        }
+
+        horariEditText1.setText(horarisDividits.get(0));
+        horariEditText2.setText(horarisDividits.get(1));
+        horariEditText3.setText(horarisDividits.get(2));
+        horariEditText4.setText(horarisDividits.get(3));
+        horariEditText5.setText(horarisDividits.get(4));
+        horariEditText6.setText(horarisDividits.get(5));
+
+        if(!horariEditText3.getText().toString().equals("")) {
+            horariEditText3.setVisibility(View.VISIBLE);
+            horariEditText4.setVisibility(View.VISIBLE);
+        }
+        if(!horariEditText5.getText().toString().equals("")) {
+            horariEditText5.setVisibility(View.VISIBLE);
+            horariEditText6.setVisibility(View.VISIBLE);
+        }
+
         descripcioEditText.setText(propietari.getDescripcioEstabliment());
         paginaWebEditText.setText(propietari.getPaginaWebEstabliment());
 
@@ -337,7 +562,7 @@ public class PerfilFragment extends Fragment {
 
                             propietari.setAllEstabliment(idEstabliment,nomEstabliment,direccioEstabliment,exteriorEstabliment,numCadiresEstabliment,numTaulesEstabliment,horariEstabliment,descripcioEstabliment,paginaWebEstabliment);
 
-                            refrescarDadesConsumidor();
+                            refrescarDadesPopietari();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
