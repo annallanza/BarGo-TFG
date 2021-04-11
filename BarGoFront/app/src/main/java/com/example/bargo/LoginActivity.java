@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -48,6 +49,8 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        comprovarSharedPreferences();
 
         registrate = findViewById(R.id.textViewRegistrate);
         String text = "¿Aún no tienes tu cuenta? Regístrate";
@@ -101,6 +104,55 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    private void comprovarSharedPreferences() {
+        SharedPreferences sharedPreferences = getSharedPreferences("sessio", MODE_PRIVATE);
+
+        String token = sharedPreferences.getString("token", null);
+
+        if (token != null) {
+            long id = Jwts.parser().setSigningKey(VariablesGlobals.getSecret().getBytes()).parseClaimsJws(token).getBody().get("id", Long.class);
+            String nomUsuari = Jwts.parser().setSigningKey(VariablesGlobals.getSecret().getBytes()).parseClaimsJws(token).getBody().getSubject();
+            ArrayList rols = Jwts.parser().setSigningKey(VariablesGlobals.getSecret().getBytes()).parseClaimsJws(token).getBody().get("rols", ArrayList.class);
+
+            String rol_usuari = (String) rols.get(0);
+
+            System.out.println(id + " " + nomUsuari + " " + rol_usuari);
+
+            if(rol_usuari.equals("ROL_CONSUMIDOR")){
+                Consumidor consumidor = Consumidor.getInstance();
+                consumidor.setId(id);
+                consumidor.setNom(nomUsuari);
+                consumidor.setToken(token);
+            }
+            else if(rol_usuari.equals("ROL_PROPIETARI")){
+                Propietari propietari = Propietari.getInstance();
+                propietari.setId(id);
+                propietari.setNom(nomUsuari);
+                propietari.setToken(token);
+            }
+            openMainActivity(rol_usuari);
+        }
+    }
+
+    private void guardarTokenASharedPreferences(String token){
+        SharedPreferences sharedPreferences = getSharedPreferences("sessio", MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+
+        editor.putString("token",token);
+
+        editor.apply();
+
+        System.out.println("SHARED PREFERENCES 1: " + sharedPreferences.getAll());
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        comprovarSharedPreferences();
+    }
+
     private void openRegisterActivity() {
         Intent intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);
@@ -134,6 +186,8 @@ public class LoginActivity extends AppCompatActivity {
                 public void onResponse(JSONObject response) {
                     try {
                         String token = response.getString("token");
+
+                        guardarTokenASharedPreferences(token);
 
                         long id = Jwts.parser().setSigningKey(VariablesGlobals.getSecret().getBytes()).parseClaimsJws(token).getBody().get("id", Long.class);
                         ArrayList rols = Jwts.parser().setSigningKey(VariablesGlobals.getSecret().getBytes()).parseClaimsJws(token).getBody().get("rols", ArrayList.class);

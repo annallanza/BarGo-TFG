@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -229,32 +230,26 @@ public class RegisterActivity extends AppCompatActivity {
                         signupButton.setEnabled(true);
                         progressDialog.dismiss();
                     }
-                    else if(!horariEditText.getText().toString().equals("")) {
-                        if(horariEditText2.getText().toString().equals("")) {
-                            Toast.makeText(getApplicationContext(), "Indica el horario", Toast.LENGTH_LONG).show();
-                            signupButton.setEnabled(true);
-                            progressDialog.dismiss();
-                        }
-                        else if(!horariEditText3.getText().toString().equals("")) {
-                            if (horariEditText4.getText().toString().equals("")) {
-                                Toast.makeText(getApplicationContext(), "Indica el horario", Toast.LENGTH_LONG).show();
-                                signupButton.setEnabled(true);
-                                progressDialog.dismiss();
-                            }
-                            else if(!horariEditText5.getText().toString().equals("")) {
-                                if (horariEditText6.getText().toString().equals("")) {
-                                    Toast.makeText(getApplicationContext(), "Indica el horario", Toast.LENGTH_LONG).show();
-                                    signupButton.setEnabled(true);
-                                    progressDialog.dismiss();
-                                }
-                                else {
-                                    int numCadires = Integer.parseInt(numCadiresEditText.getText().toString());
-                                    int numTaules = Integer.parseInt(numTaulesEditText.getText().toString());
+                    else if(horariEditText2.getText().toString().equals("")) {
+                        Toast.makeText(getApplicationContext(), "Indica el horario", Toast.LENGTH_LONG).show();
+                        signupButton.setEnabled(true);
+                        progressDialog.dismiss();
+                    }
+                    else if(!horariEditText3.getText().toString().equals("") && horariEditText4.getText().toString().equals("")) {
+                        Toast.makeText(getApplicationContext(), "Indica el horario", Toast.LENGTH_LONG).show();
+                        signupButton.setEnabled(true);
+                        progressDialog.dismiss();
+                    }
+                    else if(!horariEditText5.getText().toString().equals("") && horariEditText6.getText().toString().equals("")) {
+                        Toast.makeText(getApplicationContext(), "Indica el horario", Toast.LENGTH_LONG).show();
+                        signupButton.setEnabled(true);
+                        progressDialog.dismiss();
+                    }
+                    else {
+                        int numCadires = Integer.parseInt(numCadiresEditText.getText().toString());
+                        int numTaules = Integer.parseInt(numTaulesEditText.getText().toString());
 
-                                    SignupRequestPropietari(nomUsuari, contrasenya, nomEstabliment, direccio, exterior, numCadires, numTaules, horari, descripcio, paginaWeb);
-                                }
-                            }
-                        }
+                        SignupRequestPropietari(nomUsuari, contrasenya, nomEstabliment, direccio, exterior, numCadires, numTaules, horari, descripcio, paginaWeb);
                     }
                 }
                 else {
@@ -264,6 +259,17 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void guardarTokenASharedPreferences(String token){
+        SharedPreferences sharedPreferences = getSharedPreferences("sessio", MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+
+        editor.putString("token",token);
+
+        editor.apply();
     }
 
     public void openMainActivity(String rol_usuari){
@@ -492,6 +498,8 @@ public class RegisterActivity extends AppCompatActivity {
                 public void onResponse(JSONObject response) {
                     try {
                         String token = response.getString("token");
+
+                        guardarTokenASharedPreferences(token);
 
                         long id = Jwts.parser().setSigningKey(VariablesGlobals.getSecret().getBytes()).parseClaimsJws(token).getBody().get("id", Long.class);
                         ArrayList rols = Jwts.parser().setSigningKey(VariablesGlobals.getSecret().getBytes()).parseClaimsJws(token).getBody().get("rols", ArrayList.class);

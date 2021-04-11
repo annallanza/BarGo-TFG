@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -92,6 +93,15 @@ public class ConfiguracioPropietariActivity extends AppCompatActivity {
         eliminarCompte.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
+    private void eliminarTokenDeSharedPreferences(){
+        SharedPreferences sharedPreferences = getSharedPreferences("sessio", MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+
+        editor.apply();
+    }
+
     private void obrirLoginActivity() {
         Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
         startActivity(intent);
@@ -113,6 +123,7 @@ public class ConfiguracioPropietariActivity extends AppCompatActivity {
                 alertdialog.cancel();
                 if(opcio.equals("logout")) {
                     propietari.setPropietariNull();
+                    eliminarTokenDeSharedPreferences();
                     obrirLoginActivity();
                 }
                 else {
@@ -132,6 +143,7 @@ public class ConfiguracioPropietariActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         propietari.setPropietariNull();
+                        eliminarTokenDeSharedPreferences();
                         progressDialog.dismiss();
                         obrirLoginActivity();
                     }

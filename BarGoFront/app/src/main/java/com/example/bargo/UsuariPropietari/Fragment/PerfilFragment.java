@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -276,6 +277,8 @@ public class PerfilFragment extends Fragment {
                 String numTaulesEstabliment = numTaulesEditText.getText().toString();
                 String horariEstabliment = horariEditText1.getText().toString() + "-" + horariEditText2.getText().toString();
 
+                Boolean correcte = false;
+
                 if(!horariEditText3.getText().toString().equals(""))
                     horariEstabliment += "y" + horariEditText3.getText().toString() + "-" + horariEditText4.getText().toString();
                 if(!horariEditText5.getText().toString().equals(""))
@@ -307,37 +310,42 @@ public class PerfilFragment extends Fragment {
                     guardarCanvis.setEnabled(true);
                     progressDialog.dismiss();
                 }
-                else if(!horariEditText1.getText().toString().equals("")) {
-                    if(horariEditText2.getText().toString().equals("")) {
-                        Toast.makeText(getContext(), "Indica el horario", Toast.LENGTH_LONG).show();
-                        guardarCanvis.setEnabled(true);
-                        progressDialog.dismiss();
-                    }
-                    else if(!horariEditText3.getText().toString().equals("")) {
-                        if (horariEditText4.getText().toString().equals("")) {
-                            Toast.makeText(getContext(), "Indica el horario", Toast.LENGTH_LONG).show();
-                            guardarCanvis.setEnabled(true);
-                            progressDialog.dismiss();
-                        }
-                        else if(!horariEditText5.getText().toString().equals("")) {
-                            if (horariEditText6.getText().toString().equals("")) {
-                                Toast.makeText(getContext(), "Indica el horario", Toast.LENGTH_LONG).show();
-                                guardarCanvis.setEnabled(true);
-                                progressDialog.dismiss();
-                            }
-                            else {
-                                int numCadires = Integer.parseInt(numCadiresEditText.getText().toString());
-                                int numTaules = Integer.parseInt(numTaulesEditText.getText().toString());
+                else if(horariEditText2.getText().toString().equals("")) {
+                    Toast.makeText(getContext(), "Indica el horario", Toast.LENGTH_LONG).show();
+                    guardarCanvis.setEnabled(true);
+                    progressDialog.dismiss();
+                }
+                else if(!horariEditText3.getText().toString().equals("") && horariEditText4.getText().toString().equals("")) {
+                    Toast.makeText(getContext(), "Indica el horario", Toast.LENGTH_LONG).show();
+                    guardarCanvis.setEnabled(true);
+                    progressDialog.dismiss();
+                }
+                else if(!horariEditText5.getText().toString().equals("") && horariEditText6.getText().toString().equals("")) {
+                    Toast.makeText(getContext(), "Indica el horario", Toast.LENGTH_LONG).show();
+                    guardarCanvis.setEnabled(true);
+                    progressDialog.dismiss();
+                }
+                else {
+                    int numCadires = Integer.parseInt(numCadiresEditText.getText().toString());
+                    int numTaules = Integer.parseInt(numTaulesEditText.getText().toString());
 
-                                PutInfoConsumidorRequest(nomUsuari, contrasenyaNova, nomEstabliment, direccioEstabliment, exteriorEstabliment, numCadires, numTaules, horariEstabliment, descripcioEstabliment, paginaWebEstabliment);
-                            }
-                        }
-                    }
+                    PutInfoConsumidorRequest(nomUsuari, contrasenyaNova, nomEstabliment, direccioEstabliment, exteriorEstabliment, numCadires, numTaules, horariEstabliment, descripcioEstabliment, paginaWebEstabliment);
                 }
             }
         });
 
         return view;
+    }
+
+    private void guardarTokenASharedPreferences(String token){
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("sessio", getActivity().MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+
+        editor.putString("token",token);
+
+        editor.apply();
     }
 
     public void onResume() {
@@ -409,10 +417,12 @@ public class PerfilFragment extends Fragment {
         if(!horariEditText3.getText().toString().equals("")) {
             horariEditText3.setVisibility(View.VISIBLE);
             horariEditText4.setVisibility(View.VISIBLE);
+            contador = 2;
         }
         if(!horariEditText5.getText().toString().equals("")) {
             horariEditText5.setVisibility(View.VISIBLE);
             horariEditText6.setVisibility(View.VISIBLE);
+            contador = 3;
         }
 
         descripcioEditText.setText(propietari.getDescripcioEstabliment());
@@ -741,6 +751,8 @@ public class PerfilFragment extends Fragment {
                 public void onResponse(JSONObject response) {
                     try {
                         String token = response.getString("token");
+
+                        guardarTokenASharedPreferences(token);
 
                         long id = Jwts.parser().setSigningKey(VariablesGlobals.getSecret().getBytes()).parseClaimsJws(token).getBody().get("id", Long.class);
                         ArrayList rols = Jwts.parser().setSigningKey(VariablesGlobals.getSecret().getBytes()).parseClaimsJws(token).getBody().get("rols", ArrayList.class);

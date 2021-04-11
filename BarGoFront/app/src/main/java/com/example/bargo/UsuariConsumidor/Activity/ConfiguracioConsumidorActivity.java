@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.SpannableString;
@@ -149,6 +150,26 @@ public class ConfiguracioConsumidorActivity extends AppCompatActivity {
 
     }
 
+    private void guardarTokenASharedPreferences(String token){
+        SharedPreferences sharedPreferences = getSharedPreferences("sessio", MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+
+        editor.putString("token",token);
+
+        editor.apply();
+    }
+
+    private void eliminarTokenDeSharedPreferences(){
+        SharedPreferences sharedPreferences = getSharedPreferences("sessio", MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+
+        editor.apply();
+    }
+
     public void onResume() {
         GetInfoConsumidorRequest();
         super.onResume();
@@ -169,6 +190,7 @@ public class ConfiguracioConsumidorActivity extends AppCompatActivity {
                 alertdialog.cancel();
                 if(opcio.equals("logout")) {
                     consumidor.setConsumidorNull();
+                    eliminarTokenDeSharedPreferences();
                     obrirLoginActivity();
                 }
                 else {
@@ -326,6 +348,7 @@ public class ConfiguracioConsumidorActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         consumidor.setConsumidorNull();
+                        eliminarTokenDeSharedPreferences();
                         progressDialog.dismiss();
                         obrirLoginActivity();
                     }
@@ -382,6 +405,8 @@ public class ConfiguracioConsumidorActivity extends AppCompatActivity {
                 public void onResponse(JSONObject response) {
                     try {
                         String token = response.getString("token");
+
+                        guardarTokenASharedPreferences(token);
 
                         long id = Jwts.parser().setSigningKey(VariablesGlobals.getSecret().getBytes()).parseClaimsJws(token).getBody().get("id", Long.class);
                         ArrayList rols = Jwts.parser().setSigningKey(VariablesGlobals.getSecret().getBytes()).parseClaimsJws(token).getBody().get("rols", ArrayList.class);
