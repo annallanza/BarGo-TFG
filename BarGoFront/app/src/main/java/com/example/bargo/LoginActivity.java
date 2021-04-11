@@ -196,11 +196,11 @@ public class LoginActivity extends AppCompatActivity {
 
                         if(rol_usuari.equals("ROL_CONSUMIDOR")){
                             Consumidor consumidor = Consumidor.getInstance();
-                            consumidor.setAlmostAll(id,nomUsuari,contrasenya,token);
+                            consumidor.setAlmostAll(id,nomUsuari,token);
                         }
                         else if(rol_usuari.equals("ROL_PROPIETARI")){
                             Propietari propietari = Propietari.getInstance();
-                            propietari.setAlmostAll(id,nomUsuari,contrasenya,token);
+                            propietari.setAlmostAll(id,nomUsuari,token);
                         }
                         openMainActivity(rol_usuari);
                     } catch (JSONException e) {

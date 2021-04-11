@@ -50,8 +50,8 @@ import io.jsonwebtoken.Jwts;
 public class ConfiguracioConsumidorActivity extends AppCompatActivity {
 
     private EditText nomUsuariEditText;
-    private EditText contrasenyaActualEditText;
     private EditText contrasenyaNovaEditText;
+    private EditText confirmarContrasenyaNovaEditText;
     private CheckBox veureContrasenya;
     private Button guardarCanvis;
     private TextView logout;
@@ -65,8 +65,8 @@ public class ConfiguracioConsumidorActivity extends AppCompatActivity {
         setContentView(R.layout.activity_configuracio_usuari);
 
         nomUsuariEditText = findViewById(R.id.editTextUsername2);
-        contrasenyaActualEditText = findViewById(R.id.editTextContraActual);
         contrasenyaNovaEditText = findViewById(R.id.editTextContraNova);
+        confirmarContrasenyaNovaEditText = findViewById(R.id.editTextConfirmaContraNova);
         veureContrasenya = findViewById(R.id.checkBoxContraseña3);
         guardarCanvis = findViewById(R.id.buttonAcceder2);
         logout = findViewById(R.id.textViewLogout);
@@ -118,12 +118,12 @@ public class ConfiguracioConsumidorActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked) {
-                    contrasenyaActualEditText.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
                     contrasenyaNovaEditText.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    confirmarContrasenyaNovaEditText.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
                 }
                 else {
-                    contrasenyaActualEditText.setTransformationMethod(PasswordTransformationMethod.getInstance());
                     contrasenyaNovaEditText.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    confirmarContrasenyaNovaEditText.setTransformationMethod(PasswordTransformationMethod.getInstance());
                 }
             }
         });
@@ -134,15 +134,15 @@ public class ConfiguracioConsumidorActivity extends AppCompatActivity {
                 guardarCanvis.setEnabled(false);
 
                 String nomUsuari = nomUsuariEditText.getText().toString();
-                String contrasenyaActual = contrasenyaActualEditText.getText().toString();
                 String contrasenyaNova = contrasenyaNovaEditText.getText().toString();
+                String confirmaContrasenyaNova = confirmarContrasenyaNovaEditText.getText().toString();
 
-                if(contrasenyaActual.equals(consumidor.getContrasenya())) {
+                if(contrasenyaNova.equals(confirmaContrasenyaNova)) {
                     progressDialog.show();
                     PutInfoConsumidorRequest(nomUsuari, contrasenyaNova);
                 }
                 else {
-                    Toast.makeText(getApplicationContext(), "La contraseña actual no es correcta", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Las contraseñas no coinciden", Toast.LENGTH_LONG).show();
                     guardarCanvis.setEnabled(true);
                 }
             }
@@ -208,8 +208,8 @@ public class ConfiguracioConsumidorActivity extends AppCompatActivity {
 
     private void refrescarDadesConsumidor(){
         nomUsuariEditText.setText(consumidor.getNom());
-        contrasenyaActualEditText.setText("");
         contrasenyaNovaEditText.setText("");
+        confirmarContrasenyaNovaEditText.setText("");
     }
 
     private void GetInfoConsumidorRequest() {
@@ -415,11 +415,11 @@ public class ConfiguracioConsumidorActivity extends AppCompatActivity {
 
                         if(rol_usuari.equals("ROL_CONSUMIDOR")){
                             Consumidor consumidor = Consumidor.getInstance();
-                            consumidor.setAlmostAll(id,nomUsuari,contrasenya,token);
+                            consumidor.setAlmostAll(id,nomUsuari,token);
                         }
                         else if(rol_usuari.equals("ROL_PROPIETARI")){
                             Propietari propietari = Propietari.getInstance();
-                            propietari.setAlmostAll(id,nomUsuari,contrasenya,token);
+                            propietari.setAlmostAll(id,nomUsuari,token);
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();

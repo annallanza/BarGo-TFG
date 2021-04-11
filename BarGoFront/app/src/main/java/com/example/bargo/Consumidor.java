@@ -14,11 +14,6 @@ public class Consumidor extends User{
         instance = null;
     }
 
-    public void setAll(long id, String nomUsuari, String contrasenya, String token, byte[] imatge, int puntuacio) {
-        super.setAllUser(id,nomUsuari,contrasenya,token,imatge);
-        this.puntuacio = puntuacio;
-    }
-
     public int getPuntuacio(){
         return puntuacio;
     }

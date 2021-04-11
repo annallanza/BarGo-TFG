@@ -29,7 +29,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.bargo.UsuariConsumidor.Activity.MainActivity;
-import com.example.bargo.UsuariPropietari.Activity.ConfiguracioPropietariActivity;
 import com.example.bargo.UsuariPropietari.Activity.MainPropietariActivity;
 
 import org.json.JSONException;
@@ -99,7 +98,7 @@ public class RegisterActivity extends AppCompatActivity {
         login.setMovementMethod(LinkMovementMethod.getInstance());
 
         nomUsuariEditText = findViewById(R.id.editTextNombreUsuario);
-        contrasenyaEditText = findViewById(R.id.editTextContraActual);
+        contrasenyaEditText = findViewById(R.id.editTextContraNova);
         veureContraseña = findViewById(R.id.checkBoxContraseña2);
         isConsumidor = findViewById(R.id.checkBox);
         isPropietari = findViewById(R.id.checkBox2);
@@ -508,11 +507,11 @@ public class RegisterActivity extends AppCompatActivity {
 
                         if(rol_usuari.equals("ROL_CONSUMIDOR")){
                             Consumidor consumidor = Consumidor.getInstance();
-                            consumidor.setAlmostAll(id,nomUsuari,contrasenya,token);
+                            consumidor.setAlmostAll(id,nomUsuari,token);
                         }
                         else if(rol_usuari.equals("ROL_PROPIETARI")){
                             Propietari propietari = Propietari.getInstance();
-                            propietari.setAlmostAll(id,nomUsuari,contrasenya,token);
+                            propietari.setAlmostAll(id,nomUsuari,token);
                         }
                         openMainActivity(rol_usuari);
                     } catch (JSONException e) {

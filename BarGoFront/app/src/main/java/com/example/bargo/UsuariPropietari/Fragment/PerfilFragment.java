@@ -76,8 +76,8 @@ public class PerfilFragment extends Fragment {
     private ImageButton configuracio;
     private CheckBox isConsumidor;
     private CheckBox isPropietari;
-    private EditText contrasenyaActualEditText;
     private EditText contrasenyaNovaEditText;
+    private EditText confirmarContrasenyaNovaEditText;
     private EditText nomUsuariEditText;
     private Button guardarCanvis;
     private CheckBox veureContrasenya;
@@ -113,8 +113,8 @@ public class PerfilFragment extends Fragment {
         imatgeView = view.findViewById(R.id.circleImageView2);
         configuracio = view.findViewById(R.id.imageButtonConfiguracio2);
         nomUsuariEditText = view.findViewById(R.id.editTextNombreUsuario);
-        contrasenyaActualEditText = view.findViewById(R.id.editTextContraActual);
         contrasenyaNovaEditText = view.findViewById(R.id.editTextContraNova);
+        confirmarContrasenyaNovaEditText = view.findViewById(R.id.editTextConfirmaContraNova);
         veureContrasenya = view.findViewById(R.id.checkBoxContraseña2);
         isConsumidor = view.findViewById(R.id.checkBox);
         isPropietari = view.findViewById(R.id.checkBox2);
@@ -163,12 +163,12 @@ public class PerfilFragment extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked) {
-                    contrasenyaActualEditText.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
                     contrasenyaNovaEditText.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    confirmarContrasenyaNovaEditText.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
                 }
                 else {
-                    contrasenyaActualEditText.setTransformationMethod(PasswordTransformationMethod.getInstance());
                     contrasenyaNovaEditText.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    confirmarContrasenyaNovaEditText.setTransformationMethod(PasswordTransformationMethod.getInstance());
                 }
             }
         });
@@ -268,16 +268,14 @@ public class PerfilFragment extends Fragment {
                 progressDialog.show();
 
                 String nomUsuari = nomUsuariEditText.getText().toString();
-                String contrasenyaActual = contrasenyaActualEditText.getText().toString();
                 String contrasenyaNova = contrasenyaNovaEditText.getText().toString();
+                String confirmarContrasenyaNova = confirmarContrasenyaNovaEditText.getText().toString();
                 String nomEstabliment = nomEstablimentEditText.getText().toString();
                 String direccioEstabliment = direccioEditText.getText().toString();
                 Boolean exteriorEstabliment = exteriorCheckBox.isChecked();
                 String numCadiresEstabliment = numCadiresEditText.getText().toString();
                 String numTaulesEstabliment = numTaulesEditText.getText().toString();
                 String horariEstabliment = horariEditText1.getText().toString() + "-" + horariEditText2.getText().toString();
-
-                Boolean correcte = false;
 
                 if(!horariEditText3.getText().toString().equals(""))
                     horariEstabliment += "y" + horariEditText3.getText().toString() + "-" + horariEditText4.getText().toString();
@@ -290,8 +288,8 @@ public class PerfilFragment extends Fragment {
                 if(!paginaWebEstabliment.contains("https://"))
                     paginaWebEstabliment = "https://" + paginaWebEstabliment;
 
-                if(!contrasenyaActual.equals(propietari.getContrasenya())) {
-                    Toast.makeText(getContext(), "La contraseña actual no es correcta", Toast.LENGTH_LONG).show();
+                if(!contrasenyaNova.equals(confirmarContrasenyaNova)) {
+                    Toast.makeText(getContext(), "Las contraseñas no coinciden", Toast.LENGTH_LONG).show();
                     guardarCanvis.setEnabled(true);
                     progressDialog.dismiss();
                 }
@@ -384,8 +382,8 @@ public class PerfilFragment extends Fragment {
 
     private void refrescarDadesPopietari(){
         nomUsuariEditText.setText(propietari.getNom());
-        contrasenyaActualEditText.setText("");
         contrasenyaNovaEditText.setText("");
+        confirmarContrasenyaNovaEditText.setText("");
 
         nomEstablimentEditText.setText(propietari.getNomEstabliment());
         direccioEditText.setText(propietari.getDireccioEstabliment());
@@ -761,11 +759,11 @@ public class PerfilFragment extends Fragment {
 
                         if(rol_usuari.equals("ROL_CONSUMIDOR")){
                             Consumidor consumidor = Consumidor.getInstance();
-                            consumidor.setAlmostAll(id,nomUsuari,contrasenya,token);
+                            consumidor.setAlmostAll(id,nomUsuari,token);
                         }
                         else if(rol_usuari.equals("ROL_PROPIETARI")){
                             Propietari propietari = Propietari.getInstance();
-                            propietari.setAlmostAll(id,nomUsuari,contrasenya,token);
+                            propietari.setAlmostAll(id,nomUsuari,token);
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();

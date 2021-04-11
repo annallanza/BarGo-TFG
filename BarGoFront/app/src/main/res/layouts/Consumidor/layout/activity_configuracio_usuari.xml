@@ -31,7 +31,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="50dp"
         android:layout_marginRight="50dp"
-        android:text="@string/contrase_a_actual_"
+        android:text="@string/contrase_a_nueva_"
         android:textColor="#000000"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -47,12 +47,12 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="50dp"
         android:layout_marginRight="50dp"
-        android:text="@string/contrase_a_nueva_"
+        android:text="@string/confirma_contrase_a_nueva_"
         android:textColor="#000000"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextContraActual" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextContraNova" />
 
     <CheckBox
         android:id="@+id/checkBoxContraseña3"
@@ -62,7 +62,7 @@
         android:text="@string/ver_contraseña"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editTextContraNova" />
+        app:layout_constraintTop_toBottomOf="@id/editTextConfirmaContraNova" />
 
     <Button
         android:id="@+id/buttonAcceder2"
@@ -106,7 +106,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/editTextContraActual"
+        android:id="@+id/editTextContraNova"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
@@ -116,7 +116,7 @@
         android:layout_marginRight="50dp"
         android:autofillHints=""
         android:ems="10"
-        android:hint="@string/contrase_a_actual"
+        android:hint="@string/contrase_a_nueva"
         android:inputType="textPassword"
         android:text=""
         app:layout_constraintEnd_toEndOf="parent"
@@ -124,7 +124,7 @@
         app:layout_constraintTop_toBottomOf="@id/textViewContrasenyaActual" />
 
     <EditText
-        android:id="@+id/editTextContraNova"
+        android:id="@+id/editTextConfirmaContraNova"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
