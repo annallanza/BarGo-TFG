@@ -284,7 +284,7 @@ public class RegisterActivity extends AppCompatActivity {
     private void openLoginActivity() {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
-        finish();
+        finishAffinity();
     }
 
     public void onHorariClicked(View view){
