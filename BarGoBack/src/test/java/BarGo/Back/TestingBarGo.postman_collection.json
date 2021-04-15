@@ -739,6 +739,422 @@
 									"response": []
 								}
 							]
+						},
+						{
+							"name": "EstablimentById",
+							"item": [
+								{
+									"name": "EstablimentById",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb25zdW1pZG9yIiwicm9scyI6WyJST0xfQ09OU1VNSURPUiJdLCJpZCI6MSwiaWF0IjoxNjE4NDc2MjEyLCJleHAiOjE2MTg1NjI2MTJ9.OolIseVT4VcfyUtry2cF2ZJ18AwAXNWA2ajeDVVPkqhRsm0hPprKJBy1Gi5HpY7bnFyic5bQw8H3Kc95shSvlA",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/establiments/4",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"establiments",
+												"4"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "EstablimentById401SenseToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 401\", function () {",
+													"    pm.response.to.have.status(401);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/establiments/4",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"establiments",
+												"4"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "EstablimentById404",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 401\", function () {",
+													"    pm.response.to.have.status(404);",
+													"});",
+													"",
+													"pm.test(\"MissatgeErrorTest\", function () {",
+													"    missatge = pm.response.json().missatge;",
+													"    pm.expect(missatge).to.equal(\"No existe ningun establecimiento con ese id\");",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb25zdW1pZG9yIiwicm9scyI6WyJST0xfQ09OU1VNSURPUiJdLCJpZCI6MSwiaWF0IjoxNjE4NDc2MjEyLCJleHAiOjE2MTg1NjI2MTJ9.OolIseVT4VcfyUtry2cF2ZJ18AwAXNWA2ajeDVVPkqhRsm0hPprKJBy1Gi5HpY7bnFyic5bQw8H3Kc95shSvlA",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/establiments/40",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"establiments",
+												"40"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "AllEstabliments",
+							"item": [
+								{
+									"name": "AllEstabliments",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb25zdW1pZG9yIiwicm9scyI6WyJST0xfQ09OU1VNSURPUiJdLCJpZCI6MSwiaWF0IjoxNjE4NDg1NDg0LCJleHAiOjE2MTg1NzE4ODR9.4snxLwZKFo4bVWfQhDPGAtANeZAPcPOE9JMWYOQGGwEONrNQYHKH8YJSr_flMoZOvXG47veyObYwWEWeuWviBA",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/establiments/all/1",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"establiments",
+												"all",
+												"1"
+											],
+											"query": [
+												{
+													"key": "nomEstabliment",
+													"value": "nomEst",
+													"disabled": true
+												},
+												{
+													"key": "direccio",
+													"value": "direccio",
+													"disabled": true
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "AllEstabliments401SenseToken",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 401\", function () {",
+													"    pm.response.to.have.status(401);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/establiments/all/1",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"establiments",
+												"all",
+												"1"
+											],
+											"query": [
+												{
+													"key": "nomEstabliment",
+													"value": "nomEst",
+													"disabled": true
+												},
+												{
+													"key": "direccio",
+													"value": "direccio",
+													"disabled": true
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "AllEstabliments404",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 404\", function () {",
+													"    pm.response.to.have.status(404);",
+													"});",
+													"",
+													"pm.test(\"MissatgeErrorTest\", function () {",
+													"    missatge = pm.response.json().missatge;",
+													"    pm.expect(missatge).to.equal(\"No existe ningun consumidor con ese id\");",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb25zdW1pZG9yIiwicm9scyI6WyJST0xfQ09OU1VNSURPUiJdLCJpZCI6MSwiaWF0IjoxNjE4NDg1NDg0LCJleHAiOjE2MTg1NzE4ODR9.4snxLwZKFo4bVWfQhDPGAtANeZAPcPOE9JMWYOQGGwEONrNQYHKH8YJSr_flMoZOvXG47veyObYwWEWeuWviBA",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/establiments/all/40",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"establiments",
+												"all",
+												"40"
+											],
+											"query": [
+												{
+													"key": "nomEstabliment",
+													"value": "nomEst",
+													"disabled": true
+												},
+												{
+													"key": "direccio",
+													"value": "direccio",
+													"disabled": true
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
 						}
 					]
 				},
@@ -2781,6 +3197,698 @@
 											"path": [
 												"propietaris",
 												"12"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "ExteriorEstablimentByIdPropietari",
+							"item": [
+								{
+									"name": "ExteriorEstablimentByIdPropietari",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9waWV0YXJpdGVzdCIsInJvbHMiOlsiUk9MX1BST1BJRVRBUkkiXSwiaWQiOjE0LCJpYXQiOjE2MTg0NzcxODAsImV4cCI6MTYxODU2MzU4MH0._If480fRxNy6jzT2wfglW5Xd2JNM_qRiBGa6XGEAn4zzb5GkoHnXEsQCSpDTjpLN1cc71f2gEHVnYQzl-7v8iQ",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/establiments/exterior/14",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"establiments",
+												"exterior",
+												"14"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "ExteriorEstablimentByIdPropietari401SenseToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 401\", function () {",
+													"    pm.response.to.have.status(401);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/establiments/exterior/14",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"establiments",
+												"exterior",
+												"14"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "ExteriorEstablimentByIdPropietari401IdErroni",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 401\", function () {",
+													"    pm.response.to.have.status(401);",
+													"});",
+													"",
+													"pm.test(\"MissatgeErrorTest\", function () {",
+													"    missatge = pm.response.json().missatge;",
+													"    pm.expect(missatge).to.equal(\"No tienes acceso al usuario con ese id\");",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9waWV0YXJpdGVzdCIsInJvbHMiOlsiUk9MX1BST1BJRVRBUkkiXSwiaWQiOjE0LCJpYXQiOjE2MTg0NzcxODAsImV4cCI6MTYxODU2MzU4MH0._If480fRxNy6jzT2wfglW5Xd2JNM_qRiBGa6XGEAn4zzb5GkoHnXEsQCSpDTjpLN1cc71f2gEHVnYQzl-7v8iQ",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/establiments/exterior/15",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"establiments",
+												"exterior",
+												"15"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "ModificarOcupacioEstablimentByIdPropietari",
+							"item": [
+								{
+									"name": "ModificarOcupacioEstablimentByIdPropietari401",
+									"item": [
+										{
+											"name": "ModificarOcupacioEstablimentByIdPropietari401IdErroni",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 401\", function () {",
+															"    pm.response.to.have.status(401);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"No tienes acceso al usuario con ese id\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9waWV0YXJpdGVzdCIsInJvbHMiOlsiUk9MX1BST1BJRVRBUkkiXSwiaWQiOjE0LCJpYXQiOjE2MTg0NzcxODAsImV4cCI6MTYxODU2MzU4MH0._If480fRxNy6jzT2wfglW5Xd2JNM_qRiBGa6XGEAn4zzb5GkoHnXEsQCSpDTjpLN1cc71f2gEHVnYQzl-7v8iQ",
+															"type": "string"
+														}
+													]
+												},
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"id\": 140, \n    \"ocupacioInterior\": \"Vacio\", \n    \"ocupacioExterior\": \"Vacio\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/establiments",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"establiments"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "ModificarOcupacioEstablimentByIdPropietari401SenseToken",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 401\", function () {",
+															"    pm.response.to.have.status(401);",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "",
+															"type": "string"
+														}
+													]
+												},
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"id\": 14, \n    \"ocupacioInterior\": \"Vacio\", \n    \"ocupacioExterior\": \"Vacio\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/establiments",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"establiments"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "ModificarOcupacioEstablimentByIdPropietari400",
+									"item": [
+										{
+											"name": "ModificarOcupacioEstablimentByIdPropietari400OcupacioInteriorVacio",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"La ocupación interior no puede ser un valor nulo ni vacío\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9waWV0YXJpdGVzdCIsInJvbHMiOlsiUk9MX1BST1BJRVRBUkkiXSwiaWQiOjE0LCJpYXQiOjE2MTg0NzcxODAsImV4cCI6MTYxODU2MzU4MH0._If480fRxNy6jzT2wfglW5Xd2JNM_qRiBGa6XGEAn4zzb5GkoHnXEsQCSpDTjpLN1cc71f2gEHVnYQzl-7v8iQ",
+															"type": "string"
+														}
+													]
+												},
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"id\": 14, \n    \"ocupacioInterior\": \"\", \n    \"ocupacioExterior\": \"Vacio\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/establiments",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"establiments"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "ModificarOcupacioEstablimentByIdPropietari400OcupacioExteriorVacio",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"La ocupación exterior no puede ser un valor nulo ni vacío\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9waWV0YXJpdGVzdCIsInJvbHMiOlsiUk9MX1BST1BJRVRBUkkiXSwiaWQiOjE0LCJpYXQiOjE2MTg0NzcxODAsImV4cCI6MTYxODU2MzU4MH0._If480fRxNy6jzT2wfglW5Xd2JNM_qRiBGa6XGEAn4zzb5GkoHnXEsQCSpDTjpLN1cc71f2gEHVnYQzl-7v8iQ",
+															"type": "string"
+														}
+													]
+												},
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"id\": 14, \n    \"ocupacioInterior\": \"Vacio\", \n    \"ocupacioExterior\": \"\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/establiments",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"establiments"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "ModificarOcupacioEstablimentByIdPropietari400OcupacioInteriorNull",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"La ocupación interior no puede ser un valor nulo ni vacío\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9waWV0YXJpdGVzdCIsInJvbHMiOlsiUk9MX1BST1BJRVRBUkkiXSwiaWQiOjE0LCJpYXQiOjE2MTg0NzcxODAsImV4cCI6MTYxODU2MzU4MH0._If480fRxNy6jzT2wfglW5Xd2JNM_qRiBGa6XGEAn4zzb5GkoHnXEsQCSpDTjpLN1cc71f2gEHVnYQzl-7v8iQ",
+															"type": "string"
+														}
+													]
+												},
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"id\": 14, \n    \"ocupacioInterior\": null, \n    \"ocupacioExterior\": \"Vacio\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/establiments",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"establiments"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "ModificarOcupacioEstablimentByIdPropietari400OcupacioExteriorNull",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"La ocupación exterior no puede ser un valor nulo ni vacío\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9waWV0YXJpdGVzdCIsInJvbHMiOlsiUk9MX1BST1BJRVRBUkkiXSwiaWQiOjE0LCJpYXQiOjE2MTg0NzcxODAsImV4cCI6MTYxODU2MzU4MH0._If480fRxNy6jzT2wfglW5Xd2JNM_qRiBGa6XGEAn4zzb5GkoHnXEsQCSpDTjpLN1cc71f2gEHVnYQzl-7v8iQ",
+															"type": "string"
+														}
+													]
+												},
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"id\": 14, \n    \"ocupacioInterior\": \"Vacio\", \n    \"ocupacioExterior\": null\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/establiments",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"establiments"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "ModificarOcupacioEstablimentByIdPropietari400OcupacioInteriorInvalid",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"La ocupacion interior no es vàlida\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9waWV0YXJpdGVzdCIsInJvbHMiOlsiUk9MX1BST1BJRVRBUkkiXSwiaWQiOjE0LCJpYXQiOjE2MTg0NzcxODAsImV4cCI6MTYxODU2MzU4MH0._If480fRxNy6jzT2wfglW5Xd2JNM_qRiBGa6XGEAn4zzb5GkoHnXEsQCSpDTjpLN1cc71f2gEHVnYQzl-7v8iQ",
+															"type": "string"
+														}
+													]
+												},
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"id\": 14, \n    \"ocupacioInterior\": \"fewrfre\", \n    \"ocupacioExterior\": \"Vacio\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/establiments",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"establiments"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "ModificarOcupacioEstablimentByIdPropietari400OcupacioExteriorInvalid",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"La ocupacion exterior no es vàlida\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9waWV0YXJpdGVzdCIsInJvbHMiOlsiUk9MX1BST1BJRVRBUkkiXSwiaWQiOjE0LCJpYXQiOjE2MTg0NzcxODAsImV4cCI6MTYxODU2MzU4MH0._If480fRxNy6jzT2wfglW5Xd2JNM_qRiBGa6XGEAn4zzb5GkoHnXEsQCSpDTjpLN1cc71f2gEHVnYQzl-7v8iQ",
+															"type": "string"
+														}
+													]
+												},
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"id\": 14, \n    \"ocupacioInterior\": \"Vacio\", \n    \"ocupacioExterior\": \"fewfw\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/establiments",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"establiments"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "ModificarOcupacioEstablimentByIdPropietari",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"MissatgeErrorTest\", function () {",
+													"    missatge = pm.response.json().missatge;",
+													"    pm.expect(missatge).to.equal(\"Se ha actualizado el establecimiento\");",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9waWV0YXJpdGVzdCIsInJvbHMiOlsiUk9MX1BST1BJRVRBUkkiXSwiaWQiOjE0LCJpYXQiOjE2MTg0NzcxODAsImV4cCI6MTYxODU2MzU4MH0._If480fRxNy6jzT2wfglW5Xd2JNM_qRiBGa6XGEAn4zzb5GkoHnXEsQCSpDTjpLN1cc71f2gEHVnYQzl-7v8iQ",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"id\": 14, \n    \"ocupacioInterior\": \"Vacio\", \n    \"ocupacioExterior\": \"Vacio\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/establiments",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"establiments"
 											]
 										}
 									},
