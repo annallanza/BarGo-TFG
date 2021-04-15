@@ -3,6 +3,7 @@ package BarGo.Back.Rest;
 import BarGo.Back.Dto.*;
 import BarGo.Back.Enums.NomRol;
 import BarGo.Back.Enums.TipusOcupacio;
+import BarGo.Back.Model.Consumidor;
 import BarGo.Back.Model.Establiment;
 import BarGo.Back.Model.Propietari;
 import BarGo.Back.Model.Rol;

@@ -1,13 +1,14 @@
 package BarGo.Back.Model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "Usuari")
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Usuari {
+public class Usuari implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) //AUTO es una altre opcio

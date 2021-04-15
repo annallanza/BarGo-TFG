@@ -1,15 +1,19 @@
 package BarGo.Back.Model;
 
-import javax.persistence.Entity;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 @Table(name = "Consumidor")
 @PrimaryKeyJoinColumn(name = "usuariId")
-public class Consumidor extends Usuari{
+public class Consumidor extends Usuari implements Serializable {
 
     private int puntuacio;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "consumidor_establiment", joinColumns = @JoinColumn(name = "consumidor_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "establiment_id", referencedColumnName = "id"))
+    private Set<Establiment> establimentsVisitats;
 
     public Consumidor(){
 
@@ -26,5 +30,13 @@ public class Consumidor extends Usuari{
 
     public void setPuntuacio(int puntuacio) {
         this.puntuacio = puntuacio;
+    }
+
+    public Set<Establiment> getEstablimentsVisitats() {
+        return establimentsVisitats;
+    }
+
+    public void setEstablimentsVisitats(Set<Establiment> establimentsVisitats) {
+        this.establimentsVisitats = establimentsVisitats;
     }
 }

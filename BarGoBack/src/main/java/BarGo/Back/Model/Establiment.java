@@ -4,6 +4,7 @@ import BarGo.Back.Enums.TipusOcupacio;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "Establiment")
@@ -47,6 +48,9 @@ public class Establiment {
 
     @OneToOne(mappedBy = "establiment")
     private Propietari propietari;
+
+    @ManyToMany(mappedBy = "establimentsVisitats")
+    private Set<Consumidor> consumidorsVisitants;
 
     public Establiment() {
     }
@@ -158,5 +162,13 @@ public class Establiment {
 
     public void setPropietari(Propietari propietari) {
         this.propietari = propietari;
+    }
+
+    public Set<Consumidor> getConsumidorsVisitants() {
+        return consumidorsVisitants;
+    }
+
+    public void setConsumidorsVisitants(Set<Consumidor> consumidorsVisitants) {
+        this.consumidorsVisitants = consumidorsVisitants;
     }
 }

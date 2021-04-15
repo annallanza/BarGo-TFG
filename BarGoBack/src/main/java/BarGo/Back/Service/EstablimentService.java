@@ -81,6 +81,16 @@ public class EstablimentService implements EstablimentInterface {
     }
 
     @Override
+    public List<Establiment> findByNomContaining(String nom) {
+        return establimentInterface.findByNomContaining(nom);
+    }
+
+    @Override
+    public List<Establiment> findByDireccioContaining(String direccio) {
+        return establimentInterface.findByDireccioContaining(direccio);
+    }
+
+    @Override
     public boolean existsById(Long aLong) {
         return establimentInterface.existsById(aLong);
     }
