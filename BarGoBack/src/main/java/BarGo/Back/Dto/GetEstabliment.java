@@ -1,10 +1,5 @@
 package BarGo.Back.Dto;
 
-import BarGo.Back.Enums.TipusOcupacio;
-import org.hibernate.annotations.Type;
-
-import javax.persistence.*;
-
 public class GetEstabliment {
     //Tots els atributs menys els de l'ocupacio
     private Long id;

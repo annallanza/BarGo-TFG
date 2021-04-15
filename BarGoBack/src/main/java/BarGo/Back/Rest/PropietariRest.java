@@ -80,7 +80,7 @@ public class PropietariRest {
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET) //Exemple url request: http://localhost:8080/propietaris/3
-    private ResponseEntity<?> getPropietariById(@PathVariable("id") Long id, @RequestHeader(value="Authorization") String token){ //TODO: cal convertir a BASE64?
+    private ResponseEntity<?> getPropietariById(@PathVariable("id") Long id, @RequestHeader(value="Authorization") String token){
         if(!jwtProvider.validateIdToken(id, token))
             return new ResponseEntity<>(new Missatge("No tienes acceso al usuario con ese id"), HttpStatus.UNAUTHORIZED);
 
@@ -97,12 +97,7 @@ public class PropietariRest {
         else
             imatge = Base64.getEncoder().encodeToString(imatgeBytes);
 
-        Optional<Establiment> optionalEstabliment = propietariService.getEstablimentByUsuariId(id);
-
-        if(!optionalEstabliment.isPresent())
-            return new ResponseEntity<>(new Missatge("No existe ningun establecimiento para el usuario con ese id"), HttpStatus.NOT_FOUND);
-
-        Establiment establiment = optionalEstabliment.get();
+        Establiment establiment = propietari.getEstabliment();
 
         GetEstabliment getEstabliment = new GetEstabliment(establiment.getId(), establiment.getNom(), establiment.getDireccio(), establiment.isExterior(), establiment.getNumCadires(), establiment.getNumTaules(), establiment.getHorari(), establiment.getDescripcio(), establiment.getPaginaWeb());
 
@@ -126,21 +121,16 @@ public class PropietariRest {
         if (!optionalPropietari.isPresent())
             return new ResponseEntity<>(new Missatge("No existe ningun propietario con ese id"), HttpStatus.NOT_FOUND);
 
-        Propietari propietariexists = optionalPropietari.get();
-        if(usuariService.existsByNomUsuari(updatePropietari.getNomUsuari()) && !updatePropietari.getNomUsuari().equals(propietariexists.getNomUsuari()))
+        Propietari propietari = optionalPropietari.get();
+        if(usuariService.existsByNomUsuari(updatePropietari.getNomUsuari()) && !updatePropietari.getNomUsuari().equals(propietari.getNomUsuari()))
             return new ResponseEntity<>(new Missatge("El nombre de usuario ya existe"), HttpStatus.CONFLICT);
 
-        propietariexists.setNomUsuari(updatePropietari.getNomUsuari());
-        propietariexists.setContrasenya(encoder.encode(updatePropietari.getContrasenya()));
+        propietari.setNomUsuari(updatePropietari.getNomUsuari());
+        propietari.setContrasenya(encoder.encode(updatePropietari.getContrasenya()));
 
-        propietariService.save(propietariexists);
+        propietariService.save(propietari);
 
-        Optional<Establiment> optionalEstabliment = propietariService.getEstablimentByUsuariId(updatePropietari.getId());
-
-        if (!optionalEstabliment.isPresent())
-            return new ResponseEntity<>(new Missatge("No existe ningun establecimiento para el usuario con ese id"), HttpStatus.NOT_FOUND);
-
-        Establiment establiment = optionalEstabliment.get();
+        Establiment establiment = propietari.getEstabliment();
 
         establiment.setNom(updatePropietari.getNomEstabliment());
         establiment.setDireccio(updatePropietari.getDireccio());

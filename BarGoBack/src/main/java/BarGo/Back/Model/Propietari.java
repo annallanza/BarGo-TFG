@@ -18,4 +18,12 @@ public class Propietari extends Usuari{
         super(nomUsuari, contrasenya, imatge);
         this.establiment = establiment;
     }
+
+    public Establiment getEstabliment() {
+        return establiment;
+    }
+
+    public void setEstabliment(Establiment establiment) {
+        this.establiment = establiment;
+    }
 }
