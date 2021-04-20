@@ -164,6 +164,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
+        android:gravity="center"
         android:text="@string/modificar_datos"
         android:textColor="#323131"
         android:textSize="36sp"

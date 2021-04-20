@@ -513,12 +513,12 @@ public class RegisterActivity extends AppCompatActivity {
                             Propietari propietari = Propietari.getInstance();
                             propietari.setAlmostAll(id,nomUsuari,token);
                         }
+                        progressDialog.dismiss();
                         openMainActivity(rol_usuari);
                     } catch (JSONException e) {
                         e.printStackTrace();
+                        progressDialog.dismiss();
                     }
-
-                    progressDialog.dismiss();
                 }
             }, new Response.ErrorListener() {
                 @Override

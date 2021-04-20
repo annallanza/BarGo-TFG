@@ -107,7 +107,7 @@ public class EstablimentRest {
 
         Establiment establiment = propietari.getEstabliment();
 
-        GetExteriorEstabliment getExteriorEstabliment = new GetExteriorEstabliment(establiment.isExterior());
+        GetExteriorEstabliment getExteriorEstabliment = new GetExteriorEstabliment(establiment.isExterior(), establiment.getOcupacioInterior().toString(), establiment.getOcupacioExterior().toString());
 
         return new ResponseEntity<>(getExteriorEstabliment, HttpStatus.OK);
     }
@@ -151,6 +151,9 @@ public class EstablimentRest {
                 ocupacioExterior = TipusOcupacio.Medio_lleno;
                 break;
             case "Vacio":
+                ocupacioExterior = TipusOcupacio.Vacio;
+                break;
+            case "null":
                 ocupacioExterior = TipusOcupacio.Vacio;
                 break;
             default:

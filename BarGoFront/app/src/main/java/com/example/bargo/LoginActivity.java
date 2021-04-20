@@ -35,7 +35,11 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
+import io.jsonwebtoken.SignatureException;
+import io.jsonwebtoken.UnsupportedJwtException;
 
 public class LoginActivity extends AppCompatActivity {
     private Button loginButton;
@@ -50,7 +54,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        comprovarSharedPreferences();
+        inicialitzarProgressDialog();
 
         registrate = findViewById(R.id.textViewRegistrate);
         String text = "¿Aún no tienes tu cuenta? Regístrate";
@@ -77,10 +81,6 @@ public class LoginActivity extends AppCompatActivity {
         loginButton = findViewById(R.id.buttonAcceder);
         veureContrasenya = findViewById(R.id.checkBoxContraseña);
 
-        progressDialog = new ProgressDialog(LoginActivity.this);
-        progressDialog.setMessage("Cargando...");
-        progressDialog.setCancelable(false);
-
         veureContrasenya.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -104,19 +104,42 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    private void inicialitzarProgressDialog() {
+        progressDialog = new ProgressDialog(LoginActivity.this);
+        progressDialog.setMessage("Cargando...");
+        progressDialog.setCancelable(false);
+    }
+
+    public boolean validateToken(String token){
+        try {
+            Jwts.parser().setSigningKey(VariablesGlobals.getSecret().getBytes()).parseClaimsJws(token);
+            return true;
+        } catch (MalformedJwtException e) {
+            System.out.println("token mal formado");
+        } catch (UnsupportedJwtException e) {
+            System.out.println("token no soportado");
+        } catch (ExpiredJwtException e) {
+            System.out.println("token expirado");
+            PostRefreshTokenRequest(token);
+        } catch (IllegalArgumentException e) {
+            System.out.println("token vacío");
+        } catch (SignatureException e) {
+            System.out.println("fail en la firma");
+        }
+        return false;
+    }
+
     private void comprovarSharedPreferences() {
         SharedPreferences sharedPreferences = getSharedPreferences("sessio", MODE_PRIVATE);
 
         String token = sharedPreferences.getString("token", null);
 
-        if (token != null) {
+        if (token != null && validateToken(token)) {
             long id = Jwts.parser().setSigningKey(VariablesGlobals.getSecret().getBytes()).parseClaimsJws(token).getBody().get("id", Long.class);
             String nomUsuari = Jwts.parser().setSigningKey(VariablesGlobals.getSecret().getBytes()).parseClaimsJws(token).getBody().getSubject();
             ArrayList rols = Jwts.parser().setSigningKey(VariablesGlobals.getSecret().getBytes()).parseClaimsJws(token).getBody().get("rols", ArrayList.class);
 
             String rol_usuari = (String) rols.get(0);
-
-            System.out.println(id + " " + nomUsuari + " " + rol_usuari);
 
             if(rol_usuari.equals("ROL_CONSUMIDOR")){
                 Consumidor consumidor = Consumidor.getInstance();
@@ -143,8 +166,6 @@ public class LoginActivity extends AppCompatActivity {
         editor.putString("token",token);
 
         editor.apply();
-
-        System.out.println("SHARED PREFERENCES 1: " + sharedPreferences.getAll());
     }
 
     @Override
@@ -202,12 +223,12 @@ public class LoginActivity extends AppCompatActivity {
                             Propietari propietari = Propietari.getInstance();
                             propietari.setAlmostAll(id,nomUsuari,token);
                         }
+                        progressDialog.dismiss();
                         openMainActivity(rol_usuari);
                     } catch (JSONException e) {
                         e.printStackTrace();
+                        progressDialog.dismiss();
                     }
-
-                    progressDialog.dismiss();
                 }
             }, new Response.ErrorListener() {
                 @Override
@@ -231,6 +252,58 @@ public class LoginActivity extends AppCompatActivity {
                     progressDialog.dismiss();
                 }
             }
+        );
+
+        // Add the request to the RequestQueue.
+        VolleySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest);
+    }
+
+    private void PostRefreshTokenRequest(String token){
+        progressDialog.show();
+
+        String url = VariablesGlobals.getUrlAPI() + "usuaris/auth/refresh";
+
+        JSONObject postData = new JSONObject();
+        try {
+            postData.put("token", token);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, postData,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            String token = response.getString("token");
+
+                            guardarTokenASharedPreferences(token);
+                            progressDialog.dismiss();
+                            comprovarSharedPreferences();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            progressDialog.dismiss();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                if(error.networkResponse.statusCode == 400) {
+                    try {
+                        String responseBody = new String(error.networkResponse.data, "utf-8");
+                        JSONObject data = new JSONObject(responseBody);
+                        String missatgeError = data.getString("missatge");
+
+                        Toast.makeText(getApplicationContext(), missatgeError, Toast.LENGTH_LONG).show();
+
+                    } catch (UnsupportedEncodingException | JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                progressDialog.dismiss();
+            }
+        }
         );
 
         // Add the request to the RequestQueue.

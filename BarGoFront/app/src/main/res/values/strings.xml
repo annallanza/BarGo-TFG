@@ -51,4 +51,10 @@
     <string name="guio">-</string>
     <string name="mes">+</string>
     <string name="menys">-</string>
+    <string name="interior_">Interior:</string>
+    <string name="modificar_ocupaci_n">Modificar ocupación</string>
+    <string name="lleno">Lleno</string>
+    <string name="medio_lleno">Medio lleno</string>
+    <string name="vac_o">Vacío</string>
+    <string name="exterior">Exterior:</string>
 </resources>
