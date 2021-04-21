@@ -17,7 +17,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
+        <ImageView
+            android:id="@+id/filtres"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/filter"
+            android:contentDescription="@string/descripci_n"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/buscador"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
             android:id="@+id/buscador"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -25,18 +40,24 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="15dp"
-            android:text="@string/buscar_"
+            android:autofillHints=""
+            android:background="@android:color/transparent"
+            android:hint="@string/buscar_"
+            android:inputType="text"
             android:textColor="#FFFFFF"
+            android:textColorHint="#FFFFFF"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/search"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@id/filtres"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="10dp"
             android:layout_marginRight="10dp"

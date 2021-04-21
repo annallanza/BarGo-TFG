@@ -1,6 +1,7 @@
 package com.example.bargo.UsuariConsumidor.Fragment;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -12,12 +13,14 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.android.volley.Request;
@@ -29,6 +32,7 @@ import com.example.bargo.UsuariConsumidor.Activity.InfoEstablimentActivity;
 import com.example.bargo.UsuariConsumidor.Model.EstablimentInfo;
 import com.example.bargo.UsuariConsumidor.Model.EstablimentListInfo;
 import com.example.bargo.R;
+import com.example.bargo.UsuariPropietari.Activity.ConfiguracioPropietariActivity;
 import com.example.bargo.VariablesGlobals;
 import com.example.bargo.VolleySingleton;
 
@@ -44,6 +48,11 @@ import java.util.Map;
 
 public class ListEstablimentsFragment extends Fragment {
 
+    private ImageView buscar;
+    private ImageView filtres;
+    private EditText buscador;
+    String itemSeleccionat = "null";
+    String[] opcions = new String[] {"Nombre establecimiento", "Dirección"};
     private ListView establimentListView;
     private List<Long> establimentListIds;
     private List<String> establimentListNoms;
@@ -65,6 +74,40 @@ public class ListEstablimentsFragment extends Fragment {
         progressDialog.setMessage("Cargando...");
         progressDialog.setCancelable(false);
 
+        buscar = view.findViewById(R.id.search);
+        filtres = view.findViewById(R.id.filtres);
+        buscador = view.findViewById(R.id.buscador);
+
+        filtres.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                itemSeleccionat = "null";
+                showConfirmacio("Escoge la opción a filtrar:", opcions);
+            }
+        });
+
+        buscar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!buscador.getText().toString().isEmpty() && itemSeleccionat.equals("null"))
+                    Toast.makeText(getActivity(), "Escoge el filtro de búsqueda", Toast.LENGTH_LONG).show();
+                else {
+                    buscar.setEnabled(false);
+
+                    String nomEstabliment = null;
+                    String direccio = null;
+                    if(itemSeleccionat.equals("Nombre establecimiento"))
+                        nomEstabliment = buscador.getText().toString();
+                    else if(itemSeleccionat.equals("Dirección"))
+                        direccio = buscador.getText().toString();
+
+                    itemSeleccionat = "null";
+
+                    GetListEstabliments(nomEstabliment, direccio);
+                }
+            }
+        });
+
         return  view;
     }
 
@@ -73,11 +116,32 @@ public class ListEstablimentsFragment extends Fragment {
         GetListEstabliments(null, null);
     }
 
-    //TODO: afegir query params nomEstabliment i direccio
+    private void showConfirmacio(String titol, final String[] opcions){
+        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
+        alertDialogBuilder.setTitle(titol);
+        alertDialogBuilder.setSingleChoiceItems(opcions, -1, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                itemSeleccionat = opcions[which];
+                dialog.dismiss();
+            }
+        });
+        alertDialogBuilder.setNegativeButton("Cancelar", null);
+        alertDialogBuilder.setCancelable(false);
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
+
     private void GetListEstabliments(final String nomEstabliment, final String direccio) {
         progressDialog.show();
 
         String url = VariablesGlobals.getUrlAPI() + "establiments/all/" + consumidor.getId();
+
+        if(nomEstabliment != null)
+            url += "?nomEstabliment=" + nomEstabliment;
+        else if(direccio != null)
+            url += "?direccio=" + direccio;
 
         JsonArrayRequest JsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONArray>() {
@@ -112,6 +176,7 @@ public class ListEstablimentsFragment extends Fragment {
                         AdaptadorListBar adaptador = new AdaptadorListBar();
                         establimentListView.setAdapter(adaptador);
 
+                        buscar.setEnabled(true);
                         progressDialog.dismiss();
                     }
                 }, new Response.ErrorListener() {
@@ -132,6 +197,7 @@ public class ListEstablimentsFragment extends Fragment {
                 else if(error.networkResponse.statusCode == 401)
                     Toast.makeText(getActivity(), "No se indica el token o no es válido o el id no es el asociado al token", Toast.LENGTH_LONG).show();
 
+                buscar.setEnabled(true);
                 progressDialog.dismiss();
             }
         }
@@ -141,16 +207,6 @@ public class ListEstablimentsFragment extends Fragment {
                 HashMap<String, String> headers = new HashMap<>();
                 headers.put("Authorization", "Bearer " + consumidor.getToken());
                 return headers;
-            }
-
-            @Override
-            public Map<String, String> getParams () {
-                HashMap<String, String> params = new HashMap<>();
-                if(nomEstabliment != null)
-                    params.put("nomEstabliment", nomEstabliment);
-                else if(direccio != null)
-                    params.put("direccio", direccio);
-                return params;
             }
         };
 

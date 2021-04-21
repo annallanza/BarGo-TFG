@@ -12,16 +12,6 @@ public class EstablimentListInfo {
 
     private static EstablimentListInfo instance = null;
 
-    /*
-    public BarListInfo() {
-        this.images = new int[]{R.drawable.bar1, R.drawable.bar2, R.drawable.bar3, R.drawable.bar4};
-        this.bars = new String[]{"Bar Casa Pepe", "Bar Konbe", "Bar Sirena Verde", "Bar Burot"};
-        this.adresses = new String[]{"Plaça de la Bonanova, 4", "Carrer de Déu i Mata, 136", "Carrer de la Indústria, 16", "Carrer de Verdi, 242"};;
-        this.visited = new Boolean[]{false, true, false, false};
-    }
-
-     */
-
     private EstablimentListInfo() {
         this.ids = new ArrayList<>();
         this.noms = new ArrayList<>();
