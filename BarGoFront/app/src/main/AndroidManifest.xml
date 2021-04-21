@@ -53,7 +53,7 @@
             android:name=".RegisterActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".UsuariConsumidor.Activity.InfoBarActivity"
+            android:name=".UsuariConsumidor.Activity.InfoEstablimentActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".UsuariConsumidor.Activity.InfoEventActivity"

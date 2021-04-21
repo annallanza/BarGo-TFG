@@ -9,7 +9,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.example.bargo.UsuariConsumidor.Fragment.CodeFragment;
-import com.example.bargo.UsuariConsumidor.Fragment.ListBarFragment;
+import com.example.bargo.UsuariConsumidor.Fragment.ListEstablimentsFragment;
 import com.example.bargo.UsuariConsumidor.Fragment.ListEventsFragment;
 import com.example.bargo.UsuariConsumidor.Fragment.profileFragment;
 import com.example.bargo.R;
@@ -19,7 +19,7 @@ import com.roughike.bottombar.OnTabSelectListener;
 public class MainActivity extends AppCompatActivity {
     Fragment profile = new profileFragment();
     Fragment code = new CodeFragment();
-    Fragment bars = new ListBarFragment();
+    Fragment bars = new ListEstablimentsFragment();
     Fragment events = new ListEventsFragment();
     private long backPressedTime;
 
