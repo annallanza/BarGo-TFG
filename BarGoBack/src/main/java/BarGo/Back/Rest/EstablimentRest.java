@@ -89,7 +89,7 @@ public class EstablimentRest {
         else
             imatge = Base64.getEncoder().encodeToString(imatgeBytes);
 
-        GetEstablimentById getEstablimentById = new GetEstablimentById(establiment.getId(), establiment.getNom(), imatge, establiment.getDireccio(), establiment.getHorari(), establiment.getDescripcio(), establiment.getPaginaWeb(), establiment.getOcupacioInterior(), establiment.getOcupacioExterior());
+        GetEstablimentById getEstablimentById = new GetEstablimentById(establiment.getId(), establiment.getNom(), imatge, establiment.getDireccio(), establiment.getHorari(), establiment.getDescripcio(), establiment.getPaginaWeb(), establiment.isExterior(), establiment.getOcupacioInterior(), establiment.getOcupacioExterior());
 
         return new ResponseEntity<>(getEstablimentById, HttpStatus.OK);
     }

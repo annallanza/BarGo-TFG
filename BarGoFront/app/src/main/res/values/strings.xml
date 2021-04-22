@@ -58,4 +58,11 @@
     <string name="vac_o">Vacío</string>
     <string name="exterior">Exterior:</string>
     <string name="buscar_">Buscar...</string>
+    <string name="ocupaci_n_actual">Ocupación actual</string>
+    <string name="informaci_n_adicional">Información adicional:</string>
+    <string name="ocupaci_n_exterior">Ocupación exterior</string>
+    <string name="ocupaci_n_interior">Ocupación interior</string>
+    <string name="reservar">Reservar</string>
+    <string name="configuraci_n">Configuración</string>
+    <string name="confirmar_contrase_a">Confirmar contraseña</string>
 </resources>

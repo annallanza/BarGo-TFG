@@ -79,7 +79,7 @@ public class ConfiguracioConsumidorActivity extends AppCompatActivity {
         String textlogout = "¿Quieres cerrar la sesión?";
         SpannableString ssLogout = new SpannableString(textlogout);
 
-        ClickableSpan clickableSpanLogout = new ClickableSpan() {
+        final ClickableSpan clickableSpanLogout = new ClickableSpan() {
             @Override
             public void onClick(@NonNull View widget) {
                 showConfirmacio("Cerrar sesión", "¿Estás seguro de querer cerrar la sesión?", "logout");

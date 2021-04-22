@@ -55,6 +55,9 @@
         android:textColor="#323131"
         android:textSize="36sp"
         android:textStyle="bold"
+        android:autoSizeTextType="uniform"
+        android:maxLines="1"
+        tools:targetApi="o"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/circleImageView2" />
 
@@ -87,6 +90,9 @@
                 android:text="@string/nombre_usuario_"
                 android:textColor="#000000"
                 android:textSize="18sp"
+                android:autoSizeTextType="uniform"
+                android:maxLines="1"
+                tools:targetApi="o"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -121,6 +127,9 @@
                 android:text="@string/contrase_a_nueva_"
                 android:textColor="#000000"
                 android:textSize="18sp"
+                android:autoSizeTextType="uniform"
+                android:maxLines="1"
+                tools:targetApi="o"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/editTextNombreUsuario" />
@@ -155,6 +164,9 @@
                 android:text="@string/confirma_contrase_a_nueva_"
                 android:textColor="#000000"
                 android:textSize="18sp"
+                android:autoSizeTextType="uniform"
+                android:maxLines="1"
+                tools:targetApi="o"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/editTextContraNova" />
@@ -201,6 +213,9 @@
                 android:text="@string/nombre_establecimiento_"
                 android:textColor="#000000"
                 android:textSize="18sp"
+                android:autoSizeTextType="uniform"
+                android:maxLines="1"
+                tools:targetApi="o"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/checkBoxContraseña2" />
@@ -233,6 +248,9 @@
                 android:text="@string/direccion_"
                 android:textColor="#000000"
                 android:textSize="18sp"
+                android:autoSizeTextType="uniform"
+                android:maxLines="1"
+                tools:targetApi="o"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/editTextNomEstabliment" />
@@ -279,6 +297,9 @@
                 android:text="@string/n_mero_de_sillas_"
                 android:textColor="#000000"
                 android:textSize="18sp"
+                android:autoSizeTextType="uniform"
+                android:maxLines="1"
+                tools:targetApi="o"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/checkBoxExterior" />
@@ -313,6 +334,9 @@
                 android:text="@string/n_mero_de_mesas_"
                 android:textColor="#000000"
                 android:textSize="18sp"
+                android:autoSizeTextType="uniform"
+                android:maxLines="1"
+                tools:targetApi="o"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/editTextNumCadires" />
@@ -345,6 +369,9 @@
                 android:text="@string/horario_"
                 android:textColor="#000000"
                 android:textSize="18sp"
+                android:autoSizeTextType="uniform"
+                android:maxLines="1"
+                tools:targetApi="o"
                 app:layout_constraintEnd_toStartOf="@id/buttonMES"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/editTextNumTaules" />
@@ -548,6 +575,9 @@
                 android:text="@string/descripci_n_"
                 android:textColor="#000000"
                 android:textSize="18sp"
+                android:autoSizeTextType="uniform"
+                android:maxLines="1"
+                tools:targetApi="o"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/editTextHorari5" />
@@ -580,6 +610,9 @@
                 android:text="@string/p_gina_web_"
                 android:textColor="#000000"
                 android:textSize="18sp"
+                android:autoSizeTextType="uniform"
+                android:maxLines="1"
+                tools:targetApi="o"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"

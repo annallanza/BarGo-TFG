@@ -285,7 +285,9 @@ public class PerfilFragment extends Fragment {
                 String descripcioEstabliment = descripcioEditText.getText().toString();
                 String paginaWebEstabliment = paginaWebEditText.getText().toString();
 
-                if(!paginaWebEstabliment.contains("https://"))
+                if(paginaWebEstabliment.isEmpty())
+                    paginaWebEstabliment = null;
+                else if(!paginaWebEstabliment.contains("https://"))
                     paginaWebEstabliment = "https://" + paginaWebEstabliment;
 
                 if(!contrasenyaNova.equals(confirmarContrasenyaNova)) {
@@ -424,7 +426,10 @@ public class PerfilFragment extends Fragment {
         }
 
         descripcioEditText.setText(propietari.getDescripcioEstabliment());
-        paginaWebEditText.setText(propietari.getPaginaWebEstabliment());
+
+        if(propietari.getPaginaWebEstabliment() != null)
+            paginaWebEditText.setText(propietari.getPaginaWebEstabliment());
+        else paginaWebEditText.setText("");
 
         refrescarImatge();
     }
@@ -456,7 +461,7 @@ public class PerfilFragment extends Fragment {
 
                     Bitmap imatgeBitmap = BitmapFactory.decodeStream(inputStream);
 
-                    imatgeBitmap = redimensionarImatgeBitmap(imatgeBitmap, 400, 600); //Si vull que la imatge ocupi menys espai, canviar parametres
+                    imatgeBitmap = redimensionarImatgeBitmap(imatgeBitmap, 600, 400); //Si vull que la imatge ocupi menys espai, canviar parametres
 
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
                     imatgeBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
@@ -567,6 +572,9 @@ public class PerfilFragment extends Fragment {
                                 propietari.setImatge(bytesimatge);
                             }
                             else propietari.setImatge(null);
+
+                            if(paginaWebEstabliment.equals("null"))
+                                paginaWebEstabliment = null;
 
                             propietari.setAllEstabliment(idEstabliment,nomEstabliment,direccioEstabliment,exteriorEstabliment,numCadiresEstabliment,numTaulesEstabliment,horariEstabliment,descripcioEstabliment,paginaWebEstabliment);
 

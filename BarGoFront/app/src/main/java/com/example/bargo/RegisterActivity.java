@@ -45,6 +45,7 @@ public class RegisterActivity extends AppCompatActivity {
     private CheckBox isConsumidor;
     private CheckBox isPropietari;
     private EditText contrasenyaEditText;
+    private EditText confirmarContrasenyaEditText;
     private EditText nomUsuariEditText;
     private Button signupButton;
     private CheckBox veureContraseña;
@@ -99,6 +100,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         nomUsuariEditText = findViewById(R.id.editTextNombreUsuario);
         contrasenyaEditText = findViewById(R.id.editTextContraNova);
+        confirmarContrasenyaEditText = findViewById(R.id.editTextConfirmarContraNova);
         veureContraseña = findViewById(R.id.checkBoxContraseña2);
         isConsumidor = findViewById(R.id.checkBox);
         isPropietari = findViewById(R.id.checkBox2);
@@ -131,9 +133,14 @@ public class RegisterActivity extends AppCompatActivity {
         veureContraseña.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked)
+                if(isChecked) {
                     contrasenyaEditText.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                else contrasenyaEditText.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    confirmarContrasenyaEditText.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                }
+                else {
+                    contrasenyaEditText.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    confirmarContrasenyaEditText.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                }
             }
         });
 
@@ -193,7 +200,12 @@ public class RegisterActivity extends AppCompatActivity {
                 String nomUsuari = nomUsuariEditText.getText().toString();
                 String contrasenya = contrasenyaEditText.getText().toString();
 
-                if(isConsumidor.isChecked())
+                if(!contrasenya.equals(confirmarContrasenyaEditText.getText().toString())) {
+                    Toast.makeText(getApplicationContext(), "Las contraseñas no coinciden", Toast.LENGTH_LONG).show();
+                    signupButton.setEnabled(true);
+                    progressDialog.dismiss();
+                }
+                else if(isConsumidor.isChecked())
                     SignupRequestConsumidor(nomUsuari, contrasenya);
                 else if(isPropietari.isChecked()) {
                     String nomEstabliment = nomEstablimentEditText.getText().toString();
@@ -201,17 +213,19 @@ public class RegisterActivity extends AppCompatActivity {
                     Boolean exterior = exteriorCheckBox.isChecked();
                     String numCadires_string = numCadiresEditText.getText().toString();
                     String numTaules_string = numTaulesEditText.getText().toString();
-                    String horari = horariEditText.getText().toString() + "-" + horariEditText2.getText().toString();
+                    String horari = horariEditText.getText().toString() + " - " + horariEditText2.getText().toString();
 
                     if(!horariEditText3.getText().toString().equals(""))
-                        horari += "y" + horariEditText3.getText().toString() + "-" + horariEditText4.getText().toString();
+                        horari += " , " + horariEditText3.getText().toString() + " - " + horariEditText4.getText().toString();
                     if(!horariEditText5.getText().toString().equals(""))
-                        horari += "y" + horariEditText5.getText().toString() + "-" + horariEditText6.getText().toString();
+                        horari += " , " + horariEditText5.getText().toString() + " - " + horariEditText6.getText().toString();
 
                     String descripcio = descripcioEditText.getText().toString();
                     String paginaWeb = paginaWebEditText.getText().toString();
 
-                    if(!paginaWeb.contains("https://"))
+                    if(paginaWeb.isEmpty())
+                        paginaWeb = null;
+                    else if(!paginaWeb.contains("https://"))
                         paginaWeb = "https://" + paginaWeb;
 
                     if(numCadires_string.equals("")){
@@ -402,6 +416,14 @@ public class RegisterActivity extends AppCompatActivity {
             new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
+                    try {
+                        String missatge = response.getString("missatge");
+
+                        Toast.makeText(getApplicationContext(), missatge, Toast.LENGTH_LONG).show();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
                     loginRequest(nomUsuari,contrasenya);
                 }
             }, new Response.ErrorListener() {
@@ -452,6 +474,13 @@ public class RegisterActivity extends AppCompatActivity {
             new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
+                    try {
+                        String missatge = response.getString("missatge");
+
+                        Toast.makeText(getApplicationContext(), missatge, Toast.LENGTH_LONG).show();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                     loginRequest(nomUsuari,contrasenya);
                 }
             }, new Response.ErrorListener() {

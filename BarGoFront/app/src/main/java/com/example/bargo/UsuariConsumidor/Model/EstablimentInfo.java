@@ -4,11 +4,12 @@ package com.example.bargo.UsuariConsumidor.Model;
 public class EstablimentInfo {
     private Long id;
     private String nom;
-    private String imatge;
+    private byte[] imatge;
     private String direccio;
     private String horari;
     private String descripcio;
     private String paginaWeb;
+    private Boolean exterior;
     private String ocupacioInterior;
     private String ocupacioExterior;
 
@@ -33,11 +34,11 @@ public class EstablimentInfo {
         this.nom = nom;
     }
 
-    public String getImatge() {
+    public byte[] getImatge() {
         return imatge;
     }
 
-    public void setImatge(String imatge) {
+    public void setImatge(byte[] imatge) {
         this.imatge = imatge;
     }
 
@@ -71,6 +72,14 @@ public class EstablimentInfo {
 
     public void setPaginaWeb(String paginaWeb) {
         this.paginaWeb = paginaWeb;
+    }
+
+    public Boolean getExterior() {
+        return exterior;
+    }
+
+    public void setExterior(Boolean exterior) {
+        this.exterior = exterior;
     }
 
     public String getOcupacioInterior() {

@@ -1,6 +1,6 @@
 package BarGo.Back.Dto;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotBlank;
 
 public class LoginUsuari {
 /* EXEMPLE PER A POSTMAN
@@ -9,10 +9,10 @@ public class LoginUsuari {
     "contrasenya": "123user"
 }
  */
-    @NotEmpty(message = "El nombre de usuario no puede ser un valor nulo ni vacío")
+    @NotBlank(message = "El nombre de usuario no puede ser un valor nulo ni vacío")
     private String nomUsuari;
 
-    @NotEmpty(message = "La contraseña no puede ser un valor nulo ni vacío")
+    @NotBlank(message = "La contraseña no puede ser un valor nulo ni vacío")
     private String contrasenya;
 
     public String getNomUsuari() {

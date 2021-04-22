@@ -1,6 +1,6 @@
 package BarGo.Back.Dto;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 public class UpdateOcupacio {
@@ -8,10 +8,10 @@ public class UpdateOcupacio {
     @NotNull(message = "El id no puede ser un valor nulo")
     private Long id;
 
-    @NotEmpty(message = "La ocupación interior no puede ser un valor nulo ni vacío")
+    @NotBlank(message = "La ocupación interior no puede ser un valor nulo ni vacío")
     private String ocupacioInterior;
 
-    @NotEmpty(message = "La ocupación exterior no puede ser un valor nulo ni vacío")
+    @NotBlank(message = "La ocupación exterior no puede ser un valor nulo ni vacío")
     private String ocupacioExterior;
 
     public UpdateOcupacio() {

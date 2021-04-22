@@ -53,7 +53,7 @@ public class PropietariRest {
         if(bindingResult.hasErrors())
             return new ResponseEntity<>(new Missatge(Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage()), HttpStatus.BAD_REQUEST);
 
-        if(!urlValidator.isValid(signupPropietari.getPaginaWeb()))
+        if(signupPropietari.getPaginaWeb() != null && !urlValidator.isValid(signupPropietari.getPaginaWeb()))
             return new ResponseEntity<>(new Missatge("La página web no es válida"), HttpStatus.BAD_REQUEST);
 
         if(usuariService.existsByNomUsuari(signupPropietari.getNomUsuari()))
@@ -115,7 +115,7 @@ public class PropietariRest {
         if(bindingResult.hasErrors())
             return new ResponseEntity<>(new Missatge(Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage()), HttpStatus.BAD_REQUEST);
 
-        if(!urlValidator.isValid(updatePropietari.getPaginaWeb()))
+        if(updatePropietari.getPaginaWeb() != null && !urlValidator.isValid(updatePropietari.getPaginaWeb()))
             return new ResponseEntity<>(new Missatge("La página web no es válida"), HttpStatus.BAD_REQUEST);
 
         Optional<Propietari> optionalPropietari = propietariService.findById(updatePropietari.getId());

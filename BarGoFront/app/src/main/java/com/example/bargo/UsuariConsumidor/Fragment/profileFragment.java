@@ -167,7 +167,7 @@ public class profileFragment extends Fragment {
 
                     Bitmap imatgeBitmap = BitmapFactory.decodeStream(inputStream);
 
-                    imatgeBitmap = redimensionarImatgeBitmap(imatgeBitmap, 400, 600); //Si vull que la imatge ocupi menys espai, canviar parametres
+                    imatgeBitmap = redimensionarImatgeBitmap(imatgeBitmap, 600, 400); //Si vull que la imatge ocupi menys espai, canviar parametres
 
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
                     imatgeBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);

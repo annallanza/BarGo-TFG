@@ -17,6 +17,9 @@
         android:textColor="#323131"
         android:textSize="36sp"
         android:textStyle="bold"
+        android:autoSizeTextType="uniform"
+        android:maxLines="1"
+        tools:targetApi="o"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -76,6 +79,25 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/editTextNombreUsuario" />
 
+            <EditText
+                android:id="@+id/editTextConfirmarContraNova"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="50dp"
+                android:layout_marginRight="50dp"
+                android:autofillHints=""
+                android:ems="10"
+                android:hint="@string/confirmar_contrase_a"
+                android:inputType="text|textPassword"
+                android:text=""
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editTextContraNova" />
+
             <CheckBox
                 android:id="@+id/checkBoxContraseña2"
                 android:layout_width="0dp"
@@ -89,7 +111,7 @@
                 android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextContraNova" />
+                app:layout_constraintTop_toBottomOf="@+id/editTextConfirmarContraNova" />
 
             <TextView
                 android:id="@+id/textView"
@@ -101,6 +123,9 @@
                 android:layout_marginEnd="50dp"
                 android:layout_marginRight="50dp"
                 android:text="@string/tipus_usuari"
+                android:autoSizeTextType="uniform"
+                android:maxLines="1"
+                tools:targetApi="o"
                 android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -497,6 +522,9 @@
         android:text="@string/ya_tienes_tu_cuenta_inicia_sesi_n"
         android:textColor="#000000"
         android:textSize="18sp"
+        android:autoSizeTextType="uniform"
+        android:maxLines="1"
+        tools:targetApi="o"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

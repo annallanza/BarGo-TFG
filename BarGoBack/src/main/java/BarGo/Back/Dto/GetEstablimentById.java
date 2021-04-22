@@ -11,13 +11,14 @@ public class GetEstablimentById {
     private String horari;
     private String descripcio;
     private String paginaWeb;
+    private Boolean exterior;
     private TipusOcupacio ocupacioInterior;
     private TipusOcupacio ocupacioExterior;
 
     public GetEstablimentById() {
     }
 
-    public GetEstablimentById(Long id, String nom, String imatge, String direccio, String horari, String descripcio, String paginaWeb, TipusOcupacio ocupacioInterior, TipusOcupacio ocupacioExterior) {
+    public GetEstablimentById(Long id, String nom, String imatge, String direccio, String horari, String descripcio, String paginaWeb, Boolean exterior, TipusOcupacio ocupacioInterior, TipusOcupacio ocupacioExterior) {
         this.id = id;
         this.nom = nom;
         this.imatge = imatge;
@@ -25,6 +26,7 @@ public class GetEstablimentById {
         this.horari = horari;
         this.descripcio = descripcio;
         this.paginaWeb = paginaWeb;
+        this.exterior = exterior;
         this.ocupacioInterior = ocupacioInterior;
         this.ocupacioExterior = ocupacioExterior;
     }
@@ -83,6 +85,14 @@ public class GetEstablimentById {
 
     public void setPaginaWeb(String paginaWeb) {
         this.paginaWeb = paginaWeb;
+    }
+
+    public Boolean getExterior() {
+        return exterior;
+    }
+
+    public void setExterior(Boolean exterior) {
+        this.exterior = exterior;
     }
 
     public TipusOcupacio getOcupacioInterior() {

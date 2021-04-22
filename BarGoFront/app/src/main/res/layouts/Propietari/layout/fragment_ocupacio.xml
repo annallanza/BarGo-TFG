@@ -17,6 +17,9 @@
         android:textColor="#323131"
         android:textSize="32sp"
         android:textStyle="bold"
+        android:autoSizeTextType="uniform"
+        android:maxLines="1"
+        tools:targetApi="o"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

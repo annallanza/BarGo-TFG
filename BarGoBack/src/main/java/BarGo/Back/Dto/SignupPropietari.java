@@ -4,7 +4,7 @@ import javax.validation.constraints.*;
 
 public class SignupPropietari {
 
-    @NotEmpty(message = "El nombre de usuario no puede ser un valor nulo ni vacío")
+    @NotBlank(message = "El nombre de usuario no puede ser un valor nulo ni vacío")
     private String nomUsuari;
 
     @Size(min = 8, message = "La contraseña debe tener un mínimo de 8 caracteres")
@@ -12,10 +12,10 @@ public class SignupPropietari {
     @NotBlank(message = "La contraseña no puede ser un valor vacío")
     private String contrasenya;
 
-    @NotEmpty(message = "El nombre del establecimiento no puede ser un valor nulo ni vacío")
+    @NotBlank(message = "El nombre del establecimiento no puede ser un valor nulo ni vacío")
     private String nomEstabliment;
 
-    @NotEmpty(message = "La dirección del establecimiento no puede ser un valor nulo ni vacío")
+    @NotBlank(message = "La dirección del establecimiento no puede ser un valor nulo ni vacío")
     private String direccio;
 
     @NotNull(message = "Exterior no puede ser un valor nulo")
@@ -27,14 +27,13 @@ public class SignupPropietari {
     @PositiveOrZero(message = "El numero de mesas no puede ser un valor negativo")
     private int numTaules;
 
-    @NotEmpty(message = "El horario del establecimiento no puede ser un valor nulo ni vacío")
+    @NotBlank(message = "El horario del establecimiento no puede ser un valor nulo ni vacío")
     private String horari;
 
     @Size(min = 200, message = "La descripción del establecimiento ha de tener un mínimo de 200 caracteres")
-    @NotEmpty(message = "La descripción del establecimiento no puede ser un valor nulo ni vacío")
+    @NotBlank(message = "La descripción del establecimiento no puede ser un valor nulo ni vacío")
     private String descripcio;
 
-    @NotBlank(message = "La pagina web no puede ser un valor vacío")
     private String paginaWeb;
 
     public SignupPropietari() {

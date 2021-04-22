@@ -2,13 +2,12 @@ package BarGo.Back.Dto;
 
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class SignupConsumidor { //TODO: es el mateix que el SignupUsuari
 
-    @NotEmpty(message = "El nombre de usuario no puede ser un valor nulo ni vacío")
+    @NotBlank(message = "El nombre de usuario no puede ser un valor nulo ni vacío")
     private String nomUsuari;
 
     @Size(min = 8, message = "La contraseña debe tener un mínimo de 8 caracteres")

@@ -32,7 +32,6 @@ import com.example.bargo.UsuariConsumidor.Activity.InfoEstablimentActivity;
 import com.example.bargo.UsuariConsumidor.Model.EstablimentInfo;
 import com.example.bargo.UsuariConsumidor.Model.EstablimentListInfo;
 import com.example.bargo.R;
-import com.example.bargo.UsuariPropietari.Activity.ConfiguracioPropietariActivity;
 import com.example.bargo.VariablesGlobals;
 import com.example.bargo.VolleySingleton;
 
@@ -234,7 +233,7 @@ public class ListEstablimentsFragment extends Fragment {
         @RequiresApi(api = Build.VERSION_CODES.O)
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
-            View view = getLayoutInflater().inflate(R.layout.bar_item_list, null);
+            View view = getLayoutInflater().inflate(R.layout.establiment_item_list, null);
             TextView nomEstabliment = view.findViewById(R.id.barNameText);
             ImageView imatgeEstabliment = view.findViewById(R.id.barImage);
             TextView direccioEstabliment = view.findViewById(R.id.adressText);
