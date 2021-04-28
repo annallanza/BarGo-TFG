@@ -101,6 +101,7 @@ public class ListEstablimentsFragment extends Fragment {
                         direccio = buscador.getText().toString();
 
                     itemSeleccionat = "null";
+                    buscador.setText("");
 
                     GetListEstabliments(nomEstabliment, direccio);
                 }
@@ -112,6 +113,7 @@ public class ListEstablimentsFragment extends Fragment {
 
     public void onResume() {
         super.onResume();
+        buscador.setText("");
         GetListEstabliments(null, null);
     }
 

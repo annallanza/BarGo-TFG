@@ -147,7 +147,7 @@ public class PerfilFragment extends Fragment {
         imatgeView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showConfirmacio("Foto perfil establecimiento", "¿Quieres cambiar la foto de perfil de tu establecimiento?");
+                showConfirmacio("Foto perfil establecimiento", "¿Quieres cambiar la foto de perfil de tu establecimiento? En caso afirmativo, es recomendable usar una foto con orientación horizontal.");
             }
         });
 
@@ -275,12 +275,12 @@ public class PerfilFragment extends Fragment {
                 Boolean exteriorEstabliment = exteriorCheckBox.isChecked();
                 String numCadiresEstabliment = numCadiresEditText.getText().toString();
                 String numTaulesEstabliment = numTaulesEditText.getText().toString();
-                String horariEstabliment = horariEditText1.getText().toString() + "-" + horariEditText2.getText().toString();
+                String horariEstabliment = horariEditText1.getText().toString() + " - " + horariEditText2.getText().toString();
 
                 if(!horariEditText3.getText().toString().equals(""))
-                    horariEstabliment += "y" + horariEditText3.getText().toString() + "-" + horariEditText4.getText().toString();
+                    horariEstabliment += " , " + horariEditText3.getText().toString() + " - " + horariEditText4.getText().toString();
                 if(!horariEditText5.getText().toString().equals(""))
-                    horariEstabliment += "y" + horariEditText5.getText().toString() + "-" + horariEditText6.getText().toString();
+                    horariEstabliment += " , " + horariEditText5.getText().toString() + " - " + horariEditText6.getText().toString();
 
                 String descripcioEstabliment = descripcioEditText.getText().toString();
                 String paginaWebEstabliment = paginaWebEditText.getText().toString();
@@ -394,11 +394,11 @@ public class PerfilFragment extends Fragment {
         numTaulesEditText.setText(Integer.toString(propietari.getNumTaulesEstabliment()));
 
         String horari = propietari.getHorariEstabliment();
-        String[] horarisy = horari.split("y");
+        String[] horarisy = horari.split(" , ");
 
         ArrayList<String> horarisDividits = new ArrayList<>();
         for(int i = 0; i < horarisy.length; ++i){
-            String[] horaris_ = horarisy[i].split("-");
+            String[] horaris_ = horarisy[i].split(" - ");
 
             horarisDividits.addAll(Arrays.asList(horaris_));
         }
@@ -416,11 +416,13 @@ public class PerfilFragment extends Fragment {
 
         if(!horariEditText3.getText().toString().equals("")) {
             horariEditText3.setVisibility(View.VISIBLE);
+            guioTextView2.setVisibility(View.VISIBLE);
             horariEditText4.setVisibility(View.VISIBLE);
             contador = 2;
         }
         if(!horariEditText5.getText().toString().equals("")) {
             horariEditText5.setVisibility(View.VISIBLE);
+            guioTextView3.setVisibility(View.VISIBLE);
             horariEditText6.setVisibility(View.VISIBLE);
             contador = 3;
         }
@@ -461,7 +463,15 @@ public class PerfilFragment extends Fragment {
 
                     Bitmap imatgeBitmap = BitmapFactory.decodeStream(inputStream);
 
-                    imatgeBitmap = redimensionarImatgeBitmap(imatgeBitmap, 600, 400); //Si vull que la imatge ocupi menys espai, canviar parametres
+                    int ampleActual = imatgeBitmap.getWidth();
+                    int altActual = imatgeBitmap.getHeight();
+
+                    if(ampleActual > altActual)
+                        imatgeBitmap = redimensionarImatgeBitmap(imatgeBitmap, 600, 400); //Si vull que la imatge ocupi menys espai, canviar parametres
+                    else if(ampleActual < altActual)
+                        imatgeBitmap = redimensionarImatgeBitmap(imatgeBitmap, 400, 600); //Si vull que la imatge ocupi menys espai, canviar parametres
+                    else
+                        imatgeBitmap = redimensionarImatgeBitmap(imatgeBitmap, 400, 400); //Si vull que la imatge ocupi menys espai, canviar parametres
 
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
                     imatgeBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
