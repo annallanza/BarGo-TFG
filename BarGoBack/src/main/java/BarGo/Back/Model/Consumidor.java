@@ -11,7 +11,7 @@ public class Consumidor extends Usuari implements Serializable {
 
     private int puntuacio;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(name = "consumidor_establiment", joinColumns = @JoinColumn(name = "consumidor_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "establiment_id", referencedColumnName = "id"))
     private Set<Establiment> establimentsVisitats;
 
@@ -38,5 +38,16 @@ public class Consumidor extends Usuari implements Serializable {
 
     public void setEstablimentsVisitats(Set<Establiment> establimentsVisitats) {
         this.establimentsVisitats = establimentsVisitats;
+    }
+
+    @PreRemove
+    public void eliminarLlistaEstablimentsVisitats(){
+        for(Establiment establiment : this.establimentsVisitats){
+            Set<Consumidor> consumidorsVisitants = establiment.getConsumidorsVisitants();
+            consumidorsVisitants.remove(this);
+            establiment.setConsumidorsVisitants(consumidorsVisitants);
+        }
+
+        this.establimentsVisitats.clear();
     }
 }

@@ -171,4 +171,15 @@ public class Establiment {
     public void setConsumidorsVisitants(Set<Consumidor> consumidorsVisitants) {
         this.consumidorsVisitants = consumidorsVisitants;
     }
+
+    @PreRemove
+    public void eliminarLlistaConsumidorsVisitats(){
+        for(Consumidor consumidor : this.consumidorsVisitants){
+            Set<Establiment> establimentsVisitats = consumidor.getEstablimentsVisitats();
+            establimentsVisitats.remove(this);
+            consumidor.setEstablimentsVisitats(establimentsVisitats);
+        }
+
+        this.consumidorsVisitants.clear();
+    }
 }
