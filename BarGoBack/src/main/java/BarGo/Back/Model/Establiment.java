@@ -49,6 +49,9 @@ public class Establiment {
     @OneToOne(mappedBy = "establiment")
     private Propietari propietari;
 
+    @OneToMany(mappedBy = "establiment", cascade = CascadeType.ALL)
+    private Set<Esdeveniment> esdeveniments;
+
     @ManyToMany(mappedBy = "establimentsVisitats")
     private Set<Consumidor> consumidorsVisitants;
 
@@ -162,6 +165,14 @@ public class Establiment {
 
     public void setPropietari(Propietari propietari) {
         this.propietari = propietari;
+    }
+
+    public Set<Esdeveniment> getEsdeveniments() {
+        return esdeveniments;
+    }
+
+    public void setEsdeveniments(Set<Esdeveniment> esdeveniments) {
+        this.esdeveniments = esdeveniments;
     }
 
     public Set<Consumidor> getConsumidorsVisitants() {
