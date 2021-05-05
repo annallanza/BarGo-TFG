@@ -1,7 +1,9 @@
 package BarGo.Back.Service;
 
+import BarGo.Back.Model.Esdeveniment;
 import BarGo.Back.Model.Establiment;
 import BarGo.Back.Model.Propietari;
+import BarGo.Back.Repository.EsdevenimentInterface;
 import BarGo.Back.Repository.PropietariInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -11,8 +13,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @Transactional //Per mantenir la coherencia a la base de dades, per quan hi ha dos accessos simultanis
@@ -20,6 +24,9 @@ public class PropietariService implements PropietariInterface {
 
     @Autowired
     private PropietariInterface propietariInterface;
+
+    @Autowired
+    private EsdevenimentInterface esdevenimentInterface;
 
     @Override
     public List<Propietari> findAll() {
@@ -48,7 +55,23 @@ public class PropietariService implements PropietariInterface {
 
     @Override
     public void deleteById(Long aLong) {
+
+        List<Long> IdEsdeveniments = new ArrayList<>();
+        Optional<Propietari> optionalPropietari = propietariInterface.findById(aLong);
+        if(optionalPropietari.isPresent()){
+            Propietari propietari = optionalPropietari.get();
+
+            for(Esdeveniment esdeveniment : propietari.getEstabliment().getEsdeveniments()){
+                IdEsdeveniments.add(esdeveniment.getId());
+            }
+        }
+
         propietariInterface.deleteById(aLong);
+
+        for(long IdEsdeveniment : IdEsdeveniments){
+            esdevenimentInterface.deleteById(IdEsdeveniment);
+        }
+
     }
 
     @Override

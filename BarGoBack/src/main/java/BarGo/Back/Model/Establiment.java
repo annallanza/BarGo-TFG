@@ -49,7 +49,7 @@ public class Establiment {
     @OneToOne(mappedBy = "establiment")
     private Propietari propietari;
 
-    @OneToMany(mappedBy = "establiment", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "establiment") //, cascade = CascadeType.ALL
     private Set<Esdeveniment> esdeveniments;
 
     @ManyToMany(mappedBy = "establimentsVisitats")
@@ -184,6 +184,11 @@ public class Establiment {
     }
 
     @PreRemove
+    public void preRemove(){
+        eliminarLlistaConsumidorsVisitats();
+        eliminarEsdeveniments();
+    }
+
     public void eliminarLlistaConsumidorsVisitats(){
         for(Consumidor consumidor : this.consumidorsVisitants){
             Set<Establiment> establimentsVisitats = consumidor.getEstablimentsVisitats();
@@ -192,5 +197,14 @@ public class Establiment {
         }
 
         this.consumidorsVisitants.clear();
+    }
+
+    public void eliminarEsdeveniments(){
+
+        for(Esdeveniment esdeveniment : esdeveniments){
+            esdeveniment.setEstabliment(null);
+        }
+
+        this.esdeveniments.clear();
     }
 }

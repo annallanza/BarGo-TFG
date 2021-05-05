@@ -1155,6 +1155,328 @@
 									"response": []
 								}
 							]
+						},
+						{
+							"name": "EsdevenimentById",
+							"item": [
+								{
+									"name": "EsdevenimentById",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb25zdW1pZG9yIiwicm9scyI6WyJST0xfQ09OU1VNSURPUiJdLCJpZCI6NDAsImlhdCI6MTYyMDEzODg1OCwiZXhwIjoxNjIwMjI1MjU4fQ.jjoggbAliHi_b606Hbt7_rqTgtOicdjWrSOX8d9UdZrdhnfwwTDBcuocC0mZbHiUEhyQtTYJxAD1YpBPwSY2Dw",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/esdeveniments/3",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"esdeveniments",
+												"3"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "EsdevenimentById404",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 401\", function () {",
+													"    pm.response.to.have.status(404);",
+													"});",
+													"",
+													"pm.test(\"MissatgeErrorTest\", function () {",
+													"    missatge = pm.response.json().missatge;",
+													"    pm.expect(missatge).to.equal(\"No existe ningun evento con ese id\");",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb25zdW1pZG9yIiwicm9scyI6WyJST0xfQ09OU1VNSURPUiJdLCJpZCI6NDAsImlhdCI6MTYyMDEzODg1OCwiZXhwIjoxNjIwMjI1MjU4fQ.jjoggbAliHi_b606Hbt7_rqTgtOicdjWrSOX8d9UdZrdhnfwwTDBcuocC0mZbHiUEhyQtTYJxAD1YpBPwSY2Dw",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/esdeveniments/30",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"esdeveniments",
+												"30"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "EsdevenimentById401SenseToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 401\", function () {",
+													"    pm.response.to.have.status(401);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/esdeveniments/3",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"esdeveniments",
+												"3"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "AllEsdeveniments",
+							"item": [
+								{
+									"name": "AllEsdeveniments",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb25zdW1pZG9yIiwicm9scyI6WyJST0xfQ09OU1VNSURPUiJdLCJpZCI6NDAsImlhdCI6MTYyMDEzODg1OCwiZXhwIjoxNjIwMjI1MjU4fQ.jjoggbAliHi_b606Hbt7_rqTgtOicdjWrSOX8d9UdZrdhnfwwTDBcuocC0mZbHiUEhyQtTYJxAD1YpBPwSY2Dw",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/esdeveniments",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"esdeveniments"
+											],
+											"query": [
+												{
+													"key": "nomEsdeveniment",
+													"value": "basquet",
+													"disabled": true
+												},
+												{
+													"key": "nomEstabliment",
+													"value": "Anna",
+													"disabled": true
+												},
+												{
+													"key": "direccio",
+													"value": "Provenza",
+													"disabled": true
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "AllEsdeveniments401SenseToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 401\", function () {",
+													"    pm.response.to.have.status(401);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/esdeveniments",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"esdeveniments"
+											],
+											"query": [
+												{
+													"key": "nomEsdeveniment",
+													"value": "basquet",
+													"disabled": true
+												},
+												{
+													"key": "nomEstabliment",
+													"value": "Anna",
+													"disabled": true
+												},
+												{
+													"key": "direccio",
+													"value": "Provenza",
+													"disabled": true
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
 						}
 					]
 				},
@@ -3889,6 +4211,992 @@
 											"port": "8080",
 											"path": [
 												"establiments"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "CrearEsdeveniment",
+							"item": [
+								{
+									"name": "CrearEsdeveniment401",
+									"item": [
+										{
+											"name": "Esdeveniment401SenseToken",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 401\", function () {",
+															"    pm.response.to.have.status(401);",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"id\": 37,\n    \"nom\": \"Concierto Jazz\",\n    \"dia\": \"04/05/2021\",\n    \"hora\": \"20:00:00\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/esdeveniments",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"esdeveniments"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Esdeveniment401IdInvalid",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 401\", function () {",
+															"    pm.response.to.have.status(401);",
+															"});",
+															"",
+															"pm.test(\"PuntuacioTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"No tienes acceso al usuario con ese id\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBbm5hIiwicm9scyI6WyJST0xfUFJPUElFVEFSSSJdLCJpZCI6MzcsImlhdCI6MTYyMDEzOTU3MywiZXhwIjoxNjIwMjI1OTczfQ.LVlPyM4gWDFxQGe4kbDbwirDY1CslLZQhIpTNcAm_ZKZu8-_WRguv0aijps9ngmlMvfTbqZ8tF1kRvvMt1Iw0g",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"id\": 34,\n    \"nom\": \"Concierto Jazz\",\n    \"dia\": \"04/05/2021\",\n    \"hora\": \"20:00:00\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/esdeveniments",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"esdeveniments"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "CrearEsdeveniment400",
+									"item": [
+										{
+											"name": "Esdeveniment400NomBuit",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"El nombre no puede ser un valor nulo ni vacío\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBbm5hIiwicm9scyI6WyJST0xfUFJPUElFVEFSSSJdLCJpZCI6MzcsImlhdCI6MTYyMDEzOTU3MywiZXhwIjoxNjIwMjI1OTczfQ.LVlPyM4gWDFxQGe4kbDbwirDY1CslLZQhIpTNcAm_ZKZu8-_WRguv0aijps9ngmlMvfTbqZ8tF1kRvvMt1Iw0g",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"id\": 37,\n    \"nom\": \"\",\n    \"dia\": \"04/05/2021\",\n    \"hora\": \"20:00:00\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/esdeveniments",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"esdeveniments"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Esdeveniment400NomNull",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"El nombre no puede ser un valor nulo ni vacío\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBbm5hIiwicm9scyI6WyJST0xfUFJPUElFVEFSSSJdLCJpZCI6MzcsImlhdCI6MTYyMDEzOTU3MywiZXhwIjoxNjIwMjI1OTczfQ.LVlPyM4gWDFxQGe4kbDbwirDY1CslLZQhIpTNcAm_ZKZu8-_WRguv0aijps9ngmlMvfTbqZ8tF1kRvvMt1Iw0g",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"id\": 37,\n    \"nom\": null,\n    \"dia\": \"04/05/2021\",\n    \"hora\": \"20:00:00\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/esdeveniments",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"esdeveniments"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Esdeveniment400DiaBuit",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"El dia no puede ser un valor nulo ni vacío\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBbm5hIiwicm9scyI6WyJST0xfUFJPUElFVEFSSSJdLCJpZCI6MzcsImlhdCI6MTYyMDEzOTU3MywiZXhwIjoxNjIwMjI1OTczfQ.LVlPyM4gWDFxQGe4kbDbwirDY1CslLZQhIpTNcAm_ZKZu8-_WRguv0aijps9ngmlMvfTbqZ8tF1kRvvMt1Iw0g",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"id\": 37,\n    \"nom\": \"Concierto Jazz\",\n    \"dia\": \"\",\n    \"hora\": \"20:00:00\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/esdeveniments",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"esdeveniments"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Esdeveniment400DiaNull",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"El dia no puede ser un valor nulo ni vacío\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBbm5hIiwicm9scyI6WyJST0xfUFJPUElFVEFSSSJdLCJpZCI6MzcsImlhdCI6MTYyMDEzOTU3MywiZXhwIjoxNjIwMjI1OTczfQ.LVlPyM4gWDFxQGe4kbDbwirDY1CslLZQhIpTNcAm_ZKZu8-_WRguv0aijps9ngmlMvfTbqZ8tF1kRvvMt1Iw0g",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"id\": 37,\n    \"nom\": \"Concierto Jazz\",\n    \"dia\": null,\n    \"hora\": \"20:00:00\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/esdeveniments",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"esdeveniments"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Esdeveniment400HoraNull",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"La hora no puede ser un valor nulo ni vacío\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBbm5hIiwicm9scyI6WyJST0xfUFJPUElFVEFSSSJdLCJpZCI6MzcsImlhdCI6MTYyMDEzOTU3MywiZXhwIjoxNjIwMjI1OTczfQ.LVlPyM4gWDFxQGe4kbDbwirDY1CslLZQhIpTNcAm_ZKZu8-_WRguv0aijps9ngmlMvfTbqZ8tF1kRvvMt1Iw0g",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"id\": 37,\n    \"nom\": \"Concierto Jazz\",\n    \"dia\": \"04/05/2021\",\n    \"hora\": null\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/esdeveniments",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"esdeveniments"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Esdeveniment400HoraBuit",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"La hora no puede ser un valor nulo ni vacío\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBbm5hIiwicm9scyI6WyJST0xfUFJPUElFVEFSSSJdLCJpZCI6MzcsImlhdCI6MTYyMDEzOTU3MywiZXhwIjoxNjIwMjI1OTczfQ.LVlPyM4gWDFxQGe4kbDbwirDY1CslLZQhIpTNcAm_ZKZu8-_WRguv0aijps9ngmlMvfTbqZ8tF1kRvvMt1Iw0g",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"id\": 37,\n    \"nom\": \"Concierto Jazz\",\n    \"dia\": \"04/05/2021\",\n    \"hora\": \"\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/esdeveniments",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"esdeveniments"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "Esdeveniment201",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 201\", function () {",
+													"    pm.response.to.have.status(201);",
+													"});",
+													"",
+													"pm.test(\"MissatgeErrorTest\", function () {",
+													"    missatge = pm.response.json().missatge;",
+													"    pm.expect(missatge).to.equal(\"El evento se ha creado correctamente\");",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBbm5hIiwicm9scyI6WyJST0xfUFJPUElFVEFSSSJdLCJpZCI6MzcsImlhdCI6MTYyMDEzOTU3MywiZXhwIjoxNjIwMjI1OTczfQ.LVlPyM4gWDFxQGe4kbDbwirDY1CslLZQhIpTNcAm_ZKZu8-_WRguv0aijps9ngmlMvfTbqZ8tF1kRvvMt1Iw0g",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"id\": 37,\n    \"nom\": \"Concierto Jazz\",\n    \"dia\": \"04/05/2021\",\n    \"hora\": \"20:00:00\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/esdeveniments",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"esdeveniments"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Esdeveniment409",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 409\", function () {",
+													"    pm.response.to.have.status(409);",
+													"});",
+													"",
+													"pm.test(\"MissatgeErrorTest\", function () {",
+													"    missatge = pm.response.json().missatge;",
+													"    pm.expect(missatge).to.equal(\"Ya existe un evento para ese dia y hora\");",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBbm5hIiwicm9scyI6WyJST0xfUFJPUElFVEFSSSJdLCJpZCI6MzcsImlhdCI6MTYyMDEzOTU3MywiZXhwIjoxNjIwMjI1OTczfQ.LVlPyM4gWDFxQGe4kbDbwirDY1CslLZQhIpTNcAm_ZKZu8-_WRguv0aijps9ngmlMvfTbqZ8tF1kRvvMt1Iw0g",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"id\": 37,\n    \"nom\": \"Concierto Jazz\",\n    \"dia\": \"04/05/2021\",\n    \"hora\": \"20:00:00\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/esdeveniments",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"esdeveniments"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "DeleteEsdeveniment",
+							"item": [
+								{
+									"name": "DeleteEsdeveniment401",
+									"item": [
+										{
+											"name": "EsdevenimentById401IdErroni",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 401\", function () {",
+															"    pm.response.to.have.status(401);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"No tienes acceso al evento con ese id\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBbm5hIiwicm9scyI6WyJST0xfUFJPUElFVEFSSSJdLCJpZCI6MzcsImlhdCI6MTYyMDEzOTU3MywiZXhwIjoxNjIwMjI1OTczfQ.LVlPyM4gWDFxQGe4kbDbwirDY1CslLZQhIpTNcAm_ZKZu8-_WRguv0aijps9ngmlMvfTbqZ8tF1kRvvMt1Iw0g",
+															"type": "string"
+														}
+													]
+												},
+												"method": "DELETE",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/esdeveniments/1",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"esdeveniments",
+														"1"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "EsdevenimentById401SenseToken",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 401\", function () {",
+															"    pm.response.to.have.status(401);",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "",
+															"type": "string"
+														}
+													]
+												},
+												"method": "DELETE",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/esdeveniments/1",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"esdeveniments",
+														"1"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "EsdevenimentById",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"MissatgeErrorTest\", function () {",
+													"    missatge = pm.response.json().missatge;",
+													"    pm.expect(missatge).to.equal(\"Se ha eliminado el evento\");",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBbm5hIiwicm9scyI6WyJST0xfUFJPUElFVEFSSSJdLCJpZCI6MzcsImlhdCI6MTYyMDEzOTU3MywiZXhwIjoxNjIwMjI1OTczfQ.LVlPyM4gWDFxQGe4kbDbwirDY1CslLZQhIpTNcAm_ZKZu8-_WRguv0aijps9ngmlMvfTbqZ8tF1kRvvMt1Iw0g",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/esdeveniments/9",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"esdeveniments",
+												"9"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "EsdevenimentById404",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 404\", function () {",
+													"    pm.response.to.have.status(404);",
+													"});",
+													"",
+													"pm.test(\"MissatgeErrorTest\", function () {",
+													"    missatge = pm.response.json().missatge;",
+													"    pm.expect(missatge).to.equal(\"No existe ningun evento con ese id\");",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBbm5hIiwicm9scyI6WyJST0xfUFJPUElFVEFSSSJdLCJpZCI6MzcsImlhdCI6MTYyMDEzOTU3MywiZXhwIjoxNjIwMjI1OTczfQ.LVlPyM4gWDFxQGe4kbDbwirDY1CslLZQhIpTNcAm_ZKZu8-_WRguv0aijps9ngmlMvfTbqZ8tF1kRvvMt1Iw0g",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/esdeveniments/400",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"esdeveniments",
+												"400"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "AllEsdevenimentsPropietari",
+							"item": [
+								{
+									"name": "AllEsdevenimentsPropietariById401",
+									"item": [
+										{
+											"name": "AllEsdevenimentsPropietariById401SenseToken",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 401\", function () {",
+															"    pm.response.to.have.status(401);",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"protocolProfileBehavior": {
+												"disableBodyPruning": true
+											},
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/esdeveniments/propietari/37",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"esdeveniments",
+														"propietari",
+														"37"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "AllEsdevenimentsPropietariById401IdErroni",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 401\", function () {",
+															"    pm.response.to.have.status(401);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"No tienes acceso al usuario con ese id\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"protocolProfileBehavior": {
+												"disableBodyPruning": true
+											},
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBbm5hIiwicm9scyI6WyJST0xfUFJPUElFVEFSSSJdLCJpZCI6MzcsImlhdCI6MTYyMDEzOTU3MywiZXhwIjoxNjIwMjI1OTczfQ.LVlPyM4gWDFxQGe4kbDbwirDY1CslLZQhIpTNcAm_ZKZu8-_WRguv0aijps9ngmlMvfTbqZ8tF1kRvvMt1Iw0g",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/esdeveniments/propietari/34",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"esdeveniments",
+														"propietari",
+														"34"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "AllEsdevenimentsPropietariById",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBbm5hIiwicm9scyI6WyJST0xfUFJPUElFVEFSSSJdLCJpZCI6MzcsImlhdCI6MTYyMDEzOTU3MywiZXhwIjoxNjIwMjI1OTczfQ.LVlPyM4gWDFxQGe4kbDbwirDY1CslLZQhIpTNcAm_ZKZu8-_WRguv0aijps9ngmlMvfTbqZ8tF1kRvvMt1Iw0g",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/esdeveniments/propietari/37",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"esdeveniments",
+												"propietari",
+												"37"
 											]
 										}
 									},

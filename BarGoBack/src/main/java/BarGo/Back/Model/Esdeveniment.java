@@ -79,10 +79,12 @@ public class Esdeveniment {
 
     @PreRemove
     public void eliminarEsdevenimentDeLlistaEsdevenimentsEstabliment(){
-        Set<Esdeveniment> esdeveniments = establiment.getEsdeveniments();
-        esdeveniments.remove(this);
-        establiment.setEsdeveniments(esdeveniments);
+        if(establiment != null) {
+            Set<Esdeveniment> esdeveniments = establiment.getEsdeveniments();
+            esdeveniments.remove(this);
+            establiment.setEsdeveniments(esdeveniments);
 
-        establiment = null;
+            establiment = null;
+        }
     }
 }
