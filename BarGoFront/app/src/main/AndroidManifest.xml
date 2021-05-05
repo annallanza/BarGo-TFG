@@ -56,7 +56,7 @@
             android:name=".UsuariConsumidor.Activity.InfoEstablimentActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".UsuariConsumidor.Activity.InfoEventActivity"
+            android:name=".UsuariConsumidor.Activity.InfoEsdevenimentActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".UsuariPropietari.Activity.MainPropietariActivity"

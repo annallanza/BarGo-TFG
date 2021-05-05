@@ -65,4 +65,10 @@
     <string name="reservar">Reservar</string>
     <string name="configuraci_n">Configuración</string>
     <string name="confirmar_contrase_a">Confirmar contraseña</string>
+    <string name="horario_del_evento">Horario del evento:</string>
+    <string name="nombre_evento">Nombre evento</string>
+    <string name="fecha_">Fecha:</string>
+    <string name="hora">Hora</string>
+    <string name="hora_">Hora:</string>
+    <string name="fecha">Fecha</string>
 </resources>

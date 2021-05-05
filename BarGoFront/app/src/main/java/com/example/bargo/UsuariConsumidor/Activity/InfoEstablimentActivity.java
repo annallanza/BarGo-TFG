@@ -51,7 +51,7 @@ public class InfoEstablimentActivity extends AppCompatActivity {
     Button reservar;
 
     private ProgressDialog progressDialog;
-    private Consumidor consumidor = Consumidor.getInstance();
+    private final Consumidor consumidor = Consumidor.getInstance();
     private final EstablimentInfo establimentInfo = EstablimentInfo.getInstance();
 
     @Override
