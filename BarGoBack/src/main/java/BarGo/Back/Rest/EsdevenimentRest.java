@@ -16,6 +16,7 @@ import javax.validation.Valid;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.*;
 
 @RestController //Indiquem que aquesta classe sera un SERVICE REST
@@ -96,12 +97,42 @@ public class EsdevenimentRest {
         Date dia = formatoDelTexto.parse(createEsdeveniment.getDia());
         Time hora = Time.valueOf(createEsdeveniment.getHora());
 
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+
+        Date diaActual = calendar.getTime();
+
+        if(dia.before(diaActual))
+            return new ResponseEntity<>(new Missatge("El día no puede ser anterior a la actual"), HttpStatus.BAD_REQUEST);
+
+        calendar = Calendar.getInstance();
+        calendar.set(Calendar.MILLISECOND, 0);
+
+        Date horaActual = calendar.getTime();
+
+        String[] hores = createEsdeveniment.getHora().split(":");
+
+        calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(hores[0]));
+        calendar.set(Calendar.MINUTE, Integer.parseInt(hores[1]));
+        calendar.set(Calendar.SECOND, Integer.parseInt(hores[2]));
+        calendar.set(Calendar.MILLISECOND, 0);
+
+        Date hora2 = calendar.getTime();
+
+        if(hora2.before(horaActual))
+            return new ResponseEntity<>(new Missatge("La hora no puede ser anterior a la actual"), HttpStatus.BAD_REQUEST);
+
+
         SimpleDateFormat formatText = new SimpleDateFormat("yyyy-MM-dd"); //El format amb el que volem comparar
         String dia_format = formatText.format(dia);
 
         for(Esdeveniment esdeveniment : llistaEsdeveniments){
             if(esdeveniment.getDia().toString().equals(dia_format) && esdeveniment.getHora().toString().equals(hora.toString()))
-                return new ResponseEntity<>(new Missatge("Ya existe un evento para ese dia y hora"), HttpStatus.CONFLICT);
+                return new ResponseEntity<>(new Missatge("Ya existe un evento para ese día y hora"), HttpStatus.CONFLICT);
         }
 
         Esdeveniment esdeveniment = new Esdeveniment(createEsdeveniment.getNom(), dia, hora, establiment);

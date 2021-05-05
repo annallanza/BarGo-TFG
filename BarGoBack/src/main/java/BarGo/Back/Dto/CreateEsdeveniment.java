@@ -11,7 +11,7 @@ public class CreateEsdeveniment {
     @NotBlank(message = "El nombre no puede ser un valor nulo ni vacío")
     private String nom;
 
-    @NotBlank(message = "El dia no puede ser un valor nulo ni vacío")
+    @NotBlank(message = "El día no puede ser un valor nulo ni vacío")
     private String dia;
 
     @NotBlank(message = "La hora no puede ser un valor nulo ni vacío")
