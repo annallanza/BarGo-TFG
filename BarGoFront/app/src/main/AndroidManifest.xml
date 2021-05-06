@@ -18,6 +18,7 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name=".UsuariPropietari.Activity.NouEsdevenimentActivity"></activity>
         <activity
             android:name=".LoginActivity"
             android:screenOrientation="portrait">

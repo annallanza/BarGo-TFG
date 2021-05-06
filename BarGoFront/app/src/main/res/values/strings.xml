@@ -71,4 +71,10 @@
     <string name="hora">Hora</string>
     <string name="hora_">Hora:</string>
     <string name="fecha">Fecha</string>
+    <string name="eliminar">Eliminar</string>
+    <string name="eventos">Eventos</string>
+    <string name="evento">Evento</string>
+    <string name="fecha_evento">Fecha evento</string>
+    <string name="hora_evento">Hora evento</string>
+    <string name="crear_evento">Crear evento</string>
 </resources>
