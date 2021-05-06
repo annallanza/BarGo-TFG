@@ -157,9 +157,7 @@ public class NouEsdevenimentActivity extends AppCompatActivity {
                     }
                     crear.setEnabled(true);
                     progressDialog.dismiss();
-
-                    Intent intent = new Intent(getApplicationContext(), MainPropietariActivity.class);
-                    startActivity(intent);
+                    
                     finish();
 
                 }
