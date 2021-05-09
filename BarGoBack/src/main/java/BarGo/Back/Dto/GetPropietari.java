@@ -9,6 +9,7 @@ public class GetPropietari {
 
     private Long id;
     private String nomUsuari;
+    private String correu;
     private String imatge;
     private Set<Rol> rols = new HashSet<>();
     private GetEstabliment establiment;
@@ -16,9 +17,10 @@ public class GetPropietari {
     public GetPropietari() {
     }
 
-    public GetPropietari(Long id, String nomUsuari, String imatge, Set<Rol> rols, GetEstabliment establiment) {
+    public GetPropietari(Long id, String nomUsuari, String correu, String imatge, Set<Rol> rols, GetEstabliment establiment) {
         this.id = id;
         this.nomUsuari = nomUsuari;
+        this.correu = correu;
         this.imatge = imatge;
         this.rols = rols;
         this.establiment = establiment;
@@ -38,6 +40,14 @@ public class GetPropietari {
 
     public void setNomUsuari(String nomUsuari) {
         this.nomUsuari = nomUsuari;
+    }
+
+    public String getCorreu() {
+        return correu;
+    }
+
+    public void setCorreu(String correu) {
+        this.correu = correu;
     }
 
     public String getImatge() {

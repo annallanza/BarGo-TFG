@@ -1,6 +1,7 @@
 package BarGo.Back.Dto;
 
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -9,6 +10,10 @@ public class SignupConsumidor { //TODO: es el mateix que el SignupUsuari
 
     @NotBlank(message = "El nombre de usuario no puede ser un valor nulo ni vacío")
     private String nomUsuari;
+
+    @NotBlank(message = "El correo electrónico no puede ser un valor nulo ni vacío")
+    @Email(message = "El correo electrónico debe tener el formato correcto")
+    private String correu;
 
     @Size(min = 8, message = "La contraseña debe tener un mínimo de 8 caracteres")
     @NotNull(message = "La contraseña no puede ser un valor nulo")
@@ -21,6 +26,14 @@ public class SignupConsumidor { //TODO: es el mateix que el SignupUsuari
 
     public void setNomUsuari(String nomUsuari) {
         this.nomUsuari = nomUsuari;
+    }
+
+    public String getCorreu() {
+        return correu;
+    }
+
+    public void setCorreu(String correu) {
+        this.correu = correu;
     }
 
     public String getContrasenya() {

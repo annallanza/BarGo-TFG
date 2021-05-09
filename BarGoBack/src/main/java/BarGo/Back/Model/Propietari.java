@@ -15,8 +15,8 @@ public class Propietari extends Usuari implements Serializable {
     public Propietari() {
     }
 
-    public Propietari(String nomUsuari, String contrasenya, byte[] imatge, Establiment establiment) {
-        super(nomUsuari, contrasenya, imatge);
+    public Propietari(String nomUsuari, String correu, String contrasenya, byte[] imatge, Establiment establiment) {
+        super(nomUsuari, correu, contrasenya, imatge);
         this.establiment = establiment;
     }
 

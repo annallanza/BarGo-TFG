@@ -2,6 +2,7 @@ package BarGo.Back.Dto;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 public class CreateEsdeveniment {
 
@@ -12,6 +13,7 @@ public class CreateEsdeveniment {
     private String nom;
 
     @NotBlank(message = "El día no puede ser un valor nulo ni vacío")
+    @Pattern(regexp = "(\\d{2})/(\\d{2})/(\\d{4})", message = "La fecha debe tener el formato dd/mm/yyyy")
     private String dia;
 
     @NotBlank(message = "La hora no puede ser un valor nulo ni vacío")

@@ -10,6 +10,10 @@ public class UpdatePropietari {
     @NotBlank(message = "El nombre de usuario no puede ser un valor nulo ni vacío")
     private String nomUsuari;
 
+    @NotBlank(message = "El correo electrónico no puede ser un valor nulo ni vacío")
+    @Email(message = "El correo electrónico debe tener el formato correcto")
+    private String correu;
+
     @Size(min = 8, message = "La contraseña debe tener un mínimo de 8 caracteres")
     @NotNull(message = "La contraseña no puede ser un valor nulo")
     @NotBlank(message = "La contraseña no puede ser un valor vacío")
@@ -42,9 +46,10 @@ public class UpdatePropietari {
     public UpdatePropietari() {
     }
 
-    public UpdatePropietari(@NotNull(message = "El id no puede ser un valor nulo") Long id, @NotEmpty(message = "El nombre de usuario no puede ser un valor nulo ni vacío") String nomUsuari, @Size(min = 8, message = "La contraseña debe tener un mínimo de 8 caracteres") @NotNull(message = "La contraseña no puede ser un valor nulo") @NotBlank(message = "La contraseña no puede ser un valor vacío") String contrasenya, @NotEmpty(message = "El nombre del establecimiento no puede ser un valor nulo ni vacío") String nomEstabliment, @NotEmpty(message = "La dirección del establecimiento no puede ser un valor nulo ni vacío") String direccio, @NotNull(message = "Exterior no puede ser un valor nulo") boolean exterior, @PositiveOrZero(message = "El numero de sillas no puede ser un valor negativo") int numCadires, @PositiveOrZero(message = "El numero de mesas no puede ser un valor negativo") int numTaules, @NotEmpty(message = "El horario del establecimiento no puede ser un valor nulo ni vacío") String horari, @Size(min = 200, message = "La descripción del establecimiento ha de tener un mínimo de 200 caracteres") @NotEmpty(message = "La descripción del establecimiento no puede ser un valor nulo ni vacío") String descripcio, @NotBlank(message = "La pagina web no puede ser un valor vacío") String paginaWeb) {
+    public UpdatePropietari(@NotNull(message = "El id no puede ser un valor nulo") Long id, @NotBlank(message = "El nombre de usuario no puede ser un valor nulo ni vacío") String nomUsuari, @NotBlank(message = "El correo electrónico no puede ser un valor nulo ni vacío") String correu, @Size(min = 8, message = "La contraseña debe tener un mínimo de 8 caracteres") @NotNull(message = "La contraseña no puede ser un valor nulo") @NotBlank(message = "La contraseña no puede ser un valor vacío") String contrasenya, @NotBlank(message = "El nombre del establecimiento no puede ser un valor nulo ni vacío") String nomEstabliment, @NotBlank(message = "La dirección del establecimiento no puede ser un valor nulo ni vacío") String direccio, @NotNull(message = "Exterior no puede ser un valor nulo") boolean exterior, @PositiveOrZero(message = "El numero de sillas no puede ser un valor negativo") int numCadires, @PositiveOrZero(message = "El numero de mesas no puede ser un valor negativo") int numTaules, @NotBlank(message = "El horario del establecimiento no puede ser un valor nulo ni vacío") String horari, @Size(min = 200, message = "La descripción del establecimiento ha de tener un mínimo de 200 caracteres") @NotBlank(message = "La descripción del establecimiento no puede ser un valor nulo ni vacío") String descripcio, String paginaWeb) {
         this.id = id;
         this.nomUsuari = nomUsuari;
+        this.correu = correu;
         this.contrasenya = contrasenya;
         this.nomEstabliment = nomEstabliment;
         this.direccio = direccio;
@@ -70,6 +75,14 @@ public class UpdatePropietari {
 
     public void setNomUsuari(String nomUsuari) {
         this.nomUsuari = nomUsuari;
+    }
+
+    public String getCorreu() {
+        return correu;
+    }
+
+    public void setCorreu(String correu) {
+        this.correu = correu;
     }
 
     public String getContrasenya() {

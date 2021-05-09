@@ -4,6 +4,7 @@ public class User {
 
     private long id = 0;
     private String nom = "Nombre usuario";
+    private String correu = "correo";
     private String token = "token";
     private byte[] imatge;
 
@@ -28,6 +29,14 @@ public class User {
         this.nom = nom;
     }
 
+    public String getCorreu() {
+        return correu;
+    }
+
+    public void setCorreu(String correu) {
+        this.correu = correu;
+    }
+
     public String getToken() {
         return token;
     }
@@ -50,9 +59,10 @@ public class User {
         this.setToken(token);
     }
 
-    public void setAllUser(long id, String nomUsuari, String token, byte[] imatge){
+    public void setAllUser(long id, String nomUsuari, String correu, String token, byte[] imatge){
         this.setId(id);
         this.setNom(nomUsuari);
+        this.setCorreu(correu);
         this.setToken(token);
         this.setImatge(imatge);
     }

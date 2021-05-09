@@ -16,7 +16,6 @@ import javax.validation.Valid;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalTime;
 import java.util.*;
 
 @RestController //Indiquem que aquesta classe sera un SERVICE REST
@@ -106,7 +105,7 @@ public class EsdevenimentRest {
         Date diaActual = calendar.getTime();
 
         if(dia.before(diaActual))
-            return new ResponseEntity<>(new Missatge("El día no puede ser anterior a la actual"), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new Missatge("El día no puede ser anterior al actual"), HttpStatus.BAD_REQUEST);
 
         calendar = Calendar.getInstance();
         calendar.set(Calendar.MILLISECOND, 0);

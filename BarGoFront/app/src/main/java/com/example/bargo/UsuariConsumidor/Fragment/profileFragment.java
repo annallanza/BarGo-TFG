@@ -329,10 +329,12 @@ public class profileFragment extends Fragment {
                     try {
                         long id = response.getLong("id");
                         String nomUsuari = response.getString("nomUsuari");
+                        String correu = response.getString("correu");
                         String imatge = response.getString("imatge");
 
                         consumidor.setId(id);
                         consumidor.setNom(nomUsuari);
+                        consumidor.setCorreu(correu);
                         if(!imatge.equals("null")){
                             byte[] bytesimatge = Base64.getDecoder().decode(imatge);
                             consumidor.setImatge(bytesimatge);

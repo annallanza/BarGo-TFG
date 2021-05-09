@@ -153,6 +153,11 @@ public class UsuariService implements UsuariInterface {
     }
 
     @Override
+    public boolean existsByCorreu(String correu) {
+        return usuariInterface.existsByCorreu(correu);
+    }
+
+    @Override
     public boolean existsByNomUsuari(String nomUsuari) {
         return usuariInterface.existsByNomUsuari(nomUsuari);
     }

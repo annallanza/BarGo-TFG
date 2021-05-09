@@ -79,6 +79,7 @@ public class PerfilFragment extends Fragment {
     private EditText contrasenyaNovaEditText;
     private EditText confirmarContrasenyaNovaEditText;
     private EditText nomUsuariEditText;
+    private EditText correuEditText;
     private Button guardarCanvis;
     private CheckBox veureContrasenya;
     private EditText nomEstablimentEditText;
@@ -113,6 +114,7 @@ public class PerfilFragment extends Fragment {
         imatgeView = view.findViewById(R.id.circleImageView2);
         configuracio = view.findViewById(R.id.imageButtonConfiguracio2);
         nomUsuariEditText = view.findViewById(R.id.editTextNombreUsuario);
+        correuEditText = view.findViewById(R.id.editTextCorreu);
         contrasenyaNovaEditText = view.findViewById(R.id.editTextContraNova);
         confirmarContrasenyaNovaEditText = view.findViewById(R.id.editTextConfirmaContraNova);
         veureContrasenya = view.findViewById(R.id.checkBoxContraseña2);
@@ -268,6 +270,7 @@ public class PerfilFragment extends Fragment {
                 progressDialog.show();
 
                 String nomUsuari = nomUsuariEditText.getText().toString();
+                String correu = correuEditText.getText().toString();
                 String contrasenyaNova = contrasenyaNovaEditText.getText().toString();
                 String confirmarContrasenyaNova = confirmarContrasenyaNovaEditText.getText().toString();
                 String nomEstabliment = nomEstablimentEditText.getText().toString();
@@ -329,7 +332,7 @@ public class PerfilFragment extends Fragment {
                     int numCadires = Integer.parseInt(numCadiresEditText.getText().toString());
                     int numTaules = Integer.parseInt(numTaulesEditText.getText().toString());
 
-                    PutInfoConsumidorRequest(nomUsuari, contrasenyaNova, nomEstabliment, direccioEstabliment, exteriorEstabliment, numCadires, numTaules, horariEstabliment, descripcioEstabliment, paginaWebEstabliment);
+                    PutInfoPropietariRequest(nomUsuari, correu, contrasenyaNova, nomEstabliment, direccioEstabliment, exteriorEstabliment, numCadires, numTaules, horariEstabliment, descripcioEstabliment, paginaWebEstabliment);
                 }
             }
         });
@@ -384,6 +387,7 @@ public class PerfilFragment extends Fragment {
 
     private void refrescarDadesPopietari(){
         nomUsuariEditText.setText(propietari.getNom());
+        correuEditText.setText(propietari.getCorreu());
         contrasenyaNovaEditText.setText("");
         confirmarContrasenyaNovaEditText.setText("");
 
@@ -562,6 +566,7 @@ public class PerfilFragment extends Fragment {
                         try {
                             long id = response.getLong("id");
                             String nomUsuari = response.getString("nomUsuari");
+                            String correu = response.getString("correu");
                             String imatge = response.getString("imatge");
                             JSONObject establiment = response.getJSONObject("establiment");
 
@@ -577,6 +582,7 @@ public class PerfilFragment extends Fragment {
 
                             propietari.setId(id);
                             propietari.setNom(nomUsuari);
+                            propietari.setCorreu(correu);
                             if(!imatge.equals("null")){
                                 byte[] bytesimatge = Base64.getDecoder().decode(imatge);
                                 propietari.setImatge(bytesimatge);
@@ -629,13 +635,14 @@ public class PerfilFragment extends Fragment {
         VolleySingleton.getInstance(getContext()).addToRequestQueue(jsonObjectRequest);
     }
 
-    private void PutInfoConsumidorRequest(final String nomUsuari, final String contrasenyaNova, String nomEstabliment, String direccioEstabliment, Boolean exteriorEstabliment, int numCadiresEstabliment, int numTaulesEstabliment, String horariEstabliment, String descripcioEstabliment, String paginaWebEstabliment){
+    private void PutInfoPropietariRequest(final String nomUsuari, final String correu, final String contrasenyaNova, String nomEstabliment, String direccioEstabliment, Boolean exteriorEstabliment, int numCadiresEstabliment, int numTaulesEstabliment, String horariEstabliment, String descripcioEstabliment, String paginaWebEstabliment){
         String url = VariablesGlobals.getUrlAPI() + "propietaris/";
 
         JSONObject postData = new JSONObject();
         try {
             postData.put("id", propietari.getId());
             postData.put("nomUsuari", nomUsuari);
+            postData.put("correu", correu);
             postData.put("contrasenya", contrasenyaNova);
             postData.put("nomEstabliment", nomEstabliment);
             postData.put("direccio", direccioEstabliment);

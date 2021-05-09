@@ -88,7 +88,10 @@ public class ConsumidorRest {
         if(usuariService.existsByNomUsuari(signupConsumidor.getNomUsuari()))
             return new ResponseEntity<>(new Missatge("El nombre de usuario ya existe"), HttpStatus.CONFLICT);
 
-        Consumidor consumidor = new Consumidor(signupConsumidor.getNomUsuari(), encoder.encode(signupConsumidor.getContrasenya()), null, 0);
+        if(usuariService.existsByCorreu(signupConsumidor.getCorreu()))
+            return new ResponseEntity<>(new Missatge("El correo ya esta en uso"), HttpStatus.CONFLICT);
+
+        Consumidor consumidor = new Consumidor(signupConsumidor.getNomUsuari(), signupConsumidor.getCorreu(), encoder.encode(signupConsumidor.getContrasenya()), null, 0);
 
         Set<Rol> rols = new HashSet<>();
         rols.add(rolService.findByNomRol(NomRol.ROL_CONSUMIDOR).get());

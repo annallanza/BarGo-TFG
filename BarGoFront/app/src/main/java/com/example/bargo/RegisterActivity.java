@@ -47,6 +47,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText contrasenyaEditText;
     private EditText confirmarContrasenyaEditText;
     private EditText nomUsuariEditText;
+    private EditText correuEditText;
     private Button signupButton;
     private CheckBox veureContraseña;
     private EditText nomEstablimentEditText;
@@ -99,6 +100,7 @@ public class RegisterActivity extends AppCompatActivity {
         login.setMovementMethod(LinkMovementMethod.getInstance());
 
         nomUsuariEditText = findViewById(R.id.editTextNombreUsuario);
+        correuEditText = findViewById(R.id.editTextCorreu);
         contrasenyaEditText = findViewById(R.id.editTextContraNova);
         confirmarContrasenyaEditText = findViewById(R.id.editTextConfirmarContraNova);
         veureContraseña = findViewById(R.id.checkBoxContraseña2);
@@ -198,6 +200,7 @@ public class RegisterActivity extends AppCompatActivity {
                 progressDialog.show();
 
                 String nomUsuari = nomUsuariEditText.getText().toString();
+                String correu = correuEditText.getText().toString();
                 String contrasenya = contrasenyaEditText.getText().toString();
 
                 if(!contrasenya.equals(confirmarContrasenyaEditText.getText().toString())) {
@@ -206,7 +209,7 @@ public class RegisterActivity extends AppCompatActivity {
                     progressDialog.dismiss();
                 }
                 else if(isConsumidor.isChecked())
-                    SignupRequestConsumidor(nomUsuari, contrasenya);
+                    SignupRequestConsumidor(nomUsuari, correu, contrasenya);
                 else if(isPropietari.isChecked()) {
                     String nomEstabliment = nomEstablimentEditText.getText().toString();
                     String direccio = direccioEditText.getText().toString();
@@ -262,7 +265,7 @@ public class RegisterActivity extends AppCompatActivity {
                         int numCadires = Integer.parseInt(numCadiresEditText.getText().toString());
                         int numTaules = Integer.parseInt(numTaulesEditText.getText().toString());
 
-                        SignupRequestPropietari(nomUsuari, contrasenya, nomEstabliment, direccio, exterior, numCadires, numTaules, horari, descripcio, paginaWeb);
+                        SignupRequestPropietari(nomUsuari, correu, contrasenya, nomEstabliment, direccio, exterior, numCadires, numTaules, horari, descripcio, paginaWeb);
                     }
                 }
                 else {
@@ -400,12 +403,13 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
-    public void SignupRequestConsumidor(final String nomUsuari, final String contrasenya){
+    public void SignupRequestConsumidor(final String nomUsuari, final String correu, final String contrasenya){
         String url = VariablesGlobals.getUrlAPI() + "consumidors/auth/signup";
 
         JSONObject postData = new JSONObject();
         try {
             postData.put("nomUsuari", nomUsuari);
+            postData.put("correu", correu);
             postData.put("contrasenya", contrasenya);
 
         } catch (JSONException e) {
@@ -451,12 +455,13 @@ public class RegisterActivity extends AppCompatActivity {
         VolleySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest);
     }
 
-    public void SignupRequestPropietari(final String nomUsuari, final String contrasenya, String nomEstabliment, String direccio, Boolean exterior, int numCadires, int numTaules, String horari, String descripcio, String paginaWeb){
+    public void SignupRequestPropietari(final String nomUsuari, final String correu, final String contrasenya, String nomEstabliment, String direccio, Boolean exterior, int numCadires, int numTaules, String horari, String descripcio, String paginaWeb){
         String url = VariablesGlobals.getUrlAPI() + "propietaris/auth/signup";
 
         JSONObject postData = new JSONObject();
         try {
             postData.put("nomUsuari", nomUsuari);
+            postData.put("correu", correu);
             postData.put("contrasenya", contrasenya);
             postData.put("nomEstabliment", nomEstabliment);
             postData.put("direccio", direccio);

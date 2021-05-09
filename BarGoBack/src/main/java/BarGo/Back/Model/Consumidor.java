@@ -19,8 +19,8 @@ public class Consumidor extends Usuari implements Serializable {
 
     }
 
-    public Consumidor(String nomUsuari, String contrasenya, byte[] imatge, int puntuacio) {
-        super(nomUsuari, contrasenya, imatge);
+    public Consumidor(String nomUsuari, String correu, String contrasenya, byte[] imatge, int puntuacio) {
+        super(nomUsuari, correu, contrasenya, imatge);
         this.puntuacio = puntuacio;
     }
 

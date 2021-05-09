@@ -77,4 +77,6 @@
     <string name="fecha_evento">Fecha evento</string>
     <string name="hora_evento">Hora evento</string>
     <string name="crear_evento">Crear evento</string>
+    <string name="correo_electronico_">Correo electrónico:</string>
+    <string name="correo_electronico">Correo electrónico</string>
 </resources>

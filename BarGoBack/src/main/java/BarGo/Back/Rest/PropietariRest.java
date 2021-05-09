@@ -3,12 +3,10 @@ package BarGo.Back.Rest;
 import BarGo.Back.Dto.*;
 import BarGo.Back.Enums.NomRol;
 import BarGo.Back.Enums.TipusOcupacio;
-import BarGo.Back.Model.Consumidor;
 import BarGo.Back.Model.Establiment;
 import BarGo.Back.Model.Propietari;
 import BarGo.Back.Model.Rol;
 import BarGo.Back.Security.Jwt.JwtProvider;
-import BarGo.Back.Security.Jwt.JwtTokenFilter;
 import BarGo.Back.Service.EstablimentService;
 import BarGo.Back.Service.PropietariService;
 import BarGo.Back.Service.RolService;
@@ -59,10 +57,13 @@ public class PropietariRest {
         if(usuariService.existsByNomUsuari(signupPropietari.getNomUsuari()))
             return new ResponseEntity<>(new Missatge("El nombre de usuario ya existe"), HttpStatus.CONFLICT);
 
+        if(usuariService.existsByCorreu(signupPropietari.getCorreu()))
+            return new ResponseEntity<>(new Missatge("El correo ya esta en uso"), HttpStatus.CONFLICT);
+
         Establiment establiment = new Establiment(signupPropietari.getNomEstabliment(), signupPropietari.getDireccio(), signupPropietari.isExterior(), signupPropietari.getNumCadires(),
                 signupPropietari.getNumTaules(), signupPropietari.getHorari(), signupPropietari.getDescripcio(), signupPropietari.getPaginaWeb(), TipusOcupacio.Vacio, TipusOcupacio.Vacio);
 
-        Propietari propietari = new Propietari(signupPropietari.getNomUsuari(), encoder.encode(signupPropietari.getContrasenya()), null, establiment);
+        Propietari propietari = new Propietari(signupPropietari.getNomUsuari(), signupPropietari.getCorreu(), encoder.encode(signupPropietari.getContrasenya()), null, establiment);
 
         Set<Rol> rols = new HashSet<>();
         Optional<Rol> optionalRol = rolService.findByNomRol(NomRol.ROL_PROPIETARI);
@@ -102,7 +103,7 @@ public class PropietariRest {
 
         GetEstabliment getEstabliment = new GetEstabliment(establiment.getId(), establiment.getNom(), establiment.getDireccio(), establiment.isExterior(), establiment.getNumCadires(), establiment.getNumTaules(), establiment.getHorari(), establiment.getDescripcio(), establiment.getPaginaWeb());
 
-        GetPropietari getPropietari = new GetPropietari(propietari.getId(), propietari.getNomUsuari(), imatge, propietari.getRols(), getEstabliment);
+        GetPropietari getPropietari = new GetPropietari(propietari.getId(), propietari.getNomUsuari(), propietari.getCorreu(), imatge, propietari.getRols(), getEstabliment);
 
         return new ResponseEntity<>(getPropietari, HttpStatus.OK);
     }
@@ -126,7 +127,11 @@ public class PropietariRest {
         if(usuariService.existsByNomUsuari(updatePropietari.getNomUsuari()) && !updatePropietari.getNomUsuari().equals(propietari.getNomUsuari()))
             return new ResponseEntity<>(new Missatge("El nombre de usuario ya existe"), HttpStatus.CONFLICT);
 
+        if(usuariService.existsByCorreu(updatePropietari.getCorreu()) && !updatePropietari.getCorreu().equals(propietari.getCorreu()))
+            return new ResponseEntity<>(new Missatge("El correo ya esta en uso"), HttpStatus.CONFLICT);
+
         propietari.setNomUsuari(updatePropietari.getNomUsuari());
+        propietari.setCorreu(updatePropietari.getCorreu());
         propietari.setContrasenya(encoder.encode(updatePropietari.getContrasenya()));
 
         propietariService.save(propietari);

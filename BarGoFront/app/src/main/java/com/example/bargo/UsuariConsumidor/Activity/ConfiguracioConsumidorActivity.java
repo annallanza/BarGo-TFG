@@ -50,6 +50,7 @@ import io.jsonwebtoken.Jwts;
 public class ConfiguracioConsumidorActivity extends AppCompatActivity {
 
     private EditText nomUsuariEditText;
+    private EditText correuEditText;
     private EditText contrasenyaNovaEditText;
     private EditText confirmarContrasenyaNovaEditText;
     private CheckBox veureContrasenya;
@@ -65,6 +66,7 @@ public class ConfiguracioConsumidorActivity extends AppCompatActivity {
         setContentView(R.layout.activity_configuracio_usuari);
 
         nomUsuariEditText = findViewById(R.id.editTextUsername2);
+        correuEditText = findViewById(R.id.correuEditText);
         contrasenyaNovaEditText = findViewById(R.id.editTextContraNova);
         confirmarContrasenyaNovaEditText = findViewById(R.id.editTextConfirmaContraNova);
         veureContrasenya = findViewById(R.id.checkBoxContraseña3);
@@ -134,12 +136,13 @@ public class ConfiguracioConsumidorActivity extends AppCompatActivity {
                 guardarCanvis.setEnabled(false);
 
                 String nomUsuari = nomUsuariEditText.getText().toString();
+                String correu = correuEditText.getText().toString();
                 String contrasenyaNova = contrasenyaNovaEditText.getText().toString();
                 String confirmaContrasenyaNova = confirmarContrasenyaNovaEditText.getText().toString();
 
                 if(contrasenyaNova.equals(confirmaContrasenyaNova)) {
                     progressDialog.show();
-                    PutInfoConsumidorRequest(nomUsuari, contrasenyaNova);
+                    PutInfoConsumidorRequest(nomUsuari, correu, contrasenyaNova);
                 }
                 else {
                     Toast.makeText(getApplicationContext(), "Las contraseñas no coinciden", Toast.LENGTH_LONG).show();
@@ -208,6 +211,7 @@ public class ConfiguracioConsumidorActivity extends AppCompatActivity {
 
     private void refrescarDadesConsumidor(){
         nomUsuariEditText.setText(consumidor.getNom());
+        correuEditText.setText(consumidor.getCorreu());
         contrasenyaNovaEditText.setText("");
         confirmarContrasenyaNovaEditText.setText("");
     }
@@ -225,10 +229,12 @@ public class ConfiguracioConsumidorActivity extends AppCompatActivity {
                     try {
                         long id = response.getLong("id");
                         String nomUsuari = response.getString("nomUsuari");
+                        String correu = response.getString("correu");
                         String imatge = response.getString("imatge");
 
                         consumidor.setId(id);
                         consumidor.setNom(nomUsuari);
+                        consumidor.setCorreu(correu);
                         if(!imatge.equals("null")){
                             byte[] bytesimatge = Base64.getDecoder().decode(imatge);
                             consumidor.setImatge(bytesimatge);
@@ -276,13 +282,14 @@ public class ConfiguracioConsumidorActivity extends AppCompatActivity {
         VolleySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest);
     }
 
-    private void PutInfoConsumidorRequest(final String nomUsuari, final String contrasenyaNova){
+    private void PutInfoConsumidorRequest(final String nomUsuari, final String correu, final String contrasenyaNova){
         String url = VariablesGlobals.getUrlAPI() + "usuaris/";
 
         JSONObject postData = new JSONObject();
         try {
             postData.put("id", consumidor.getId());
             postData.put("nomUsuari", nomUsuari);
+            postData.put("correu", correu);
             postData.put("contrasenya", contrasenyaNova);
 
         } catch (JSONException e) {

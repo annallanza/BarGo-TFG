@@ -1,6 +1,7 @@
 package BarGo.Back.Model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -17,11 +18,12 @@ public class Usuari implements Serializable {
     @Column(unique = true, nullable = false)
     private String nomUsuari;
 
+    @Column(unique = true, nullable = false) //todo: perque es posi a NOT NULL, hem de eliminar la taula i tornar-la a crear
+    private String correu;
+
     @Column(nullable = false)
     private String contrasenya;
-
-    //@Basic(fetch = FetchType.EAGER)
-    //@Lob
+    
     private byte[] imatge;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -32,8 +34,9 @@ public class Usuari implements Serializable {
 
     }
 
-    public Usuari(String nomUsuari, String contrasenya, byte[] imatge) {
+    public Usuari(String nomUsuari, String correu, String contrasenya, byte[] imatge) {
         this.nomUsuari = nomUsuari;
+        this.correu = correu;
         this.contrasenya = contrasenya;
         this.imatge = imatge;
     }
@@ -52,6 +55,14 @@ public class Usuari implements Serializable {
 
     public void setNomUsuari(String nomUsuari) {
         this.nomUsuari = nomUsuari;
+    }
+
+    public String getCorreu() {
+        return correu;
+    }
+
+    public void setCorreu(String correu) {
+        this.correu = correu;
     }
 
     public String getContrasenya() {

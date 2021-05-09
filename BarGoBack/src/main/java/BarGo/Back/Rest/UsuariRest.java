@@ -17,11 +17,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.io.*;
-import java.nio.file.Files;
 import java.text.ParseException;
 import java.util.*;
 
@@ -45,7 +43,7 @@ public class UsuariRest {
     @Autowired
     JwtProvider jwtProvider;
 
-    //TODO: CREC QUE NO FARA FALTA AQUESTA PETICIO
+    //TODO: NO FARA FALTA AQUESTA PETICIO
     @RequestMapping(value = "/auth/signup", method = RequestMethod.POST) //Exemple url request: http://localhost:8080/usuaris/auth/signup
     private ResponseEntity<?> signupUsuari(@Valid @RequestBody SignupUsuari signupUsuari){
         if(usuariService.existsByNomUsuari(signupUsuari.getNomUsuari()))
@@ -53,7 +51,7 @@ public class UsuariRest {
         if(signupUsuari.getContrasenya().replaceAll(" ", "").length() < 8)
             return new ResponseEntity<>(new Missatge("La contraseña no es fiable"), HttpStatus.BAD_REQUEST);
 
-        Usuari usuari = new Usuari(signupUsuari.getNomUsuari(), encoder.encode(signupUsuari.getContrasenya()), null);
+        Usuari usuari = new Usuari(signupUsuari.getNomUsuari(), signupUsuari.getCorreu(), encoder.encode(signupUsuari.getContrasenya()), null);
 
         Set<Rol> rols = new HashSet<>();
         if(signupUsuari.getRols().contains("consumidor"))
@@ -98,6 +96,7 @@ public class UsuariRest {
         return new ResponseEntity<>(jwtDtoRefreshed, HttpStatus.OK);
     }
 
+    //TODO: NO FA FALTA
     //@PreAuthorize("hasRole('ROL_ADMIN')") //PER A INDICAR QUI TE AUTORITZACIO A AQUESTA PETICIO, PERO NO FUNCIONA
     @RequestMapping(method = RequestMethod.GET) //Exemple url request: http://localhost:8080/usuaris
     private ResponseEntity<List<Usuari>> getAllUsuaris(){
@@ -122,7 +121,7 @@ public class UsuariRest {
         else
              imatge = Base64.getEncoder().encodeToString(imatgeBytes);
 
-        GetUsuari getUsuari = new GetUsuari(usuari.getId(), usuari.getNomUsuari(), imatge, usuari.getRols()); //Creem DTO usuari sense contrasenya
+        GetUsuari getUsuari = new GetUsuari(usuari.getId(), usuari.getNomUsuari(), usuari.getCorreu(), imatge, usuari.getRols()); //Creem DTO usuari sense contrasenya
 
         return new ResponseEntity<>(getUsuari, HttpStatus.OK);
     }
@@ -143,7 +142,11 @@ public class UsuariRest {
         if(usuariService.existsByNomUsuari(updateUsuari.getNomUsuari()) && !updateUsuari.getNomUsuari().equals(usuariexists.getNomUsuari()))
             return new ResponseEntity<>(new Missatge("El nombre de usuario ya existe"), HttpStatus.CONFLICT);
 
+        if(usuariService.existsByCorreu(updateUsuari.getCorreu()) && !updateUsuari.getCorreu().equals(usuariexists.getCorreu()))
+            return new ResponseEntity<>(new Missatge("El correo ya esta en uso"), HttpStatus.CONFLICT);
+
         usuariexists.setNomUsuari(updateUsuari.getNomUsuari());
+        usuariexists.setCorreu(updateUsuari.getCorreu());
         usuariexists.setContrasenya(encoder.encode(updateUsuari.getContrasenya()));
 
         Usuari usuariupdated = usuariService.save(usuariexists);
