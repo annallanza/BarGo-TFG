@@ -3,8 +3,10 @@ package BarGo.Back.Service;
 import BarGo.Back.Model.Esdeveniment;
 import BarGo.Back.Model.Establiment;
 import BarGo.Back.Model.Propietari;
+import BarGo.Back.Model.Reserva;
 import BarGo.Back.Repository.EsdevenimentInterface;
 import BarGo.Back.Repository.PropietariInterface;
+import BarGo.Back.Repository.ReservaInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
@@ -16,7 +18,6 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 @Transactional //Per mantenir la coherencia a la base de dades, per quan hi ha dos accessos simultanis
@@ -27,6 +28,9 @@ public class PropietariService implements PropietariInterface {
 
     @Autowired
     private EsdevenimentInterface esdevenimentInterface;
+
+    @Autowired
+    private ReservaInterface reservaInterface;
 
     @Override
     public List<Propietari> findAll() {
@@ -57,6 +61,7 @@ public class PropietariService implements PropietariInterface {
     public void deleteById(Long aLong) {
 
         List<Long> IdEsdeveniments = new ArrayList<>();
+        List<Long> IdReserves = new ArrayList<>();
         Optional<Propietari> optionalPropietari = propietariInterface.findById(aLong);
         if(optionalPropietari.isPresent()){
             Propietari propietari = optionalPropietari.get();
@@ -64,12 +69,20 @@ public class PropietariService implements PropietariInterface {
             for(Esdeveniment esdeveniment : propietari.getEstabliment().getEsdeveniments()){
                 IdEsdeveniments.add(esdeveniment.getId());
             }
+
+            for(Reserva reserva : propietari.getEstabliment().getReserves()){
+                IdReserves.add(reserva.getId());
+            }
         }
 
         propietariInterface.deleteById(aLong);
 
         for(long IdEsdeveniment : IdEsdeveniments){
             esdevenimentInterface.deleteById(IdEsdeveniment);
+        }
+
+        for(long IdReserva : IdReserves){
+            reservaInterface.deleteById(IdReserva);
         }
 
     }

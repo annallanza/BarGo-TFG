@@ -49,8 +49,11 @@ public class Establiment {
     @OneToOne(mappedBy = "establiment")
     private Propietari propietari;
 
-    @OneToMany(mappedBy = "establiment") //, cascade = CascadeType.ALL
+    @OneToMany(mappedBy = "establiment")
     private Set<Esdeveniment> esdeveniments;
+
+    @OneToMany(mappedBy = "establiment")
+    private Set<Reserva> reserves;
 
     @ManyToMany(mappedBy = "establimentsVisitats")
     private Set<Consumidor> consumidorsVisitants;
@@ -175,6 +178,14 @@ public class Establiment {
         this.esdeveniments = esdeveniments;
     }
 
+    public Set<Reserva> getReserves() {
+        return reserves;
+    }
+
+    public void setReserves(Set<Reserva> reserves) {
+        this.reserves = reserves;
+    }
+
     public Set<Consumidor> getConsumidorsVisitants() {
         return consumidorsVisitants;
     }
@@ -185,11 +196,12 @@ public class Establiment {
 
     @PreRemove
     public void preRemove(){
-        eliminarLlistaConsumidorsVisitats();
+        eliminarConsumidorsVisitats();
         eliminarEsdeveniments();
+        eliminarReserves();
     }
 
-    public void eliminarLlistaConsumidorsVisitats(){
+    public void eliminarConsumidorsVisitats(){
         for(Consumidor consumidor : this.consumidorsVisitants){
             Set<Establiment> establimentsVisitats = consumidor.getEstablimentsVisitats();
             establimentsVisitats.remove(this);
@@ -206,5 +218,14 @@ public class Establiment {
         }
 
         this.esdeveniments.clear();
+    }
+
+    public void eliminarReserves(){
+
+        for(Reserva reserva : reserves){
+            reserva.setEstabliment(null);
+        }
+
+        this.reserves.clear();
     }
 }

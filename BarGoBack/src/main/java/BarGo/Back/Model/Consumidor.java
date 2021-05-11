@@ -15,6 +15,9 @@ public class Consumidor extends Usuari implements Serializable {
     @JoinTable(name = "consumidor_establiment", joinColumns = @JoinColumn(name = "consumidor_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "establiment_id", referencedColumnName = "id"))
     private Set<Establiment> establimentsVisitats;
 
+    @OneToMany(mappedBy = "consumidor")
+    private Set<Reserva> reserves;
+
     public Consumidor(){
 
     }
@@ -40,8 +43,21 @@ public class Consumidor extends Usuari implements Serializable {
         this.establimentsVisitats = establimentsVisitats;
     }
 
+    public Set<Reserva> getReserves() {
+        return reserves;
+    }
+
+    public void setReserves(Set<Reserva> reserves) {
+        this.reserves = reserves;
+    }
+
     @PreRemove
-    public void eliminarLlistaEstablimentsVisitats(){
+    public void preRemove(){
+        eliminarEstablimentsVisitats();
+        eliminarReserves();
+    }
+
+    public void eliminarEstablimentsVisitats(){
         for(Establiment establiment : this.establimentsVisitats){
             Set<Consumidor> consumidorsVisitants = establiment.getConsumidorsVisitants();
             consumidorsVisitants.remove(this);
@@ -49,5 +65,14 @@ public class Consumidor extends Usuari implements Serializable {
         }
 
         this.establimentsVisitats.clear();
+    }
+
+    public void eliminarReserves(){
+
+        for(Reserva reserva : reserves){
+            reserva.setConsumidor(null);
+        }
+
+        this.reserves.clear();
     }
 }

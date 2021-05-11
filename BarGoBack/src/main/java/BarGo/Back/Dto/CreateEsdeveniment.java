@@ -17,6 +17,7 @@ public class CreateEsdeveniment {
     private String dia;
 
     @NotBlank(message = "La hora no puede ser un valor nulo ni vacío")
+    @Pattern(regexp = "(\\d{2}):(\\d{2}):(\\d{2})", message = "La hora debe tener el formato hh:mm:ss")
     private String hora;
 
     public CreateEsdeveniment() {

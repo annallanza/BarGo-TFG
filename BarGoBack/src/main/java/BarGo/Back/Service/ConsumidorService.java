@@ -1,7 +1,11 @@
 package BarGo.Back.Service;
 
 import BarGo.Back.Model.Consumidor;
+import BarGo.Back.Model.Esdeveniment;
+import BarGo.Back.Model.Propietari;
+import BarGo.Back.Model.Reserva;
 import BarGo.Back.Repository.ConsumidorInterface;
+import BarGo.Back.Repository.ReservaInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
@@ -10,6 +14,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,6 +24,9 @@ public class ConsumidorService implements ConsumidorInterface{
 
     @Autowired
     private ConsumidorInterface consumidorInterface;
+
+    @Autowired
+    private ReservaInterface reservaInterface;
 
     @Override
     public List<Consumidor> findAll() {
@@ -47,7 +55,22 @@ public class ConsumidorService implements ConsumidorInterface{
 
     @Override
     public void deleteById(Long aLong) {
+
+        List<Long> IdReserves = new ArrayList<>();
+        Optional<Consumidor> optionalConsumidor = consumidorInterface.findById(aLong);
+        if(optionalConsumidor.isPresent()){
+            Consumidor consumidor = optionalConsumidor.get();
+
+            for(Reserva reserva : consumidor.getReserves()){
+                IdReserves.add(reserva.getId());
+            }
+        }
+
         consumidorInterface.deleteById(aLong);
+
+        for(long IdReserva : IdReserves){
+            reservaInterface.deleteById(IdReserva);
+        }
     }
 
     @Override
