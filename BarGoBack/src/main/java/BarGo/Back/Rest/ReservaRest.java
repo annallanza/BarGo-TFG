@@ -40,11 +40,11 @@ public class ReservaRest {
 
     @RequestMapping(method = RequestMethod.POST) //Exemple url request: http://localhost:8080/reserves
     private ResponseEntity<?> createReserva(@Valid @RequestBody CreateReserva createReserva, BindingResult bindingResult, @RequestHeader(value="Authorization") String token) throws ParseException {
-        if(!jwtProvider.validateIdToken(createReserva.getId(), token))
-            return new ResponseEntity<>(new Missatge("No tienes acceso al usuario con ese id"), HttpStatus.UNAUTHORIZED);
-
         if(bindingResult.hasErrors())
             return new ResponseEntity<>(new Missatge(Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage()), HttpStatus.BAD_REQUEST);
+
+        if(!jwtProvider.validateIdToken(createReserva.getId(), token))
+            return new ResponseEntity<>(new Missatge("No tienes acceso al usuario con ese id"), HttpStatus.UNAUTHORIZED);
 
         Optional<Consumidor> optionalConsumidor = consumidorService.findById(createReserva.getId());
         if(!optionalConsumidor.isPresent())
@@ -116,12 +116,15 @@ public class ReservaRest {
         if(createReserva.getNumPersones()%4 != 0)
             ++numTotalTaules;
 
-        for(Reserva reserva : llistaReservesEstabliment){ //per a cada reserva de l'establiment, mirar els que estan una hora abans i una hora despres de la hora de reserva
+        for(Reserva reserva : llistaReservesEstabliment){ //per a cada reserva de l'establiment, mirar els que estan aquell dia, una hora abans i una hora despres de la hora de reserva
             Time horaReserva = reserva.getHora();
-            if(horaReserva.after(horaAbans) && horaReserva.before(horaDespres)) {
-                numTotalTaules += reserva.getNumPersones() / 4;
-                if(reserva.getNumPersones() % 4 != 0)
-                    ++numTotalTaules;
+            Date diaReserva = reserva.getDia();
+            if(dia.equals(diaReserva)){
+                if (horaReserva.after(horaAbans) && horaReserva.before(horaDespres)){
+                    numTotalTaules += reserva.getNumPersones() / 4;
+                    if (reserva.getNumPersones() % 4 != 0)
+                        ++numTotalTaules;
+                }
             }
         }
 

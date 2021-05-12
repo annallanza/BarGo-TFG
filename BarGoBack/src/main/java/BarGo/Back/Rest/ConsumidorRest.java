@@ -62,11 +62,11 @@ public class ConsumidorRest {
     //TODO: CREC QUE NO FARA FALTA AQUESTA PETICIO
     @RequestMapping(method = RequestMethod.PUT) //Exemple url request: http://localhost:8080/consumidors
     private ResponseEntity<?> updatePuntuacioConsumidor(@Valid @RequestBody PutConsumidor putConsumidor, BindingResult bindingResult, @RequestHeader(value="Authorization") String token){
-        if(!jwtProvider.validateIdToken(putConsumidor.getId(), token))
-            return new ResponseEntity<>(new Missatge("No tienes acceso al usuario con ese id"), HttpStatus.UNAUTHORIZED);
-
         if(bindingResult.hasErrors())
             return new ResponseEntity<>(new Missatge(Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage()), HttpStatus.BAD_REQUEST);
+
+        if(!jwtProvider.validateIdToken(putConsumidor.getId(), token))
+            return new ResponseEntity<>(new Missatge("No tienes acceso al usuario con ese id"), HttpStatus.UNAUTHORIZED);
 
         Optional<Consumidor> optionalConsumidor = consumidorService.findById(putConsumidor.getId());
         if (!optionalConsumidor.isPresent())

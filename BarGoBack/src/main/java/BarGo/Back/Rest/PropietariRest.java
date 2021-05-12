@@ -110,11 +110,11 @@ public class PropietariRest {
 
     @RequestMapping(method = RequestMethod.PUT) //Exemple url request: http://localhost:8080/propietaris
     private ResponseEntity<?> updatePropietari(@Valid @RequestBody UpdatePropietari updatePropietari, BindingResult bindingResult, @RequestHeader(value="Authorization") String token){
-        if(!jwtProvider.validateIdToken(updatePropietari.getId(), token))
-            return new ResponseEntity<>(new Missatge("No tienes acceso al usuario con ese id"), HttpStatus.UNAUTHORIZED);
-
         if(bindingResult.hasErrors())
             return new ResponseEntity<>(new Missatge(Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage()), HttpStatus.BAD_REQUEST);
+
+        if(!jwtProvider.validateIdToken(updatePropietari.getId(), token))
+            return new ResponseEntity<>(new Missatge("No tienes acceso al usuario con ese id"), HttpStatus.UNAUTHORIZED);
 
         if(updatePropietari.getPaginaWeb() != null && !urlValidator.isValid(updatePropietari.getPaginaWeb()))
             return new ResponseEntity<>(new Missatge("La página web no es válida"), HttpStatus.BAD_REQUEST);

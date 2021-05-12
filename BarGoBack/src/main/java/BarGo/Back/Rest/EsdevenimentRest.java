@@ -75,11 +75,11 @@ public class EsdevenimentRest {
 
     @RequestMapping(method = RequestMethod.POST) //Exemple url request: http://localhost:8080/esdeveniments
     private ResponseEntity<?> createEsdeveniment(@Valid @RequestBody CreateEsdeveniment createEsdeveniment, BindingResult bindingResult, @RequestHeader(value="Authorization") String token) throws ParseException {
-        if(!jwtProvider.validateIdToken(createEsdeveniment.getId(), token))
-            return new ResponseEntity<>(new Missatge("No tienes acceso al usuario con ese id"), HttpStatus.UNAUTHORIZED);
-
         if(bindingResult.hasErrors())
             return new ResponseEntity<>(new Missatge(Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage()), HttpStatus.BAD_REQUEST);
+
+        if(!jwtProvider.validateIdToken(createEsdeveniment.getId(), token))
+            return new ResponseEntity<>(new Missatge("No tienes acceso al usuario con ese id"), HttpStatus.UNAUTHORIZED);
 
         Optional<Propietari> optionalPropietari = propietariService.findById(createEsdeveniment.getId());
 

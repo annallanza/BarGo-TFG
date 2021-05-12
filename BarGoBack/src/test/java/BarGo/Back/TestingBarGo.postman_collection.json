@@ -1477,6 +1477,1161 @@
 									"response": []
 								}
 							]
+						},
+						{
+							"name": "AllReservesConsumidor",
+							"item": [
+								{
+									"name": "AllReservesConsumidor401",
+									"item": [
+										{
+											"name": "AllReservesConsumidorById401IdErroni",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 401\", function () {",
+															"    pm.response.to.have.status(401);",
+															"});",
+															"",
+															"pm.test(\"PuntuacioTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"No tienes acceso al usuario con ese id\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"protocolProfileBehavior": {
+												"disableBodyPruning": true
+											},
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb25zdW1pZG9yIiwicm9scyI6WyJST0xfQ09OU1VNSURPUiJdLCJpZCI6NDAsImlhdCI6MTYyMDc0MTU0NywiZXhwIjoxNjIwODI3OTQ3fQ.M_p0wDmBkc7QkfIIWtKETroRz27k1Lu4v1G2GhZNkBjJXiWzAudOBk8JgZNTMWODNaBQf-WYQh8z1BtW0F0Adw",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/reserves/consumidor/400",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"reserves",
+														"consumidor",
+														"400"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "AllReservesConsumidorById401SenseToken",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 401\", function () {",
+															"    pm.response.to.have.status(401);",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"protocolProfileBehavior": {
+												"disableBodyPruning": true
+											},
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/reserves/consumidor/40",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"reserves",
+														"consumidor",
+														"40"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "AllReservesConsumidorById",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb25zdW1pZG9yIiwicm9scyI6WyJST0xfQ09OU1VNSURPUiJdLCJpZCI6NDAsImlhdCI6MTYyMDc0MTU0NywiZXhwIjoxNjIwODI3OTQ3fQ.M_p0wDmBkc7QkfIIWtKETroRz27k1Lu4v1G2GhZNkBjJXiWzAudOBk8JgZNTMWODNaBQf-WYQh8z1BtW0F0Adw",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/reserves/consumidor/40",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"reserves",
+												"consumidor",
+												"40"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "CreateReserva",
+							"item": [
+								{
+									"name": "CreateReserva401",
+									"item": [
+										{
+											"name": "Reserva401SenseToken",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 401\", function () {",
+															"    pm.response.to.have.status(401);",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"id\": 40, \n    \"idEstabliment\": 14, \n    \"dia\": \"12/05/2021\",\n    \"hora\": \"14:00:00\",\n    \"numPersones\": 7, \n    \"exterior\": false\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/reserves",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"reserves"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Reserva401IdErroni",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 401\", function () {",
+															"    pm.response.to.have.status(401);",
+															"});",
+															"",
+															"pm.test(\"PuntuacioTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"No tienes acceso al usuario con ese id\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb25zdW1pZG9yIiwicm9scyI6WyJST0xfQ09OU1VNSURPUiJdLCJpZCI6NDAsImlhdCI6MTYyMDc0MTU0NywiZXhwIjoxNjIwODI3OTQ3fQ.M_p0wDmBkc7QkfIIWtKETroRz27k1Lu4v1G2GhZNkBjJXiWzAudOBk8JgZNTMWODNaBQf-WYQh8z1BtW0F0Adw",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"id\": 400, \n    \"idEstabliment\": 14, \n    \"dia\": \"12/05/2021\",\n    \"hora\": \"14:00:00\",\n    \"numPersones\": 7, \n    \"exterior\": false\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/reserves",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"reserves"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "CreateReserva400",
+									"item": [
+										{
+											"name": "Reserva400IdNull",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"El id no puede ser un valor nulo\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb25zdW1pZG9yIiwicm9scyI6WyJST0xfQ09OU1VNSURPUiJdLCJpZCI6NDAsImlhdCI6MTYyMDc0MTU0NywiZXhwIjoxNjIwODI3OTQ3fQ.M_p0wDmBkc7QkfIIWtKETroRz27k1Lu4v1G2GhZNkBjJXiWzAudOBk8JgZNTMWODNaBQf-WYQh8z1BtW0F0Adw",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"id\": null, \n    \"idEstabliment\": 14, \n    \"dia\": \"13/05/2021\",\n    \"hora\": \"15:00:00\",\n    \"numPersones\": 7, \n    \"exterior\": false\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/reserves",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"reserves"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Reserva400IdEstablimentNull",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"El id del establecimiento no puede ser un valor nulo\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb25zdW1pZG9yIiwicm9scyI6WyJST0xfQ09OU1VNSURPUiJdLCJpZCI6NDAsImlhdCI6MTYyMDc0MTU0NywiZXhwIjoxNjIwODI3OTQ3fQ.M_p0wDmBkc7QkfIIWtKETroRz27k1Lu4v1G2GhZNkBjJXiWzAudOBk8JgZNTMWODNaBQf-WYQh8z1BtW0F0Adw",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"id\": 40, \n    \"idEstabliment\": null, \n    \"dia\": \"13/05/2021\",\n    \"hora\": \"15:00:00\",\n    \"numPersones\": 7, \n    \"exterior\": false\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/reserves",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"reserves"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Reserva400DiaBuit",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"El día no puede ser un valor nulo ni vacío\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb25zdW1pZG9yIiwicm9scyI6WyJST0xfQ09OU1VNSURPUiJdLCJpZCI6NDAsImlhdCI6MTYyMDc0MTU0NywiZXhwIjoxNjIwODI3OTQ3fQ.M_p0wDmBkc7QkfIIWtKETroRz27k1Lu4v1G2GhZNkBjJXiWzAudOBk8JgZNTMWODNaBQf-WYQh8z1BtW0F0Adw",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"id\": 40, \n    \"idEstabliment\": 14, \n    \"dia\": \"\",\n    \"hora\": \"15:00:00\",\n    \"numPersones\": 7, \n    \"exterior\": false\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/reserves",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"reserves"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Reserva400DiaNull Copy 2",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"El día no puede ser un valor nulo ni vacío\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb25zdW1pZG9yIiwicm9scyI6WyJST0xfQ09OU1VNSURPUiJdLCJpZCI6NDAsImlhdCI6MTYyMDc0MTU0NywiZXhwIjoxNjIwODI3OTQ3fQ.M_p0wDmBkc7QkfIIWtKETroRz27k1Lu4v1G2GhZNkBjJXiWzAudOBk8JgZNTMWODNaBQf-WYQh8z1BtW0F0Adw",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"id\": 40, \n    \"idEstabliment\": 14, \n    \"dia\": null,\n    \"hora\": \"15:00:00\",\n    \"numPersones\": 7, \n    \"exterior\": false\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/reserves",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"reserves"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Reserva400DiaFormatIncorrecte",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"La fecha debe tener el formato dd/mm/yyyy\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb25zdW1pZG9yIiwicm9scyI6WyJST0xfQ09OU1VNSURPUiJdLCJpZCI6NDAsImlhdCI6MTYyMDc0MTU0NywiZXhwIjoxNjIwODI3OTQ3fQ.M_p0wDmBkc7QkfIIWtKETroRz27k1Lu4v1G2GhZNkBjJXiWzAudOBk8JgZNTMWODNaBQf-WYQh8z1BtW0F0Adw",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"id\": 40, \n    \"idEstabliment\": 14, \n    \"dia\": \"13/05/201\",\n    \"hora\": \"15:00:00\",\n    \"numPersones\": 7, \n    \"exterior\": false\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/reserves",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"reserves"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Reserva400HoraNull",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"La hora no puede ser un valor nulo ni vacío\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb25zdW1pZG9yIiwicm9scyI6WyJST0xfQ09OU1VNSURPUiJdLCJpZCI6NDAsImlhdCI6MTYyMDc0MTU0NywiZXhwIjoxNjIwODI3OTQ3fQ.M_p0wDmBkc7QkfIIWtKETroRz27k1Lu4v1G2GhZNkBjJXiWzAudOBk8JgZNTMWODNaBQf-WYQh8z1BtW0F0Adw",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"id\": 40, \n    \"idEstabliment\": 14, \n    \"dia\": \"13/05/2021\",\n    \"hora\": null,\n    \"numPersones\": 7, \n    \"exterior\": false\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/reserves",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"reserves"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Reserva400HoraBuit",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"La hora no puede ser un valor nulo ni vacío\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb25zdW1pZG9yIiwicm9scyI6WyJST0xfQ09OU1VNSURPUiJdLCJpZCI6NDAsImlhdCI6MTYyMDc0MTU0NywiZXhwIjoxNjIwODI3OTQ3fQ.M_p0wDmBkc7QkfIIWtKETroRz27k1Lu4v1G2GhZNkBjJXiWzAudOBk8JgZNTMWODNaBQf-WYQh8z1BtW0F0Adw",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"id\": 40, \n    \"idEstabliment\": 14, \n    \"dia\": \"13/05/2021\",\n    \"hora\": \"\",\n    \"numPersones\": 7, \n    \"exterior\": false\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/reserves",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"reserves"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Reserva400HoraFormatIncorrecte",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"La hora debe tener el formato hh:mm:ss\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb25zdW1pZG9yIiwicm9scyI6WyJST0xfQ09OU1VNSURPUiJdLCJpZCI6NDAsImlhdCI6MTYyMDc0MTU0NywiZXhwIjoxNjIwODI3OTQ3fQ.M_p0wDmBkc7QkfIIWtKETroRz27k1Lu4v1G2GhZNkBjJXiWzAudOBk8JgZNTMWODNaBQf-WYQh8z1BtW0F0Adw",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"id\": 40, \n    \"idEstabliment\": 14, \n    \"dia\": \"13/05/2021\",\n    \"hora\": \"15:00:0\",\n    \"numPersones\": 7, \n    \"exterior\": false\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/reserves",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"reserves"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Reserva400NumPersonesNegatiuo0",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"El número de personas no puede ser un valor negativo\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb25zdW1pZG9yIiwicm9scyI6WyJST0xfQ09OU1VNSURPUiJdLCJpZCI6NDAsImlhdCI6MTYyMDc0MTU0NywiZXhwIjoxNjIwODI3OTQ3fQ.M_p0wDmBkc7QkfIIWtKETroRz27k1Lu4v1G2GhZNkBjJXiWzAudOBk8JgZNTMWODNaBQf-WYQh8z1BtW0F0Adw",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"id\": 40, \n    \"idEstabliment\": 14, \n    \"dia\": \"13/05/2021\",\n    \"hora\": \"15:00:00\",\n    \"numPersones\": 0, \n    \"exterior\": false\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/reserves",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"reserves"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "CreateReserva404",
+									"item": [
+										{
+											"name": "Reserva404IdEstablimentNoExisteix",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 401\", function () {",
+															"    pm.response.to.have.status(404);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"No existe ningun establecimiento con ese id\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb25zdW1pZG9yIiwicm9scyI6WyJST0xfQ09OU1VNSURPUiJdLCJpZCI6NDAsImlhdCI6MTYyMDc0MTU0NywiZXhwIjoxNjIwODI3OTQ3fQ.M_p0wDmBkc7QkfIIWtKETroRz27k1Lu4v1G2GhZNkBjJXiWzAudOBk8JgZNTMWODNaBQf-WYQh8z1BtW0F0Adw",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"id\": 40, \n    \"idEstabliment\": 140, \n    \"dia\": \"12/05/2021\",\n    \"hora\": \"14:00:00\",\n    \"numPersones\": 7, \n    \"exterior\": false\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/reserves",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"reserves"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "CreateReserva409",
+									"item": [
+										{
+											"name": "Reserva409JaExisteixReserva",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 409\", function () {",
+															"    pm.response.to.have.status(409);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"Ya tienes una reserva para ese día y hora\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb25zdW1pZG9yIiwicm9scyI6WyJST0xfQ09OU1VNSURPUiJdLCJpZCI6NDAsImlhdCI6MTYyMDc0MTU0NywiZXhwIjoxNjIwODI3OTQ3fQ.M_p0wDmBkc7QkfIIWtKETroRz27k1Lu4v1G2GhZNkBjJXiWzAudOBk8JgZNTMWODNaBQf-WYQh8z1BtW0F0Adw",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"id\": 40, \n    \"idEstabliment\": 14, \n    \"dia\": \"12/05/2021\",\n    \"hora\": \"14:30:00\",\n    \"numPersones\": 7, \n    \"exterior\": false\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/reserves",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"reserves"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Reserva409EstablimentSenseExterior",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 409\", function () {",
+															"    pm.response.to.have.status(409);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"El establecimiento no ofrece reservas en el exterior\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb25zdW1pZG9yIiwicm9scyI6WyJST0xfQ09OU1VNSURPUiJdLCJpZCI6NDAsImlhdCI6MTYyMDc0MTU0NywiZXhwIjoxNjIwODI3OTQ3fQ.M_p0wDmBkc7QkfIIWtKETroRz27k1Lu4v1G2GhZNkBjJXiWzAudOBk8JgZNTMWODNaBQf-WYQh8z1BtW0F0Adw",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"id\": 40, \n    \"idEstabliment\": 14, \n    \"dia\": \"12/05/2021\",\n    \"hora\": \"14:45:00\",\n    \"numPersones\": 7, \n    \"exterior\": true\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/reserves",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"reserves"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Reserva409ForaHorari",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 409\", function () {",
+															"    pm.response.to.have.status(409);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"El establecimiento no está abierto a esta hora\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb25zdW1pZG9yIiwicm9scyI6WyJST0xfQ09OU1VNSURPUiJdLCJpZCI6NDAsImlhdCI6MTYyMDc0MTU0NywiZXhwIjoxNjIwODI3OTQ3fQ.M_p0wDmBkc7QkfIIWtKETroRz27k1Lu4v1G2GhZNkBjJXiWzAudOBk8JgZNTMWODNaBQf-WYQh8z1BtW0F0Adw",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"id\": 40, \n    \"idEstabliment\": 14, \n    \"dia\": \"12/05/2021\",\n    \"hora\": \"19:45:00\",\n    \"numPersones\": 7, \n    \"exterior\": false\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/reserves",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"reserves"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Reserva409EstablimentPle",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 409\", function () {",
+															"    pm.response.to.have.status(409);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"No se puede hacer una reserva para ese día y hora, el establecimiento está lleno\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb25zdW1pZG9yIiwicm9scyI6WyJST0xfQ09OU1VNSURPUiJdLCJpZCI6NDAsImlhdCI6MTYyMDc0MTU0NywiZXhwIjoxNjIwODI3OTQ3fQ.M_p0wDmBkc7QkfIIWtKETroRz27k1Lu4v1G2GhZNkBjJXiWzAudOBk8JgZNTMWODNaBQf-WYQh8z1BtW0F0Adw",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"id\": 40, \n    \"idEstabliment\": 14, \n    \"dia\": \"12/05/2021\",\n    \"hora\": \"14:00:00\",\n    \"numPersones\": 7, \n    \"exterior\": false\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/reserves",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"reserves"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "Reserva201",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 201\", function () {",
+													"    pm.response.to.have.status(201);",
+													"});",
+													"",
+													"pm.test(\"MissatgeErrorTest\", function () {",
+													"    missatge = pm.response.json().missatge;",
+													"    pm.expect(missatge).to.equal(\"La reserva se ha creado correctamente\");",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb25zdW1pZG9yIiwicm9scyI6WyJST0xfQ09OU1VNSURPUiJdLCJpZCI6NDAsImlhdCI6MTYyMDc0MTU0NywiZXhwIjoxNjIwODI3OTQ3fQ.M_p0wDmBkc7QkfIIWtKETroRz27k1Lu4v1G2GhZNkBjJXiWzAudOBk8JgZNTMWODNaBQf-WYQh8z1BtW0F0Adw",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"id\": 40, \n    \"idEstabliment\": 14, \n    \"dia\": \"13/05/2021\",\n    \"hora\": \"15:00:00\",\n    \"numPersones\": 7, \n    \"exterior\": false\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/reserves",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"reserves"
+											]
+										}
+									},
+									"response": []
+								}
+							]
 						}
 					]
 				},
@@ -5203,6 +6358,189 @@
 									"response": []
 								}
 							]
+						},
+						{
+							"name": "AllReservesEstablimentPropietari",
+							"item": [
+								{
+									"name": "AllReservesEstablimentPropietari401",
+									"item": [
+										{
+											"name": "AllReservesEstablimentPropietari401IdErroni",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 401\", function () {",
+															"    pm.response.to.have.status(401);",
+															"});",
+															"",
+															"pm.test(\"PuntuacioTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"No tienes acceso al usuario con ese id\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"protocolProfileBehavior": {
+												"disableBodyPruning": true
+											},
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9waWV0YXJpQW5uYSIsInJvbHMiOlsiUk9MX1BST1BJRVRBUkkiXSwiaWQiOjM0LCJpYXQiOjE2MjA3NDM4NzIsImV4cCI6MTYyMDgzMDI3Mn0.QO4sE97wHxRnI6spgvmkGcTGBh0YMVudkguYKx8WErGCkGX-r7XVmfx6f_m1GAeu-LEhHiOD_tZ_Vg4i_gaH-Q",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/reserves/propietari/340",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"reserves",
+														"propietari",
+														"340"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "AllReservesEstablimentPropietari401SenseToken",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 401\", function () {",
+															"    pm.response.to.have.status(401);",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"protocolProfileBehavior": {
+												"disableBodyPruning": true
+											},
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/reserves/propietari/34",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"reserves",
+														"propietari",
+														"34"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "AllReservesEstablimentPropietariById",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9waWV0YXJpQW5uYSIsInJvbHMiOlsiUk9MX1BST1BJRVRBUkkiXSwiaWQiOjM0LCJpYXQiOjE2MjA3NDM4NzIsImV4cCI6MTYyMDgzMDI3Mn0.QO4sE97wHxRnI6spgvmkGcTGBh0YMVudkguYKx8WErGCkGX-r7XVmfx6f_m1GAeu-LEhHiOD_tZ_Vg4i_gaH-Q",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/reserves/propietari/34",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"reserves",
+												"propietari",
+												"34"
+											]
+										}
+									},
+									"response": []
+								}
+							]
 						}
 					]
 				},
@@ -6350,6 +7688,296 @@
 									"path": [
 										"usuaris",
 										"12"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "DeleteReservaById",
+					"item": [
+						{
+							"name": "DeleteReservaById401",
+							"item": [
+								{
+									"name": "ReservaById401SenseToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 401\", function () {",
+													"    pm.response.to.have.status(401);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/reserves/13",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"reserves",
+												"13"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "ReservaById401IdConsumidorErroni",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 401\", function () {",
+													"    pm.response.to.have.status(401);",
+													"});",
+													"",
+													"pm.test(\"MissatgeErrorTest\", function () {",
+													"    missatge = pm.response.json().missatge;",
+													"    pm.expect(missatge).to.equal(\"No tienes acceso a la reserva con ese id\");",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb25zdW1pZG9yIiwicm9scyI6WyJST0xfQ09OU1VNSURPUiJdLCJpZCI6NDAsImlhdCI6MTYyMDgxMjI0NiwiZXhwIjoxNjIwODk4NjQ2fQ.f3Q5dL3VseJavE6BA22S5jhWlwn37I0cj7kByOsaNEDiaXK9A9TWhdSxIv_oYWhkd6GEkRQb2Hcfft4ZuxhBfw",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/reserves/16",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"reserves",
+												"16"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "ReservaById401IdPropietariErroni",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 401\", function () {",
+													"    pm.response.to.have.status(401);",
+													"});",
+													"",
+													"pm.test(\"MissatgeErrorTest\", function () {",
+													"    missatge = pm.response.json().missatge;",
+													"    pm.expect(missatge).to.equal(\"No tienes acceso a la reserva con ese id\");",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBbm5hIiwicm9scyI6WyJST0xfUFJPUElFVEFSSSJdLCJpZCI6MzcsImlhdCI6MTYyMDgxMjMxOSwiZXhwIjoxNjIwODk4NzE5fQ.jKYdN1mXSENC9lZZxJtjPXb8vccBGCHJqJh0ThsBcRJGo8NY8TvhIKb0OH33BcA1uRhw49o2xpyIF-pEHvQDKg",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/reserves/16",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"reserves",
+												"16"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "ReservaById",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"MissatgeErrorTest\", function () {",
+											"    missatge = pm.response.json().missatge;",
+											"    pm.expect(missatge).to.equal(\"Se ha eliminado la reserva\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9waWV0YXJpQW5uYSIsInJvbHMiOlsiUk9MX1BST1BJRVRBUkkiXSwiaWQiOjM0LCJpYXQiOjE2MjA3NDM4NzIsImV4cCI6MTYyMDgzMDI3Mn0.QO4sE97wHxRnI6spgvmkGcTGBh0YMVudkguYKx8WErGCkGX-r7XVmfx6f_m1GAeu-LEhHiOD_tZ_Vg4i_gaH-Q",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/reserves/16",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"reserves",
+										"16"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ReservaById404",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404\", function () {",
+											"    pm.response.to.have.status(404);",
+											"});",
+											"",
+											"pm.test(\"MissatgeErrorTest\", function () {",
+											"    missatge = pm.response.json().missatge;",
+											"    pm.expect(missatge).to.equal(\"No existe ninguna reserva con ese id\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9waWV0YXJpQW5uYSIsInJvbHMiOlsiUk9MX1BST1BJRVRBUkkiXSwiaWQiOjM0LCJpYXQiOjE2MjA3NDM4NzIsImV4cCI6MTYyMDgzMDI3Mn0.QO4sE97wHxRnI6spgvmkGcTGBh0YMVudkguYKx8WErGCkGX-r7XVmfx6f_m1GAeu-LEhHiOD_tZ_Vg4i_gaH-Q",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/reserves/130",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"reserves",
+										"130"
 									]
 								}
 							},

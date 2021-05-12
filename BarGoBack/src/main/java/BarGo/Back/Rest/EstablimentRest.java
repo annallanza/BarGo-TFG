@@ -114,11 +114,11 @@ public class EstablimentRest {
 
     @RequestMapping(method = RequestMethod.PUT) //Exemple url request: http://localhost:8080/establiments
     private ResponseEntity<?> updateOcupacioEstablimentByIdPropietari(@Valid @RequestBody UpdateOcupacio updateOcupacio, BindingResult bindingResult, @RequestHeader(value="Authorization") String token){
-        if(!jwtProvider.validateIdToken(updateOcupacio.getId(), token))
-            return new ResponseEntity<>(new Missatge("No tienes acceso al usuario con ese id"), HttpStatus.UNAUTHORIZED);
-
         if(bindingResult.hasErrors())
             return new ResponseEntity<>(new Missatge(Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage()), HttpStatus.BAD_REQUEST);
+
+        if(!jwtProvider.validateIdToken(updateOcupacio.getId(), token))
+            return new ResponseEntity<>(new Missatge("No tienes acceso al usuario con ese id"), HttpStatus.UNAUTHORIZED);
 
         Optional<Propietari> optionalPropietari = propietariService.findById(updateOcupacio.getId());
         if (!optionalPropietari.isPresent())

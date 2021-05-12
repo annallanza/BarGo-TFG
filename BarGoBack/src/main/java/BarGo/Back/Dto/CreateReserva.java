@@ -18,7 +18,7 @@ public class CreateReserva {
     @Pattern(regexp = "(\\d{2}):(\\d{2}):(\\d{2})", message = "La hora debe tener el formato hh:mm:ss")
     private String hora;
 
-    @Positive(message = "El numero de personas no puede ser un valor negativo")
+    @Positive(message = "El número de personas no puede ser un valor negativo")
     private int numPersones;
 
     @NotNull(message = "Exterior no puede ser un valor nulo")
