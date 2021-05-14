@@ -12,10 +12,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:gravity="center"
         android:text="@string/modificar_ocupaci_n"
         android:textColor="#323131"
-        android:textSize="32sp"
+        android:textSize="36sp"
+        app:autoSizeMaxTextSize="36sp"
         android:textStyle="bold"
         android:autoSizeTextType="uniform"
         android:maxLines="1"
@@ -28,7 +28,7 @@
         android:id="@+id/ScrollViewOcupacio"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toTopOf="@+id/buttonGuardarCanvis2"
         app:layout_constraintEnd_toEndOf="parent"
@@ -53,12 +53,16 @@
                 android:layout_marginLeft="50dp"
                 android:layout_marginEnd="50dp"
                 android:layout_marginRight="50dp"
+                android:autoSizeTextType="uniform"
+                android:maxLines="1"
                 android:text="@string/interior_"
                 android:textColor="#000000"
-                android:textSize="20sp"
+                android:textSize="18sp"
+                app:autoSizeMaxTextSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:targetApi="o" />
 
             <RadioGroup
                 android:id="@+id/radioGroupInterior"
@@ -66,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="50dp"
                 android:layout_marginLeft="50dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="50dp"
                 android:layout_marginRight="50dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -78,25 +82,40 @@
                     android:id="@+id/radioButtonLlenoInterior"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:autoSizeTextType="uniform"
+                    android:maxLines="1"
                     android:padding="15dp"
                     android:text="@string/lleno"
-                    android:textSize="18sp" />
+                    android:textColor="#000000"
+                    android:textSize="17sp"
+                    app:autoSizeMaxTextSize="17sp"
+                    tools:targetApi="o" />
 
                 <RadioButton
                     android:id="@+id/radioButtonMedioLlenoInterior"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:autoSizeTextType="uniform"
+                    android:maxLines="1"
                     android:padding="15dp"
                     android:text="@string/medio_lleno"
-                    android:textSize="18sp" />
+                    android:textColor="#000000"
+                    android:textSize="17sp"
+                    app:autoSizeMaxTextSize="17sp"
+                    tools:targetApi="o" />
 
                 <RadioButton
                     android:id="@+id/radioButtonVacioInterior"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:autoSizeTextType="uniform"
+                    android:maxLines="1"
                     android:padding="15dp"
                     android:text="@string/vac_o"
-                    android:textSize="18sp" />
+                    android:textColor="#000000"
+                    android:textSize="17sp"
+                    app:autoSizeMaxTextSize="17sp"
+                    tools:targetApi="o" />
             </RadioGroup>
 
             <TextView
@@ -108,13 +127,17 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="50dp"
                 android:layout_marginRight="50dp"
+                android:autoSizeTextType="uniform"
+                android:maxLines="1"
                 android:text="@string/exterior"
                 android:textColor="#000000"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:visibility="gone"
+                app:autoSizeMaxTextSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/radioGroupInterior" />
+                app:layout_constraintTop_toBottomOf="@id/radioGroupInterior"
+                tools:targetApi="o" />
 
             <RadioGroup
                 android:id="@+id/radioGroupExterior"
@@ -122,7 +145,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="50dp"
                 android:layout_marginLeft="50dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="50dp"
                 android:layout_marginRight="50dp"
                 android:visibility="gone"
@@ -135,27 +158,41 @@
                     android:id="@+id/radioButtonLlenoExterior"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:autoSizeTextType="uniform"
+                    android:maxLines="1"
                     android:padding="15dp"
                     android:text="@string/lleno"
-                    android:textSize="18sp" />
+                    android:textColor="#000000"
+                    android:textSize="17sp"
+                    app:autoSizeMaxTextSize="17sp"
+                    tools:targetApi="o" />
 
                 <RadioButton
                     android:id="@+id/radioButtonMedioLlenoExterior"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:autoSizeTextType="uniform"
+                    android:maxLines="1"
                     android:padding="15dp"
                     android:text="@string/medio_lleno"
-                    android:textSize="18sp" />
+                    android:textColor="#000000"
+                    android:textSize="17sp"
+                    app:autoSizeMaxTextSize="17sp"
+                    tools:targetApi="o" />
 
                 <RadioButton
                     android:id="@+id/radioButtonVacioExterior"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:autoSizeTextType="uniform"
+                    android:maxLines="1"
                     android:padding="15dp"
                     android:text="@string/vac_o"
-                    android:textSize="18sp" />
+                    android:textColor="#000000"
+                    android:textSize="17sp"
+                    app:autoSizeMaxTextSize="17sp"
+                    tools:targetApi="o" />
             </RadioGroup>
-
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

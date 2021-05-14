@@ -61,7 +61,12 @@ public class NouEsdevenimentActivity extends AppCompatActivity {
             public void onClick(View v) {
                 crear.setEnabled(false);
                 progressDialog.show();
-                CreateEsdeveniment(nom.getText().toString(), dia.getText().toString(), hora.getText().toString() + ":00");
+
+                String horaEsdeveniment = hora.getText().toString();
+                if(horaEsdeveniment.length() <= 5)
+                    horaEsdeveniment += ":00";
+
+                CreateEsdeveniment(nom.getText().toString(), dia.getText().toString(), horaEsdeveniment);
             }
         });
     }
@@ -132,7 +137,6 @@ public class NouEsdevenimentActivity extends AppCompatActivity {
     public void CreateEsdeveniment(final String nomEsdeveniment, final String diaEsdeveniment, final String horaEsdeveniment){
         String url = VariablesGlobals.getUrlAPI() + "esdeveniments/";
 
-        System.out.println("ID PROPIETARI: " + propietari.getId());
         JSONObject postData = new JSONObject();
         try {
             postData.put("id", propietari.getId());

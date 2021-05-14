@@ -236,9 +236,9 @@ public class ListEstablimentsFragment extends Fragment {
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
             View view = getLayoutInflater().inflate(R.layout.establiment_item_list, null);
-            TextView nomEstabliment = view.findViewById(R.id.barNameText);
+            TextView nomEstabliment = view.findViewById(R.id.nomEstablimentText);
             ImageView imatgeEstabliment = view.findViewById(R.id.barImage);
-            TextView direccioEstabliment = view.findViewById(R.id.adressText);
+            TextView direccioEstabliment = view.findViewById(R.id.direccioText);
             CheckBox visitatEstabliment = view.findViewById(R.id.visitedCheckBox);
             Button infoButton = view.findViewById(R.id.infoButton);
 

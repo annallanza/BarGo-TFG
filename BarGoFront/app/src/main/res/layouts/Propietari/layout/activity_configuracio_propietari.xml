@@ -11,16 +11,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
+        android:autoSizeTextType="uniform"
+        android:maxLines="1"
         android:text="@string/configuraci_n"
         android:textColor="#323131"
         android:textSize="36sp"
         android:textStyle="bold"
-        android:autoSizeTextType="uniform"
-        android:maxLines="1"
-        tools:targetApi="o"
+        app:autoSizeMaxTextSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:targetApi="o" />
 
     <TextView
         android:id="@+id/textViewLogout2"
@@ -30,6 +31,7 @@
         android:text="@string/quieres_cerrar_la_sesi_n"
         android:textColor="#000000"
         android:textSize="18sp"
+        app:autoSizeMaxTextSize="18sp"
         android:autoSizeTextType="uniform"
         android:maxLines="1"
         tools:targetApi="o"
@@ -45,6 +47,7 @@
         android:text="@string/quieres_eliminar_tu_cuenta"
         android:textColor="#000000"
         android:textSize="18sp"
+        app:autoSizeMaxTextSize="18sp"
         android:autoSizeTextType="uniform"
         android:maxLines="1"
         tools:targetApi="o"

@@ -54,6 +54,7 @@
         android:text="@string/modificar_datos"
         android:textColor="#323131"
         android:textSize="36sp"
+        app:autoSizeMaxTextSize="36sp"
         android:textStyle="bold"
         android:autoSizeTextType="uniform"
         android:maxLines="1"
@@ -65,7 +66,7 @@
         android:id="@+id/ScrollViewModificarDades"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toTopOf="@+id/buttonGuardarCanvis"
         app:layout_constraintEnd_toEndOf="parent"
@@ -87,15 +88,16 @@
                 android:layout_marginLeft="50dp"
                 android:layout_marginEnd="50dp"
                 android:layout_marginRight="50dp"
+                android:autoSizeTextType="uniform"
+                android:maxLines="1"
                 android:text="@string/nombre_usuario_"
                 android:textColor="#000000"
                 android:textSize="18sp"
-                android:autoSizeTextType="uniform"
-                android:maxLines="1"
-                tools:targetApi="o"
+                app:autoSizeMaxTextSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:targetApi="o" />
 
             <EditText
                 android:id="@+id/editTextNombreUsuario"
@@ -106,14 +108,19 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="50dp"
                 android:layout_marginRight="50dp"
+                android:autoSizeTextType="uniform"
                 android:autofillHints=""
                 android:ems="10"
                 android:hint="@string/nombre_usuario"
                 android:inputType="text"
+                android:maxLines="1"
                 android:text=""
+                android:textSize="18sp"
+                app:autoSizeMaxTextSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textViewNomUsuari2" />
+                app:layout_constraintTop_toBottomOf="@id/textViewNomUsuari2"
+                tools:targetApi="o" />
 
             <TextView
                 android:id="@+id/textViewCorreu"
@@ -129,6 +136,7 @@
                 android:text="@string/correo_electronico_"
                 android:textColor="#000000"
                 android:textSize="18sp"
+                app:autoSizeMaxTextSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/editTextNombreUsuario"
@@ -143,14 +151,19 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="50dp"
                 android:layout_marginRight="50dp"
+                android:autoSizeTextType="uniform"
                 android:autofillHints=""
                 android:ems="10"
                 android:hint="@string/correo_electronico"
                 android:inputType="text"
+                android:maxLines="1"
                 android:text=""
+                android:textSize="18sp"
+                app:autoSizeMaxTextSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textViewCorreu" />
+                app:layout_constraintTop_toBottomOf="@id/textViewCorreu"
+                tools:targetApi="o" />
 
             <TextView
                 android:id="@+id/textViewContrasenyaActual2"
@@ -161,15 +174,16 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="50dp"
                 android:layout_marginRight="50dp"
+                android:autoSizeTextType="uniform"
+                android:maxLines="1"
                 android:text="@string/contrase_a_nueva_"
                 android:textColor="#000000"
                 android:textSize="18sp"
-                android:autoSizeTextType="uniform"
-                android:maxLines="1"
-                tools:targetApi="o"
+                app:autoSizeMaxTextSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/editTextCorreu" />
+                app:layout_constraintTop_toBottomOf="@id/editTextCorreu"
+                tools:targetApi="o" />
 
             <EditText
                 android:id="@+id/editTextContraNova"
@@ -180,14 +194,19 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="50dp"
                 android:layout_marginRight="50dp"
+                android:autoSizeTextType="uniform"
                 android:autofillHints=""
                 android:ems="10"
                 android:hint="@string/contrase_a_nueva"
                 android:inputType="text|textPassword"
+                android:maxLines="1"
                 android:text=""
+                android:textSize="18sp"
+                app:autoSizeMaxTextSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewContrasenyaActual2" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewContrasenyaActual2"
+                tools:targetApi="o" />
 
             <TextView
                 android:id="@+id/textViewConfirmarContrasenyaNova2"
@@ -198,15 +217,16 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="50dp"
                 android:layout_marginRight="50dp"
+                android:autoSizeTextType="uniform"
+                android:maxLines="1"
                 android:text="@string/confirma_contrase_a_nueva_"
                 android:textColor="#000000"
                 android:textSize="18sp"
-                android:autoSizeTextType="uniform"
-                android:maxLines="1"
-                tools:targetApi="o"
+                app:autoSizeMaxTextSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/editTextContraNova" />
+                app:layout_constraintTop_toBottomOf="@id/editTextContraNova"
+                tools:targetApi="o" />
 
             <EditText
                 android:id="@+id/editTextConfirmaContraNova"
@@ -215,14 +235,19 @@
                 android:layout_marginLeft="50dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="50dp"
+                android:autoSizeTextType="uniform"
                 android:autofillHints=""
                 android:ems="10"
                 android:hint="@string/contrase_a_nueva"
                 android:inputType="textPassword"
+                android:maxLines="1"
                 android:text=""
+                android:textSize="18sp"
+                app:autoSizeMaxTextSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewConfirmarContrasenyaNova2" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewConfirmarContrasenyaNova2"
+                tools:targetApi="o" />
 
             <CheckBox
                 android:id="@+id/checkBoxContraseña2"
@@ -234,6 +259,8 @@
                 android:layout_marginEnd="50dp"
                 android:layout_marginRight="50dp"
                 android:text="@string/ver_contraseña"
+                android:textColor="#000000"
+                android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/editTextConfirmaContraNova" />
@@ -247,15 +274,16 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="50dp"
                 android:layout_marginRight="50dp"
+                android:autoSizeTextType="uniform"
+                android:maxLines="1"
                 android:text="@string/nombre_establecimiento_"
                 android:textColor="#000000"
                 android:textSize="18sp"
-                android:autoSizeTextType="uniform"
-                android:maxLines="1"
-                tools:targetApi="o"
+                app:autoSizeMaxTextSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/checkBoxContraseña2" />
+                app:layout_constraintTop_toBottomOf="@id/checkBoxContraseña2"
+                tools:targetApi="o" />
 
             <EditText
                 android:id="@+id/editTextNomEstabliment"
@@ -264,14 +292,19 @@
                 android:layout_marginLeft="50dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="50dp"
+                android:autoSizeTextType="uniform"
                 android:autofillHints=""
                 android:ems="10"
                 android:hint="@string/nombre_establecimiento"
                 android:inputType="text"
+                android:maxLines="1"
                 android:text=""
+                android:textSize="18sp"
+                app:autoSizeMaxTextSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewNomEstabliment" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewNomEstabliment"
+                tools:targetApi="o" />
 
             <TextView
                 android:id="@+id/textViewDireccio"
@@ -282,15 +315,16 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="50dp"
                 android:layout_marginRight="50dp"
+                android:autoSizeTextType="uniform"
+                android:maxLines="1"
                 android:text="@string/direccion_"
                 android:textColor="#000000"
                 android:textSize="18sp"
-                android:autoSizeTextType="uniform"
-                android:maxLines="1"
-                tools:targetApi="o"
+                app:autoSizeMaxTextSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/editTextNomEstabliment" />
+                app:layout_constraintTop_toBottomOf="@id/editTextNomEstabliment"
+                tools:targetApi="o" />
 
             <EditText
                 android:id="@+id/editTextDireccio"
@@ -301,14 +335,19 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="50dp"
                 android:layout_marginRight="50dp"
+                android:autoSizeTextType="uniform"
                 android:autofillHints=""
                 android:ems="10"
                 android:hint="@string/direcci_n"
                 android:inputType="text"
+                android:maxLines="1"
                 android:text=""
+                android:textSize="18sp"
+                app:autoSizeMaxTextSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewDireccio" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewDireccio"
+                tools:targetApi="o" />
 
             <CheckBox
                 android:id="@+id/checkBoxExterior"
@@ -331,15 +370,16 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="50dp"
                 android:layout_marginRight="50dp"
+                android:autoSizeTextType="uniform"
+                android:maxLines="1"
                 android:text="@string/n_mero_de_sillas_"
                 android:textColor="#000000"
                 android:textSize="18sp"
-                android:autoSizeTextType="uniform"
-                android:maxLines="1"
-                tools:targetApi="o"
+                app:autoSizeMaxTextSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/checkBoxExterior" />
+                app:layout_constraintTop_toBottomOf="@id/checkBoxExterior"
+                tools:targetApi="o" />
 
             <EditText
                 android:id="@+id/editTextNumCadires"
@@ -350,14 +390,19 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="50dp"
                 android:layout_marginRight="50dp"
+                android:autoSizeTextType="uniform"
                 android:autofillHints=""
                 android:ems="10"
                 android:hint="@string/n_mero_de_sillas"
                 android:inputType="number"
+                android:maxLines="1"
                 android:text=""
+                android:textSize="18sp"
+                app:autoSizeMaxTextSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewNumeroSillas" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewNumeroSillas"
+                tools:targetApi="o" />
 
             <TextView
                 android:id="@+id/textViewNumeroTaules"
@@ -368,15 +413,16 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="50dp"
                 android:layout_marginRight="50dp"
+                android:autoSizeTextType="uniform"
+                android:maxLines="1"
                 android:text="@string/n_mero_de_mesas_"
                 android:textColor="#000000"
                 android:textSize="18sp"
-                android:autoSizeTextType="uniform"
-                android:maxLines="1"
-                tools:targetApi="o"
+                app:autoSizeMaxTextSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/editTextNumCadires" />
+                app:layout_constraintTop_toBottomOf="@id/editTextNumCadires"
+                tools:targetApi="o" />
 
             <EditText
                 android:id="@+id/editTextNumTaules"
@@ -385,14 +431,19 @@
                 android:layout_marginLeft="50dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="50dp"
+                android:autoSizeTextType="uniform"
                 android:autofillHints=""
                 android:ems="10"
                 android:hint="@string/n_mero_de_mesas"
                 android:inputType="number"
+                android:maxLines="1"
                 android:text=""
+                android:textSize="18sp"
+                app:autoSizeMaxTextSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewNumeroTaules" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewNumeroTaules"
+                tools:targetApi="o" />
 
             <TextView
                 android:id="@+id/textViewHorari"
@@ -403,15 +454,16 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginRight="10dp"
+                android:autoSizeTextType="uniform"
+                android:maxLines="1"
                 android:text="@string/horario_"
                 android:textColor="#000000"
                 android:textSize="18sp"
-                android:autoSizeTextType="uniform"
-                android:maxLines="1"
-                tools:targetApi="o"
+                app:autoSizeMaxTextSize="18sp"
                 app:layout_constraintEnd_toStartOf="@id/buttonMES"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/editTextNumTaules" />
+                app:layout_constraintTop_toBottomOf="@id/editTextNumTaules"
+                tools:targetApi="o" />
 
             <Button
                 android:id="@+id/buttonMES"
@@ -454,28 +506,37 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginRight="10dp"
+                android:autoSizeTextType="uniform"
                 android:autofillHints=""
                 android:ems="10"
                 android:focusable="false"
                 android:hint="@string/horario"
                 android:inputType="text|time"
+                android:maxLines="1"
+                android:textSize="18sp"
                 android:visibility="visible"
+                app:autoSizeMaxTextSize="18sp"
                 app:layout_constraintEnd_toStartOf="@+id/textViewGuio"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewHorari" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewHorari"
+                tools:targetApi="o" />
 
             <TextView
                 android:id="@+id/textViewGuio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:autoSizeTextType="uniform"
+                android:maxLines="1"
                 android:text="@string/guio"
                 android:textColor="#000000"
                 android:textSize="18sp"
                 android:visibility="visible"
+                app:autoSizeMaxTextSize="18sp"
                 app:layout_constraintEnd_toStartOf="@id/editTextHorari2"
                 app:layout_constraintStart_toEndOf="@id/editTextHorari"
-                app:layout_constraintTop_toBottomOf="@id/textViewHorari" />
+                app:layout_constraintTop_toBottomOf="@id/textViewHorari"
+                tools:targetApi="o" />
 
             <EditText
                 android:id="@+id/editTextHorari2"
@@ -486,15 +547,20 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="50dp"
                 android:layout_marginRight="50dp"
+                android:autoSizeTextType="uniform"
                 android:autofillHints=""
                 android:ems="10"
                 android:focusable="false"
                 android:hint="@string/horario"
                 android:inputType="text|time"
+                android:maxLines="1"
+                android:textSize="18sp"
                 android:visibility="visible"
+                app:autoSizeMaxTextSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/textViewGuio"
-                app:layout_constraintTop_toBottomOf="@id/textViewHorari" />
+                app:layout_constraintTop_toBottomOf="@id/textViewHorari"
+                tools:targetApi="o" />
 
             <EditText
                 android:id="@+id/editTextHorari3"
@@ -505,29 +571,38 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginRight="10dp"
+                android:autoSizeTextType="uniform"
                 android:autofillHints=""
                 android:ems="10"
                 android:focusable="false"
                 android:hint="@string/horario"
                 android:inputType="text|time"
+                android:maxLines="1"
+                android:textSize="18sp"
                 android:visibility="gone"
+                app:autoSizeMaxTextSize="18sp"
                 app:layout_constraintEnd_toStartOf="@+id/textViewGuio"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextHorari" />
+                app:layout_constraintTop_toBottomOf="@+id/editTextHorari"
+                tools:targetApi="o" />
 
             <TextView
                 android:id="@+id/textViewGuio2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:autoSizeTextType="uniform"
+                android:maxLines="1"
                 android:text="@string/guio"
                 android:textColor="#000000"
                 android:textSize="18sp"
                 android:visibility="gone"
+                app:autoSizeMaxTextSize="18sp"
                 app:layout_constraintEnd_toStartOf="@id/editTextHorari2"
                 app:layout_constraintStart_toEndOf="@id/editTextHorari"
-                app:layout_constraintTop_toBottomOf="@id/editTextHorari" />
+                app:layout_constraintTop_toBottomOf="@id/editTextHorari"
+                tools:targetApi="o" />
 
             <EditText
                 android:id="@+id/editTextHorari4"
@@ -538,15 +613,20 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="50dp"
                 android:layout_marginRight="50dp"
+                android:autoSizeTextType="uniform"
                 android:autofillHints=""
                 android:ems="10"
                 android:focusable="false"
                 android:hint="@string/horario"
                 android:inputType="text|time"
+                android:maxLines="1"
+                android:textSize="18sp"
                 android:visibility="gone"
+                app:autoSizeMaxTextSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/textViewGuio"
-                app:layout_constraintTop_toBottomOf="@id/editTextHorari" />
+                app:layout_constraintTop_toBottomOf="@id/editTextHorari"
+                tools:targetApi="o" />
 
             <EditText
                 android:id="@+id/editTextHorari5"
@@ -557,29 +637,38 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginRight="10dp"
+                android:autoSizeTextType="uniform"
                 android:autofillHints=""
                 android:ems="10"
                 android:focusable="false"
                 android:hint="@string/horario"
                 android:inputType="text|time"
+                android:maxLines="1"
+                android:textSize="18sp"
                 android:visibility="gone"
+                app:autoSizeMaxTextSize="18sp"
                 app:layout_constraintEnd_toStartOf="@+id/textViewGuio"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextHorari3" />
+                app:layout_constraintTop_toBottomOf="@+id/editTextHorari3"
+                tools:targetApi="o" />
 
             <TextView
                 android:id="@+id/textViewGuio3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:autoSizeTextType="uniform"
+                android:maxLines="1"
                 android:text="@string/guio"
                 android:textColor="#000000"
                 android:textSize="18sp"
                 android:visibility="gone"
+                app:autoSizeMaxTextSize="18sp"
                 app:layout_constraintEnd_toStartOf="@id/editTextHorari2"
                 app:layout_constraintStart_toEndOf="@id/editTextHorari"
-                app:layout_constraintTop_toBottomOf="@id/editTextHorari3" />
+                app:layout_constraintTop_toBottomOf="@id/editTextHorari3"
+                tools:targetApi="o" />
 
             <EditText
                 android:id="@+id/editTextHorari6"
@@ -590,15 +679,20 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="50dp"
                 android:layout_marginRight="50dp"
+                android:autoSizeTextType="uniform"
                 android:autofillHints=""
                 android:ems="10"
                 android:focusable="false"
                 android:hint="@string/horario"
                 android:inputType="text|time"
+                android:maxLines="1"
+                android:textSize="18sp"
                 android:visibility="gone"
+                app:autoSizeMaxTextSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/textViewGuio"
-                app:layout_constraintTop_toBottomOf="@id/editTextHorari3" />
+                app:layout_constraintTop_toBottomOf="@id/editTextHorari3"
+                tools:targetApi="o" />
 
             <TextView
                 android:id="@+id/textViewDescripcio"
@@ -609,31 +703,37 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="50dp"
                 android:layout_marginRight="50dp"
+                android:autoSizeTextType="uniform"
+                android:maxLines="1"
                 android:text="@string/descripci_n_"
                 android:textColor="#000000"
                 android:textSize="18sp"
-                android:autoSizeTextType="uniform"
-                android:maxLines="1"
-                tools:targetApi="o"
+                app:autoSizeMaxTextSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/editTextHorari5" />
+                app:layout_constraintTop_toBottomOf="@id/editTextHorari5"
+                tools:targetApi="o" />
 
             <EditText
                 android:id="@+id/editTextDescripcio"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="50dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginRight="50dp"
+                android:autoSizeTextType="uniform"
                 android:autofillHints=""
                 android:ems="10"
                 android:hint="@string/descripci_n"
                 android:inputType="textMultiLine|text"
                 android:text=""
+                android:textSize="18sp"
+                app:autoSizeMaxTextSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.505"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewDescripcio" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewDescripcio"
+                tools:targetApi="o" />
 
             <TextView
                 android:id="@+id/textViewPaginaWeb"
@@ -644,16 +744,17 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="50dp"
                 android:layout_marginRight="50dp"
+                android:autoSizeTextType="uniform"
+                android:maxLines="1"
                 android:text="@string/p_gina_web_"
                 android:textColor="#000000"
                 android:textSize="18sp"
-                android:autoSizeTextType="uniform"
-                android:maxLines="1"
-                tools:targetApi="o"
+                app:autoSizeMaxTextSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/editTextDescripcio" />
+                app:layout_constraintTop_toBottomOf="@id/editTextDescripcio"
+                tools:targetApi="o" />
 
             <EditText
                 android:id="@+id/editTextPaginaWeb"
@@ -662,14 +763,19 @@
                 android:layout_marginLeft="50dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="50dp"
+                android:autoSizeTextType="uniform"
                 android:autofillHints=""
                 android:ems="10"
                 android:hint="@string/p_gina_web"
                 android:inputType="textUri"
+                android:maxLines="1"
                 android:text=""
+                android:textSize="18sp"
+                app:autoSizeMaxTextSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewPaginaWeb" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewPaginaWeb"
+                tools:targetApi="o" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

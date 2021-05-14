@@ -89,7 +89,6 @@ public class InfoEstablimentActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(InfoEstablimentActivity.this, ReservarActivity.class);
                 startActivity(intent);
-                //TODO: cal fer finish??
             }
         });
     }

@@ -58,7 +58,7 @@
     <string name="vac_o">Vacío</string>
     <string name="exterior">Exterior:</string>
     <string name="buscar_">Buscar...</string>
-    <string name="ocupaci_n_actual">Ocupación actual</string>
+    <string name="ocupaci_n_actual">Ocupación actual:</string>
     <string name="informaci_n_adicional">Información adicional:</string>
     <string name="ocupaci_n_exterior">Ocupación exterior</string>
     <string name="ocupaci_n_interior">Ocupación interior</string>
@@ -79,4 +79,16 @@
     <string name="crear_evento">Crear evento</string>
     <string name="correo_electronico_">Correo electrónico:</string>
     <string name="correo_electronico">Correo electrónico</string>
+    <string name="reserva">Reserva</string>
+    <string name="format_fecha">dd/mm/aaaa</string>
+    <string name="fecha_reserva">Fecha reserva:</string>
+    <string name="hora_reserva">Hora reserva:</string>
+    <string name="n_mero_de_personas_reserva">Número de personas reserva:</string>
+    <string name="hh_mm">hh:mm</string>
+    <string name="ubicaci_n_mesa_reserva">Ubicación mesa reserva:</string>
+    <string name="interior">Interior</string>
+    <string name="Exterior">Exterior</string>
+    <string name="reservas">Reservas</string>
+    <string name="validar">VALIDAR</string>
+    <string name="_3500_puntos">3500 puntos</string>
 </resources>

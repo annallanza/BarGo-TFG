@@ -14,18 +14,24 @@
         android:layout_marginStart="50dp"
         android:layout_marginLeft="50dp"
         android:layout_marginTop="50dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginRight="50dp"
+        android:autoSizeTextType="uniform"
+        android:maxLines="1"
         android:text="@string/evento"
-        android:textColor="#000000"
-
-        android:textSize="30sp"
+        android:textColor="#323131"
+        android:textSize="36sp"
+        app:autoSizeMaxTextSize="36sp"
         android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:targetApi="o" />
 
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toTopOf="@id/crearNouEsdeveniment"
         app:layout_constraintEnd_toEndOf="parent"

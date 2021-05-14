@@ -1,409 +1,302 @@
 package com.example.bargo.UsuariConsumidor.Activity;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
+import android.app.TimePickerDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.Color;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.example.bargo.UsuariConsumidor.Model.MisReservasInfo;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.bargo.Consumidor;
 import com.example.bargo.R;
+import com.example.bargo.UsuariConsumidor.Model.EstablimentInfo;
+import com.example.bargo.VariablesGlobals;
+import com.example.bargo.VolleySingleton;
 
-public class ReservarActivity extends AppCompatActivity implements View.OnClickListener{
-    Button boton1, boton2, boton3, boton4, boton5, boton6, boton7, boton8, boton9, boton10, boton11, boton12, boton13, boton14, reservar;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+
+public class ReservarActivity extends AppCompatActivity {
+
+    private TextView nomEstabliment;
+    private CircleImageView imatge;
+    private EditText dia;
+    private EditText hora;
+    private EditText numPersones;
+    private TextView textViewExterior;
+    private CheckBox interior;
+    private CheckBox exterior;
+    private Button reservar;
+
+    private ProgressDialog progressDialog;
+    private final Consumidor consumidor = Consumidor.getInstance();
+    private final EstablimentInfo establimentInfo = EstablimentInfo.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reservar_activity);
 
-        boton1 = findViewById(R.id.button1);
-        boton2 = findViewById(R.id.button2);
-        boton3 = findViewById(R.id.button3);
-        boton4 = findViewById(R.id.button4);
-        boton5 = findViewById(R.id.button5);
-        boton6 = findViewById(R.id.button6);
-        boton7 = findViewById(R.id.button7);
-        boton8 = findViewById(R.id.button8);
-        boton9 = findViewById(R.id.button9);
-        boton10 = findViewById(R.id.button10);
-        boton11 = findViewById(R.id.button11);
-        boton12 = findViewById(R.id.button12);
-        boton13 = findViewById(R.id.button13);
-        boton14 = findViewById(R.id.button14);
-        reservar = findViewById(R.id.buttonReservar);
+        progressDialog = new ProgressDialog(ReservarActivity.this);
+        progressDialog.setMessage("Cargando...");
+        progressDialog.setCancelable(false);
 
-        boton1.setOnClickListener(this);
-        boton2.setOnClickListener(this);
-        boton3.setOnClickListener(this);
-        boton4.setOnClickListener(this);
-        boton5.setOnClickListener(this);
-        boton6.setOnClickListener(this);
-        boton7.setOnClickListener(this);
-        boton8.setOnClickListener(this);
-        boton9.setOnClickListener(this);
-        boton10.setOnClickListener(this);
-        boton11.setOnClickListener(this);
-        boton12.setOnClickListener(this);
-        boton13.setOnClickListener(this);
-        boton14.setOnClickListener(this);
-        reservar.setOnClickListener(this);
+        nomEstabliment = findViewById(R.id.nomEstabliment2);
+        imatge = findViewById(R.id.circleImageView3);
+        dia = findViewById(R.id.diaNovaReserva);
+        hora = findViewById(R.id.horaNovaReserva);
+        numPersones = findViewById(R.id.NumPersonesNovaReserva);
+        textViewExterior = findViewById(R.id.textViewExterior);
+        interior = findViewById(R.id.checkBoxInterior);
+        exterior = findViewById(R.id.checkBoxExterior);
+        reservar = findViewById(R.id.reservaButton2);
+
+        reservar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                reservar.setEnabled(false);
+                progressDialog.show();
+
+                if(numPersones.getText().toString().equals("")){
+                    Toast.makeText(getApplicationContext(), "Indica el número de personas", Toast.LENGTH_LONG).show();
+                    reservar.setEnabled(true);
+                    progressDialog.dismiss();
+                }
+                else if(establimentInfo.getExterior() && !interior.isChecked() && !exterior.isChecked()){
+                    Toast.makeText(getApplicationContext(), "Indica la ubicación de la mesa de la reserva", Toast.LENGTH_LONG).show();
+                    reservar.setEnabled(true);
+                    progressDialog.dismiss();
+                }
+                else {
+                    int num_persones = Integer.parseInt(numPersones.getText().toString());
+                    boolean isExterior = exterior.isChecked();
+                    String horaReserva = hora.getText().toString();
+
+                    if(horaReserva.length() <= 5)
+                        horaReserva += ":00";
+
+                    CreateReserva(dia.getText().toString(), horaReserva, num_persones, isExterior);
+                }
+            }
+        });
+
     }
 
-    @Override
-    public void onClick(View v) {
-        int color1 = boton1.getTextColors().getDefaultColor();
-        int color2 = boton2.getTextColors().getDefaultColor();
-        int color3 = boton3.getTextColors().getDefaultColor();
-        int color4 = boton4.getTextColors().getDefaultColor();
-        int color5 = boton5.getTextColors().getDefaultColor();
-        int color6 = boton6.getTextColors().getDefaultColor();
-        int color7 = boton7.getTextColors().getDefaultColor();
-        int color8 = boton8.getTextColors().getDefaultColor();
-        int color9 = boton9.getTextColors().getDefaultColor();
-        int color10 = boton10.getTextColors().getDefaultColor();
-        int color11 = boton11.getTextColors().getDefaultColor();
-        int color12 = boton12.getTextColors().getDefaultColor();
-        int color13 = boton13.getTextColors().getDefaultColor();
-        int color14 = boton14.getTextColors().getDefaultColor();
+    public void onResume() {
+        super.onResume();
+        refrescarDades();
+    }
 
-        switch (v.getId()){
-            case R.id.button1:
-                if (color1 == Color.WHITE){
-                    boton1.setBackgroundColor(Color.parseColor("#d6d7d7"));
-                    boton1.setTextColor(Color.BLACK);
-                } else {
-                    boton1.setBackgroundColor(getResources().getColor(R.color.colorBarGo));
-                    boton1.setTextColor(Color.WHITE);
-                    if(color2 == Color.WHITE){
-                        boton2.setBackgroundColor(Color.parseColor("#d6d7d7"));
-                        boton2.setTextColor(Color.BLACK);
-                    }
-                    else if (color3 == Color.WHITE) {
-                        boton3.setBackgroundColor(Color.parseColor("#d6d7d7"));
-                        boton3.setTextColor(Color.BLACK);
-                    }
-                    else if (color4 == Color.WHITE){
-                        boton4.setBackgroundColor(Color.parseColor("#d6d7d7"));
-                        boton4.setTextColor(Color.BLACK);
-                    }
-                }
-                break;
-            case R.id.button2:
-                if (color2 == Color.WHITE){
-                    boton2.setBackgroundColor(Color.parseColor("#d6d7d7"));
-                    boton2.setTextColor(Color.BLACK);
-                } else {
-                    boton2.setBackgroundColor(getResources().getColor(R.color.colorBarGo));
-                    boton2.setTextColor(Color.WHITE);
-                    if(color1 == Color.WHITE){
-                        boton1.setBackgroundColor(Color.parseColor("#d6d7d7"));
-                        boton1.setTextColor(Color.BLACK);
-                    }
-                    else if (color3 == Color.WHITE) {
-                        boton3.setBackgroundColor(Color.parseColor("#d6d7d7"));
-                        boton3.setTextColor(Color.BLACK);
-                    }
-                    else if (color4 == Color.WHITE){
-                        boton4.setBackgroundColor(Color.parseColor("#d6d7d7"));
-                        boton4.setTextColor(Color.BLACK);
-                    }
-                }
-                break;
-            case R.id.button3:
-                if (color3 == Color.WHITE){
-                    boton3.setBackgroundColor(Color.parseColor("#d6d7d7"));
-                    boton3.setTextColor(Color.BLACK);
-                } else {
-                    boton3.setBackgroundColor(getResources().getColor(R.color.colorBarGo));
-                    boton3.setTextColor(Color.WHITE);
-                    if(color2 == Color.WHITE){
-                        boton2.setBackgroundColor(Color.parseColor("#d6d7d7"));
-                        boton2.setTextColor(Color.BLACK);
-                    }
-                    else if (color1 == Color.WHITE) {
-                        boton1.setBackgroundColor(Color.parseColor("#d6d7d7"));
-                        boton1.setTextColor(Color.BLACK);
-                    }
-                    else if (color4 == Color.WHITE){
-                        boton4.setBackgroundColor(Color.parseColor("#d6d7d7"));
-                        boton4.setTextColor(Color.BLACK);
-                    }
-                }
-                break;
-            case R.id.button4:
-                if (color4 == Color.WHITE){
-                    boton4.setBackgroundColor(Color.parseColor("#d6d7d7"));
-                    boton4.setTextColor(Color.BLACK);
-                } else {
-                    boton4.setBackgroundColor(getResources().getColor(R.color.colorBarGo));
-                    boton4.setTextColor(Color.WHITE);
-                    if(color2 == Color.WHITE){
-                        boton2.setBackgroundColor(Color.parseColor("#d6d7d7"));
-                        boton2.setTextColor(Color.BLACK);
-                    }
-                    else if (color3 == Color.WHITE) {
-                        boton3.setBackgroundColor(Color.parseColor("#d6d7d7"));
-                        boton3.setTextColor(Color.BLACK);
-                    }
-                    else if (color1 == Color.WHITE){
-                        boton1.setBackgroundColor(Color.parseColor("#d6d7d7"));
-                        boton1.setTextColor(Color.BLACK);
-                    }
-                }
-                break;
-            case R.id.button5:
-                if (color5 == Color.WHITE){
-                    boton5.setBackgroundColor(Color.parseColor("#d6d7d7"));
-                    boton5.setTextColor(Color.BLACK);
-                } else {
-                    boton5.setBackgroundColor(getResources().getColor(R.color.colorBarGo));
-                    boton5.setTextColor(Color.WHITE);
-                    if(color6 == Color.WHITE){
-                        boton6.setBackgroundColor(Color.parseColor("#d6d7d7"));
-                        boton6.setTextColor(Color.BLACK);
-                    }
-                    else if (color7 == Color.WHITE) {
-                        boton7.setBackgroundColor(Color.parseColor("#d6d7d7"));
-                        boton7.setTextColor(Color.BLACK);
-                    }
-                    else if (color8 == Color.WHITE){
-                        boton8.setBackgroundColor(Color.parseColor("#d6d7d7"));
-                        boton8.setTextColor(Color.BLACK);
-                    }
-                }
-                break;
-            case R.id.button6:
-                if (color6 == Color.WHITE){
-                    boton6.setBackgroundColor(Color.parseColor("#d6d7d7"));
-                    boton6.setTextColor(Color.BLACK);
-                } else {
-                    boton6.setBackgroundColor(getResources().getColor(R.color.colorBarGo));
-                    boton6.setTextColor(Color.WHITE);
-                    if(color5 == Color.WHITE){
-                        boton5.setBackgroundColor(Color.parseColor("#d6d7d7"));
-                        boton5.setTextColor(Color.BLACK);
-                    }
-                    else if (color7 == Color.WHITE) {
-                        boton7.setBackgroundColor(Color.parseColor("#d6d7d7"));
-                        boton7.setTextColor(Color.BLACK);
-                    }
-                    else if (color8 == Color.WHITE){
-                        boton8.setBackgroundColor(Color.parseColor("#d6d7d7"));
-                        boton8.setTextColor(Color.BLACK);
-                    }
-                }
-                break;
-            case R.id.button7:
-                if (color7 == Color.WHITE){
-                    boton7.setBackgroundColor(Color.parseColor("#d6d7d7"));
-                    boton7.setTextColor(Color.BLACK);
-                } else {
-                    boton7.setBackgroundColor(getResources().getColor(R.color.colorBarGo));
-                    boton7.setTextColor(Color.WHITE);
-                    if(color6 == Color.WHITE){
-                        boton6.setBackgroundColor(Color.parseColor("#d6d7d7"));
-                        boton6.setTextColor(Color.BLACK);
-                    }
-                    else if (color5 == Color.WHITE) {
-                        boton5.setBackgroundColor(Color.parseColor("#d6d7d7"));
-                        boton5.setTextColor(Color.BLACK);
-                    }
-                    else if (color8 == Color.WHITE){
-                        boton8.setBackgroundColor(Color.parseColor("#d6d7d7"));
-                        boton8.setTextColor(Color.BLACK);
-                    }
-                }
-                break;
-            case R.id.button8:
-                if (color8 == Color.WHITE){
-                    boton8.setBackgroundColor(Color.parseColor("#d6d7d7"));
-                    boton8.setTextColor(Color.BLACK);
-                } else {
-                    boton8.setBackgroundColor(getResources().getColor(R.color.colorBarGo));
-                    boton8.setTextColor(Color.WHITE);
-                    if(color6 == Color.WHITE){
-                        boton6.setBackgroundColor(Color.parseColor("#d6d7d7"));
-                        boton6.setTextColor(Color.BLACK);
-                    }
-                    else if (color7 == Color.WHITE) {
-                        boton7.setBackgroundColor(Color.parseColor("#d6d7d7"));
-                        boton7.setTextColor(Color.BLACK);
-                    }
-                    else if (color5 == Color.WHITE){
-                        boton5.setBackgroundColor(Color.parseColor("#d6d7d7"));
-                        boton5.setTextColor(Color.BLACK);
-                    }
-                }
-                break;
-            case R.id.button9:
-                if (color9 == Color.WHITE){
-                    boton9.setBackgroundColor(Color.parseColor("#d6d7d7"));
-                    boton9.setTextColor(Color.BLACK);
-                } else {
-                    boton9.setBackgroundColor(getResources().getColor(R.color.colorBarGo));
-                    boton9.setTextColor(Color.WHITE);
-                    if(color10 == Color.WHITE){
-                        boton10.setBackgroundColor(Color.parseColor("#d6d7d7"));
-                        boton10.setTextColor(Color.BLACK);
-                    }
-                    else if (color11 == Color.WHITE) {
-                        boton11.setBackgroundColor(Color.parseColor("#d6d7d7"));
-                        boton11.setTextColor(Color.BLACK);
-                    }
-                    else if (color12 == Color.WHITE){
-                        boton12.setBackgroundColor(Color.parseColor("#d6d7d7"));
-                        boton12.setTextColor(Color.BLACK);
-                    }
-                }
-                break;
-            case R.id.button10:
-                if (color10 == Color.WHITE){
-                    boton10.setBackgroundColor(Color.parseColor("#d6d7d7"));
-                    boton10.setTextColor(Color.BLACK);
-                } else {
-                    boton10.setBackgroundColor(getResources().getColor(R.color.colorBarGo));
-                    boton10.setTextColor(Color.WHITE);
-                    if(color9 == Color.WHITE){
-                        boton9.setBackgroundColor(Color.parseColor("#d6d7d7"));
-                        boton9.setTextColor(Color.BLACK);
-                    }
-                    else if (color11 == Color.WHITE) {
-                        boton11.setBackgroundColor(Color.parseColor("#d6d7d7"));
-                        boton11.setTextColor(Color.BLACK);
-                    }
-                    else if (color12 == Color.WHITE){
-                        boton12.setBackgroundColor(Color.parseColor("#d6d7d7"));
-                        boton12.setTextColor(Color.BLACK);
-                    }
-                }
-                break;
-            case R.id.button11:
-                if (color11 == Color.WHITE){
-                    boton11.setBackgroundColor(Color.parseColor("#d6d7d7"));
-                    boton11.setTextColor(Color.BLACK);
-                } else {
-                    boton11.setBackgroundColor(getResources().getColor(R.color.colorBarGo));
-                    boton11.setTextColor(Color.WHITE);
-                    if(color10 == Color.WHITE){
-                        boton10.setBackgroundColor(Color.parseColor("#d6d7d7"));
-                        boton10.setTextColor(Color.BLACK);
-                    }
-                    else if (color9 == Color.WHITE) {
-                        boton9.setBackgroundColor(Color.parseColor("#d6d7d7"));
-                        boton9.setTextColor(Color.BLACK);
-                    }
-                    else if (color12 == Color.WHITE){
-                        boton12.setBackgroundColor(Color.parseColor("#d6d7d7"));
-                        boton12.setTextColor(Color.BLACK);
-                    }
-                }
-                break;
-            case R.id.button12:
-                if (color12 == Color.WHITE){
-                    boton12.setBackgroundColor(Color.parseColor("#d6d7d7"));
-                    boton12.setTextColor(Color.BLACK);
-                } else {
-                    boton12.setBackgroundColor(getResources().getColor(R.color.colorBarGo));
-                    boton12.setTextColor(Color.WHITE);
-                    if(color10 == Color.WHITE){
-                        boton10.setBackgroundColor(Color.parseColor("#d6d7d7"));
-                        boton10.setTextColor(Color.BLACK);
-                    }
-                    else if (color11 == Color.WHITE) {
-                        boton11.setBackgroundColor(Color.parseColor("#d6d7d7"));
-                        boton11.setTextColor(Color.BLACK);
-                    }
-                    else if (color9 == Color.WHITE){
-                        boton9.setBackgroundColor(Color.parseColor("#d6d7d7"));
-                        boton9.setTextColor(Color.BLACK);
-                    }
-                }
-                break;
-            case R.id.button13:
-                if (color13 == Color.WHITE){
-                    boton13.setBackgroundColor(Color.parseColor("#d6d7d7"));
-                    boton13.setTextColor(Color.BLACK);
-                } else {
-                    boton13.setBackgroundColor(getResources().getColor(R.color.colorBarGo));
-                    boton13.setTextColor(Color.WHITE);
-                    if(color14 == Color.WHITE){
-                        boton14.setBackgroundColor(Color.parseColor("#d6d7d7"));
-                        boton14.setTextColor(Color.BLACK);
-                    }
-                }
-                break;
-            case R.id.button14:
-                if (color14 == Color.WHITE){
-                    boton14.setBackgroundColor(Color.parseColor("#d6d7d7"));
-                    boton14.setTextColor(Color.BLACK);
-                } else {
-                    boton14.setBackgroundColor(getResources().getColor(R.color.colorBarGo));
-                    boton14.setTextColor(Color.WHITE);
-                    if(color13 == Color.WHITE){
-                        boton13.setBackgroundColor(Color.parseColor("#d6d7d7"));
-                        boton13.setTextColor(Color.BLACK);
-                    }
-                }
-                break;
-            case R.id.buttonReservar:
-                if((color1 == Color.WHITE || color2 == Color.WHITE || color3 == Color.WHITE || color4 == Color.WHITE) &&
-                        (color5 == Color.WHITE || color6 == Color.WHITE || color7 == Color.WHITE || color8 == Color.WHITE) &&
-                        (color9 == Color.WHITE || color10 == Color.WHITE || color11 == Color.WHITE || color12 == Color.WHITE) &&
-                        (color13 == Color.WHITE || color14 == Color.WHITE)){
-                    String dia = null, hora = null, pers = null, interior = null;
-                    if (color1 == Color.WHITE){
-                        dia = "Miércoles 25 nov";
-                    } if (color2 == Color.WHITE){
-                        dia = "Jueves 26 nov";
-                    } if (color3 == Color.WHITE){
-                        dia = "Viernes 27 nov";
-                    } if (color4 == Color.WHITE){
-                        dia = "Sábado 28 nov";
-                    } if (color5 == Color.WHITE){
-                        hora = "13.00h";
-                    } if (color6 == Color.WHITE){
-                        hora = "13.30h";
-                    } if (color7 == Color.WHITE){
-                        hora = "14.00h";
-                    } if (color8 == Color.WHITE){
-                        hora = "14.30h";
-                    } if (color9 == Color.WHITE){
-                        pers = "1 persona";
-                    } if (color10 == Color.WHITE){
-                        pers = "2 personas";
-                    } if (color11 == Color.WHITE){
-                        pers = "3 personas";
-                    } if (color12 == Color.WHITE){
-                        pers = "4 personas";
-                    } if (color13 == Color.WHITE){
-                        interior = "el interior";
-                    } if (color14 == Color.WHITE){
-                        interior = "la terraza";
-                    }
-                    MisReservasInfo.getInstance().addReserva(dia, hora, pers, interior);
-                    new AlertDialog.Builder(this)
-                         .setTitle("Reserva realizada")
-                         .setMessage("Su reserva para el Bar Casa Pepe ha sido realizada correctamente.\n \nEn caso de no poder acudir, por favor no se olvide de cancelar su reserva.")
-                         .setPositiveButton("Cerrar", new DialogInterface.OnClickListener() {
-                             public void onClick(DialogInterface dialog, int which) {
-                                 openListBar();
-                             }
-                         })
-                         .show();
-                } else{
-                    Toast.makeText(getApplicationContext(), "Seleccione una opción para cada campo", Toast.LENGTH_LONG).show();
-                }
+    public void refrescarDades(){
+
+        nomEstabliment.setText(establimentInfo.getNom());
+        refrescarImatge();
+
+        if(establimentInfo.getExterior()){
+            textViewExterior.setVisibility(View.VISIBLE);
+            interior.setVisibility(View.VISIBLE);
+            exterior.setVisibility(View.VISIBLE);
+        }
+        else {
+            textViewExterior.setVisibility(View.GONE);
+            interior.setVisibility(View.GONE);
+            exterior.setVisibility(View.GONE);
         }
     }
 
-    private void openListBar() {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+    private void refrescarImatge() {
+        byte[] imatgeBytes = establimentInfo.getImatge();
+        if(imatgeBytes != null){
+            Bitmap bmp = BitmapFactory.decodeByteArray(imatgeBytes, 0, imatgeBytes.length);
+            imatge.setImageBitmap(bmp);
+        }
+        else
+            imatge.setImageResource(R.drawable.logo);
+    }
+
+    public void onDataClicked(View view){
+        final EditText dataEditTextSegonsID = findViewById(view.getId());
+
+        final Calendar calendar = Calendar.getInstance();
+
+        final int dia = calendar.get(Calendar.DAY_OF_MONTH);
+        int mes = calendar.get(Calendar.MONTH);
+        int any = calendar.get(Calendar.YEAR);
+
+        System.out.println("MES: " + mes);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(ReservarActivity.this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                ++monthOfYear;
+                if(dayOfMonth < 10) {
+                    if(monthOfYear < 10)
+                        dataEditTextSegonsID.setText("0" + dayOfMonth + "/0" + monthOfYear + "/" + year);
+                    else
+                        dataEditTextSegonsID.setText("0" + dayOfMonth + "/" + monthOfYear + "/" + year);
+                }
+                else if(monthOfYear < 10)
+                    dataEditTextSegonsID.setText(dayOfMonth + "/0" + monthOfYear + "/" + year);
+                else
+                    dataEditTextSegonsID.setText(dayOfMonth + "/" + monthOfYear + "/" + year);
+            }
+        }, dia, mes, any);
+
+        datePickerDialog.updateDate(any,mes,dia);
+        datePickerDialog.getDatePicker().setMinDate(calendar.getTimeInMillis());
+        datePickerDialog.show();
+    }
+
+    public void onHorariClicked(View view){
+        final EditText horariEditTextSegonsID = findViewById(view.getId());
+
+        final Calendar calendar = Calendar.getInstance();
+
+        final int hora = calendar.get(Calendar.HOUR_OF_DAY);
+        int minuts = calendar.get(Calendar.MINUTE);
+
+        TimePickerDialog timePickerDialog = new TimePickerDialog(ReservarActivity.this, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                if(hourOfDay < 10) {
+                    if(minute < 10)
+                        horariEditTextSegonsID.setText("0" + hourOfDay + ":0" + minute);
+                    else
+                        horariEditTextSegonsID.setText("0" + hourOfDay + ":" + minute);
+                }
+                else {
+                    if(minute < 10)
+                        horariEditTextSegonsID.setText(hourOfDay + ":0" + minute);
+                    else
+                        horariEditTextSegonsID.setText(hourOfDay + ":" + minute);
+                }
+            }
+        }, hora, minuts, false);
+
+        timePickerDialog.updateTime(hora,minuts);
+        timePickerDialog.show();
+    }
+
+    public void onCheckboxClicked(View view) {
+
+        boolean checked = ((CheckBox) view).isChecked();
+
+        switch (view.getId()) {
+            case R.id.checkBoxInterior:
+                if(checked)
+                    exterior.setChecked(false);
+                break;
+            case R.id.checkBoxExterior:
+                if(checked)
+                    interior.setChecked(false);
+                break;
+        }
+    }
+
+    public void Alerta(String diaEsdeveniment, String horaEsdeveniment, int numPersones, boolean exterior) {
+        horaEsdeveniment = horaEsdeveniment.substring(0, 5);
+
+        String ubicacio = "interior";
+        if(exterior)
+            ubicacio = "exterior";
+
+        String persona = " persona";
+        if(numPersones > 1)
+            persona += "s";
+
+        new AlertDialog.Builder(this)
+                .setTitle("Reserva realizada")
+                .setMessage("Su reserva en " + establimentInfo.getNom() +  " para el " + diaEsdeveniment + " a las " + horaEsdeveniment + " para " + numPersones + persona + " en el " + ubicacio +
+                        " ha sido realizada correctamente.\n \nEn caso de no poder acudir, por favor no se olvide de cancelar su reserva.")
+                .setPositiveButton("Cerrar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                })
+                .show();
+    }
+
+    public void CreateReserva(final String diaEsdeveniment, final String horaEsdeveniment, final int numPersones, final boolean exterior){
+        String url = VariablesGlobals.getUrlAPI() + "reserves/";
+
+        JSONObject postData = new JSONObject();
+        try {
+            postData.put("id", consumidor.getId());
+            postData.put("idEstabliment", establimentInfo.getId());
+            postData.put("dia", diaEsdeveniment);
+            postData.put("hora", horaEsdeveniment);
+            postData.put("numPersones", numPersones);
+            postData.put("exterior", exterior);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, postData,
+            new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+
+                    reservar.setEnabled(true);
+                    progressDialog.dismiss();
+
+                    Alerta(diaEsdeveniment, horaEsdeveniment, numPersones, exterior);
+                }
+            }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                if(error.networkResponse.statusCode == 400 || error.networkResponse.statusCode == 404 || error.networkResponse.statusCode == 409) {
+                    try {
+                        String responseBody = new String(error.networkResponse.data, "utf-8");
+                        JSONObject data = new JSONObject(responseBody);
+                        String missatgeError = data.getString("missatge");
+
+                        Toast.makeText(getApplicationContext(), missatgeError, Toast.LENGTH_LONG).show();
+
+                    } catch (UnsupportedEncodingException | JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                else if(error.networkResponse.statusCode == 401)
+                    Toast.makeText(getApplicationContext(), "No se indica el token o no es válido o el id no es el asociado al token", Toast.LENGTH_LONG).show();
+
+                reservar.setEnabled(true);
+                progressDialog.dismiss();
+            }
+        }
+        ){
+            @Override
+            public Map<String, String> getHeaders() {
+                HashMap<String, String> headers = new HashMap<>();
+                headers.put("Authorization", "Bearer " + consumidor.getToken());
+                return headers;
+            }
+        };
+
+        // Add the request to the RequestQueue.
+        VolleySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest);
     }
 }

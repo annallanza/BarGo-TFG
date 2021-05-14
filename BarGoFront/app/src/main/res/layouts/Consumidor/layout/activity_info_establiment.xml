@@ -21,6 +21,7 @@
         android:text="@string/nombre_establecimiento"
         android:textColor="#323131"
         android:textSize="20sp"
+        app:autoSizeMaxTextSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -49,7 +50,7 @@
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toTopOf="@id/reservaButton"
         app:layout_constraintEnd_toEndOf="parent"
@@ -73,6 +74,9 @@
                 android:autoSizeTextType="uniform"
                 android:maxLines="1"
                 android:text="@string/direcci_n"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:autoSizeMaxTextSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -87,8 +91,12 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="50dp"
                 android:layout_marginRight="50dp"
-                android:text="@string/descripci_n"
+                android:autoSizeTextType="uniform"
                 android:justificationMode="inter_word"
+                android:text="@string/descripci_n"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:autoSizeMaxTextSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/direccio"
@@ -103,11 +111,17 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="50dp"
                 android:layout_marginRight="50dp"
+                android:autoSizeTextType="uniform"
+                android:maxLines="1"
                 android:text="@string/informaci_n_adicional"
+                android:textColor="#000000"
+                android:textSize="18sp"
                 android:textStyle="bold"
+                app:autoSizeMaxTextSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/descripcio" />
+                app:layout_constraintTop_toBottomOf="@id/descripcio"
+                tools:targetApi="o" />
 
             <TextView
                 android:id="@+id/horario"
@@ -116,9 +130,15 @@
                 android:layout_marginStart="50dp"
                 android:layout_marginLeft="50dp"
                 android:layout_marginTop="10dp"
+                android:autoSizeTextType="uniform"
+                android:maxLines="1"
                 android:text="@string/horario_"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:autoSizeMaxTextSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/adicional" />
+                app:layout_constraintTop_toBottomOf="@id/adicional"
+                tools:targetApi="o" />
 
             <TextView
                 android:id="@+id/horario2"
@@ -129,9 +149,12 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="50dp"
                 android:layout_marginRight="50dp"
-                android:text="@string/horario"
                 android:autoSizeTextType="uniform"
                 android:maxLines="1"
+                android:text="@string/horario"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:autoSizeMaxTextSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/horario"
                 app:layout_constraintTop_toBottomOf="@id/adicional"
@@ -144,9 +167,15 @@
                 android:layout_marginStart="50dp"
                 android:layout_marginLeft="50dp"
                 android:layout_marginTop="10dp"
+                android:autoSizeTextType="uniform"
+                android:maxLines="1"
                 android:text="@string/p_gina_web_"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:autoSizeMaxTextSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/horario2" />
+                app:layout_constraintTop_toBottomOf="@id/horario2"
+                tools:targetApi="o" />
 
 
             <TextView
@@ -158,10 +187,12 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="50dp"
                 android:layout_marginRight="50dp"
-                android:text="@string/p_gina_web"
                 android:autoSizeTextType="uniform"
                 android:maxLines="1"
+                android:text="@string/p_gina_web"
                 android:textColor="#1e90ff"
+                android:textSize="18sp"
+                app:autoSizeMaxTextSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/paginaweb"
                 app:layout_constraintTop_toBottomOf="@id/horario2"
@@ -176,11 +207,17 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="50dp"
                 android:layout_marginRight="50dp"
+                android:autoSizeTextType="uniform"
+                android:maxLines="1"
                 android:text="@string/ocupaci_n_actual"
+                android:textColor="#000000"
+                android:textSize="18sp"
                 android:textStyle="bold"
+                app:autoSizeMaxTextSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/paginaweb" />
+                app:layout_constraintTop_toBottomOf="@id/paginaweb"
+                tools:targetApi="o" />
 
             <TextView
                 android:id="@+id/interior"
@@ -189,9 +226,15 @@
                 android:layout_marginStart="50dp"
                 android:layout_marginLeft="50dp"
                 android:layout_marginTop="10dp"
+                android:autoSizeTextType="uniform"
+                android:maxLines="1"
                 android:text="@string/interior_"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:autoSizeMaxTextSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ocupacion" />
+                app:layout_constraintTop_toBottomOf="@id/ocupacion"
+                tools:targetApi="o" />
 
             <TextView
                 android:id="@+id/ocupacioInterior"
@@ -202,9 +245,12 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="50dp"
                 android:layout_marginRight="50dp"
-                android:text="@string/ocupaci_n_interior"
                 android:autoSizeTextType="uniform"
                 android:maxLines="1"
+                android:text="@string/ocupaci_n_interior"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:autoSizeMaxTextSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/interior"
                 app:layout_constraintTop_toBottomOf="@id/ocupacion"
@@ -217,9 +263,15 @@
                 android:layout_marginStart="50dp"
                 android:layout_marginLeft="50dp"
                 android:layout_marginTop="10dp"
+                android:autoSizeTextType="uniform"
+                android:maxLines="1"
                 android:text="@string/exterior"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:autoSizeMaxTextSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ocupacioInterior" />
+                app:layout_constraintTop_toBottomOf="@id/ocupacioInterior"
+                tools:targetApi="o" />
 
             <TextView
                 android:id="@+id/ocupacioExterior"
@@ -234,6 +286,9 @@
                 android:autoSizeTextType="uniform"
                 android:maxLines="1"
                 android:text="@string/ocupaci_n_exterior"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:autoSizeMaxTextSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/exterior"
@@ -255,7 +310,8 @@
         android:layout_marginBottom="100dp"
         android:background="#CC383B"
         android:text="@string/reservar"
-        android:textColor="@android:color/white"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
