@@ -60,7 +60,17 @@ public class PropietariRest {
         if(usuariService.existsByCorreu(signupPropietari.getCorreu()))
             return new ResponseEntity<>(new Missatge("El correo ya esta en uso"), HttpStatus.CONFLICT);
 
-        Establiment establiment = new Establiment(signupPropietari.getNomEstabliment(), signupPropietari.getDireccio(), signupPropietari.isExterior(), signupPropietari.getNumCadires(),
+        String prod = "EST";
+        String codiGenerat = UUID.randomUUID().toString();
+        codiGenerat = codiGenerat.substring(0,8);
+        String codi = prod + codiGenerat;
+        while(establimentService.existsByCodi(codi)){
+            codiGenerat = UUID.randomUUID().toString();
+            codiGenerat = codiGenerat.substring(0,8);
+            codi = prod + codiGenerat;
+        }
+
+        Establiment establiment = new Establiment(codi, signupPropietari.getNomEstabliment(), signupPropietari.getDireccio(), signupPropietari.isExterior(), signupPropietari.getNumCadires(),
                 signupPropietari.getNumTaules(), signupPropietari.getHorari(), signupPropietari.getDescripcio(), signupPropietari.getPaginaWeb(), TipusOcupacio.Vacio, TipusOcupacio.Vacio);
 
         Propietari propietari = new Propietari(signupPropietari.getNomUsuari(), signupPropietari.getCorreu(), encoder.encode(signupPropietari.getContrasenya()), null, establiment);
@@ -101,7 +111,7 @@ public class PropietariRest {
 
         Establiment establiment = propietari.getEstabliment();
 
-        GetEstabliment getEstabliment = new GetEstabliment(establiment.getId(), establiment.getNom(), establiment.getDireccio(), establiment.isExterior(), establiment.getNumCadires(), establiment.getNumTaules(), establiment.getHorari(), establiment.getDescripcio(), establiment.getPaginaWeb());
+        GetEstabliment getEstabliment = new GetEstabliment(establiment.getId(), establiment.getCodi(), establiment.getNom(), establiment.getDireccio(), establiment.isExterior(), establiment.getNumCadires(), establiment.getNumTaules(), establiment.getHorari(), establiment.getDescripcio(), establiment.getPaginaWeb());
 
         GetPropietari getPropietari = new GetPropietari(propietari.getId(), propietari.getNomUsuari(), propietari.getCorreu(), imatge, propietari.getRols(), getEstabliment);
 

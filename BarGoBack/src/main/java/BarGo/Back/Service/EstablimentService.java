@@ -91,6 +91,16 @@ public class EstablimentService implements EstablimentInterface {
     }
 
     @Override
+    public Optional<Establiment> findByCodi(String codi) {
+        return establimentInterface.findByCodi(codi);
+    }
+
+    @Override
+    public boolean existsByCodi(String codi) {
+        return establimentInterface.existsByCodi(codi);
+    }
+
+    @Override
     public boolean existsById(Long aLong) {
         return establimentInterface.existsById(aLong);
     }

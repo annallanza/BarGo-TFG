@@ -12,6 +12,10 @@ public class Consumidor extends Usuari implements Serializable {
     private int puntuacio;
 
     @ManyToMany
+    @JoinTable(name = "consumidor_producte", joinColumns = @JoinColumn(name = "consumidor_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "producte_id", referencedColumnName = "id"))
+    private Set<Producte> productesBescanviats;
+
+    @ManyToMany
     @JoinTable(name = "consumidor_establiment", joinColumns = @JoinColumn(name = "consumidor_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "establiment_id", referencedColumnName = "id"))
     private Set<Establiment> establimentsVisitats;
 
@@ -35,6 +39,14 @@ public class Consumidor extends Usuari implements Serializable {
         this.puntuacio = puntuacio;
     }
 
+    public Set<Producte> getProductesBescanviats() {
+        return productesBescanviats;
+    }
+
+    public void setProductesBescanviats(Set<Producte> productesBescanviats) {
+        this.productesBescanviats = productesBescanviats;
+    }
+
     public Set<Establiment> getEstablimentsVisitats() {
         return establimentsVisitats;
     }
@@ -53,8 +65,19 @@ public class Consumidor extends Usuari implements Serializable {
 
     @PreRemove
     public void preRemove(){
+        eliminarProductesBescanviats();
         eliminarEstablimentsVisitats();
         eliminarReserves();
+    }
+
+    public void eliminarProductesBescanviats(){
+        for(Producte producte : this.productesBescanviats){
+            Set<Consumidor> consumidorsBescanviats = producte.getConsumidorsBescanviats();
+            consumidorsBescanviats.remove(this);
+            producte.setConsumidorsBescanviats(consumidorsBescanviats);
+        }
+
+        this.productesBescanviats.clear();
     }
 
     public void eliminarEstablimentsVisitats(){

@@ -14,6 +14,9 @@ public class Establiment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, unique = true)
+    private String codi;
+
     @Column(nullable = false)
     private String nom;
 
@@ -61,7 +64,8 @@ public class Establiment {
     public Establiment() {
     }
 
-    public Establiment(String nom, String direccio, boolean exterior, int numCadires, int numTaules, String horari, String descripcio, String paginaWeb, TipusOcupacio ocupacioInterior, TipusOcupacio ocupacioExterior) {
+    public Establiment(String codi, String nom, String direccio, boolean exterior, int numCadires, int numTaules, String horari, String descripcio, String paginaWeb, TipusOcupacio ocupacioInterior, TipusOcupacio ocupacioExterior) {
+        this.codi = codi;
         this.nom = nom;
         this.direccio = direccio;
         this.exterior = exterior;
@@ -80,6 +84,14 @@ public class Establiment {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getCodi() {
+        return codi;
+    }
+
+    public void setCodi(String codi) {
+        this.codi = codi;
     }
 
     public String getNom() {

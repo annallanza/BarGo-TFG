@@ -3,6 +3,7 @@ package BarGo.Back.Dto;
 public class GetEstabliment {
     //Tots els atributs menys els de l'ocupacio
     private Long id;
+    private String codi;
     private String nom;
     private String direccio;
     private boolean exterior;
@@ -15,8 +16,9 @@ public class GetEstabliment {
     public GetEstabliment() {
     }
 
-    public GetEstabliment(Long id, String nom, String direccio, boolean exterior, int numCadires, int numTaules, String horari, String descripcio, String paginaWeb) {
+    public GetEstabliment(Long id, String codi, String nom, String direccio, boolean exterior, int numCadires, int numTaules, String horari, String descripcio, String paginaWeb) {
         this.id = id;
+        this.codi = codi;
         this.nom = nom;
         this.direccio = direccio;
         this.exterior = exterior;
@@ -33,6 +35,14 @@ public class GetEstabliment {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getCodi() {
+        return codi;
+    }
+
+    public void setCodi(String codi) {
+        this.codi = codi;
     }
 
     public String getNom() {
