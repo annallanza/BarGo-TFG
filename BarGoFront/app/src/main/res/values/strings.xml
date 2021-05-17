@@ -91,4 +91,6 @@
     <string name="reservas">Reservas</string>
     <string name="validar">VALIDAR</string>
     <string name="_3500_puntos">3500 puntos</string>
+    <string name="codigo_establecimiento_">Código establecimiento:</string>
+    <string name="codigo_establecimiento">Código establecimiento</string>
 </resources>

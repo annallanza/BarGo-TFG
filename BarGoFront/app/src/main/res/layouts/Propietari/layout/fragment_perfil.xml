@@ -266,6 +266,47 @@
                 app:layout_constraintTop_toBottomOf="@+id/editTextConfirmaContraNova" />
 
             <TextView
+                android:id="@+id/textViewCodiEstabliment"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="50dp"
+                android:layout_marginRight="50dp"
+                android:autoSizeTextType="uniform"
+                android:maxLines="1"
+                android:text="@string/codigo_establecimiento_"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:autoSizeMaxTextSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/checkBoxContraseña2"
+                tools:targetApi="o" />
+
+            <TextView
+                android:id="@+id/TextCodiEstabliment"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="50dp"
+                android:autoSizeTextType="uniform"
+                android:autofillHints=""
+                android:ems="10"
+                android:hint="@string/codigo_establecimiento"
+                android:inputType="text"
+                android:maxLines="1"
+                android:text=""
+                android:textSize="18sp"
+                app:autoSizeMaxTextSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewCodiEstabliment"
+                tools:targetApi="o" />
+
+            <TextView
                 android:id="@+id/textViewNomEstabliment"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -282,7 +323,7 @@
                 app:autoSizeMaxTextSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/checkBoxContraseña2"
+                app:layout_constraintTop_toBottomOf="@id/TextCodiEstabliment"
                 tools:targetApi="o" />
 
             <EditText

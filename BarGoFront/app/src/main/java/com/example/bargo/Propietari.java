@@ -3,6 +3,7 @@ package com.example.bargo;
 public class Propietari extends User{
 
     long idEstabliment;
+    String codiEstabliment;
     String nomEstabliment;
     String direccioEstabliment;
     Boolean exteriorEstabliment;
@@ -21,8 +22,9 @@ public class Propietari extends User{
         instance = null;
     }
 
-    public void setAllEstabliment(long idEstabliment, String nomEstabliment, String direccioEstabliment, Boolean exteriorEstabliment, int numCadiresEstabliment, int numTaulesEstabliment, String horariEstabliment, String descripcioEstabliment, String paginaWebEstabliment) {
+    public void setAllEstabliment(long idEstabliment, String codiEstabliment, String nomEstabliment, String direccioEstabliment, Boolean exteriorEstabliment, int numCadiresEstabliment, int numTaulesEstabliment, String horariEstabliment, String descripcioEstabliment, String paginaWebEstabliment) {
         this.idEstabliment = idEstabliment;
+        this.codiEstabliment = codiEstabliment;
         this.nomEstabliment = nomEstabliment;
         this.direccioEstabliment = direccioEstabliment;
         this.exteriorEstabliment = exteriorEstabliment;
@@ -39,6 +41,14 @@ public class Propietari extends User{
 
     public void setIdEstabliment(long idEstabliment) {
         this.idEstabliment = idEstabliment;
+    }
+
+    public String getCodiEstabliment() {
+        return codiEstabliment;
+    }
+
+    public void setCodiEstabliment(String codiEstabliment) {
+        this.codiEstabliment = codiEstabliment;
     }
 
     public String getNomEstabliment() {

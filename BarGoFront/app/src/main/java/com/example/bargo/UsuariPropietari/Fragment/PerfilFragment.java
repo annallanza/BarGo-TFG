@@ -82,6 +82,7 @@ public class PerfilFragment extends Fragment {
     private EditText correuEditText;
     private Button guardarCanvis;
     private CheckBox veureContrasenya;
+    private TextView codiText;
     private EditText nomEstablimentEditText;
     private EditText direccioEditText;
     private CheckBox exteriorCheckBox;
@@ -120,6 +121,7 @@ public class PerfilFragment extends Fragment {
         veureContrasenya = view.findViewById(R.id.checkBoxContraseña2);
         isConsumidor = view.findViewById(R.id.checkBox);
         isPropietari = view.findViewById(R.id.checkBox2);
+        codiText = view.findViewById(R.id.TextCodiEstabliment);
         nomEstablimentEditText = view.findViewById(R.id.editTextNomEstabliment);
         direccioEditText = view.findViewById(R.id.editTextDireccio);
         exteriorCheckBox = view.findViewById(R.id.checkBoxExterior);
@@ -391,6 +393,7 @@ public class PerfilFragment extends Fragment {
         contrasenyaNovaEditText.setText("");
         confirmarContrasenyaNovaEditText.setText("");
 
+        codiText.setText(propietari.getCodiEstabliment());
         nomEstablimentEditText.setText(propietari.getNomEstabliment());
         direccioEditText.setText(propietari.getDireccioEstabliment());
         exteriorCheckBox.setChecked(propietari.getExteriorEstabliment());
@@ -571,6 +574,7 @@ public class PerfilFragment extends Fragment {
                             JSONObject establiment = response.getJSONObject("establiment");
 
                             long idEstabliment = establiment.getLong("id");
+                            String codiEstabliment = establiment.getString("codi");
                             String nomEstabliment = establiment.getString("nom");
                             String direccioEstabliment = establiment.getString("direccio");
                             Boolean exteriorEstabliment = establiment.getBoolean("exterior");
@@ -592,7 +596,7 @@ public class PerfilFragment extends Fragment {
                             if(paginaWebEstabliment.equals("null"))
                                 paginaWebEstabliment = null;
 
-                            propietari.setAllEstabliment(idEstabliment,nomEstabliment,direccioEstabliment,exteriorEstabliment,numCadiresEstabliment,numTaulesEstabliment,horariEstabliment,descripcioEstabliment,paginaWebEstabliment);
+                            propietari.setAllEstabliment(idEstabliment, codiEstabliment, nomEstabliment,direccioEstabliment,exteriorEstabliment,numCadiresEstabliment,numTaulesEstabliment,horariEstabliment,descripcioEstabliment,paginaWebEstabliment);
 
                             refrescarDadesPopietari();
                         } catch (JSONException e) {
