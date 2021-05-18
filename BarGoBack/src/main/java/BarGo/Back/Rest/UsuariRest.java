@@ -96,6 +96,17 @@ public class UsuariRest {
         return new ResponseEntity<>(jwtDtoRefreshed, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/auth/exists/", method = RequestMethod.POST) //Exemple url request: http://localhost:8080/usuaris/auth/exists
+    public ResponseEntity<?> existsUsuari(@Valid @RequestBody JwtDto jwtDto, BindingResult bindingResult) throws ParseException {
+        if(bindingResult.hasErrors())
+            return new ResponseEntity<>(new Missatge(Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage()), HttpStatus.BAD_REQUEST);
+
+        long id = jwtProvider.getIdUsuariFromToken(jwtDto.getToken());
+        ExisteixUsuari existeixUsuari = new ExisteixUsuari(usuariService.existsById(id));
+
+        return new ResponseEntity<>(existeixUsuari, HttpStatus.OK);
+    }
+
     //TODO: NO FA FALTA
     //@PreAuthorize("hasRole('ROL_ADMIN')") //PER A INDICAR QUI TE AUTORITZACIO A AQUESTA PETICIO, PERO NO FUNCIONA
     @RequestMapping(method = RequestMethod.GET) //Exemple url request: http://localhost:8080/usuaris

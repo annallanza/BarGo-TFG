@@ -47,7 +47,9 @@ public class LoginActivity extends AppCompatActivity {
     private EditText contrasenya;
     private TextView registrate;
     private CheckBox veureContrasenya;
+
     private ProgressDialog progressDialog;
+    int usuariExisteix = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,25 +137,29 @@ public class LoginActivity extends AppCompatActivity {
         String token = sharedPreferences.getString("token", null);
 
         if (token != null && validateToken(token)) {
-            long id = Jwts.parser().setSigningKey(VariablesGlobals.getSecret().getBytes()).parseClaimsJws(token).getBody().get("id", Long.class);
-            String nomUsuari = Jwts.parser().setSigningKey(VariablesGlobals.getSecret().getBytes()).parseClaimsJws(token).getBody().getSubject();
-            ArrayList rols = Jwts.parser().setSigningKey(VariablesGlobals.getSecret().getBytes()).parseClaimsJws(token).getBody().get("rols", ArrayList.class);
+            if(usuariExisteix == -1)
+                UsuariExisteixRequest(token);
 
-            String rol_usuari = (String) rols.get(0);
+            else if(usuariExisteix == 1) {
+                long id = Jwts.parser().setSigningKey(VariablesGlobals.getSecret().getBytes()).parseClaimsJws(token).getBody().get("id", Long.class);
+                String nomUsuari = Jwts.parser().setSigningKey(VariablesGlobals.getSecret().getBytes()).parseClaimsJws(token).getBody().getSubject();
+                ArrayList rols = Jwts.parser().setSigningKey(VariablesGlobals.getSecret().getBytes()).parseClaimsJws(token).getBody().get("rols", ArrayList.class);
 
-            if(rol_usuari.equals("ROL_CONSUMIDOR")){
-                Consumidor consumidor = Consumidor.getInstance();
-                consumidor.setId(id);
-                consumidor.setNom(nomUsuari);
-                consumidor.setToken(token);
+                String rol_usuari = (String) rols.get(0);
+
+                if (rol_usuari.equals("ROL_CONSUMIDOR")) {
+                    Consumidor consumidor = Consumidor.getInstance();
+                    consumidor.setId(id);
+                    consumidor.setNom(nomUsuari);
+                    consumidor.setToken(token);
+                } else if (rol_usuari.equals("ROL_PROPIETARI")) {
+                    Propietari propietari = Propietari.getInstance();
+                    propietari.setId(id);
+                    propietari.setNom(nomUsuari);
+                    propietari.setToken(token);
+                }
+                openMainActivity(rol_usuari);
             }
-            else if(rol_usuari.equals("ROL_PROPIETARI")){
-                Propietari propietari = Propietari.getInstance();
-                propietari.setId(id);
-                propietari.setNom(nomUsuari);
-                propietari.setToken(token);
-            }
-            openMainActivity(rol_usuari);
         }
     }
 
@@ -164,6 +170,15 @@ public class LoginActivity extends AppCompatActivity {
         editor.clear();
 
         editor.putString("token",token);
+
+        editor.apply();
+    }
+
+    private void eliminarTokenDeSharedPreferences(){
+        SharedPreferences sharedPreferences = getSharedPreferences("sessio", MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
 
         editor.apply();
     }
@@ -272,21 +287,21 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, postData,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            String token = response.getString("token");
+            new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    try {
+                        String token = response.getString("token");
 
-                            guardarTokenASharedPreferences(token);
-                            progressDialog.dismiss();
-                            comprovarSharedPreferences();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            progressDialog.dismiss();
-                        }
+                        guardarTokenASharedPreferences(token);
+                        progressDialog.dismiss();
+                        comprovarSharedPreferences();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        progressDialog.dismiss();
                     }
-                }, new Response.ErrorListener() {
+                }
+            }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 if(error.networkResponse.statusCode == 400) {
@@ -310,33 +325,52 @@ public class LoginActivity extends AppCompatActivity {
         VolleySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest);
     }
 
-    /* JSONARRAYREQUEST
-    public void loginRequest(String nomUsuari, String contrasenya){
-        // Instantiate the RequestQueue.
-        RequestQueue queue = Volley.newRequestQueue(this);
-        String url ="http://192.168.1.135:8080/usuaris/auth/login"; //localhost  192.168.1.13
+    private void UsuariExisteixRequest(String token){
+        progressDialog.show();
 
-        // Request a string response from the provided URL.
-        JsonArrayRequest JsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        System.out.println("Response is: "+ response.toString());
-                        openMainActivity();
+        String url = VariablesGlobals.getUrlAPI() + "usuaris/auth/exists/";
+
+        JSONObject postData = new JSONObject();
+        try {
+            postData.put("token", token);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, postData,
+            new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    try {
+                        boolean existeix = response.getBoolean("existeix");
+
+                        if(existeix) {
+                            usuariExisteix = 1;
+                            comprovarSharedPreferences();
+                        }
+                        else {
+                            usuariExisteix = 0;
+                            eliminarTokenDeSharedPreferences();
+                        }
+
+                        progressDialog.dismiss();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        usuariExisteix = 0;
+                        progressDialog.dismiss();
                     }
-                }, new Response.ErrorListener() {
+                }
+            }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.out.println("2.That didn't work!");
-                System.out.println(error);
-                Toast.makeText(getApplicationContext(), "Introduzca unas credenciales válidas", Toast.LENGTH_LONG).show();
-                loginButton.setEnabled(true);
+                usuariExisteix = 0;
+                progressDialog.dismiss();
             }
-        });
+        }
+        );
 
         // Add the request to the RequestQueue.
-        queue.add(JsonArrayRequest);
-
+        VolleySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest);
     }
-     */
 }
