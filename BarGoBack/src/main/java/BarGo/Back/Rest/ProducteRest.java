@@ -92,7 +92,6 @@ public class ProducteRest {
             establimentsVisitats.add(establiment);
             consumidor.setEstablimentsVisitats(establimentsVisitats);
 
-            consumidorService.save(consumidor);
             establimentService.save(establiment);
         }
         else {
@@ -114,11 +113,13 @@ public class ProducteRest {
             productesBescanviats.add(producte);
             consumidor.setProductesBescanviats(productesBescanviats);
 
-            consumidorService.save(consumidor);
             producteService.save(producte);
         }
 
-        return new ResponseEntity<>(new Missatge("El código se ha canjeado correctamente"), HttpStatus.CREATED);
+        consumidor.setPuntuacio(consumidor.getPuntuacio() + 100);
+        consumidorService.save(consumidor);
+
+        return new ResponseEntity<>(new Missatge("El código se ha canjeado correctamente"), HttpStatus.OK);
     }
 }
 

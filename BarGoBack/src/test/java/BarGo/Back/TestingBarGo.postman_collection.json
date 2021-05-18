@@ -2632,6 +2632,534 @@
 									"response": []
 								}
 							]
+						},
+						{
+							"name": "BescanviarProducteOEstabliment",
+							"item": [
+								{
+									"name": "BescanviarProducteOEstabliment401",
+									"item": [
+										{
+											"name": "BescanviarProducteOEstabliment401SenseToken",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 401\", function () {",
+															"    pm.response.to.have.status(401);",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"id\": 40,\n    \"codi\": \"PROD3d699a95\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/codis/bescanviar",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"codis",
+														"bescanviar"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "BescanviarProducteOEstabliment401IdErroni",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 401\", function () {",
+															"    pm.response.to.have.status(401);",
+															"});",
+															"",
+															"pm.test(\"PuntuacioTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"No tienes acceso al usuario con ese id\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb25zdW1pZG9yIiwicm9scyI6WyJST0xfQ09OU1VNSURPUiJdLCJpZCI6NDAsImlhdCI6MTYyMTI0ODQ5NCwiZXhwIjoxNjIxMzM0ODk0fQ.BnjZ7xFdHSaJL6YV7gZ72sMCyeGxNZ0KT8qDoShPkCYUlDtwz7wR9Y5xsrr_XaX8piFX2gotDRoruI38ct5Edg",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"id\": 400,\n    \"codi\": \"PROD3d699a95\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/codis/bescanviar",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"codis",
+														"bescanviar"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "BescanviarProducteOEstabliment400",
+									"item": [
+										{
+											"name": "BescanviarProducteOEstabliment400IdNull",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"El id no puede ser un valor nulo\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb25zdW1pZG9yIiwicm9scyI6WyJST0xfQ09OU1VNSURPUiJdLCJpZCI6NDAsImlhdCI6MTYyMTI0ODQ5NCwiZXhwIjoxNjIxMzM0ODk0fQ.BnjZ7xFdHSaJL6YV7gZ72sMCyeGxNZ0KT8qDoShPkCYUlDtwz7wR9Y5xsrr_XaX8piFX2gotDRoruI38ct5Edg",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"id\": null,\n    \"codi\": \"PROD3d699a95\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/codis/bescanviar",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"codis",
+														"bescanviar"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "BescanviarProducteOEstabliment400CodiNull",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"El código no puede ser un valor nulo ni vacío\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb25zdW1pZG9yIiwicm9scyI6WyJST0xfQ09OU1VNSURPUiJdLCJpZCI6NDAsImlhdCI6MTYyMTI0ODQ5NCwiZXhwIjoxNjIxMzM0ODk0fQ.BnjZ7xFdHSaJL6YV7gZ72sMCyeGxNZ0KT8qDoShPkCYUlDtwz7wR9Y5xsrr_XaX8piFX2gotDRoruI38ct5Edg",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"id\": 40,\n    \"codi\": null\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/codis/bescanviar",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"codis",
+														"bescanviar"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "BescanviarProducteOEstabliment400CodiBuit",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"El código no puede ser un valor nulo ni vacío\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb25zdW1pZG9yIiwicm9scyI6WyJST0xfQ09OU1VNSURPUiJdLCJpZCI6NDAsImlhdCI6MTYyMTI0ODQ5NCwiZXhwIjoxNjIxMzM0ODk0fQ.BnjZ7xFdHSaJL6YV7gZ72sMCyeGxNZ0KT8qDoShPkCYUlDtwz7wR9Y5xsrr_XaX8piFX2gotDRoruI38ct5Edg",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"id\": 40,\n    \"codi\": \"\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/codis/bescanviar",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"codis",
+														"bescanviar"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "BescanviarProducteOEstabliment400CodiMalFormat",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"El código debe tener el formato PRODxxxxxxxx o ESTxxxxxxxx\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb25zdW1pZG9yIiwicm9scyI6WyJST0xfQ09OU1VNSURPUiJdLCJpZCI6NDAsImlhdCI6MTYyMTI0ODQ5NCwiZXhwIjoxNjIxMzM0ODk0fQ.BnjZ7xFdHSaJL6YV7gZ72sMCyeGxNZ0KT8qDoShPkCYUlDtwz7wR9Y5xsrr_XaX8piFX2gotDRoruI38ct5Edg",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"id\": 40,\n    \"codi\": \"PRO3d699fefea95\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/codis/bescanviar",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"codis",
+														"bescanviar"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "BescanviarProducteOEstabliment409",
+									"item": [
+										{
+											"name": "BescanviarProducteOEstabliment409CodiJaBescanviat",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 409\", function () {",
+															"    pm.response.to.have.status(409);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"El código ya ha sido canjeado\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb25zdW1pZG9yIiwicm9scyI6WyJST0xfQ09OU1VNSURPUiJdLCJpZCI6NDAsImlhdCI6MTYyMTI0ODQ5NCwiZXhwIjoxNjIxMzM0ODk0fQ.BnjZ7xFdHSaJL6YV7gZ72sMCyeGxNZ0KT8qDoShPkCYUlDtwz7wR9Y5xsrr_XaX8piFX2gotDRoruI38ct5Edg",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"id\": 40,\n    \"codi\": \"PROD3d699a95\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/codis/bescanviar",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"codis",
+														"bescanviar"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "BescanviarProducteOEstabliment409CodiInvalid",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 409\", function () {",
+															"    pm.response.to.have.status(409);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"El código no es válido\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb25zdW1pZG9yIiwicm9scyI6WyJST0xfQ09OU1VNSURPUiJdLCJpZCI6NDAsImlhdCI6MTYyMTI0ODQ5NCwiZXhwIjoxNjIxMzM0ODk0fQ.BnjZ7xFdHSaJL6YV7gZ72sMCyeGxNZ0KT8qDoShPkCYUlDtwz7wR9Y5xsrr_XaX8piFX2gotDRoruI38ct5Edg",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"id\": 40,\n    \"codi\": \"PROD3d699a33\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/codis/bescanviar",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"codis",
+														"bescanviar"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "BescanviarProducteOEstabliment",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"MissatgeErrorTest\", function () {",
+													"    missatge = pm.response.json().missatge;",
+													"    pm.expect(missatge).to.equal(\"El código se ha canjeado correctamente\");",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb25zdW1pZG9yIiwicm9scyI6WyJST0xfQ09OU1VNSURPUiJdLCJpZCI6NDAsImlhdCI6MTYyMTI0ODQ5NCwiZXhwIjoxNjIxMzM0ODk0fQ.BnjZ7xFdHSaJL6YV7gZ72sMCyeGxNZ0KT8qDoShPkCYUlDtwz7wR9Y5xsrr_XaX8piFX2gotDRoruI38ct5Edg",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"id\": 40,\n    \"codi\": \"PROD3d699a95\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/codis/bescanviar",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"codis",
+												"bescanviar"
+											]
+										}
+									},
+									"response": []
+								}
+							]
 						}
 					]
 				},
