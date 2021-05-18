@@ -67,6 +67,7 @@ public class profileFragment extends Fragment {
     private Button reptes;
     private TextView nomUsuariTextView;
     private TextView puntuacio;
+
     private ProgressDialog progressDialog;
     private final Consumidor consumidor = Consumidor.getInstance();
     View view;

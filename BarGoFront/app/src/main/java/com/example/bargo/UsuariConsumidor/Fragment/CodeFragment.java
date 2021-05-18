@@ -1,8 +1,7 @@
 package com.example.bargo.UsuariConsumidor.Fragment;
 
-import android.content.Intent;
+import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,89 +9,118 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.bargo.Consumidor;
-import com.example.bargo.UsuariConsumidor.Model.RetosInfo;
-import com.example.bargo.User;
 import com.example.bargo.R;
-import com.google.zxing.integration.android.IntentIntegrator;
-import com.google.zxing.integration.android.IntentResult;
+import com.example.bargo.VariablesGlobals;
+import com.example.bargo.VolleySingleton;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CodeFragment extends Fragment {
-    EditText introducedCode;
-    Button button;
-    Button btnScanner;
 
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    EditText codi;
+    Button bescanviar;
 
-        final View rootView = inflater.inflate(R.layout.fragment_code, container, false);
+    private ProgressDialog progressDialog;
+    private final Consumidor consumidor = Consumidor.getInstance();
+    View view;
 
-        introducedCode = (EditText)rootView.findViewById(R.id.code);
-        button = (Button)rootView.findViewById(R.id.button);
-        btnScanner = rootView.findViewById(R.id.scan);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        button.setOnClickListener(new View.OnClickListener() {
+        view = inflater.inflate(R.layout.fragment_code, container, false);
+
+        codi = view.findViewById(R.id.EditTextCodi);
+        bescanviar = view.findViewById(R.id.ButtonCanjear);
+
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setMessage("Cargando...");
+        progressDialog.setCancelable(false);
+
+        bescanviar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String code = introducedCode.getText().toString();
-                if (TextUtils.isEmpty(code)) Toast.makeText(getActivity().getBaseContext(), "Introduzca un código valido", Toast.LENGTH_SHORT).show();
-                else {
-                    if (code.contains("BAR")) { //en caso de ser un código de un bar
-                        Toast.makeText(getActivity().getBaseContext(), "Se ha añadido el bar en su lista de correbares", Toast.LENGTH_SHORT).show();
-                        RetosInfo.getInstance().setContext(getActivity().getBaseContext());
-                        RetosInfo.getInstance().changeChallenges("BAR");
-                        // Añadir bar no se a que lista...
-                    }
-                    else if (code.contains("PROD")) { //en caso de producto de bar
-                        Toast.makeText(getActivity().getBaseContext(), "¡Canjeado! ¡+100 puntos!", Toast.LENGTH_SHORT).show();
-                        Consumidor.getInstance().addPoints(100);
-                        RetosInfo.getInstance().setContext(getActivity().getBaseContext());
-                        RetosInfo.getInstance().changeChallenges("BEER");
-                    }
-                    else Toast.makeText(getActivity().getBaseContext(), "Introduzca un código valido", Toast.LENGTH_SHORT).show();
-                }
+                bescanviar.setEnabled(false);
+                progressDialog.show();
+
+                String code = codi.getText().toString();
+
+                BescanviarCodi(code);
             }
         });
 
-        btnScanner.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                escanear();
-            }
-        });
-
-        // Inflate the layout for this fragment
-        return rootView;
+        return view;
     }
 
-    public void escanear() {
-        IntentIntegrator intent = IntentIntegrator.forSupportFragment(CodeFragment.this);
-        intent.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES);
-        intent.setPrompt("ESCANEAR CODIGO");
-        intent.setCameraId(0);
-        intent.setBeepEnabled(false);
-        intent.setBarcodeImageEnabled(false);
-        intent.setOrientationLocked(true);
-        intent.initiateScan();
-    }
+    public void BescanviarCodi(final String codi) {
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        if(result != null) {
-            if(result.getContents() == null) {
-                Toast.makeText(getActivity().getBaseContext(), "Cancelaste el escaneo", Toast.LENGTH_SHORT).show();
-            }else{
-                introducedCode.setText(result.getContents().toString());
-            }
-        }else {
-            super.onActivityResult(requestCode, resultCode, data);
+        String url = VariablesGlobals.getUrlAPI() + "codis/bescanviar";
+
+        JSONObject postData = new JSONObject();
+        try {
+            postData.put("id", consumidor.getId());
+            postData.put("codi", codi);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
 
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, postData,
+            new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    try {
+                        String missatge = response.getString("missatge");
+
+                        Toast.makeText(getContext(), missatge, Toast.LENGTH_LONG).show();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    bescanviar.setEnabled(true);
+                    progressDialog.dismiss();
+                }
+            }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                if(error.networkResponse.statusCode == 400 || error.networkResponse.statusCode == 404 || error.networkResponse.statusCode == 409) {
+                    try {
+                        String responseBody = new String(error.networkResponse.data, "utf-8");
+                        JSONObject data = new JSONObject(responseBody);
+                        String missatgeError = data.getString("missatge");
+
+                        Toast.makeText(getContext(), missatgeError, Toast.LENGTH_LONG).show();
+
+                    } catch (UnsupportedEncodingException | JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                else if(error.networkResponse.statusCode == 401)
+                    Toast.makeText(getContext(), "No se indica el token o no es válido o el id no es el asociado al token", Toast.LENGTH_LONG).show();
+
+                bescanviar.setEnabled(true);
+                progressDialog.dismiss();
+            }
+        }
+        ){
+            @Override
+            public Map<String, String> getHeaders() {
+                HashMap<String, String> headers = new HashMap<>();
+                headers.put("Authorization", "Bearer " + consumidor.getToken());
+                return headers;
+            }
+        };
+
+        // Add the request to the RequestQueue.
+        VolleySingleton.getInstance(getContext()).addToRequestQueue(jsonObjectRequest);
     }
-
-
 }
