@@ -13,7 +13,7 @@
         android:id="@+id/imageViewLogo"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="20dp"
         android:contentDescription="@string/descripci_n"
         android:src="@drawable/logo"
         app:layout_constraintBottom_toTopOf="@+id/textCodi"
@@ -32,14 +32,14 @@
         android:layout_marginBottom="10dp"
         android:autoSizeTextType="uniform"
         android:maxLines="1"
-        tools:targetApi="o"
+        android:text="@string/introduce_el_c_digo_de_tu_consumici_n"
         android:textColor="#000000"
         android:textSize="18sp"
         app:autoSizeMaxTextSize="18sp"
-        android:text="@string/introduce_el_c_digo_de_tu_consumici_n"
         app:layout_constraintBottom_toTopOf="@+id/EditTextCodi"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:targetApi="o" />
 
     <EditText
         android:id="@+id/EditTextCodi"

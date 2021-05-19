@@ -32,7 +32,7 @@
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -57,8 +57,8 @@
                 android:text="@string/nombre_establecimiento_"
                 android:textColor="#000000"
                 android:textSize="18sp"
-                app:autoSizeMaxTextSize="18sp"
                 android:textStyle="bold"
+                app:autoSizeMaxTextSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -75,14 +75,14 @@
                 android:layout_marginRight="50dp"
                 android:autoSizeTextType="uniform"
                 android:maxLines="1"
-                tools:targetApi="o"
+                android:text="@string/nombre_establecimiento"
                 android:textColor="#000000"
                 android:textSize="18sp"
                 app:autoSizeMaxTextSize="18sp"
-                android:text="@string/nombre_establecimiento"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/NomEstabliment_" />
+                app:layout_constraintTop_toBottomOf="@id/NomEstabliment_"
+                tools:targetApi="o" />
 
             <TextView
                 android:id="@+id/direccion_"
@@ -95,15 +95,15 @@
                 android:layout_marginRight="50dp"
                 android:autoSizeTextType="uniform"
                 android:maxLines="1"
-                tools:targetApi="o"
+                android:text="@string/direccion_"
                 android:textColor="#000000"
                 android:textSize="18sp"
-                app:autoSizeMaxTextSize="18sp"
-                android:text="@string/direccion_"
                 android:textStyle="bold"
+                app:autoSizeMaxTextSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/NomEstabliment" />
+                app:layout_constraintTop_toBottomOf="@id/NomEstabliment"
+                tools:targetApi="o" />
 
             <TextView
                 android:id="@+id/direccion"
@@ -116,14 +116,14 @@
                 android:layout_marginRight="50dp"
                 android:autoSizeTextType="uniform"
                 android:maxLines="1"
-                tools:targetApi="o"
+                android:text="@string/direcci_n"
                 android:textColor="#000000"
                 android:textSize="18sp"
                 app:autoSizeMaxTextSize="18sp"
-                android:text="@string/direcci_n"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/direccion_" />
+                app:layout_constraintTop_toBottomOf="@id/direccion_"
+                tools:targetApi="o" />
 
             <TextView
                 android:id="@+id/fecha_"
@@ -136,15 +136,15 @@
                 android:layout_marginRight="50dp"
                 android:autoSizeTextType="uniform"
                 android:maxLines="1"
-                tools:targetApi="o"
+                android:text="@string/fecha_"
                 android:textColor="#000000"
                 android:textSize="18sp"
-                app:autoSizeMaxTextSize="18sp"
-                android:text="@string/fecha_"
                 android:textStyle="bold"
+                app:autoSizeMaxTextSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/direccion" />
+                app:layout_constraintTop_toBottomOf="@id/direccion"
+                tools:targetApi="o" />
 
             <TextView
                 android:id="@+id/fechaEvento"
@@ -157,14 +157,14 @@
                 android:layout_marginRight="50dp"
                 android:autoSizeTextType="uniform"
                 android:maxLines="1"
-                tools:targetApi="o"
+                android:text="@string/fecha"
                 android:textColor="#000000"
                 android:textSize="18sp"
                 app:autoSizeMaxTextSize="18sp"
-                android:text="@string/fecha"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/fecha_" />
+                app:layout_constraintTop_toBottomOf="@id/fecha_"
+                tools:targetApi="o" />
 
             <TextView
                 android:id="@+id/hora_"
@@ -177,15 +177,15 @@
                 android:layout_marginRight="50dp"
                 android:autoSizeTextType="uniform"
                 android:maxLines="1"
-                tools:targetApi="o"
+                android:text="@string/hora_"
                 android:textColor="#000000"
                 android:textSize="18sp"
-                app:autoSizeMaxTextSize="18sp"
-                android:text="@string/hora_"
                 android:textStyle="bold"
+                app:autoSizeMaxTextSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/fechaEvento" />
+                app:layout_constraintTop_toBottomOf="@id/fechaEvento"
+                tools:targetApi="o" />
 
             <TextView
                 android:id="@+id/horaEvento"
@@ -198,14 +198,14 @@
                 android:layout_marginRight="50dp"
                 android:autoSizeTextType="uniform"
                 android:maxLines="1"
-                tools:targetApi="o"
+                android:text="@string/hora"
                 android:textColor="#000000"
                 android:textSize="18sp"
                 app:autoSizeMaxTextSize="18sp"
-                android:text="@string/hora"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/hora_" />
+                app:layout_constraintTop_toBottomOf="@id/hora_"
+                tools:targetApi="o" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

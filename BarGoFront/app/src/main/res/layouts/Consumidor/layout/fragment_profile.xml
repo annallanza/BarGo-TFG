@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UsuariConsumidor.Fragment.profileFragment"
-    android:paddingBottom="60dp">
+    android:paddingBottom="60dp"
+    tools:context=".UsuariConsumidor.Fragment.profileFragment">
 
     <ScrollView
         android:id="@+id/ScrollView"
@@ -24,18 +24,21 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/circleImageView"
-                android:layout_width="108dp"
+                android:layout_width="0dp"
                 android:layout_height="104dp"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="50dp"
                 android:layout_marginLeft="50dp"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="50dp"
+                android:layout_marginRight="50dp"
                 android:clickable="true"
                 android:focusable="true"
                 android:src="@drawable/logo"
                 app:civ_border_color="#99000000"
                 app:civ_border_width="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -43,59 +46,52 @@
                 android:id="@+id/user_name_profile"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="50dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="50dp"
                 android:layout_marginRight="50dp"
                 android:autoSizeTextType="uniform"
+                android:gravity="center"
                 android:maxLines="1"
                 android:text="@string/nombre_usuario"
                 android:textColor="#000000"
-                android:textSize="24sp"
-                app:autoSizeMaxTextSize="24sp"
+                android:textSize="20sp"
+                app:autoSizeMaxTextSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/circleImageView"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/circleImageView"
                 tools:targetApi="o" />
 
             <Button
                 android:id="@+id/misReservas_button"
                 android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginLeft="10dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginLeft="50dp"
                 android:layout_marginTop="10dp"
-                android:autoSizeTextType="uniform"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
                 android:background="@color/colorBarGo"
-                android:maxLines="1"
                 android:text="@string/mis_reservas"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="16sp"
-                app:autoSizeMaxTextSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@+id/circleImageView"
+                android:textSize="12sp"
                 app:layout_constraintEnd_toStartOf="@+id/imageButtonConfiguracio"
-                app:layout_constraintStart_toEndOf="@+id/circleImageView"
-                app:layout_constraintTop_toBottomOf="@+id/user_name_profile"
-                tools:targetApi="o" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/user_name_profile" />
 
             <ImageButton
                 android:id="@+id/imageButtonConfiguracio"
-                android:layout_width="50dp"
+                android:layout_width="30dp"
                 android:layout_height="0dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="50dp"
-                android:layout_marginRight="50dp"
                 android:adjustViewBounds="true"
                 android:background="@null"
                 android:contentDescription="@string/descripci_n"
                 android:scaleType="fitCenter"
                 android:src="@drawable/options_icon"
                 app:layout_constraintBottom_toBottomOf="@+id/misReservas_button"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/misReservas_button"
+                app:layout_constraintEnd_toEndOf="@id/user_name_profile"
                 app:layout_constraintTop_toBottomOf="@+id/user_name_profile" />
 
             <TextView
@@ -104,7 +100,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="50dp"
                 android:layout_marginLeft="50dp"
-                android:layout_marginTop="60dp"
+                android:layout_marginTop="40dp"
                 android:layout_marginEnd="50dp"
                 android:layout_marginRight="50dp"
                 android:autoSizeTextType="uniform"
@@ -116,7 +112,7 @@
                 app:autoSizeMaxTextSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/circleImageView"
+                app:layout_constraintTop_toBottomOf="@+id/misReservas_button"
                 tools:targetApi="o" />
 
             <TextView
@@ -178,7 +174,7 @@
                 android:layout_height="0dp"
                 android:layout_marginStart="50dp"
                 android:layout_marginLeft="50dp"
-                android:layout_marginTop="60dp"
+                android:layout_marginTop="40dp"
                 android:layout_marginEnd="50dp"
                 android:layout_marginRight="50dp"
                 android:background="@color/colorBarGo"
@@ -212,7 +208,7 @@
             <Button
                 android:id="@+id/makeChallengeBttn"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_marginStart="50dp"
                 android:layout_marginLeft="50dp"
                 android:layout_marginTop="30dp"
@@ -222,7 +218,7 @@
                 android:background="@color/colorBarGo"
                 android:text="@string/make_challenges"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="14sp"
+                android:textSize="10sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/view2"
                 app:layout_constraintStart_toStartOf="parent"
@@ -233,7 +229,7 @@
             <Button
                 android:id="@+id/exchangeBttn"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="30dp"
@@ -243,15 +239,12 @@
                 android:background="@color/colorBarGo"
                 android:text="@string/exchange"
                 android:textColor="@color/colorPrimaryDark"
-                android:autoSizeTextType="uniform"
-                android:maxLines="1"
-                tools:targetApi="o"
-                android:textSize="16sp"
-                app:autoSizeMaxTextSize="16sp"
+                android:textSize="10sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/view2"
-                app:layout_constraintTop_toBottomOf="@+id/pointsWait" />
+                app:layout_constraintTop_toBottomOf="@+id/pointsWait"
+                tools:ignore="SmallSp" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -21,8 +21,8 @@
         android:maxLines="1"
         android:text="@string/eventos"
         android:textColor="#323131"
-        android:textSize="36sp"
-        app:autoSizeMaxTextSize="36sp"
+        android:textSize="30sp"
+        app:autoSizeMaxTextSize="30sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,13 +33,12 @@
         android:id="@+id/esdevenimentsListPropietari"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="10dp"
         android:layout_weight="1"
         android:paddingTop="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TitolEsdeveniments" >
+        app:layout_constraintTop_toBottomOf="@+id/TitolEsdeveniments">
 
     </ListView>
 
@@ -47,7 +46,7 @@
         android:id="@+id/addEvent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="60dp"
+        android:layout_marginBottom="20dp"
         android:clickable="true"
         android:focusable="true"
         android:src="@drawable/plus"

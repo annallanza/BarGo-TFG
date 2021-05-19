@@ -11,19 +11,19 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="50dp"
+        android:autoSizeTextType="uniform"
         android:gravity="center"
+        android:maxLines="1"
         android:text="@string/registro"
         android:textColor="#323131"
-        android:textSize="36sp"
-        app:autoSizeMaxTextSize="36sp"
+        android:textSize="30sp"
         android:textStyle="bold"
-        android:autoSizeTextType="uniform"
-        android:maxLines="1"
-        tools:targetApi="o"
+        app:autoSizeMaxTextSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:targetApi="o" />
 
     <ScrollView
         android:id="@+id/ScrollViewModificarDades"
@@ -126,35 +126,31 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="50dp"
                 android:layout_marginRight="50dp"
+                android:autoSizeTextType="uniform"
                 android:autofillHints=""
                 android:ems="10"
                 android:hint="@string/confirmar_contrase_a"
                 android:inputType="text|textPassword"
-                android:text=""
-                android:autoSizeTextType="uniform"
                 android:maxLines="1"
-                tools:targetApi="o"
+                android:text=""
                 android:textColor="#000000"
                 android:textSize="18sp"
-                app:autoSizeMaxTextSize="18sp"
                 android:visibility="visible"
+                app:autoSizeMaxTextSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextContraNova" />
+                app:layout_constraintTop_toBottomOf="@+id/editTextContraNova"
+                tools:targetApi="o" />
 
             <CheckBox
                 android:id="@+id/checkBoxContraseña2"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="50dp"
-                android:layout_marginLeft="50dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="50dp"
-                android:layout_marginRight="50dp"
                 android:text="@string/ver_contraseña"
                 android:visibility="visible"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/editTextConfirmarContraNova"
+                app:layout_constraintStart_toStartOf="@+id/editTextConfirmarContraNova"
                 app:layout_constraintTop_toBottomOf="@+id/editTextConfirmarContraNova" />
 
             <TextView
@@ -657,20 +653,25 @@
 
     <TextView
         android:id="@+id/textViewRegistrate"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginLeft="50dp"
         android:layout_marginTop="20dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginRight="50dp"
         android:layout_marginBottom="50dp"
-        android:text="@string/ya_tienes_tu_cuenta_inicia_sesi_n"
         android:autoSizeTextType="uniform"
+        android:gravity="center"
         android:maxLines="1"
-        tools:targetApi="o"
+        android:text="@string/ya_tienes_tu_cuenta_inicia_sesi_n"
         android:textColor="#000000"
         android:textSize="18sp"
         app:autoSizeMaxTextSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonAcceder" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonAcceder"
+        tools:targetApi="o" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

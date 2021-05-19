@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UsuariPropietari.Activity.NouEsdevenimentActivity">
+    tools:context=".UsuariPropietari.Activity.NouEsdevenimentActivity"
+    android:paddingBottom="60dp">
 
     <TextView
         android:id="@+id/titolNouEsdeveniment"
@@ -20,8 +21,8 @@
         android:maxLines="1"
         android:text="@string/evento"
         android:textColor="#323131"
-        android:textSize="36sp"
-        app:autoSizeMaxTextSize="36sp"
+        android:textSize="30sp"
+        app:autoSizeMaxTextSize="30sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -31,7 +32,7 @@
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toTopOf="@id/crearNouEsdeveniment"
         app:layout_constraintEnd_toEndOf="parent"
@@ -110,7 +111,7 @@
         android:layout_marginLeft="50dp"
         android:layout_marginEnd="50dp"
         android:layout_marginRight="50dp"
-        android:layout_marginBottom="110dp"
+        android:layout_marginBottom="20dp"
         android:background="#CC383B"
         android:text="@string/crear_evento"
         android:textColor="#FFFFFF"
