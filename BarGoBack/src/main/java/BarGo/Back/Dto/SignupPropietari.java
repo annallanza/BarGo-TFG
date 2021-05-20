@@ -32,6 +32,7 @@ public class SignupPropietari {
     private int numTaules;
 
     @NotBlank(message = "El horario del establecimiento no puede ser un valor nulo ni vacío")
+    @Pattern(regexp = "((\\d{2}):(\\d{2}) - (\\d{2}):(\\d{2})){1}( , ((\\d{2}):(\\d{2}) - (\\d{2}):(\\d{2})){1}( , ((\\d{2}):(\\d{2}) - (\\d{2}):(\\d{2})){1})?)?", message = "El horario debe tener el formato hh:mm - hh:mm , hh:mm - hh:mm , hh:mm - hh:mm")
     private String horari;
 
     @Size(min = 200, message = "La descripción del establecimiento ha de tener un mínimo de 200 caracteres")

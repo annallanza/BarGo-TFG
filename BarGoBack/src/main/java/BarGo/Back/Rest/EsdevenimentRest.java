@@ -62,7 +62,7 @@ public class EsdevenimentRest {
     private ResponseEntity<?> getEsdevenimentById(@PathVariable("id") Long id){
         Optional<Esdeveniment> optionalEsdeveniment = esdevenimentService.findById(id);
         if (!optionalEsdeveniment.isPresent())
-            return new ResponseEntity<>(new Missatge("No existe ningun evento con ese id"), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new Missatge("No existe ningún evento con ese id"), HttpStatus.NOT_FOUND);
 
         Esdeveniment esdeveniment = optionalEsdeveniment.get();
 
@@ -84,7 +84,7 @@ public class EsdevenimentRest {
         Optional<Propietari> optionalPropietari = propietariService.findById(createEsdeveniment.getId());
 
         if(!optionalPropietari.isPresent())
-            return new ResponseEntity<>(new Missatge("No existe ningun propietario con ese id"), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new Missatge("No existe ningún propietario con ese id"), HttpStatus.NOT_FOUND);
 
         Propietari propietari = optionalPropietari.get();
 
@@ -127,6 +127,9 @@ public class EsdevenimentRest {
                 return new ResponseEntity<>(new Missatge("La hora no puede ser anterior a la actual"), HttpStatus.BAD_REQUEST);
         }
 
+        if(!estaDinsHorari(establiment, hora))
+            return new ResponseEntity<>(new Missatge("El establecimiento no está abierto a esta hora"), HttpStatus.CONFLICT);
+
         SimpleDateFormat formatText = new SimpleDateFormat("yyyy-MM-dd"); //El format amb el que volem comparar
         String dia_format = formatText.format(dia);
 
@@ -146,7 +149,7 @@ public class EsdevenimentRest {
     private ResponseEntity<?> deleteEsdevenimentById(@PathVariable("id") Long id, @RequestHeader(value="Authorization") String token){
         Optional<Esdeveniment> optionalEsdeveniment = esdevenimentService.findById(id);
         if (!optionalEsdeveniment.isPresent())
-            return new ResponseEntity<>(new Missatge("No existe ningun evento con ese id"), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new Missatge("No existe ningún evento con ese id"), HttpStatus.NOT_FOUND);
 
         Esdeveniment esdeveniment = optionalEsdeveniment.get();
         long idPropietari = esdeveniment.getEstabliment().getPropietari().getId();
@@ -166,7 +169,7 @@ public class EsdevenimentRest {
         Optional<Propietari> optionalPropietari = propietariService.findById(id);
 
         if(!optionalPropietari.isPresent())
-            return new ResponseEntity<>(new Missatge("No existe ningun propietario con ese id"), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new Missatge("No existe ningún propietario con ese id"), HttpStatus.NOT_FOUND);
 
         Set<Esdeveniment> esdeveniments = optionalPropietari.get().getEstabliment().getEsdeveniments();
 
@@ -178,5 +181,33 @@ public class EsdevenimentRest {
         }
 
         return new ResponseEntity<>(esdevenimentList, HttpStatus.OK);
+    }
+
+    private boolean estaDinsHorari(Establiment establiment, Time hora) {
+        String horari = establiment.getHorari();
+
+        String[] horarisy = horari.split(" , ");
+
+        ArrayList<Time> horarisDividits = new ArrayList<>();
+        for (String s : horarisy) {
+            String[] horaris_ = s.split(" - ");
+
+            for (String horaEnHorari : horaris_) {
+                horaEnHorari += ":00";
+                Time horaEnHorariTime = Time.valueOf(horaEnHorari);
+                horarisDividits.add(horaEnHorariTime);
+            }
+        }
+
+        int i = 0;
+        boolean dinsHorari = false;
+        while(!dinsHorari && i < horarisDividits.size()){
+            horarisDividits.get(i).setTime(horarisDividits.get(i).getTime() - 60000); //1 minut abans d'obrir
+            horarisDividits.get(i+1).setTime(horarisDividits.get(i+1).getTime() - 900000); //15 minuts abans de tancar
+            if(hora.after(horarisDividits.get(i)) && hora.before(horarisDividits.get(i+1)))
+                dinsHorari = true;
+            i += 2;
+        }
+        return dinsHorari;
     }
 }

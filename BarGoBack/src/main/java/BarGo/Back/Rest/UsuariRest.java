@@ -121,7 +121,7 @@ public class UsuariRest {
 
         Optional<Usuari> optionalUsuari = usuariService.findById(id);
         if (!optionalUsuari.isPresent())
-            return new ResponseEntity<>(new Missatge("No existe ningun usuario con ese id"), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new Missatge("No existe ningún usuario con ese id"), HttpStatus.NOT_FOUND);
 
         Usuari usuari = optionalUsuari.get();
 
@@ -147,7 +147,7 @@ public class UsuariRest {
 
         Optional<Usuari> optionalUsuari = usuariService.findById(updateUsuari.getId());
         if (!optionalUsuari.isPresent())
-            return new ResponseEntity<>(new Missatge("No existe ningun usuario con ese id"), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new Missatge("No existe ningún usuario con ese id"), HttpStatus.NOT_FOUND);
 
         Usuari usuariexists = optionalUsuari.get();
         if(usuariService.existsByNomUsuari(updateUsuari.getNomUsuari()) && !updateUsuari.getNomUsuari().equals(usuariexists.getNomUsuari()))
@@ -172,7 +172,7 @@ public class UsuariRest {
 
         Optional<Usuari> optionalUsuari = usuariService.findById(id);
         if (!optionalUsuari.isPresent())
-            return new ResponseEntity<>("No existe ningun usuario con ese id", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("No existe ningún usuario con ese id", HttpStatus.NOT_FOUND);
 
         Usuari usuari = optionalUsuari.get();
 
@@ -202,7 +202,7 @@ public class UsuariRest {
 
         Optional<Usuari> optionalUsuari = usuariService.findById(id);
         if (!optionalUsuari.isPresent())
-            return new ResponseEntity<>(new Missatge("No existe ningun usuario con ese id"), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new Missatge("No existe ningún usuario con ese id"), HttpStatus.NOT_FOUND);
 
         usuariService.deleteById(id);
 

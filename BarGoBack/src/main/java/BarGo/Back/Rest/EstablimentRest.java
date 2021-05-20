@@ -38,7 +38,7 @@ public class EstablimentRest {
     private ResponseEntity<?> getAllEstabliments(@PathVariable("id") Long id, @RequestParam(required = false) Optional<String> nomEstabliment, @RequestParam(required = false) Optional<String> direccio){
         Optional<Consumidor> optionalConsumidor = consumidorService.findById(id);
         if (!optionalConsumidor.isPresent())
-            return new ResponseEntity<>(new Missatge("No existe ningun consumidor con ese id"), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new Missatge("No existe ningún consumidor con ese id"), HttpStatus.NOT_FOUND);
 
         Consumidor consumidor = optionalConsumidor.get();
         Set<Establiment> establimentsVisitats = consumidor.getEstablimentsVisitats();
@@ -76,7 +76,7 @@ public class EstablimentRest {
     private ResponseEntity<?> getEstablimentById(@PathVariable("id") Long id){
         Optional<Establiment> optionalEstabliment = establimentService.findById(id);
         if (!optionalEstabliment.isPresent())
-            return new ResponseEntity<>(new Missatge("No existe ningun establecimiento con ese id"), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new Missatge("No existe ningún establecimiento con ese id"), HttpStatus.NOT_FOUND);
 
         Establiment establiment = optionalEstabliment.get();
 
@@ -101,7 +101,7 @@ public class EstablimentRest {
 
         Optional<Propietari> optionalPropietari = propietariService.findById(id);
         if (!optionalPropietari.isPresent())
-            return new ResponseEntity<>(new Missatge("No existe ningun propietario con ese id"), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new Missatge("No existe ningún propietario con ese id"), HttpStatus.NOT_FOUND);
 
         Propietari propietari = optionalPropietari.get();
 
@@ -122,7 +122,7 @@ public class EstablimentRest {
 
         Optional<Propietari> optionalPropietari = propietariService.findById(updateOcupacio.getId());
         if (!optionalPropietari.isPresent())
-            return new ResponseEntity<>(new Missatge("No existe ningun propietario con ese id"), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new Missatge("No existe ningún propietario con ese id"), HttpStatus.NOT_FOUND);
 
         Propietari propietari = optionalPropietari.get();
         Establiment establiment = propietari.getEstabliment();

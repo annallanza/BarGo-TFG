@@ -50,7 +50,7 @@ public class ConsumidorRest {
 
         Optional<Consumidor> optionalConsumidor = consumidorService.findById(id);
         if (!optionalConsumidor.isPresent())
-            return new ResponseEntity<>(new Missatge("No existe ningun consumidor con ese id"), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new Missatge("No existe ningún consumidor con ese id"), HttpStatus.NOT_FOUND);
 
         Consumidor consumidor = optionalConsumidor.get();
 
@@ -70,7 +70,7 @@ public class ConsumidorRest {
 
         Optional<Consumidor> optionalConsumidor = consumidorService.findById(putConsumidor.getId());
         if (!optionalConsumidor.isPresent())
-            return new ResponseEntity<>(new Missatge("No existe ningun usuario con ese id"), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new Missatge("No existe ningún usuario con ese id"), HttpStatus.NOT_FOUND);
 
         Consumidor consumidor = optionalConsumidor.get();
         consumidor.setPuntuacio(putConsumidor.getPuntuacio());
@@ -109,7 +109,7 @@ public class ConsumidorRest {
 
         Optional<Consumidor> optionalConsumidor = consumidorService.findById(id);
         if (!optionalConsumidor.isPresent())
-            return new ResponseEntity<>(new Missatge("No existe ningun consumidor con ese id"), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new Missatge("No existe ningún consumidor con ese id"), HttpStatus.NOT_FOUND);
 
         consumidorService.deleteById(id);
 

@@ -48,12 +48,12 @@ public class ReservaRest {
 
         Optional<Consumidor> optionalConsumidor = consumidorService.findById(createReserva.getId());
         if(!optionalConsumidor.isPresent())
-            return new ResponseEntity<>(new Missatge("No existe ningun usuario consumidor con ese id"), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new Missatge("No existe ningún usuario consumidor con ese id"), HttpStatus.NOT_FOUND);
         Consumidor consumidor = optionalConsumidor.get();
 
         Optional<Establiment> optionalEstabliment = establimentService.findById(createReserva.getIdEstabliment());
         if(!optionalEstabliment.isPresent())
-            return new ResponseEntity<>(new Missatge("No existe ningun establecimiento con ese id"), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new Missatge("No existe ningún establecimiento con ese id"), HttpStatus.NOT_FOUND);
         Establiment establiment = optionalEstabliment.get();
 
         SimpleDateFormat formatoDelTexto = new SimpleDateFormat("dd/MM/yyyy"); //El format que rebem es aixi
@@ -163,7 +163,7 @@ public class ReservaRest {
         Optional<Consumidor> optionalConsumidor = consumidorService.findById(id);
 
         if(!optionalConsumidor.isPresent())
-            return new ResponseEntity<>(new Missatge("No existe ningun consumidor con ese id"), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new Missatge("No existe ningún consumidor con ese id"), HttpStatus.NOT_FOUND);
 
         Set<Reserva> reserves = optionalConsumidor.get().getReserves();
 
@@ -193,7 +193,7 @@ public class ReservaRest {
         Optional<Propietari> optionalPropietari = propietariService.findById(id);
 
         if(!optionalPropietari.isPresent())
-            return new ResponseEntity<>(new Missatge("No existe ningun propietario con ese id"), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new Missatge("No existe ningún propietario con ese id"), HttpStatus.NOT_FOUND);
 
         Set<Reserva> reserves = optionalPropietari.get().getEstabliment().getReserves();
 

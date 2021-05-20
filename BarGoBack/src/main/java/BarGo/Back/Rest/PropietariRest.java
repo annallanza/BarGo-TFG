@@ -78,7 +78,7 @@ public class PropietariRest {
         Set<Rol> rols = new HashSet<>();
         Optional<Rol> optionalRol = rolService.findByNomRol(NomRol.ROL_PROPIETARI);
         if (!optionalRol.isPresent())
-            return new ResponseEntity<>(new Missatge("No existe ningun rol con ese nombre"), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new Missatge("No existe ningún rol con ese nombre"), HttpStatus.NOT_FOUND);
         Rol rolPropietari = optionalRol.get();
         rols.add(rolPropietari);
         propietari.setRols(rols);
@@ -98,7 +98,7 @@ public class PropietariRest {
 
         Optional<Propietari> optionalPropietari = propietariService.findById(id);
         if(!optionalPropietari.isPresent())
-            return new ResponseEntity<>(new Missatge("No existe ningun propietario con ese id"), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new Missatge("No existe ningún propietario con ese id"), HttpStatus.NOT_FOUND);
 
         Propietari propietari = optionalPropietari.get();
 
@@ -131,7 +131,7 @@ public class PropietariRest {
 
         Optional<Propietari> optionalPropietari = propietariService.findById(updatePropietari.getId());
         if (!optionalPropietari.isPresent())
-            return new ResponseEntity<>(new Missatge("No existe ningun propietario con ese id"), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new Missatge("No existe ningún propietario con ese id"), HttpStatus.NOT_FOUND);
 
         Propietari propietari = optionalPropietari.get();
         if(usuariService.existsByNomUsuari(updatePropietari.getNomUsuari()) && !updatePropietari.getNomUsuari().equals(propietari.getNomUsuari()))
@@ -169,7 +169,7 @@ public class PropietariRest {
 
         Optional<Propietari> optionalPropietari = propietariService.findById(id);
         if (!optionalPropietari.isPresent())
-            return new ResponseEntity<>(new Missatge("No existe ningun propietario con ese id"), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new Missatge("No existe ningún propietario con ese id"), HttpStatus.NOT_FOUND);
 
         propietariService.deleteById(id);
 

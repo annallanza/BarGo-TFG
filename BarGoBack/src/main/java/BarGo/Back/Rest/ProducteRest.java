@@ -69,7 +69,7 @@ public class ProducteRest {
 
         Optional<Consumidor> optionalConsumidor = consumidorService.findById(bescanviarCodi.getId());
         if(!optionalConsumidor.isPresent())
-            return new ResponseEntity<>(new Missatge("No existe ningun consumidor con ese id"), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new Missatge("No existe ningún consumidor con ese id"), HttpStatus.NOT_FOUND);
 
         Consumidor consumidor = optionalConsumidor.get();
 

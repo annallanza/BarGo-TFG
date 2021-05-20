@@ -866,7 +866,7 @@
 													"",
 													"pm.test(\"MissatgeErrorTest\", function () {",
 													"    missatge = pm.response.json().missatge;",
-													"    pm.expect(missatge).to.equal(\"No existe ningun establecimiento con ese id\");",
+													"    pm.expect(missatge).to.equal(\"No existe ningún establecimiento con ese id\");",
 													"});"
 												],
 												"type": "text/javascript"
@@ -1094,7 +1094,7 @@
 													"",
 													"pm.test(\"MissatgeErrorTest\", function () {",
 													"    missatge = pm.response.json().missatge;",
-													"    pm.expect(missatge).to.equal(\"No existe ningun consumidor con ese id\");",
+													"    pm.expect(missatge).to.equal(\"No existe ningún consumidor con ese id\");",
 													"});"
 												],
 												"type": "text/javascript"
@@ -1227,7 +1227,7 @@
 													"",
 													"pm.test(\"MissatgeErrorTest\", function () {",
 													"    missatge = pm.response.json().missatge;",
-													"    pm.expect(missatge).to.equal(\"No existe ningun evento con ese id\");",
+													"    pm.expect(missatge).to.equal(\"No existe ningún evento con ese id\");",
 													"});"
 												],
 												"type": "text/javascript"
@@ -2301,7 +2301,7 @@
 															"",
 															"pm.test(\"MissatgeErrorTest\", function () {",
 															"    missatge = pm.response.json().missatge;",
-															"    pm.expect(missatge).to.equal(\"No existe ningun establecimiento con ese id\");",
+															"    pm.expect(missatge).to.equal(\"No existe ningún establecimiento con ese id\");",
 															"});"
 														],
 														"type": "text/javascript"
@@ -6658,7 +6658,7 @@
 													"",
 													"pm.test(\"MissatgeErrorTest\", function () {",
 													"    missatge = pm.response.json().missatge;",
-													"    pm.expect(missatge).to.equal(\"No existe ningun evento con ese id\");",
+													"    pm.expect(missatge).to.equal(\"No existe ningún evento con ese id\");",
 													"});"
 												],
 												"type": "text/javascript"

@@ -22,6 +22,10 @@ public class Consumidor extends Usuari implements Serializable {
     @OneToMany(mappedBy = "consumidor")
     private Set<Reserva> reserves;
 
+    @ManyToMany
+    @JoinTable(name = "consumidor_premi", joinColumns = @JoinColumn(name = "consumidor_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "premi_id", referencedColumnName = "id"))
+    private Set<Premi> premisIntercanviats;
+
     public Consumidor(){
 
     }
@@ -63,11 +67,20 @@ public class Consumidor extends Usuari implements Serializable {
         this.reserves = reserves;
     }
 
+    public Set<Premi> getPremisIntercanviats() {
+        return premisIntercanviats;
+    }
+
+    public void setPremisIntercanviats(Set<Premi> premisIntercanviats) {
+        this.premisIntercanviats = premisIntercanviats;
+    }
+
     @PreRemove
     public void preRemove(){
         eliminarProductesBescanviats();
         eliminarEstablimentsVisitats();
         eliminarReserves();
+        eliminarPremisIntercanviats();
     }
 
     public void eliminarProductesBescanviats(){
@@ -97,5 +110,15 @@ public class Consumidor extends Usuari implements Serializable {
         }
 
         this.reserves.clear();
+    }
+
+    public void eliminarPremisIntercanviats(){
+        for(Premi premi : this.premisIntercanviats){
+            Set<Consumidor> consumidorsPosseidors = premi.getConsumidorsPosseidors();
+            consumidorsPosseidors.remove(this);
+            premi.setConsumidorsPosseidors(consumidorsPosseidors);
+        }
+
+        this.premisIntercanviats.clear();
     }
 }
