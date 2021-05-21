@@ -866,7 +866,7 @@
 													"",
 													"pm.test(\"MissatgeErrorTest\", function () {",
 													"    missatge = pm.response.json().missatge;",
-													"    pm.expect(missatge).to.equal(\"No existe ningún establecimiento con ese id\");",
+													"    pm.expect(missatge).to.equal(\"No existe ningun establecimiento con ese id\");",
 													"});"
 												],
 												"type": "text/javascript"
@@ -1094,7 +1094,7 @@
 													"",
 													"pm.test(\"MissatgeErrorTest\", function () {",
 													"    missatge = pm.response.json().missatge;",
-													"    pm.expect(missatge).to.equal(\"No existe ningún consumidor con ese id\");",
+													"    pm.expect(missatge).to.equal(\"No existe ningun consumidor con ese id\");",
 													"});"
 												],
 												"type": "text/javascript"
@@ -1227,7 +1227,7 @@
 													"",
 													"pm.test(\"MissatgeErrorTest\", function () {",
 													"    missatge = pm.response.json().missatge;",
-													"    pm.expect(missatge).to.equal(\"No existe ningún evento con ese id\");",
+													"    pm.expect(missatge).to.equal(\"No existe ningun evento con ese id\");",
 													"});"
 												],
 												"type": "text/javascript"
@@ -2301,7 +2301,7 @@
 															"",
 															"pm.test(\"MissatgeErrorTest\", function () {",
 															"    missatge = pm.response.json().missatge;",
-															"    pm.expect(missatge).to.equal(\"No existe ningún establecimiento con ese id\");",
+															"    pm.expect(missatge).to.equal(\"No existe ningun establecimiento con ese id\");",
 															"});"
 														],
 														"type": "text/javascript"
@@ -3154,6 +3154,528 @@
 											"path": [
 												"codis",
 												"bescanviar"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "AllPremis",
+							"item": [
+								{
+									"name": "AllPremis200",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb25zdW1pZG9yIiwicm9scyI6WyJST0xfQ09OU1VNSURPUiJdLCJpZCI6NDAsImlhdCI6MTYyMTUwNTk2NSwiZXhwIjoxNjIxNTkyMzY1fQ.vQlxMDaUPPqBY7ee1PvarScOocTCP8DV7aH1xLp8BFloVMAcRKQllPZ6KpzEa57XBJtm7FS1m7eyATfExhwDPw",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/premis",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"premis"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "AllPremis401",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 401\", function () {",
+													"    pm.response.to.have.status(401);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/premis",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"premis"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "IntercanviarPremi",
+							"item": [
+								{
+									"name": "IntercanviarPremi401",
+									"item": [
+										{
+											"name": "IntercanviarPremi401SenseToken",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 401\", function () {",
+															"    pm.response.to.have.status(401);",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"id\": 40,\n    \"idPremi\": 1\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/premis/intercanviar",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"premis",
+														"intercanviar"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "IntercanviarPremi401IdErroni",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 401\", function () {",
+															"    pm.response.to.have.status(401);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"No tienes acceso al usuario con ese id\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb25zdW1pZG9yIiwicm9scyI6WyJST0xfQ09OU1VNSURPUiJdLCJpZCI6NDAsImlhdCI6MTYyMTUwNTk2NSwiZXhwIjoxNjIxNTkyMzY1fQ.vQlxMDaUPPqBY7ee1PvarScOocTCP8DV7aH1xLp8BFloVMAcRKQllPZ6KpzEa57XBJtm7FS1m7eyATfExhwDPw",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"id\": 400,\n    \"idPremi\": 1\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/premis/intercanviar",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"premis",
+														"intercanviar"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "IntercanviarPremi400",
+									"item": [
+										{
+											"name": "IntercanviarPremi400IdNull",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"El id no puede ser un valor nulo\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb25zdW1pZG9yIiwicm9scyI6WyJST0xfQ09OU1VNSURPUiJdLCJpZCI6NDAsImlhdCI6MTYyMTUwNTk2NSwiZXhwIjoxNjIxNTkyMzY1fQ.vQlxMDaUPPqBY7ee1PvarScOocTCP8DV7aH1xLp8BFloVMAcRKQllPZ6KpzEa57XBJtm7FS1m7eyATfExhwDPw",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"id\": null,\n    \"idPremi\": 1\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/premis/intercanviar",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"premis",
+														"intercanviar"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "IntercanviarPremi400IdPremiNull",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 400\", function () {",
+															"    pm.response.to.have.status(400);",
+															"});",
+															"",
+															"pm.test(\"MissatgeErrorTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"El id del premio no puede ser un valor nulo\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb25zdW1pZG9yIiwicm9scyI6WyJST0xfQ09OU1VNSURPUiJdLCJpZCI6NDAsImlhdCI6MTYyMTUwNTk2NSwiZXhwIjoxNjIxNTkyMzY1fQ.vQlxMDaUPPqBY7ee1PvarScOocTCP8DV7aH1xLp8BFloVMAcRKQllPZ6KpzEa57XBJtm7FS1m7eyATfExhwDPw",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"id\": 40,\n    \"idPremi\": null\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/premis/intercanviar",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"premis",
+														"intercanviar"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "IntercanviarPremi200",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"MissatgeErrorTest\", function () {",
+													"    missatge = pm.response.json().missatge;",
+													"    pm.expect(missatge).to.equal(\"El premio se ha intercambiado correctamente\");",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb25zdW1pZG9yIiwicm9scyI6WyJST0xfQ09OU1VNSURPUiJdLCJpZCI6NDAsImlhdCI6MTYyMTUwNTk2NSwiZXhwIjoxNjIxNTkyMzY1fQ.vQlxMDaUPPqBY7ee1PvarScOocTCP8DV7aH1xLp8BFloVMAcRKQllPZ6KpzEa57XBJtm7FS1m7eyATfExhwDPw",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"id\": 40,\n    \"idPremi\": 1\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/premis/intercanviar",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"premis",
+												"intercanviar"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "IntercanviarPremi404IdPremiNoExisteix",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 404\", function () {",
+													"    pm.response.to.have.status(404);",
+													"});",
+													"",
+													"pm.test(\"MissatgeErrorTest\", function () {",
+													"    missatge = pm.response.json().missatge;",
+													"    pm.expect(missatge).to.equal(\"No existe ningún premio con ese id\");",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb25zdW1pZG9yIiwicm9scyI6WyJST0xfQ09OU1VNSURPUiJdLCJpZCI6NDAsImlhdCI6MTYyMTUwNTk2NSwiZXhwIjoxNjIxNTkyMzY1fQ.vQlxMDaUPPqBY7ee1PvarScOocTCP8DV7aH1xLp8BFloVMAcRKQllPZ6KpzEa57XBJtm7FS1m7eyATfExhwDPw",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"id\": 40,\n    \"idPremi\": 100\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/premis/intercanviar",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"premis",
+												"intercanviar"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "IntercanviarPremi409",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 409\", function () {",
+													"    pm.response.to.have.status(409);",
+													"});",
+													"",
+													"pm.test(\"MissatgeErrorTest\", function () {",
+													"    missatge = pm.response.json().missatge;",
+													"    pm.expect(missatge).to.equal(\"No dispones de suficientes puntos para intercambiar este premio\");",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb25zdW1pZG9yIiwicm9scyI6WyJST0xfQ09OU1VNSURPUiJdLCJpZCI6NDAsImlhdCI6MTYyMTUwNTk2NSwiZXhwIjoxNjIxNTkyMzY1fQ.vQlxMDaUPPqBY7ee1PvarScOocTCP8DV7aH1xLp8BFloVMAcRKQllPZ6KpzEa57XBJtm7FS1m7eyATfExhwDPw",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"id\": 40,\n    \"idPremi\": 1\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/premis/intercanviar",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"premis",
+												"intercanviar"
 											]
 										}
 									},
@@ -6658,7 +7180,7 @@
 													"",
 													"pm.test(\"MissatgeErrorTest\", function () {",
 													"    missatge = pm.response.json().missatge;",
-													"    pm.expect(missatge).to.equal(\"No existe ningún evento con ese id\");",
+													"    pm.expect(missatge).to.equal(\"No existe ningun evento con ese id\");",
 													"});"
 												],
 												"type": "text/javascript"
