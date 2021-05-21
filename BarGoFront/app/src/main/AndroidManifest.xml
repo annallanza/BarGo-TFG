@@ -36,7 +36,7 @@
             android:screenOrientation="portrait"
             tools:replace="screenOrientation" />
         <activity
-            android:name=".UsuariConsumidor.Activity.ListProductActivity"
+            android:name=".UsuariConsumidor.Activity.PremisActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".UsuariConsumidor.Activity.ReservarActivity"

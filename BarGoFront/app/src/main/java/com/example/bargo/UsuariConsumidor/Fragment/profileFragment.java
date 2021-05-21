@@ -35,7 +35,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.example.bargo.Consumidor;
 import com.example.bargo.UsuariConsumidor.Activity.ConfiguracioConsumidorActivity;
-import com.example.bargo.UsuariConsumidor.Activity.ListProductActivity;
+import com.example.bargo.UsuariConsumidor.Activity.PremisActivity;
 import com.example.bargo.UsuariConsumidor.Activity.MisReservasActivity;
 import com.example.bargo.VariablesGlobals;
 import com.example.bargo.VolleySingleton;
@@ -120,7 +120,7 @@ public class profileFragment extends Fragment {
         productes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent list_products_activity = new Intent(getActivity(), ListProductActivity.class);
+                Intent list_products_activity = new Intent(getActivity(), PremisActivity.class);
                 startActivity(list_products_activity);
             }
         });
