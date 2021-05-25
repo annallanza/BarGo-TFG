@@ -17,8 +17,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:screenOrientation="portrait"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".UsuariPropietari.Activity.NouEsdevenimentActivity"></activity>
+        android:theme="@style/AppTheme.NoActionBar"
+        tools:targetApi="n">
         <activity
             android:name=".LoginActivity"
             android:screenOrientation="portrait">
@@ -29,12 +29,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".UsuariConsumidor.Activity.MainActivity"
+            android:name=".RegisterActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.journeyapps.barcodescanner.CaptureActivity"
-            android:screenOrientation="portrait"
-            tools:replace="screenOrientation" />
+            android:name=".UsuariConsumidor.Activity.MainActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".UsuariConsumidor.Activity.PremisActivity"
             android:screenOrientation="portrait" />
@@ -51,9 +50,6 @@
             android:name=".UsuariConsumidor.Activity.RetosActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".RegisterActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".UsuariConsumidor.Activity.InfoEstablimentActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -64,6 +60,9 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".UsuariPropietari.Activity.ConfiguracioPropietariActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UsuariPropietari.Activity.NouEsdevenimentActivity"
             android:screenOrientation="portrait" />
     </application>
 

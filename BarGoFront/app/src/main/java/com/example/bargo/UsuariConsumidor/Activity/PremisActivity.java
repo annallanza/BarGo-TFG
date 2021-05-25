@@ -162,8 +162,11 @@ public class PremisActivity extends AppCompatActivity {
             Button obtenerButton = view.findViewById(R.id.ButtonObtener);
 
             String nomPremi = premiListNoms.get(position);
-            int imatge = R.drawable.premi_pendrive;
+            int imatge = R.drawable.premi_samarreta;
             switch (nomPremi) {
+                case "Camiseta":
+                    imatge = R.drawable.premi_samarreta;
+                    break;
                 case "Pendrive 64GB":
                     imatge = R.drawable.premi_pendrive;
                     break;
@@ -171,10 +174,10 @@ public class PremisActivity extends AppCompatActivity {
                     imatge = R.drawable.premi_entrades_cine;
                     break;
                 case "Entradas del museo Picasso":
-                    imatge = R.drawable.premi_entrades_aquarium;
+                    imatge = R.drawable.premi_entrades_picasso;
                     break;
                 case "Entradas al aquarium":
-                    imatge = R.drawable.premi_entrades_picasso;
+                    imatge = R.drawable.premi_entrades_aquarium;
                     break;
             }
 
