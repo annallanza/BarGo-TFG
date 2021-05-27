@@ -3682,6 +3682,186 @@
 									"response": []
 								}
 							]
+						},
+						{
+							"name": "AllReptesConsumidorById",
+							"item": [
+								{
+									"name": "AllReptesConsumidorById401",
+									"item": [
+										{
+											"name": "AllReptesConsumidorById401IdErroni",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 401\", function () {",
+															"    pm.response.to.have.status(401);",
+															"});",
+															"",
+															"pm.test(\"PuntuacioTest\", function () {",
+															"    missatge = pm.response.json().missatge;",
+															"    pm.expect(missatge).to.equal(\"No tienes acceso al usuario con ese id\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"protocolProfileBehavior": {
+												"disableBodyPruning": true
+											},
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb25zdW1pZG9yIiwicm9scyI6WyJST0xfQ09OU1VNSURPUiJdLCJpZCI6NDAsImlhdCI6MTYyMjExMDkxNiwiZXhwIjoxNjIyMTk3MzE2fQ.LrTSe8iCl7Ds38j8PAG_P3FhDMVZlNNuZAvsnCAQOwxS8Ln8PtmOCEUypBciwtCqMpNUQ2P2SI1jf67Cf1Cw9g",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/reptes/400",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"reptes",
+														"400"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "AllReptesConsumidorById401SenseToken",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 401\", function () {",
+															"    pm.response.to.have.status(401);",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"protocolProfileBehavior": {
+												"disableBodyPruning": true
+											},
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/reptes/40",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"reptes",
+														"40"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "AllReptesConsumidorById200",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb25zdW1pZG9yIiwicm9scyI6WyJST0xfQ09OU1VNSURPUiJdLCJpZCI6NDAsImlhdCI6MTYyMjExMDkxNiwiZXhwIjoxNjIyMTk3MzE2fQ.LrTSe8iCl7Ds38j8PAG_P3FhDMVZlNNuZAvsnCAQOwxS8Ln8PtmOCEUypBciwtCqMpNUQ2P2SI1jf67Cf1Cw9g",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/reptes/40",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"reptes",
+												"40"
+											]
+										}
+									},
+									"response": []
+								}
+							]
 						}
 					]
 				},

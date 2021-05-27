@@ -26,6 +26,10 @@ public class Consumidor extends Usuari implements Serializable {
     @JoinTable(name = "consumidor_premi", joinColumns = @JoinColumn(name = "consumidor_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "premi_id", referencedColumnName = "id"))
     private Set<Premi> premisIntercanviats;
 
+    @ManyToMany
+    @JoinTable(name = "consumidor_repte", joinColumns = @JoinColumn(name = "consumidor_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "repte_id", referencedColumnName = "id"))
+    private Set<Repte> reptesRealitzats;
+
     public Consumidor(){
 
     }
@@ -75,12 +79,21 @@ public class Consumidor extends Usuari implements Serializable {
         this.premisIntercanviats = premisIntercanviats;
     }
 
+    public Set<Repte> getReptesRealitzats() {
+        return reptesRealitzats;
+    }
+
+    public void setReptesRealitzats(Set<Repte> reptesRealitzats) {
+        this.reptesRealitzats = reptesRealitzats;
+    }
+
     @PreRemove
     public void preRemove(){
         eliminarProductesBescanviats();
         eliminarEstablimentsVisitats();
         eliminarReserves();
         eliminarPremisIntercanviats();
+        eliminarReptesRealitzats();
     }
 
     public void eliminarProductesBescanviats(){
@@ -120,5 +133,15 @@ public class Consumidor extends Usuari implements Serializable {
         }
 
         this.premisIntercanviats.clear();
+    }
+
+    public void eliminarReptesRealitzats(){
+        for(Repte repte : this.reptesRealitzats){
+            Set<Consumidor> consumidorsPosseidors = repte.getConsumidorsPosseidors();
+            consumidorsPosseidors.remove(this);
+            repte.setConsumidorsPosseidors(consumidorsPosseidors);
+        }
+
+        this.reptesRealitzats.clear();
     }
 }
