@@ -5,13 +5,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UsuariConsumidor.Activity.RetosActivity">
+    tools:context=".UsuariConsumidor.Activity.ReptesActivity">
 
     <ListView
-        android:id="@+id/challengeList"
+        android:id="@+id/reptesList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:dividerHeight="7dp"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

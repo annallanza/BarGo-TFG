@@ -97,4 +97,6 @@
     <string name="introduce_el_c_digo_de_tu_consumici_n">Introduce un código:</string>
     <string name="c_digo">Código</string>
     <string name="nombre_premio">Nombre premio</string>
+    <string name="nom_repte">Nom repte</string>
+    <string name="_0_1">0/1</string>
 </resources>

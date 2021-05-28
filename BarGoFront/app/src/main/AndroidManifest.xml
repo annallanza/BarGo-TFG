@@ -47,7 +47,7 @@
             android:name=".UsuariConsumidor.Activity.ConfiguracioConsumidorActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".UsuariConsumidor.Activity.RetosActivity"
+            android:name=".UsuariConsumidor.Activity.ReptesActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".UsuariConsumidor.Activity.InfoEstablimentActivity"

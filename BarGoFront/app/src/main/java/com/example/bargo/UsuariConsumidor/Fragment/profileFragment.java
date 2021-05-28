@@ -40,7 +40,7 @@ import com.example.bargo.UsuariConsumidor.Activity.MisReservasActivity;
 import com.example.bargo.VariablesGlobals;
 import com.example.bargo.VolleySingleton;
 import com.example.bargo.R;
-import com.example.bargo.UsuariConsumidor.Activity.RetosActivity;
+import com.example.bargo.UsuariConsumidor.Activity.ReptesActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -127,7 +127,7 @@ public class profileFragment extends Fragment {
 
         reptes.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
-                Intent retos_activity = new Intent(getActivity(), RetosActivity.class);
+                Intent retos_activity = new Intent(getActivity(), ReptesActivity.class);
                 startActivity(retos_activity);
             }
         });
