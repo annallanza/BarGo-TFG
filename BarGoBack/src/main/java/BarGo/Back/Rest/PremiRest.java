@@ -4,6 +4,7 @@ import BarGo.Back.Dto.*;
 import BarGo.Back.Model.*;
 import BarGo.Back.Security.Jwt.JwtProvider;
 import BarGo.Back.Service.ConsumidorService;
+import BarGo.Back.Service.EmailService;
 import BarGo.Back.Service.PremiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,6 +24,9 @@ public class PremiRest {
 
     @Autowired
     private ConsumidorService consumidorService;
+
+    @Autowired
+    private EmailService emailService;
 
     @Autowired
     private JwtProvider jwtProvider;
@@ -53,6 +57,7 @@ public class PremiRest {
         return new ResponseEntity<>(getAllPremisList, HttpStatus.OK);
     }
 
+    //TODO: enviar correu per intercanvi premi
     @RequestMapping(value = "intercanviar", method = RequestMethod.POST) //Exemple url request: http://localhost:8080/premis/intercanviar
     private ResponseEntity<?> IntercanviarPremi(@Valid @RequestBody IntercanviarPremi intercanviarPremi, BindingResult bindingResult, @RequestHeader(value="Authorization") String token) {
         if (bindingResult.hasErrors())
@@ -91,6 +96,9 @@ public class PremiRest {
 
         consumidor.setPuntuacio(consumidor.getPuntuacio() - premi.getPuntuacio());
         consumidorService.save(consumidor);
+
+        emailService.sendEmail(consumidor.getCorreu(), "BarGo: Premio intercambiado", "Hola " + consumidor.getNomUsuari() + "!" + "\nHas intercambiado " + premi.getPuntuacio() +
+                " puntos, por el siguiente premio: " + premi.getNom() + ".\nPonte en contacto con el propietario del bar para que te haga la entrega del premio.");
 
         return new ResponseEntity<>(new Missatge("El premio se ha intercambiado correctamente"), HttpStatus.OK);
     }

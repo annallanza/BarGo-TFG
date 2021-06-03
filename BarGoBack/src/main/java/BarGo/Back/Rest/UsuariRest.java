@@ -5,6 +5,7 @@ import BarGo.Back.Enums.NomRol;
 import BarGo.Back.Model.Rol;
 import BarGo.Back.Model.Usuari;
 import BarGo.Back.Security.Jwt.JwtProvider;
+import BarGo.Back.Service.EmailService;
 import BarGo.Back.Service.RolService;
 import BarGo.Back.Service.UsuariService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,9 @@ public class UsuariRest {
 
     @Autowired
     private UsuariService usuariService;
+
+    @Autowired
+    private EmailService emailService;
 
     @Autowired
     private BCryptPasswordEncoder encoder;
@@ -70,6 +74,29 @@ public class UsuariRest {
          */
 
         return new ResponseEntity<>(new Missatge("El usuario se ha creado correctamente"), HttpStatus.CREATED);
+    }
+
+    @RequestMapping(value = "/canviarContrasenya", method = RequestMethod.POST) //Exemple url request: http://localhost:8080/usuaris/canviarContrasenya
+    private ResponseEntity<?> canviarContrasenya(@Valid @RequestBody CanviarContrasenya canviarContrasenya, BindingResult bindingResult){
+        if(bindingResult.hasErrors())
+            return new ResponseEntity<>(new Missatge(Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage()), HttpStatus.BAD_REQUEST);
+
+        Optional<Usuari> optionalUsuari = usuariService.findByCorreu(canviarContrasenya.getCorreu());
+        if (!optionalUsuari.isPresent())
+            return new ResponseEntity<>(new Missatge("No existe ningún usuario con ese correo electrónico"), HttpStatus.NOT_FOUND);
+
+        Usuari usuariexists = optionalUsuari.get();
+
+        String contrasenya = UUID.randomUUID().toString();
+        contrasenya = contrasenya.substring(0,8);
+
+        usuariexists.setContrasenya(encoder.encode(contrasenya));
+        usuariService.save(usuariexists);
+
+        emailService.sendEmail(canviarContrasenya.getCorreu(), "BarGo: Cambio de contraseña", "Hola " + usuariexists.getNomUsuari() + "!" + "\nHas solicitado un cambio de contraseña para el usuario que utiliza esta dirección de correo electrónico." +
+                "\nLa nueva contraseña es: " + contrasenya + "\nSi deseas modificarla, lo puedes hacer des de la aplicación BarGo.");
+
+        return new ResponseEntity<>(new Missatge("Se ha enviado el correo correctamente"), HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/auth/login", method = RequestMethod.POST) //Exemple url request: http://localhost:8080/usuaris/auth/login

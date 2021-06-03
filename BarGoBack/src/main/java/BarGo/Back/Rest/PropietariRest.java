@@ -7,10 +7,7 @@ import BarGo.Back.Model.Establiment;
 import BarGo.Back.Model.Propietari;
 import BarGo.Back.Model.Rol;
 import BarGo.Back.Security.Jwt.JwtProvider;
-import BarGo.Back.Service.EstablimentService;
-import BarGo.Back.Service.PropietariService;
-import BarGo.Back.Service.RolService;
-import BarGo.Back.Service.UsuariService;
+import BarGo.Back.Service.*;
 import org.apache.commons.validator.routines.UrlValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,6 +34,9 @@ public class PropietariRest {
 
     @Autowired
     RolService rolService;
+
+    @Autowired
+    private EmailService emailService;
 
     @Autowired
     private BCryptPasswordEncoder encoder;
@@ -87,6 +87,8 @@ public class PropietariRest {
 
         establiment.setPropietari(propietari);
         establimentService.save(establiment);
+
+        emailService.sendEmail(propietari.getCorreu(), "BarGo: Nueva cuenta", "Hola " + propietari.getNomUsuari() + "!" + "\nHas creado una cuenta en la aplicación BarGo. Ahora ya puedes utilizar todas las funcionalidades que ofrece.");
 
         return new ResponseEntity<>(new Missatge("El propietario se ha creado correctamente"), HttpStatus.CREATED);
     }

@@ -3,6 +3,7 @@ package BarGo.Back.Rest;
 import BarGo.Back.Dto.*;
 import BarGo.Back.Model.*;
 import BarGo.Back.Security.Jwt.JwtProvider;
+import BarGo.Back.Service.EmailService;
 import BarGo.Back.Service.EsdevenimentService;
 import BarGo.Back.Service.EstablimentService;
 import BarGo.Back.Service.PropietariService;
@@ -30,6 +31,9 @@ public class EsdevenimentRest {
 
     @Autowired
     private PropietariService propietariService;
+
+    @Autowired
+    private EmailService emailService;
 
     @Autowired
     private JwtProvider jwtProvider;
@@ -142,6 +146,8 @@ public class EsdevenimentRest {
 
         esdevenimentService.save(esdeveniment);
 
+        emailService.sendEmail(propietari.getCorreu(), "BarGo: Nuevo evento", "Hola " + propietari.getNomUsuari() + "!" + "\nHas creado el evento " + createEsdeveniment.getNom() + " para el " + createEsdeveniment.getDia() + " a las " + createEsdeveniment.getHora().substring(0,5) + ".");
+
         return new ResponseEntity<>(new Missatge("El evento se ha creado correctamente"), HttpStatus.CREATED);
     }
 
@@ -152,9 +158,11 @@ public class EsdevenimentRest {
             return new ResponseEntity<>(new Missatge("No existe ningún evento con ese id"), HttpStatus.NOT_FOUND);
 
         Esdeveniment esdeveniment = optionalEsdeveniment.get();
-        long idPropietari = esdeveniment.getEstabliment().getPropietari().getId();
-        if(!jwtProvider.validateIdToken(idPropietari, token))
+        Propietari propietari = esdeveniment.getEstabliment().getPropietari();
+        if(!jwtProvider.validateIdToken(propietari.getId(), token))
             return new ResponseEntity<>(new Missatge("No tienes acceso al evento con ese id"), HttpStatus.UNAUTHORIZED);
+
+        emailService.sendEmail(propietari.getCorreu(), "BarGo: Evento eliminado", "Hola " + propietari.getNomUsuari() + "!" + "\nHas eliminado el evento " + esdeveniment.getNom() + " que tenías para el " + esdeveniment.getDia() + " a las " + esdeveniment.getHora().toString().substring(0,5) +  ".");
 
         esdevenimentService.deleteById(id);
 

@@ -153,6 +153,11 @@ public class UsuariService implements UsuariInterface {
     }
 
     @Override
+    public Optional<Usuari> findByCorreu(String correu) {
+        return usuariInterface.findByCorreu(correu);
+    }
+
+    @Override
     public boolean existsByCorreu(String correu) {
         return usuariInterface.existsByCorreu(correu);
     }

@@ -3,10 +3,7 @@ package BarGo.Back.Rest;
 import BarGo.Back.Dto.*;
 import BarGo.Back.Model.*;
 import BarGo.Back.Security.Jwt.JwtProvider;
-import BarGo.Back.Service.ConsumidorService;
-import BarGo.Back.Service.EstablimentService;
-import BarGo.Back.Service.PropietariService;
-import BarGo.Back.Service.ReservaService;
+import BarGo.Back.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,6 +31,9 @@ public class ReservaRest {
 
     @Autowired
     private EstablimentService establimentService;
+
+    @Autowired
+    private EmailService emailService;
 
     @Autowired
     private JwtProvider jwtProvider;
@@ -135,6 +135,17 @@ public class ReservaRest {
 
         reservaService.save(reserva);
 
+        String ubicacio = "interior";
+        if(createReserva.isExterior())
+            ubicacio = "exterior";
+
+        String persona = " persona";
+        if(createReserva.getNumPersones() > 1)
+            persona += "s";
+
+        emailService.sendEmail(consumidor.getCorreu(), "BarGo: Nueva reserva", "Hola " + consumidor.getNomUsuari() + "!" + "\nSu reserva en " + establiment.getNom() + " para el " + createReserva.getDia() + " a las " + createReserva.getHora().substring(0,5) + " para " + createReserva.getNumPersones() + persona + " en el " + ubicacio +
+                " ha sido realizada correctamente.\nEn caso de no poder acudir, por favor no se olvide de cancelar su reserva.");
+
         return new ResponseEntity<>(new Missatge("La reserva se ha creado correctamente"), HttpStatus.CREATED);
     }
 
@@ -149,6 +160,37 @@ public class ReservaRest {
         long idPropietari = reserva.getEstabliment().getPropietari().getId();
         if(!jwtProvider.validateIdToken(idConsumidor, token) && !jwtProvider.validateIdToken(idPropietari, token))
             return new ResponseEntity<>(new Missatge("No tienes acceso a la reserva con ese id"), HttpStatus.UNAUTHORIZED);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.MILLISECOND, 0);
+
+        Date horaActual = calendar.getTime();
+
+        String[] hores = reserva.getHora().toString().split(":");
+        Date diaReserva = reserva.getDia();
+
+        calendar = Calendar.getInstance();
+        calendar.setTime(diaReserva);
+        calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(hores[0]));
+        calendar.set(Calendar.MINUTE, Integer.parseInt(hores[1]));
+        calendar.set(Calendar.SECOND, Integer.parseInt(hores[2]));
+        calendar.set(Calendar.MILLISECOND, 0);
+
+        Date hora2 = calendar.getTime();
+
+        if (horaActual.before(hora2)) {
+            String ubicacio = "interior";
+            if (reserva.isExterior())
+                ubicacio = "exterior";
+
+            String persona = " persona";
+            if (reserva.getNumPersones() > 1)
+                persona += "s";
+
+            emailService.sendEmail(reserva.getConsumidor().getCorreu(), "BarGo: Reserva cancelada", "Hola " + reserva.getConsumidor().getNomUsuari() + "!" + "\nSu reserva en " + reserva.getEstabliment().getNom() + " para el " +
+                    reserva.getDia() + " a las " + reserva.getHora().toString().substring(0, 5) +
+                    " para " + reserva.getNumPersones() + persona + " en el " + ubicacio + " ha sido cancelada.");
+        }
 
         reservaService.deleteById(id);
 

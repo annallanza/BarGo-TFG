@@ -9,6 +9,7 @@ import BarGo.Back.Model.Consumidor;
 import BarGo.Back.Model.Rol;
 import BarGo.Back.Security.Jwt.JwtProvider;
 import BarGo.Back.Service.ConsumidorService;
+import BarGo.Back.Service.EmailService;
 import BarGo.Back.Service.RolService;
 import BarGo.Back.Service.UsuariService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,9 @@ public class ConsumidorRest {
 
     @Autowired
     RolService rolService;
+
+    @Autowired
+    private EmailService emailService;
 
     @Autowired
     private BCryptPasswordEncoder encoder;
@@ -98,6 +102,8 @@ public class ConsumidorRest {
 
         consumidor.setRols(rols);
         consumidorService.save(consumidor);
+
+        emailService.sendEmail(consumidor.getCorreu(), "BarGo: Nueva cuenta", "Hola " + consumidor.getNomUsuari() + "!" + "\nHas creado una cuenta en la aplicación BarGo. Ahora ya puedes utilizar todas las funcionalidades que ofrece.");
 
         return new ResponseEntity<>(new Missatge("El consumidor se ha creado correctamente"), HttpStatus.CREATED);
     }

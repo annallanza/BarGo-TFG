@@ -80,6 +80,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().and().csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/usuaris/auth/**").permitAll() //la url que conte auth, es acceccible per a tothom
+                .antMatchers("/usuaris/canviarContrasenya").permitAll() //la url que conte email, es acceccible per a tothom
                 .antMatchers("/consumidors/auth/**").permitAll() //la url que conte auth, es acceccible per a tothom
                 .antMatchers("/propietaris/auth/**").permitAll() //la url que conte auth, es acceccible per a tothom
                 .anyRequest().authenticated() //totes les altres urls, cal estar autenticat
