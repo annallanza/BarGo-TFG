@@ -46,6 +46,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText nomUsuari;
     private EditText contrasenya;
     private TextView registrate;
+    private TextView canviarContrasenya;
     private CheckBox veureContrasenya;
 
     private ProgressDialog progressDialog;
@@ -78,10 +79,18 @@ public class LoginActivity extends AppCompatActivity {
         registrate.setText(ss);
         registrate.setMovementMethod(LinkMovementMethod.getInstance());
 
+        canviarContrasenya = findViewById(R.id.textViewCanviarContrasenya);
         nomUsuari = findViewById(R.id.editTextUsername);
         contrasenya = findViewById(R.id.editTextContra2);
         loginButton = findViewById(R.id.buttonAcceder);
         veureContrasenya = findViewById(R.id.checkBoxContraseña);
+
+        canviarContrasenya.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openCanviarContrasenyaActivity();
+            }
+        });
 
         veureContrasenya.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -187,6 +196,11 @@ public class LoginActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         comprovarSharedPreferences();
+    }
+
+    private void openCanviarContrasenyaActivity() {
+        Intent intent = new Intent(this, CanviarContrasenyaActivity.class);
+        startActivity(intent);
     }
 
     private void openRegisterActivity() {

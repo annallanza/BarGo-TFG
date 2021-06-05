@@ -32,6 +32,12 @@
             android:name=".RegisterActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".PoliticaPrivacitatActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".CanviarContrasenyaActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".UsuariConsumidor.Activity.MainActivity"
             android:screenOrientation="portrait" />
         <activity

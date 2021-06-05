@@ -629,6 +629,27 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/editTextDescripcio" />
 
+            <CheckBox
+                android:id="@+id/checkBoxPrivacitat"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="50dp"
+                android:layout_marginRight="50dp"
+                android:autoSizeTextType="uniform"
+                android:maxLines="1"
+                android:text="@string/he_le_do_y_acepto_la_pol_tica_de_privacidad"
+                android:visibility="visible"
+                android:textColor="#000000"
+                android:textSize="17sp"
+                app:autoSizeMaxTextSize="17sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editTextPaginaWeb"
+                tools:targetApi="o"/>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

@@ -23,6 +23,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.bargo.LoginActivity;
+import com.example.bargo.PoliticaPrivacitatActivity;
 import com.example.bargo.Propietari;
 import com.example.bargo.R;
 import com.example.bargo.VariablesGlobals;
@@ -39,6 +40,8 @@ public class ConfiguracioPropietariActivity extends AppCompatActivity {
 
     private TextView logout;
     private TextView eliminarCompte;
+    private TextView politicaPrivacitat;
+
     private ProgressDialog progressDialog;
     private Propietari propietari = Propietari.getInstance();
 
@@ -49,6 +52,7 @@ public class ConfiguracioPropietariActivity extends AppCompatActivity {
 
         logout = findViewById(R.id.textViewLogout2);
         eliminarCompte = findViewById(R.id.textViewEliminarCuenta2);
+        politicaPrivacitat = findViewById(R.id.textViewPoliticaPrivacitat);
 
         progressDialog = new ProgressDialog(ConfiguracioPropietariActivity.this);
         progressDialog.setMessage("Cargando...");
@@ -91,6 +95,13 @@ public class ConfiguracioPropietariActivity extends AppCompatActivity {
         ss.setSpan(clickableSpanDelete, 9, 17, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         eliminarCompte.setText(ss);
         eliminarCompte.setMovementMethod(LinkMovementMethod.getInstance());
+
+        politicaPrivacitat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openPoliticaPrivacitatActivity();
+            }
+        });
     }
 
     private void eliminarTokenDeSharedPreferences(){
@@ -131,6 +142,11 @@ public class ConfiguracioPropietariActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void openPoliticaPrivacitatActivity() {
+        Intent intent = new Intent(this, PoliticaPrivacitatActivity.class);
+        startActivity(intent);
     }
 
     private void DeletePropietariRequest(){

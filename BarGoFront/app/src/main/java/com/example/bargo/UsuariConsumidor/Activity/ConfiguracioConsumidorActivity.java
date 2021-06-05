@@ -31,6 +31,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.bargo.Consumidor;
 import com.example.bargo.LoginActivity;
+import com.example.bargo.PoliticaPrivacitatActivity;
 import com.example.bargo.Propietari;
 import com.example.bargo.VariablesGlobals;
 import com.example.bargo.VolleySingleton;
@@ -57,6 +58,7 @@ public class ConfiguracioConsumidorActivity extends AppCompatActivity {
     private Button guardarCanvis;
     private TextView logout;
     private TextView eliminarCompte;
+    private TextView politicaPrivacitat;
     private ProgressDialog progressDialog;
     private Consumidor consumidor = Consumidor.getInstance();
 
@@ -73,6 +75,7 @@ public class ConfiguracioConsumidorActivity extends AppCompatActivity {
         guardarCanvis = findViewById(R.id.buttonAcceder2);
         logout = findViewById(R.id.textViewLogout);
         eliminarCompte = findViewById(R.id.textViewEliminarCuenta);
+        politicaPrivacitat = findViewById(R.id.textViewPoliticaPrivacitat);
 
         progressDialog = new ProgressDialog(ConfiguracioConsumidorActivity.this);
         progressDialog.setMessage("Cargando...");
@@ -115,6 +118,13 @@ public class ConfiguracioConsumidorActivity extends AppCompatActivity {
         ss.setSpan(clickableSpanDelete, 9, 17, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         eliminarCompte.setText(ss);
         eliminarCompte.setMovementMethod(LinkMovementMethod.getInstance());
+
+        politicaPrivacitat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openPoliticaPrivacitatActivity();
+            }
+        });
 
         veureContrasenya.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -207,6 +217,11 @@ public class ConfiguracioConsumidorActivity extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
         startActivity(intent);
         finishAffinity();
+    }
+
+    private void openPoliticaPrivacitatActivity() {
+        Intent intent = new Intent(this, PoliticaPrivacitatActivity.class);
+        startActivity(intent);
     }
 
     private void refrescarDadesConsumidor(){

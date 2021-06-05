@@ -70,6 +70,8 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText horariEditText6;
     private EditText descripcioEditText;
     private EditText paginaWebEditText;
+    private CheckBox politicaPrivacitat;
+
     private ProgressDialog progressDialog;
     private Consumidor consumidor = Consumidor.getInstance();
 
@@ -98,6 +100,27 @@ public class RegisterActivity extends AppCompatActivity {
         ss.setSpan(clickableSpan1, 22, 35, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         login.setText(ss);
         login.setMovementMethod(LinkMovementMethod.getInstance());
+
+        politicaPrivacitat = findViewById(R.id.checkBoxPrivacitat);
+        String text2 = "He leído y acepto la política de privacidad";
+        SpannableString ss2 = new SpannableString(text2);
+
+        ClickableSpan clickableSpan2 = new ClickableSpan() {
+            @Override
+            public void onClick(@NonNull View widget) {
+                openPoliticaPrivacitatActivity();
+            }
+            @Override
+            public void updateDrawState(TextPaint ds) {
+                super.updateDrawState(ds);
+                ds.setColor(getResources().getColor(R.color.colorBarGo));
+                ds.setUnderlineText(false);
+            }
+        };
+
+        ss2.setSpan(clickableSpan2, 21, 43, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        politicaPrivacitat.setText(ss2);
+        politicaPrivacitat.setMovementMethod(LinkMovementMethod.getInstance());
 
         nomUsuariEditText = findViewById(R.id.editTextNombreUsuario);
         correuEditText = findViewById(R.id.editTextCorreu);
@@ -203,7 +226,12 @@ public class RegisterActivity extends AppCompatActivity {
                 String correu = correuEditText.getText().toString();
                 String contrasenya = contrasenyaEditText.getText().toString();
 
-                if(!contrasenya.equals(confirmarContrasenyaEditText.getText().toString())) {
+                if(!politicaPrivacitat.isChecked()){
+                    Toast.makeText(getApplicationContext(), "Para usar BarGo es necesario leer y aceptar la política de privacidad", Toast.LENGTH_LONG).show();
+                    signupButton.setEnabled(true);
+                    progressDialog.dismiss();
+                }
+                else if(!contrasenya.equals(confirmarContrasenyaEditText.getText().toString())) {
                     Toast.makeText(getApplicationContext(), "Las contraseñas no coinciden", Toast.LENGTH_LONG).show();
                     signupButton.setEnabled(true);
                     progressDialog.dismiss();
@@ -296,6 +324,11 @@ public class RegisterActivity extends AppCompatActivity {
 
         startActivity(intent);
         finish();
+    }
+
+    private void openPoliticaPrivacitatActivity() {
+        Intent intent = new Intent(this, PoliticaPrivacitatActivity.class);
+        startActivity(intent);
     }
 
     private void openLoginActivity() {

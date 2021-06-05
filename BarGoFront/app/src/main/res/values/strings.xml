@@ -99,4 +99,11 @@
     <string name="nombre_premio">Nombre premio</string>
     <string name="nom_repte">Nom repte</string>
     <string name="_0_1">0/1</string>
+    <string name="has_olvidado_la_contrase_a">¿Has olvidado la contraseña?</string>
+    <string name="continuar">CONTINUAR</string>
+    <string name="correo_electr_nico_asociado_a_tu_cuenta_">Correo electrónico asociado a tu cuenta:</string>
+    <string name="resposta">Resposta</string>
+    <string name="he_le_do_y_acepto_la_pol_tica_de_privacidad">He leído y acepto la política de privacidad</string>
+    <string name="pol_tica_de_privacidad">Política de privacidad</string>
+    <string name="texto_pol_tica_de_privacidad">Texto política de privacidad</string>
 </resources>
