@@ -12,8 +12,7 @@ public class SignupPropietari {
     private String correu;
 
     @Size(min = 8, message = "La contraseña debe tener un mínimo de 8 caracteres")
-    @NotNull(message = "La contraseña no puede ser un valor nulo")
-    @NotBlank(message = "La contraseña no puede ser un valor vacío")
+    @NotBlank(message = "La contraseña no puede ser un valor nulo ni vacío")
     private String contrasenya;
 
     @NotBlank(message = "El nombre del establecimiento no puede ser un valor nulo ni vacío")
@@ -22,7 +21,6 @@ public class SignupPropietari {
     @NotBlank(message = "La dirección del establecimiento no puede ser un valor nulo ni vacío")
     private String direccio;
 
-    @NotNull(message = "Exterior no puede ser un valor nulo")
     private boolean exterior;
 
     @PositiveOrZero(message = "El numero de sillas no puede ser un valor negativo")

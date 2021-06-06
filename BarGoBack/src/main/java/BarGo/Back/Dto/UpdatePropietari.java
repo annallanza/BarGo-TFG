@@ -15,8 +15,7 @@ public class UpdatePropietari {
     private String correu;
 
     @Size(min = 8, message = "La contraseña debe tener un mínimo de 8 caracteres")
-    @NotNull(message = "La contraseña no puede ser un valor nulo")
-    @NotBlank(message = "La contraseña no puede ser un valor vacío")
+    @NotBlank(message = "La contraseña no puede ser un valor nulo ni vacío")
     private String contrasenya;
 
     @NotBlank(message = "El nombre del establecimiento no puede ser un valor nulo ni vacío")
@@ -35,6 +34,7 @@ public class UpdatePropietari {
     private int numTaules;
 
     @NotBlank(message = "El horario del establecimiento no puede ser un valor nulo ni vacío")
+    @Pattern(regexp = "((\\d{2}):(\\d{2}) - (\\d{2}):(\\d{2})){1}( , ((\\d{2}):(\\d{2}) - (\\d{2}):(\\d{2})){1}( , ((\\d{2}):(\\d{2}) - (\\d{2}):(\\d{2})){1})?)?", message = "El horario debe tener el formato hh:mm - hh:mm , hh:mm - hh:mm , hh:mm - hh:mm")
     private String horari;
 
     @Size(min = 200, message = "La descripción del establecimiento ha de tener un mínimo de 200 caracteres")

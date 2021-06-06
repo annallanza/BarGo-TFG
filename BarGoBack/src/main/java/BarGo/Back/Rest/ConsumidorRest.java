@@ -63,27 +63,6 @@ public class ConsumidorRest {
         return new ResponseEntity<>(getPuntuacioConsumidor, HttpStatus.OK);
     }
 
-    //TODO: CREC QUE NO FARA FALTA AQUESTA PETICIO
-    @RequestMapping(method = RequestMethod.PUT) //Exemple url request: http://localhost:8080/consumidors
-    private ResponseEntity<?> updatePuntuacioConsumidor(@Valid @RequestBody PutConsumidor putConsumidor, BindingResult bindingResult, @RequestHeader(value="Authorization") String token){
-        if(bindingResult.hasErrors())
-            return new ResponseEntity<>(new Missatge(Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage()), HttpStatus.BAD_REQUEST);
-
-        if(!jwtProvider.validateIdToken(putConsumidor.getId(), token))
-            return new ResponseEntity<>(new Missatge("No tienes acceso al usuario con ese id"), HttpStatus.UNAUTHORIZED);
-
-        Optional<Consumidor> optionalConsumidor = consumidorService.findById(putConsumidor.getId());
-        if (!optionalConsumidor.isPresent())
-            return new ResponseEntity<>(new Missatge("No existe ningún usuario con ese id"), HttpStatus.NOT_FOUND);
-
-        Consumidor consumidor = optionalConsumidor.get();
-        consumidor.setPuntuacio(putConsumidor.getPuntuacio());
-
-        Consumidor consumidorUpdated = consumidorService.save(consumidor);
-
-        return new ResponseEntity<>(new Missatge("Se ha actualizado la puntuacion del consumidor"), HttpStatus.OK);
-    }
-
     @RequestMapping(value = "/auth/signup", method = RequestMethod.POST) //Exemple url request: http://localhost:8080/consumidors/auth/signup
     private ResponseEntity<?> signupConsumidor(@Valid @RequestBody SignupConsumidor signupConsumidor, BindingResult bindingResult){
         if(bindingResult.hasErrors())
@@ -121,4 +100,27 @@ public class ConsumidorRest {
 
         return new ResponseEntity<>(new Missatge("Se ha eliminado el consumidor"), HttpStatus.OK); //RETORNA OK EN LLOC DE NO_CONTENT PERQUE ANDROID STUDIO HO INTERPRETA COM UN ERROR
     }
+
+
+    //TODO: CREC QUE NO FARA FALTA AQUESTA PETICIO
+    @RequestMapping(method = RequestMethod.PUT) //Exemple url request: http://localhost:8080/consumidors
+    private ResponseEntity<?> updatePuntuacioConsumidor(@Valid @RequestBody PutConsumidor putConsumidor, BindingResult bindingResult, @RequestHeader(value="Authorization") String token){
+        if(bindingResult.hasErrors())
+            return new ResponseEntity<>(new Missatge(Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage()), HttpStatus.BAD_REQUEST);
+
+        if(!jwtProvider.validateIdToken(putConsumidor.getId(), token))
+            return new ResponseEntity<>(new Missatge("No tienes acceso al usuario con ese id"), HttpStatus.UNAUTHORIZED);
+
+        Optional<Consumidor> optionalConsumidor = consumidorService.findById(putConsumidor.getId());
+        if (!optionalConsumidor.isPresent())
+            return new ResponseEntity<>(new Missatge("No existe ningún usuario con ese id"), HttpStatus.NOT_FOUND);
+
+        Consumidor consumidor = optionalConsumidor.get();
+        consumidor.setPuntuacio(putConsumidor.getPuntuacio());
+
+        Consumidor consumidorUpdated = consumidorService.save(consumidor);
+
+        return new ResponseEntity<>(new Missatge("Se ha actualizado la puntuacion del consumidor"), HttpStatus.OK);
+    }
+
 }

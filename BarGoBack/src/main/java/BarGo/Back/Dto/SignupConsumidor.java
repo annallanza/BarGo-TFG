@@ -16,8 +16,7 @@ public class SignupConsumidor { //TODO: es el mateix que el SignupUsuari
     private String correu;
 
     @Size(min = 8, message = "La contraseña debe tener un mínimo de 8 caracteres")
-    @NotNull(message = "La contraseña no puede ser un valor nulo")
-    @NotBlank(message = "La contraseña no puede ser un valor vacío")
+    @NotBlank(message = "La contraseña no puede ser un valor nulo ni vacío")
     private String contrasenya;
 
     public String getNomUsuari() {

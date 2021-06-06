@@ -57,7 +57,6 @@ public class PremiRest {
         return new ResponseEntity<>(getAllPremisList, HttpStatus.OK);
     }
 
-    //TODO: enviar correu per intercanvi premi
     @RequestMapping(value = "intercanviar", method = RequestMethod.POST) //Exemple url request: http://localhost:8080/premis/intercanviar
     private ResponseEntity<?> IntercanviarPremi(@Valid @RequestBody IntercanviarPremi intercanviarPremi, BindingResult bindingResult, @RequestHeader(value="Authorization") String token) {
         if (bindingResult.hasErrors())

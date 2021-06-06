@@ -35,7 +35,10 @@ public class EstablimentRest {
     private JwtProvider jwtProvider;
 
     @RequestMapping(value = "/all/{id}", method = RequestMethod.GET) //Exemple url request: http://localhost:8080/establiments/all/14
-    private ResponseEntity<?> getAllEstabliments(@PathVariable("id") Long id, @RequestParam(required = false) Optional<String> nomEstabliment, @RequestParam(required = false) Optional<String> direccio){
+    private ResponseEntity<?> getAllEstabliments(@PathVariable("id") Long id, @RequestParam(required = false) Optional<String> nomEstabliment, @RequestParam(required = false) Optional<String> direccio, @RequestHeader(value="Authorization") String token){
+        if(!jwtProvider.validateIdToken(id, token))
+            return new ResponseEntity<>(new Missatge("No tienes acceso al usuario con ese id"), HttpStatus.UNAUTHORIZED);
+
         Optional<Consumidor> optionalConsumidor = consumidorService.findById(id);
         if (!optionalConsumidor.isPresent())
             return new ResponseEntity<>(new Missatge("No existe ningún consumidor con ese id"), HttpStatus.NOT_FOUND);

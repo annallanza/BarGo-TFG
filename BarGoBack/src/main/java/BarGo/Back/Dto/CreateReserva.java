@@ -21,7 +21,6 @@ public class CreateReserva {
     @Positive(message = "El número de personas no puede ser un valor negativo")
     private int numPersones;
 
-    @NotNull(message = "Exterior no puede ser un valor nulo")
     private boolean exterior;
 
     public CreateReserva() {

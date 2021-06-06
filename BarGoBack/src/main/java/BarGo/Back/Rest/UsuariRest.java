@@ -47,35 +47,6 @@ public class UsuariRest {
     @Autowired
     JwtProvider jwtProvider;
 
-    //TODO: NO FARA FALTA AQUESTA PETICIO
-    @RequestMapping(value = "/auth/signup", method = RequestMethod.POST) //Exemple url request: http://localhost:8080/usuaris/auth/signup
-    private ResponseEntity<?> signupUsuari(@Valid @RequestBody SignupUsuari signupUsuari){
-        if(usuariService.existsByNomUsuari(signupUsuari.getNomUsuari()))
-            return new ResponseEntity<>(new Missatge("El nombre de usuario ya existe"), HttpStatus.BAD_REQUEST);
-        if(signupUsuari.getContrasenya().replaceAll(" ", "").length() < 8)
-            return new ResponseEntity<>(new Missatge("La contraseña no es fiable"), HttpStatus.BAD_REQUEST);
-
-        Usuari usuari = new Usuari(signupUsuari.getNomUsuari(), signupUsuari.getCorreu(), encoder.encode(signupUsuari.getContrasenya()), null);
-
-        Set<Rol> rols = new HashSet<>();
-        if(signupUsuari.getRols().contains("consumidor"))
-            rols.add(rolService.findByNomRol(NomRol.ROL_CONSUMIDOR).get());
-        if(signupUsuari.getRols().contains("propietari"))
-            rols.add(rolService.findByNomRol(NomRol.ROL_PROPIETARI).get());
-
-        usuari.setRols(rols);
-        usuariService.save(usuari);
-
-        /* TODO:
-        if(signupUsuari.getRols().contains("consumidor"))
-
-        Si rol = ROL_CONSUMIDOR --> CRIDEM A LA FUNCIO QUE CREA UN CONSUMIDOR
-        SI rol = ROL_PROPIETARI --> CRIDEM A LA FUNCIO QUE CREA UN PROPIETARI
-         */
-
-        return new ResponseEntity<>(new Missatge("El usuario se ha creado correctamente"), HttpStatus.CREATED);
-    }
-
     @RequestMapping(value = "/canviarContrasenya", method = RequestMethod.POST) //Exemple url request: http://localhost:8080/usuaris/canviarContrasenya
     private ResponseEntity<?> canviarContrasenya(@Valid @RequestBody CanviarContrasenya canviarContrasenya, BindingResult bindingResult){
         if(bindingResult.hasErrors())
@@ -96,7 +67,7 @@ public class UsuariRest {
         emailService.sendEmail(canviarContrasenya.getCorreu(), "BarGo: Cambio de contraseña", "Hola " + usuariexists.getNomUsuari() + "!" + "\nHas solicitado un cambio de contraseña para el usuario que utiliza esta dirección de correo electrónico." +
                 "\nLa nueva contraseña es: " + contrasenya + "\nSi deseas modificarla, lo puedes hacer des de la aplicación BarGo.");
 
-        return new ResponseEntity<>(new Missatge("Se ha enviado el correo correctamente"), HttpStatus.CREATED);
+        return new ResponseEntity<>(new Missatge("Se ha enviado el correo correctamente"), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/auth/login", method = RequestMethod.POST) //Exemple url request: http://localhost:8080/usuaris/auth/login
@@ -132,13 +103,6 @@ public class UsuariRest {
         ExisteixUsuari existeixUsuari = new ExisteixUsuari(usuariService.existsById(id));
 
         return new ResponseEntity<>(existeixUsuari, HttpStatus.OK);
-    }
-
-    //TODO: NO FA FALTA
-    //@PreAuthorize("hasRole('ROL_ADMIN')") //PER A INDICAR QUI TE AUTORITZACIO A AQUESTA PETICIO, PERO NO FUNCIONA
-    @RequestMapping(method = RequestMethod.GET) //Exemple url request: http://localhost:8080/usuaris
-    private ResponseEntity<List<Usuari>> getAllUsuaris(){
-        return ResponseEntity.ok(usuariService.findAll());
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET) //Exemple url request: http://localhost:8080/usuaris/3
@@ -221,6 +185,9 @@ public class UsuariRest {
         return new ResponseEntity<>("Se ha actualizado la imagen del usuario", HttpStatus.OK);
     }
 
+
+
+
     //TODO: CREC QUE NO FARA FALTA AQUESTA PETICIO
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE) //Exemple url request: http://localhost:8080/usuaris/3
     private ResponseEntity<?> deleteUsuariById(@PathVariable("id") Long id, @RequestHeader(value="Authorization") String token){
@@ -234,6 +201,42 @@ public class UsuariRest {
         usuariService.deleteById(id);
 
         return new ResponseEntity<>(new Missatge("Se ha eliminado el usuario"), HttpStatus.OK);
+    }
+
+    //TODO: NO FA FALTA
+    //@PreAuthorize("hasRole('ROL_ADMIN')") //PER A INDICAR QUI TE AUTORITZACIO A AQUESTA PETICIO, PERO NO FUNCIONA
+    @RequestMapping(method = RequestMethod.GET) //Exemple url request: http://localhost:8080/usuaris
+    private ResponseEntity<List<Usuari>> getAllUsuaris(){
+        return ResponseEntity.ok(usuariService.findAll());
+    }
+
+    //TODO: NO FARA FALTA AQUESTA PETICIO
+    @RequestMapping(value = "/auth/signup", method = RequestMethod.POST) //Exemple url request: http://localhost:8080/usuaris/auth/signup
+    private ResponseEntity<?> signupUsuari(@Valid @RequestBody SignupUsuari signupUsuari){
+        if(usuariService.existsByNomUsuari(signupUsuari.getNomUsuari()))
+            return new ResponseEntity<>(new Missatge("El nombre de usuario ya existe"), HttpStatus.BAD_REQUEST);
+        if(signupUsuari.getContrasenya().replaceAll(" ", "").length() < 8)
+            return new ResponseEntity<>(new Missatge("La contraseña no es fiable"), HttpStatus.BAD_REQUEST);
+
+        Usuari usuari = new Usuari(signupUsuari.getNomUsuari(), signupUsuari.getCorreu(), encoder.encode(signupUsuari.getContrasenya()), null);
+
+        Set<Rol> rols = new HashSet<>();
+        if(signupUsuari.getRols().contains("consumidor"))
+            rols.add(rolService.findByNomRol(NomRol.ROL_CONSUMIDOR).get());
+        if(signupUsuari.getRols().contains("propietari"))
+            rols.add(rolService.findByNomRol(NomRol.ROL_PROPIETARI).get());
+
+        usuari.setRols(rols);
+        usuariService.save(usuari);
+
+        /* TODO:
+        if(signupUsuari.getRols().contains("consumidor"))
+
+        Si rol = ROL_CONSUMIDOR --> CRIDEM A LA FUNCIO QUE CREA UN CONSUMIDOR
+        SI rol = ROL_PROPIETARI --> CRIDEM A LA FUNCIO QUE CREA UN PROPIETARI
+         */
+
+        return new ResponseEntity<>(new Missatge("El usuario se ha creado correctamente"), HttpStatus.CREATED);
     }
 
 }

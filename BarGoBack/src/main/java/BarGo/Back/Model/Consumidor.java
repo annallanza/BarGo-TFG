@@ -9,7 +9,7 @@ import java.util.Set;
 @PrimaryKeyJoinColumn(name = "usuariId")
 public class Consumidor extends Usuari implements Serializable {
 
-    private int puntuacio;
+    private int puntuacio; //TODO: a la bd esta com a NOT NULL
 
     @ManyToMany
     @JoinTable(name = "consumidor_producte", joinColumns = @JoinColumn(name = "consumidor_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "producte_id", referencedColumnName = "id"))

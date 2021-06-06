@@ -18,7 +18,7 @@ public class Usuari implements Serializable {
     @Column(unique = true, nullable = false)
     private String nomUsuari;
 
-    @Column(unique = true, nullable = false) //todo: perque es posi a NOT NULL, hem de eliminar la taula i tornar-la a crear
+    @Column(unique = true, nullable = false)
     private String correu;
 
     @Column(nullable = false)

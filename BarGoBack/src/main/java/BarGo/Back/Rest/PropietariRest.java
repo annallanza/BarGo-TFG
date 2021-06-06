@@ -5,6 +5,7 @@ import BarGo.Back.Enums.NomRol;
 import BarGo.Back.Enums.TipusOcupacio;
 import BarGo.Back.Model.Establiment;
 import BarGo.Back.Model.Propietari;
+import BarGo.Back.Model.Reserva;
 import BarGo.Back.Model.Rol;
 import BarGo.Back.Security.Jwt.JwtProvider;
 import BarGo.Back.Service.*;
@@ -172,6 +173,22 @@ public class PropietariRest {
         Optional<Propietari> optionalPropietari = propietariService.findById(id);
         if (!optionalPropietari.isPresent())
             return new ResponseEntity<>(new Missatge("No existe ningún propietario con ese id"), HttpStatus.NOT_FOUND);
+
+        Set<Reserva> reservesEstabliment = optionalPropietari.get().getEstabliment().getReserves();
+
+        for(Reserva reserva : reservesEstabliment) {
+            String ubicacio = "interior";
+            if (reserva.isExterior())
+                ubicacio = "exterior";
+
+            String persona = " persona";
+            if (reserva.getNumPersones() > 1)
+                persona += "s";
+
+            emailService.sendEmail(reserva.getConsumidor().getCorreu(), "BarGo: Reserva cancelada", "Hola " + reserva.getConsumidor().getNomUsuari() + "!" + "\nSu reserva en " + reserva.getEstabliment().getNom() + " para el " +
+                    reserva.getDia() + " a las " + reserva.getHora().toString().substring(0, 5) +
+                    " para " + reserva.getNumPersones() + persona + " en el " + ubicacio + " ha sido cancelada.");
+        }
 
         propietariService.deleteById(id);
 
