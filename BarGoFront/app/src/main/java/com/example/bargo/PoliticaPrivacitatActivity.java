@@ -29,7 +29,7 @@ public class PoliticaPrivacitatActivity extends AppCompatActivity {
                 "BarGo tratará la información que nos proporcionan las personas interesadas con las siguientes finalidades:\n" +
                 "\n" +
                 "- Gestionar cualquier tipo de solicitud, sugerencia o petición sobre nuestros servicios\n" +
-                "- Envió de información por medio electrónico\n" +
+                "- Envio de información por medio electrónico\n" +
                 "\n\n" +
                 "LEGITIMACIÓN:\n\n" +
                 "\n" +

@@ -29,7 +29,7 @@ import java.util.Map;
 
 public class CodeFragment extends Fragment {
 
-    EditText codi;
+    EditText codiEditText;
     Button bescanviar;
 
     private ProgressDialog progressDialog;
@@ -40,7 +40,7 @@ public class CodeFragment extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_code, container, false);
 
-        codi = view.findViewById(R.id.EditTextCodi);
+        codiEditText = view.findViewById(R.id.EditTextCodi);
         bescanviar = view.findViewById(R.id.ButtonCanjear);
 
         progressDialog = new ProgressDialog(getActivity());
@@ -53,13 +53,18 @@ public class CodeFragment extends Fragment {
                 bescanviar.setEnabled(false);
                 progressDialog.show();
 
-                String code = codi.getText().toString();
+                String code = codiEditText.getText().toString();
 
                 BescanviarCodi(code);
             }
         });
 
         return view;
+    }
+
+    public void onResume() {
+        super.onResume();
+        codiEditText.setText("");
     }
 
     public void BescanviarCodi(final String codi) {
@@ -80,6 +85,7 @@ public class CodeFragment extends Fragment {
                 @Override
                 public void onResponse(JSONObject response) {
                     try {
+                        codiEditText.setText("");
                         String missatge = response.getString("missatge");
 
                         Toast.makeText(getContext(), missatge, Toast.LENGTH_LONG).show();
@@ -107,6 +113,7 @@ public class CodeFragment extends Fragment {
                 else if(error.networkResponse.statusCode == 401)
                     Toast.makeText(getContext(), "No se indica el token o no es válido o el id no es el asociado al token", Toast.LENGTH_LONG).show();
 
+                codiEditText.setText("");
                 bescanviar.setEnabled(true);
                 progressDialog.dismiss();
             }
