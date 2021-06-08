@@ -25,6 +25,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.NoConnectionError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -266,7 +267,9 @@ public class ConfiguracioConsumidorActivity extends AppCompatActivity {
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    if(error.networkResponse.statusCode == 404) {
+                    if (error instanceof NoConnectionError)
+                        Toast.makeText(getApplicationContext(), "No se ha podido conectar con el servidor. Comprueba tu conexión a internet.", Toast.LENGTH_LONG).show();
+                    else if(error.networkResponse != null && error.networkResponse.statusCode == 404) {
                         try {
                             String responseBody = new String(error.networkResponse.data, "utf-8");
                             JSONObject data = new JSONObject(responseBody);
@@ -278,8 +281,10 @@ public class ConfiguracioConsumidorActivity extends AppCompatActivity {
                             e.printStackTrace();
                         }
                     }
-                    else if(error.networkResponse.statusCode == 401)
+                    else if(error.networkResponse != null && error.networkResponse.statusCode == 401)
                         Toast.makeText(getApplicationContext(), "No se indica el token o no es válido o el id no es el asociado al token", Toast.LENGTH_LONG).show();
+                    else
+                        Toast.makeText(getApplicationContext(), "Se ha producido un error, vuélvelo a intentar más tarde.", Toast.LENGTH_LONG).show();
 
                     progressDialog.dismiss();
                 }
@@ -328,7 +333,9 @@ public class ConfiguracioConsumidorActivity extends AppCompatActivity {
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        if(error.networkResponse.statusCode == 400 || error.networkResponse.statusCode == 404 || error.networkResponse.statusCode == 409) {
+                        if (error instanceof NoConnectionError)
+                            Toast.makeText(getApplicationContext(), "No se ha podido conectar con el servidor. Comprueba tu conexión a internet.", Toast.LENGTH_LONG).show();
+                        else if(error.networkResponse != null && error.networkResponse.statusCode == 400 || error.networkResponse.statusCode == 404 || error.networkResponse.statusCode == 409) {
                             try {
                                 String responseBody = new String(error.networkResponse.data, "utf-8");
                                 JSONObject data = new JSONObject(responseBody);
@@ -340,8 +347,10 @@ public class ConfiguracioConsumidorActivity extends AppCompatActivity {
                                 e.printStackTrace();
                             }
                         }
-                        else if(error.networkResponse.statusCode == 401)
+                        else if(error.networkResponse != null && error.networkResponse.statusCode == 401)
                             Toast.makeText(getApplicationContext(), "Nombre de usuario o contraseña incorrectos", Toast.LENGTH_LONG).show();
+                        else
+                            Toast.makeText(getApplicationContext(), "Se ha producido un error, vuélvelo a intentar más tarde.", Toast.LENGTH_LONG).show();
 
                         guardarCanvis.setEnabled(true);
                         progressDialog.dismiss();
@@ -377,7 +386,9 @@ public class ConfiguracioConsumidorActivity extends AppCompatActivity {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                if(error.networkResponse.statusCode == 404) {
+                if (error instanceof NoConnectionError)
+                    Toast.makeText(getApplicationContext(), "No se ha podido conectar con el servidor. Comprueba tu conexión a internet.", Toast.LENGTH_LONG).show();
+                else if(error.networkResponse != null && error.networkResponse.statusCode == 404) {
                     try {
                         String responseBody = new String(error.networkResponse.data, "utf-8");
                         JSONObject data = new JSONObject(responseBody);
@@ -389,8 +400,11 @@ public class ConfiguracioConsumidorActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
-                else if(error.networkResponse.statusCode == 401)
+                else if(error.networkResponse != null && error.networkResponse.statusCode == 401)
                     Toast.makeText(getApplicationContext(), "No se indica el token o no es válido o el id no es el asociado al token", Toast.LENGTH_LONG).show();
+                else
+                    Toast.makeText(getApplicationContext(), "Se ha producido un error, vuélvelo a intentar más tarde.", Toast.LENGTH_LONG).show();
+
 
                 progressDialog.dismiss();
             }
@@ -453,7 +467,10 @@ public class ConfiguracioConsumidorActivity extends AppCompatActivity {
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    if(error.networkResponse.statusCode == 400) {
+                    if (error instanceof NoConnectionError)
+                        Toast.makeText(getApplicationContext(), "No se ha podido conectar con el servidor. Comprueba tu conexión a internet.", Toast.LENGTH_LONG).show();
+
+                    else if(error.networkResponse != null && error.networkResponse.statusCode == 400) {
                         try {
                             String responseBody = new String(error.networkResponse.data, "utf-8");
                             JSONObject data = new JSONObject(responseBody);
@@ -465,8 +482,10 @@ public class ConfiguracioConsumidorActivity extends AppCompatActivity {
                             e.printStackTrace();
                         }
                     }
-                    else if(error.networkResponse.statusCode == 401)
+                    else if(error.networkResponse != null && error.networkResponse.statusCode == 401)
                         Toast.makeText(getApplicationContext(), "Nombre de usuario o contraseña incorrectos", Toast.LENGTH_LONG).show();
+                    else
+                        Toast.makeText(getApplicationContext(), "Se ha producido un error, vuélvelo a intentar más tarde.", Toast.LENGTH_LONG).show();
 
                     guardarCanvis.setEnabled(true);
                     progressDialog.dismiss();

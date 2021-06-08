@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.NoConnectionError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -83,7 +84,9 @@ public class CanviarContrasenyaActivity extends AppCompatActivity {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                if(error.networkResponse.statusCode == 400 || error.networkResponse.statusCode == 404) {
+                if (error instanceof NoConnectionError)
+                    Toast.makeText(getApplicationContext(), "No se ha podido conectar con el servidor. Comprueba tu conexión a internet.", Toast.LENGTH_LONG).show();
+                else if(error.networkResponse != null && (error.networkResponse.statusCode == 400 || error.networkResponse.statusCode == 404)) {
                     try {
                         String responseBody = new String(error.networkResponse.data, "utf-8");
                         JSONObject data = new JSONObject(responseBody);
@@ -95,6 +98,8 @@ public class CanviarContrasenyaActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
+                else
+                    Toast.makeText(getApplicationContext(), "Se ha producido un error, vuélvelo a intentar más tarde.", Toast.LENGTH_LONG).show();
 
                 continuarButton.setEnabled(true);
                 progressDialog.dismiss();
