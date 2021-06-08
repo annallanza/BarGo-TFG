@@ -28,6 +28,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -85,7 +86,7 @@ public class profileFragment extends Fragment {
         reptes = view.findViewById(R.id.makeChallengeBttn);
         puntuacio = view.findViewById(R.id.points);
 
-        progressDialog = new ProgressDialog(getActivity());
+        progressDialog = new ProgressDialog(getContext());
         progressDialog.setMessage("Cargando...");
         progressDialog.setCancelable(false);
 
@@ -160,7 +161,6 @@ public class profileFragment extends Fragment {
         getActivity();
         if(resultCode == Activity.RESULT_OK){
             if(requestCode == IMAGE_GALLERY_REQUEST){
-                progressDialog.show();
                 Uri imatgeUri = data.getData();
 
                 try {
@@ -342,6 +342,7 @@ public class profileFragment extends Fragment {
                         }
                         else consumidor.setImatge(null);
 
+                        nomUsuariTextView.setText(nomUsuari);
                         refrescarImatge();
 
                     } catch (JSONException e) {
@@ -384,6 +385,7 @@ public class profileFragment extends Fragment {
     }
 
     private void PutImatgeConsumidor(final String imatge, final byte[] imatgeByteArray) {
+        progressDialog.show();
 
         String url = VariablesGlobals.getUrlAPI() + "usuaris/" + consumidor.getId();
 
@@ -427,6 +429,9 @@ public class profileFragment extends Fragment {
                 return params;
             }
         };
+
+        int timeout = 15000;
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(timeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
         // Add the request to the RequestQueue.
         VolleySingleton.getInstance(getContext()).addToRequestQueue(stringRequest);
