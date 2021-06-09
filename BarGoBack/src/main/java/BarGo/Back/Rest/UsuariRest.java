@@ -100,7 +100,14 @@ public class UsuariRest {
             return new ResponseEntity<>(new Missatge(Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage()), HttpStatus.BAD_REQUEST);
 
         long id = jwtProvider.getIdUsuariFromToken(jwtDto.getToken());
-        ExisteixUsuari existeixUsuari = new ExisteixUsuari(usuariService.existsById(id));
+        String nomUsuari = jwtProvider.getNomUsuariFromToken(jwtDto.getToken());
+
+        boolean exists = usuariService.existsById(id);
+
+        if(exists && !nomUsuari.equals(usuariService.findById(id).get().getNomUsuari()))
+            exists = false;
+
+        ExisteixUsuari existeixUsuari = new ExisteixUsuari(exists);
 
         return new ResponseEntity<>(existeixUsuari, HttpStatus.OK);
     }
