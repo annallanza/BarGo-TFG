@@ -146,13 +146,11 @@ public class LoginActivity extends AppCompatActivity {
 
         String token = sharedPreferences.getString("token", null);
 
-        System.out.println("TOKEN: " + token);
         if (token != null && validateToken(token)) {
             if(usuariExisteix == -1)
                 UsuariExisteixRequest(token);
 
             else if(usuariExisteix == 1) {
-                System.out.println("L'USUARI EXISTEIX");
                 long id = Jwts.parser().setSigningKey(VariablesGlobals.getSecret().getBytes()).parseClaimsJws(token).getBody().get("id", Long.class);
                 String nomUsuari = Jwts.parser().setSigningKey(VariablesGlobals.getSecret().getBytes()).parseClaimsJws(token).getBody().getSubject();
                 ArrayList rols = Jwts.parser().setSigningKey(VariablesGlobals.getSecret().getBytes()).parseClaimsJws(token).getBody().get("rols", ArrayList.class);
