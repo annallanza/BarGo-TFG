@@ -167,6 +167,7 @@ public class PremisActivity extends AppCompatActivity {
             Button obtenerButton = view.findViewById(R.id.ButtonObtener);
 
             String nomPremi = premiListNoms.get(position);
+            /*
             int imatge = R.drawable.premi_samarreta;
             switch (nomPremi) {
                 case "Camiseta":
@@ -183,6 +184,26 @@ public class PremisActivity extends AppCompatActivity {
                     break;
                 case "Entradas al aquarium":
                     imatge = R.drawable.premi_entrades_aquarium;
+                    break;
+            }
+             */
+
+            int imatge = R.drawable.premi_gafas;
+            switch (nomPremi) {
+                case "Gafas ED":
+                    imatge = R.drawable.premi_gafas;
+                    break;
+                case "Gorro festival ED":
+                    imatge = R.drawable.premi_gorro_estrella_damm;
+                    break;
+                case "Bolsa tela BTC":
+                    imatge = R.drawable.premi_bolsa_tela;
+                    break;
+                case "Cerveza ED (50cl)":
+                    imatge = R.drawable.premi_cerveza_obsequio_ed;
+                    break;
+                case "Vaso ED":
+                    imatge = R.drawable.premi_vaso_estrella_damm;
                     break;
             }
 

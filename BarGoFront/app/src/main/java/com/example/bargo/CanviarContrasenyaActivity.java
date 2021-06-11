@@ -45,6 +45,7 @@ public class CanviarContrasenyaActivity extends AppCompatActivity {
         continuarButton = findViewById(R.id.buttonContinuar);
         respostaTextView = findViewById(R.id.textViewRespuesta);
 
+        continuarButton.setVisibility(View.VISIBLE);
         respostaTextView.setVisibility(View.GONE);
 
         continuarButton.setOnClickListener(new View.OnClickListener() {
@@ -77,6 +78,7 @@ public class CanviarContrasenyaActivity extends AppCompatActivity {
                     public void onResponse(JSONObject response) {
                         respostaTextView.setText("Has recibido un correo electrónico con una nueva contraseña");
                         respostaTextView.setVisibility(View.VISIBLE);
+                        continuarButton.setVisibility(View.GONE);
 
                         continuarButton.setEnabled(true);
                         progressDialog.dismiss();
