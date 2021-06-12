@@ -8,42 +8,39 @@
     tools:context=".UsuariPropietari.Activity.NouEsdevenimentActivity"
     android:paddingBottom="60dp">
 
-    <TextView
-        android:id="@+id/titolNouEsdeveniment"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="50dp"
-        android:layout_marginRight="50dp"
-        android:autoSizeTextType="uniform"
-        android:maxLines="1"
-        android:text="@string/evento"
-        android:textColor="#323131"
-        android:textSize="30sp"
-        app:autoSizeMaxTextSize="30sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:targetApi="o" />
-
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintBottom_toTopOf="@id/crearNouEsdeveniment"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/titolNouEsdeveniment"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/linearLayout5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/titolNouEsdeveniment"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginEnd="50dp"
+                android:layout_marginRight="50dp"
+                android:autoSizeTextType="uniform"
+                android:maxLines="1"
+                android:text="@string/evento"
+                android:textColor="#323131"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                app:autoSizeMaxTextSize="30sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:targetApi="o" />
 
             <EditText
                 android:id="@+id/nomNouEsdeveniment"
@@ -51,6 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="50dp"
                 android:layout_marginLeft="50dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="50dp"
                 android:layout_marginRight="50dp"
                 android:autofillHints=""
@@ -58,9 +56,13 @@
                 android:hint="@string/nombre_evento"
                 android:inputType="text"
                 android:text=""
+                android:maxLines="1"
+                android:textSize="14sp"
+                app:autoSizeMaxTextSize="14sp"
+                tools:targetApi="o"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/titolNouEsdeveniment" />
 
             <EditText
                 android:id="@+id/diaNouEsdeveniment"
@@ -77,6 +79,10 @@
                 android:inputType="date|text"
                 android:onClick="onDataClicked"
                 android:text=""
+                android:maxLines="1"
+                android:textSize="14sp"
+                app:autoSizeMaxTextSize="14sp"
+                tools:targetApi="o"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/nomNouEsdeveniment" />
@@ -96,27 +102,37 @@
                 android:inputType="text|time"
                 android:onClick="onHorariClicked"
                 android:text=""
+                android:maxLines="1"
+                android:textSize="14sp"
+                app:autoSizeMaxTextSize="14sp"
+                tools:targetApi="o"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/diaNouEsdeveniment" />
 
+            <Button
+                android:id="@+id/crearNouEsdeveniment"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="50dp"
+                android:layout_marginRight="50dp"
+                android:layout_marginBottom="50dp"
+                android:background="#CC383B"
+                android:maxLines="1"
+                android:text="@string/crear_evento"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                app:autoSizeMaxTextSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/horaNouEsdeveniment"
+                tools:targetApi="o" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
-    <Button
-        android:id="@+id/crearNouEsdeveniment"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginEnd="50dp"
-        android:layout_marginRight="50dp"
-        android:layout_marginBottom="20dp"
-        android:background="#CC383B"
-        android:text="@string/crear_evento"
-        android:textColor="#FFFFFF"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

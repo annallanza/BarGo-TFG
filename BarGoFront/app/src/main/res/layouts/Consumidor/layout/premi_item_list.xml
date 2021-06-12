@@ -10,19 +10,29 @@
 
     <ImageView
         android:id="@+id/ImatgePremi"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginStart="50dp"
         android:layout_marginLeft="50dp"
         android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
         android:layout_marginBottom="10dp"
         android:contentDescription="@string/descripci_n"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:mipmap/sym_def_app_icon" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5"/>
 
     <TextView
         android:id="@+id/NomPremi"
@@ -41,7 +51,7 @@
         android:textSize="16sp"
         app:autoSizeMaxTextSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/ImatgePremi"
+        app:layout_constraintStart_toEndOf="@id/guideline3"
         app:layout_constraintTop_toTopOf="@+id/ImatgePremi"
         tools:targetApi="o" />
 
@@ -51,10 +61,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="50dp"
         android:layout_marginRight="50dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="10dp"
         android:autoSizeTextType="uniform"
         android:gravity="center"
         android:maxLines="2"
@@ -64,7 +74,7 @@
         app:autoSizeMaxTextSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/ButtonObtener"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/ImatgePremi"
+        app:layout_constraintStart_toEndOf="@id/guideline3"
         app:layout_constraintTop_toBottomOf="@id/NomPremi"
         tools:targetApi="o" />
 
@@ -79,9 +89,12 @@
         android:background="@color/colorBarGo"
         android:text="@string/obtener"
         android:textColor="#FFFFFF"
+        android:maxLines="1"
         android:textSize="14sp"
+        app:autoSizeMaxTextSize="14sp"
+        tools:targetApi="o"
         app:layout_constraintBottom_toBottomOf="@+id/ImatgePremi"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/ImatgePremi" />
+        app:layout_constraintStart_toEndOf="@id/guideline3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

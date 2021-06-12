@@ -23,7 +23,7 @@ public class PoliticaPrivacitatActivity extends AppCompatActivity {
                 "BarGo\n" +
                 "Barcelona\n" +
                 "\n" +
-                "Si tiene cualquier duda o petición sobre el tratamiento que realizamos de sus datos personales, contacte con nuestro Delegado de Datos en: tfgbargoapp@gmail.com\n" +
+                "Si tiene cualquier duda o petición sobre el tratamiento que realizamos de sus datos personales, contacte con nuestro Delegado de Datos en:\ntfgbargoapp@gmail.com\n" +
                 "\n\n" +
                 "FINALIDAD:\n\n" +
                 "BarGo tratará la información que nos proporcionan las personas interesadas con las siguientes finalidades:\n" +
