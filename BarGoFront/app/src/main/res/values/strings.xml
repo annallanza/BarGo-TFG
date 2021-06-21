@@ -106,4 +106,6 @@
     <string name="he_le_do_y_acepto_la_pol_tica_de_privacidad">He leído y acepto la política de privacidad</string>
     <string name="pol_tica_de_privacidad">Política de privacidad</string>
     <string name="texto_pol_tica_de_privacidad">Texto política de privacidad</string>
+    <string name="codigo">Código</string>
+    <string name="codigo_">Código:</string>
 </resources>

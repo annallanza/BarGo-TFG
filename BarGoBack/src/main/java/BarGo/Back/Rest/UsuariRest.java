@@ -47,6 +47,29 @@ public class UsuariRest {
     @Autowired
     JwtProvider jwtProvider;
 
+    @RequestMapping(value = "/solicitarCanviarContrasenya", method = RequestMethod.POST) //Exemple url request: http://localhost:8080/usuaris/solicitarCanviarContrasenya
+    private ResponseEntity<?> solicitarCanviarContrasenya(@Valid @RequestBody SolicitarCanviarContrasenya solicitarCanviarContrasenya, BindingResult bindingResult){
+        if(bindingResult.hasErrors())
+            return new ResponseEntity<>(new Missatge(Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage()), HttpStatus.BAD_REQUEST);
+
+        Optional<Usuari> optionalUsuari = usuariService.findByCorreu(solicitarCanviarContrasenya.getCorreu());
+        if (!optionalUsuari.isPresent())
+            return new ResponseEntity<>(new Missatge("No existe ningún usuario con ese correo electrónico"), HttpStatus.NOT_FOUND);
+
+        Usuari usuariexists = optionalUsuari.get();
+
+        String codi = UUID.randomUUID().toString();
+        codi = codi.substring(0,8);
+
+        usuariexists.setCodi(codi);
+        usuariService.save(usuariexists);
+
+        emailService.sendEmail(solicitarCanviarContrasenya.getCorreu(), "BarGo: Solicitud de cambio de contraseña", "Hola " + usuariexists.getNomUsuari() + "!" + "\nHas solicitado un cambio de contraseña para el usuario que utiliza esta dirección de correo electrónico." +
+                "\nEl código para cambiar la contraseña des de la aplicación BarGo es: " + codi);
+
+        return new ResponseEntity<>(new Missatge("Se ha enviado el correo correctamente"), HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/canviarContrasenya", method = RequestMethod.POST) //Exemple url request: http://localhost:8080/usuaris/canviarContrasenya
     private ResponseEntity<?> canviarContrasenya(@Valid @RequestBody CanviarContrasenya canviarContrasenya, BindingResult bindingResult){
         if(bindingResult.hasErrors())
@@ -58,17 +81,15 @@ public class UsuariRest {
 
         Usuari usuariexists = optionalUsuari.get();
 
-        String contrasenya = UUID.randomUUID().toString();
-        contrasenya = contrasenya.substring(0,8);
+        if (!usuariexists.getCodi().equals(canviarContrasenya.getCodi()))
+            return new ResponseEntity<>(new Missatge("El código es incorrecto"), HttpStatus.CONFLICT);
 
-        usuariexists.setContrasenya(encoder.encode(contrasenya));
+        usuariexists.setContrasenya(encoder.encode(canviarContrasenya.getContrasenya()));
         usuariService.save(usuariexists);
 
-        emailService.sendEmail(canviarContrasenya.getCorreu(), "BarGo: Cambio de contraseña", "Hola " + usuariexists.getNomUsuari() + "!" + "\nHas solicitado un cambio de contraseña para el usuario que utiliza esta dirección de correo electrónico." +
-                "\nLa nueva contraseña es: " + contrasenya + "\nSi deseas modificarla, lo puedes hacer des de la aplicación BarGo.");
-
-        return new ResponseEntity<>(new Missatge("Se ha enviado el correo correctamente"), HttpStatus.OK);
+        return new ResponseEntity<>(new Missatge("Se ha actualizado la contraseña"), HttpStatus.OK);
     }
+
 
     @RequestMapping(value = "/auth/login", method = RequestMethod.POST) //Exemple url request: http://localhost:8080/usuaris/auth/login
     public ResponseEntity<?> loginUsuari(@Valid @RequestBody LoginUsuari loginUsuari, BindingResult bindingResult){

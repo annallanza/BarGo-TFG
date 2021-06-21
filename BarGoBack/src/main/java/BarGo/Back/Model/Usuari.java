@@ -26,6 +26,9 @@ public class Usuari implements Serializable {
     
     private byte[] imatge;
 
+    @Column(unique = true)
+    private String codi;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "usuari_rol", joinColumns = @JoinColumn(name = "usuari_id"), inverseJoinColumns = @JoinColumn(name = "rol_id"))
     private Set<Rol> rols = new HashSet<>();
@@ -39,6 +42,7 @@ public class Usuari implements Serializable {
         this.correu = correu;
         this.contrasenya = contrasenya;
         this.imatge = imatge;
+        this.codi = null;
     }
 
     public Long getId() {
@@ -87,5 +91,13 @@ public class Usuari implements Serializable {
 
     public void setImatge(byte[] imatge) {
         this.imatge = imatge;
+    }
+
+    public String getCodi() {
+        return codi;
+    }
+
+    public void setCodi(String codi) {
+        this.codi = codi;
     }
 }
